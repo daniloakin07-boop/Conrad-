@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <title>CONRAD Virtual School - Fale Conosco</title>
+</head>
+<body>
+
+  <header class="topo">
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="fale-conosco.html">Contato</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="pagina-contato">
+      <h1>Fale Conosco</h1>
+      <p>Estamos aqui para ajudar! Preencha o formulário ou entre em contato pelos nossos canais de atendimento.</p>
+
+      <div class="contato-grid">
+
+        <!-- Canais + FAQ -->
+        <div class="contato-canais">
+          <h3>Canais de atendimento</h3>
+
+          <div class="canal-item">
+            <strong>E-mail</strong>
+            <span>atendimento@conradschool.com.br</span>
+          </div>
+          <div class="canal-item">
+            <strong>WhatsApp</strong>
+            <span>(11) 99999-9999</span>
+          </div>
+          <div class="canal-item">
+            <strong>Telefone</strong>
+            <span>(11) 3333-3333</span>
+          </div>
+          <div class="canal-item">
+            <strong>Horário de atendimento</strong>
+            <span>Segunda a sexta, das 9h às 18h</span>
+          </div>
+          <div class="canal-item">
+            <strong>Endereço</strong>
+            <span>Rua das Escolas, 123 - W3 - SP, 01000-000</span>
+          </div>
+
+          <p class="faq-titulo">Perguntas Frequentes</p>
+          <div class="faq-item">Como redefinir minha senha?</div>
+          <div class="faq-item">Como acessar as aulas ao vivo?</div>
+          <div class="faq-item">Como entregar uma atividade?</div>
+          <div class="faq-item">Quais são os horários de atendimento?</div>
+        </div>
+
+        <!-- Formulário -->
+        <div class="contato-form-bloco">
+          <h3>Envie sua mensagem</h3>
+          <section class="bloco-auth">
+            <form class="form-auth" id="formContato">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+
+              <label for="email">E-mail</label>
+              <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" placeholder="Digite sua mensagem aqui..." required></textarea>
+
+              <button type="submit" class="btn-primario">Enviar</button>
+
+              <p id="mensagemContato" class="mensagem-auth"></p>
+            </form>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>® 2026 CONRAD Virtual School. Todos os Direitos Reservados</p>
+    <p><a href="fale-conosco.html">Entre em Contato</a></p>
+  </footer>
+
+  <script src="../js/auth.js"></script>
+</body>
+</html>
