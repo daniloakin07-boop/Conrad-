@@ -1,6 +1,6 @@
 // CONRAD Virtual School - auth.js
 
-// === LOGIN ===
+// Lida com o envio do formulário de login.
 const formLogin = document.getElementById('formLogin');
 if (formLogin) {
   formLogin.addEventListener('submit', (e) => {
@@ -22,7 +22,7 @@ if (formLogin) {
   });
 }
 
-// === CADASTRO ===
+// Valida e envia os dados do formulário de cadastro.
 const formCadastro = document.getElementById('formCadastro');
 if (formCadastro) {
   formCadastro.addEventListener('submit', (e) => {
@@ -52,7 +52,7 @@ if (formCadastro) {
   });
 }
 
-// === FALE CONOSCO ===
+// Processa a mensagem enviada pelo formulário de contato.
 const formContato = document.getElementById('formContato');
 if (formContato) {
   formContato.addEventListener('submit', (e) => {
