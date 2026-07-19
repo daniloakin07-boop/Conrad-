@@ -15,10 +15,30 @@ if (formLogin) {
       return;
     }
 
-    // TODO: fetch('/login', { method: 'POST', body: JSON.stringify({ email, senha }) })
-    console.log('Login:', { email });
-    msg.textContent = 'Login realizado com sucesso!';
-    msg.className = 'mensagem-auth sucesso';
+    fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    })
+      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
+      .then(({ status, body }) => {
+        if (status !== 200) {
+          msg.textContent = body.error || 'Falha ao fazer login.';
+          msg.className = 'mensagem-auth erro';
+          return;
+        }
+
+        const tipoUsuario = body.user?.tipo?.toLowerCase();
+        const destino = tipoUsuario === 'educador' ? 'educador.html' : 'aluno.html';
+
+        msg.textContent = `Bem-vindo, ${body.user.nome}!`;
+        msg.className = 'mensagem-auth sucesso';
+        window.location.href = destino;
+      })
+      .catch(() => {
+        msg.textContent = 'Erro de conexão. Tente novamente.';
+        msg.className = 'mensagem-auth erro';
+      });
   });
 }
 
@@ -45,10 +65,27 @@ if (formCadastro) {
       return;
     }
 
-    // TODO: fetch('/cadastro', { method: 'POST', body: JSON.stringify({ nome, email, senha, tipo }) })
-    console.log('Cadastro:', { nome, email, tipo });
-    msg.textContent = 'Conta criada com sucesso!';
-    msg.className = 'mensagem-auth sucesso';
+    fetch('/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, senha, tipo })
+    })
+      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
+      .then(({ status, body }) => {
+        if (status !== 201) {
+          msg.textContent = body.error || 'Falha ao criar conta.';
+          msg.className = 'mensagem-auth erro';
+          return;
+        }
+
+        msg.textContent = 'Conta criada com sucesso!';
+        msg.className = 'mensagem-auth sucesso';
+        formCadastro.reset();
+      })
+      .catch(() => {
+        msg.textContent = 'Erro de conexão. Tente novamente.';
+        msg.className = 'mensagem-auth erro';
+      });
   });
 }
 
@@ -68,10 +105,26 @@ if (formContato) {
       return;
     }
 
-    // TODO: fetch('/contato', { method: 'POST', body: JSON.stringify({ nome, email, mensagem }) })
-    console.log('Contato:', { nome, email });
-    msg.textContent = 'Mensagem enviada com sucesso!';
-    msg.className = 'mensagem-auth sucesso';
-    formContato.reset();
+    fetch('/contato', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, mensagem })
+    })
+      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
+      .then(({ status, body }) => {
+        if (status !== 201) {
+          msg.textContent = body.error || 'Falha ao enviar mensagem.';
+          msg.className = 'mensagem-auth erro';
+          return;
+        }
+
+        msg.textContent = 'Mensagem enviada com sucesso!';
+        msg.className = 'mensagem-auth sucesso';
+        formContato.reset();
+      })
+      .catch(() => {
+        msg.textContent = 'Erro de conexão. Tente novamente.';
+        msg.className = 'mensagem-auth erro';
+      });
   });
 }
