@@ -1,137 +1,127 @@
 const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "http://localhost:3000"
-    : "https://conrad-virtual-school.onrender.com" // troque pela URL real do seu deploy
+    : "https://conrad-virtual-school.onrender.com";
 
 function mostrarMensagem(elemento, texto, tipo) {
-    elemento.textContent = texto
-    elemento.className = "mensagem-auth " + tipo
+    elemento.textContent = texto;
+    elemento.className = "mensagem-auth " + tipo;
 }
 
-const formLogin = document.getElementById("formLogin")
+const formLogin = document.getElementById("formLogin");
 if (formLogin) {
     formLogin.addEventListener("submit", async function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const email = document.getElementById("email").value.trim()
-        const senha = document.getElementById("senha").value
-        const mensagem = document.getElementById("mensagemLogin")
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value;
+        const mensagem = document.getElementById("mensagemLogin");
 
         if (!email || !senha) {
-            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
-            return
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro");
+            return;
         }
 
         try {
             const resposta = await fetch(`${BASE_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({ email, senha })
-            })
+            });
 
-            const dados = await resposta.json()
+            const dados = await resposta.json();
 
             if (resposta.ok) {
-                mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso")
-
-                const paginas = { estudante: "aluno.html", educador: "educador.html" }
-                window.location.href = paginas[dados.usuario.tipo] || "aluno.html"
+                mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso");
+                window.location.href = "aluno.html";
             } else {
-                mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro")
+                mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro");
             }
         } catch {
-            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro");
         }
-    })
+    });
 }
 
-const formCadastro = document.getElementById("formCadastro")
+const formCadastro = document.getElementById("formCadastro");
 if (formCadastro) {
     formCadastro.addEventListener("submit", async function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const nome = document.getElementById("nome").value.trim()
-        const email = document.getElementById("email").value.trim()
-        const senha = document.getElementById("senha").value
-        const confirmasenha = document.getElementById("confirmasenha").value
-        const tipo = document.querySelector('input[name="tipo"]:checked')
-        const mensagem = document.getElementById("mensagemCadastro")
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value;
+        const confirmasenha = document.getElementById("confirmasenha").value;
+        const tipo = document.querySelector('input[name="tipo"]:checked');
+        const mensagem = document.getElementById("mensagemCadastro");
 
         if (!nome || !email || !senha || !confirmasenha) {
-            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
-            return
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro");
+            return;
         }
 
         if (senha !== confirmasenha) {
-            mostrarMensagem(mensagem, "As senhas não coincidem.", "erro")
-            return
+            mostrarMensagem(mensagem, "As senhas não coincidem.", "erro");
+            return;
         }
 
         if (!tipo) {
-            mostrarMensagem(mensagem, "Selecione um tipo de usuário.", "erro")
-            return
+            mostrarMensagem(mensagem, "Selecione um tipo de usuário.", "erro");
+            return;
         }
 
         try {
             const resposta = await fetch(`${BASE_URL}/cadastro`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({ nome, email, senha, tipo: tipo.value })
-            })
+            });
 
-            const dados = await resposta.json()
+            const dados = await resposta.json();
 
             if (resposta.ok) {
-                mostrarMensagem(mensagem, "Cadastro realizado! Redirecionando...", "sucesso")
-                formCadastro.reset()
-
-                const paginas = { estudante: "aluno.html", educador: "educador.html" }
-                setTimeout(() => {
-                    window.location.href = paginas[dados.usuario.tipo] || "login.html"
-                }, 1500)
+                mostrarMensagem(mensagem, "Cadastro realizado com sucesso!", "sucesso");
+                formCadastro.reset();
             } else {
-                mostrarMensagem(mensagem, dados.erro || "Erro ao realizar cadastro.", "erro")
+                mostrarMensagem(mensagem, dados.erro || "Erro ao realizar cadastro.", "erro");
             }
         } catch {
-            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro");
         }
-    })
+    });
 }
 
-const formContato = document.getElementById("formContato")
+const formContato = document.getElementById("formContato");
 if (formContato) {
     formContato.addEventListener("submit", async function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const nome = document.getElementById("nome").value.trim()
-        const email = document.getElementById("email").value.trim()
-        const mensagemTexto = document.getElementById("mensagem").value.trim()
-        const mensagem = document.getElementById("mensagemContato")
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mensagemTexto = document.getElementById("mensagem").value.trim();
+        const mensagem = document.getElementById("mensagemContato");
 
         if (!nome || !email || !mensagemTexto) {
-            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
-            return
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro");
+            return;
         }
 
         try {
             const resposta = await fetch(`${BASE_URL}/contato`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({ nome, email, mensagem: mensagemTexto })
-            })
+            });
 
-            const dados = await resposta.json()
+            const dados = await resposta.json();
 
             if (resposta.ok) {
-                mostrarMensagem(mensagem, "Mensagem enviada com sucesso!", "sucesso")
-                formContato.reset()
+                mostrarMensagem(mensagem, "Mensagem enviada com sucesso!", "sucesso");
+                formContato.reset();
             } else {
-                mostrarMensagem(mensagem, dados.erro || "Falha ao enviar mensagem.", "erro")
+                mostrarMensagem(mensagem, dados.erro || "Falha ao enviar mensagem.", "erro");
             }
         } catch {
-            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro");
         }
-    })
+    });
 }
