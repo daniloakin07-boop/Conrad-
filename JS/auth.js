@@ -1,130 +1,137 @@
-// CONRAD Virtual School - auth.js
+const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3000"
+    : "https://conrad-virtual-school.onrender.com" // troque pela URL real do seu deploy
 
-// Lida com o envio do formulário de login.
-const formLogin = document.getElementById('formLogin');
+function mostrarMensagem(elemento, texto, tipo) {
+    elemento.textContent = texto
+    elemento.className = "mensagem-auth " + tipo
+}
+
+const formLogin = document.getElementById("formLogin")
 if (formLogin) {
-  formLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const senha = document.getElementById('senha').value;
-    const msg = document.getElementById('mensagemLogin');
+    formLogin.addEventListener("submit", async function (e) {
+        e.preventDefault()
 
-    if (!email || !senha) {
-      msg.textContent = 'Preencha todos os campos.';
-      msg.className = 'mensagem-auth erro';
-      return;
-    }
+        const email = document.getElementById("email").value.trim()
+        const senha = document.getElementById("senha").value
+        const mensagem = document.getElementById("mensagemLogin")
 
-    fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, senha })
-    })
-      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
-      .then(({ status, body }) => {
-        if (status !== 200) {
-          msg.textContent = body.error || 'Falha ao fazer login.';
-          msg.className = 'mensagem-auth erro';
-          return;
+        if (!email || !senha) {
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
+            return
         }
 
-        const tipoUsuario = body.user?.tipo?.toLowerCase();
-        const destino = tipoUsuario === 'educador' ? 'educador.html' : 'aluno.html';
+        try {
+            const resposta = await fetch(`${BASE_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ email, senha })
+            })
 
-        msg.textContent = `Bem-vindo, ${body.user.nome}!`;
-        msg.className = 'mensagem-auth sucesso';
-        window.location.href = destino;
-      })
-      .catch(() => {
-        msg.textContent = 'Erro de conexão. Tente novamente.';
-        msg.className = 'mensagem-auth erro';
-      });
-  });
+            const dados = await resposta.json()
+
+            if (resposta.ok) {
+                mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso")
+
+                const paginas = { estudante: "aluno.html", educador: "educador.html" }
+                window.location.href = paginas[dados.usuario.tipo] || "aluno.html"
+            } else {
+                mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro")
+            }
+        } catch {
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+        }
+    })
 }
 
-// Valida e envia os dados do formulário de cadastro.
-const formCadastro = document.getElementById('formCadastro');
+const formCadastro = document.getElementById("formCadastro")
 if (formCadastro) {
-  formCadastro.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const nome    = document.getElementById('nome').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const senha   = document.getElementById('senha').value;
-    const confirma = document.getElementById('confirmasenha').value;
-    const tipo    = document.querySelector('input[name="tipo"]:checked')?.value;
-    const msg     = document.getElementById('mensagemCadastro');
+    formCadastro.addEventListener("submit", async function (e) {
+        e.preventDefault()
 
-    if (!nome || !email || !senha || !confirma) {
-      msg.textContent = 'Preencha todos os campos.';
-      msg.className = 'mensagem-auth erro';
-      return;
-    }
-    if (senha !== confirma) {
-      msg.textContent = 'As senhas não coincidem.';
-      msg.className = 'mensagem-auth erro';
-      return;
-    }
+        const nome = document.getElementById("nome").value.trim()
+        const email = document.getElementById("email").value.trim()
+        const senha = document.getElementById("senha").value
+        const confirmasenha = document.getElementById("confirmasenha").value
+        const tipo = document.querySelector('input[name="tipo"]:checked')
+        const mensagem = document.getElementById("mensagemCadastro")
 
-    fetch('/cadastro', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, email, senha, tipo })
-    })
-      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
-      .then(({ status, body }) => {
-        if (status !== 201) {
-          msg.textContent = body.error || 'Falha ao criar conta.';
-          msg.className = 'mensagem-auth erro';
-          return;
+        if (!nome || !email || !senha || !confirmasenha) {
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
+            return
         }
 
-        msg.textContent = 'Conta criada com sucesso!';
-        msg.className = 'mensagem-auth sucesso';
-        formCadastro.reset();
-      })
-      .catch(() => {
-        msg.textContent = 'Erro de conexão. Tente novamente.';
-        msg.className = 'mensagem-auth erro';
-      });
-  });
+        if (senha !== confirmasenha) {
+            mostrarMensagem(mensagem, "As senhas não coincidem.", "erro")
+            return
+        }
+
+        if (!tipo) {
+            mostrarMensagem(mensagem, "Selecione um tipo de usuário.", "erro")
+            return
+        }
+
+        try {
+            const resposta = await fetch(`${BASE_URL}/cadastro`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ nome, email, senha, tipo: tipo.value })
+            })
+
+            const dados = await resposta.json()
+
+            if (resposta.ok) {
+                mostrarMensagem(mensagem, "Cadastro realizado! Redirecionando...", "sucesso")
+                formCadastro.reset()
+
+                const paginas = { estudante: "aluno.html", educador: "educador.html" }
+                setTimeout(() => {
+                    window.location.href = paginas[dados.usuario.tipo] || "login.html"
+                }, 1500)
+            } else {
+                mostrarMensagem(mensagem, dados.erro || "Erro ao realizar cadastro.", "erro")
+            }
+        } catch {
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+        }
+    })
 }
 
-// Processa a mensagem enviada pelo formulário de contato.
-const formContato = document.getElementById('formContato');
+const formContato = document.getElementById("formContato")
 if (formContato) {
-  formContato.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const nome     = document.getElementById('nome').value.trim();
-    const email    = document.getElementById('email').value.trim();
-    const mensagem = document.getElementById('mensagem').value.trim();
-    const msg      = document.getElementById('mensagemContato');
+    formContato.addEventListener("submit", async function (e) {
+        e.preventDefault()
 
-    if (!nome || !email || !mensagem) {
-      msg.textContent = 'Preencha todos os campos.';
-      msg.className = 'mensagem-auth erro';
-      return;
-    }
+        const nome = document.getElementById("nome").value.trim()
+        const email = document.getElementById("email").value.trim()
+        const mensagemTexto = document.getElementById("mensagem").value.trim()
+        const mensagem = document.getElementById("mensagemContato")
 
-    fetch('/contato', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, email, mensagem })
-    })
-      .then((response) => response.json().then((data) => ({ status: response.status, body: data })))
-      .then(({ status, body }) => {
-        if (status !== 201) {
-          msg.textContent = body.error || 'Falha ao enviar mensagem.';
-          msg.className = 'mensagem-auth erro';
-          return;
+        if (!nome || !email || !mensagemTexto) {
+            mostrarMensagem(mensagem, "Preencha todos os campos.", "erro")
+            return
         }
 
-        msg.textContent = 'Mensagem enviada com sucesso!';
-        msg.className = 'mensagem-auth sucesso';
-        formContato.reset();
-      })
-      .catch(() => {
-        msg.textContent = 'Erro de conexão. Tente novamente.';
-        msg.className = 'mensagem-auth erro';
-      });
-  });
+        try {
+            const resposta = await fetch(`${BASE_URL}/contato`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ nome, email, mensagem: mensagemTexto })
+            })
+
+            const dados = await resposta.json()
+
+            if (resposta.ok) {
+                mostrarMensagem(mensagem, "Mensagem enviada com sucesso!", "sucesso")
+                formContato.reset()
+            } else {
+                mostrarMensagem(mensagem, dados.erro || "Falha ao enviar mensagem.", "erro")
+            }
+        } catch {
+            mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro")
+        }
+    })
 }

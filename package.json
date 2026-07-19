@@ -2,12 +2,14 @@
   "name": "conrad-virtual-school",
   "version": "1.0.0",
   "description": "Backend minimal para login, cadastro e contato do projeto Conrad Virtual School.",
-  "main": "server.js",
+  "main": "JS/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node JS/server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "sqlite3": "^5.1.6"
+    "mysql2": "^3.11.0",
+    "dotenv": "^16.4.5"
   }
 }
