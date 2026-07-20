@@ -3,117 +3,130 @@
 1 PARTE - CONFIGURAR O SERVIDOR
 ===============================================
 */
-// Importar as variáveis de ambiente
+
+// Carrega variáveis de ambiente do arquivo .env (se existir)
+// Ex.: PORT=3000, SESSION_SECRET=chave
 require("dotenv").config();
 
-// 1. Importar o Express - ele cria e gerencia o servidor
+// 1) Importar bibliotecas principais
+// - express: framework web para criar o servidor e rotas
+// - path: utilitário para montar caminhos de arquivos (cross-platform)
+// - cors: middleware para controlar quais origens podem fazer requisições
+// - express-session: gerencia sessões por cookie no navegador
+// - bcryptjs: utilitário para hashear e comparar senhas com segurança
 const express = require("express");
-
-// 2. Importar o path - ajuda a montar caminhos de arquivos
 const path = require("path");
-
-// 3. Importar o CORS - permite que o navegador "converse" com o servidor
 const cors = require("cors");
-
-// 4. Importa o session - permite gerenciar sessões de usuário
 const session = require("express-session");
-
-// 5. Importa o bcryptjs - para criptografar e comparar senhas
 const bcrypt = require("bcryptjs");
 
-// 6. Cria o servidor (como ligar um pc por ex)
+// Cria a instância do servidor Express
 const app = express();
 
-// 7. Importa o pool de conexão com o banco de dados
+// 2) Pool de conexão com o banco de dados
+// O arquivo `JS/db.js` deve exportar um pool (mysql2) para executar queries
+// Usamos o banco para persistir usuários e contatos do site.
 const pool = require("./db.js");
 
-// 8. Cria uma lista de origens permitidas
+// 3) Origens permitidas para CORS
+// Lista de endereços que podem acessar a API via browser (evita requests não autorizados)
 const listOrigins = [
-    "http://localhost:5501", // ambiente local (live server)
-    "http://127.0.0.1:5501", // variação de localhost
-    "http://localhost:3000"  // ambiente local (servindo os arquivos estáticos)
+    "http://localhost:5501", // Live Server / previews locais
+    "http://127.0.0.1:5501",
+    "http://localhost:3000"  // quando servimos arquivos estáticos localmente
 ];
 
-// 9. Ativa o CORS - libera a comunicação entre front-end e back-end
+// 4) Configurar CORS
+// - `origin` limita quem pode chamar a API
+// - `credentials: true` permite enviar cookies (necessário para sessões)
 app.use(cors({
-    origin: listOrigins, // só aceita requisições dessas origens
-    credentials: true, // permite o envio de cookies entre domínios
+    origin: listOrigins,
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        // métodos permitidos
-    allowedHeaders: ["Content-Type", "Authorization"] // cabeçalhos aceitos
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// 10. Ativa o leitor de JSON - permite entender os dados recebidos
-// Sem isso, o servidor não consegue ler o que o formulário envia
+// 5) Middleware para entender JSON no corpo das requisições
+// Sem isso, `req.body` ficará undefined ao receber JSON do front-end
 app.use(express.json());
 
-// 10.1. Loga cada requisição recebida - ajuda a ver no terminal o que está chegando
+// 6) Middleware simples de log
+// Exibe no terminal cada requisição recebida: método e caminho
 app.use((req, res, next) => {
     console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
     next();
 });
 
-// 11. Configuração de Sessão (do navegador)
+// 7) Configuração das sessions (cookies de sessão)
+// - `secret`: string usada para assinar/encriptar o cookie
+// - `resave` e `saveUninitialized` controlam comportamento de salvamento
+// - `name` é o nome do cookie no navegador
+// - `cookie` permite ajustar segurança e tempo de expiração
 const sessionConfig = {
     secret: process.env.SESSION_SECRET || "segredo-conrad",
-        // chave secreta para assinar o cookie
     resave: false,
-        // não salva a sessão se não houver mudança
     saveUninitialized: false,
-        // não cria sessão para usuários não logados
     name: "conrad.sid",
-        // nome personalizado do cookie da sessão
     cookie: {
-        httpOnly: true, // bloqueia o acesso via JavaScript
-        maxAge: 1000 * 60 * 60 // sessão expira em 1 hora (em ms)
+        httpOnly: true, // impede acesso ao cookie via JavaScript do cliente
+        maxAge: 1000 * 60 * 60 // 1 hora em milissegundos
     }
 };
 
-// 12. Separa o ambiente de teste (localhost) do de produção (Render)
-if (process.env.NODE_ENV == "production") { // ambiente de produção
-    app.set("trust proxy", 1), // confia no proxy do Render
-    sessionConfig.cookie.sameSite = "none", // necessário para os cookies
-    sessionConfig.cookie.secure = true // cookie só trafega em https
-} else { // ambiente de desenvolvimento (teste)
-    sessionConfig.cookie.sameSite = "lax", // funciona em localhost sem HTTPS
-    sessionConfig.cookie.secure = false // permite cookie sem HTTPS local
+// Em produção (ex: Render) precisamos permitir cookies cross-site e HTTPS
+if (process.env.NODE_ENV == "production") {
+    app.set("trust proxy", 1); // caso o app esteja atrás de proxy
+    sessionConfig.cookie.sameSite = "none"; // permite envio cross-site
+    sessionConfig.cookie.secure = true; // só envia cookie via HTTPS
+} else {
+    // Em desenvolvimento, mantemos menos restrições para facilitar testes locais
+    sessionConfig.cookie.sameSite = "lax";
+    sessionConfig.cookie.secure = false;
 }
 
-app.use(session(sessionConfig)); // configura a sessão no servidor
+// Ativa o middleware de sessão com a configuração definida acima
+app.use(session(sessionConfig));
 
-// 13. Páginas que só podem ser acessadas por quem já fez cadastro/login
+// 8) Rotas que exigem sessão (ex.: páginas internas)
+// `paginasProtegidas` lista arquivos HTML que exigem usuário logado
 const paginasProtegidas = ["aluno.html", "educador.html"];
 
+// Middleware para checar acesso às páginas estáticas protegidas
 app.get("/pages/:pagina", function (req, res, next) {
     if (paginasProtegidas.includes(req.params.pagina) && !req.session.usuario) {
+        // Se não estiver logado, redireciona para a página de login
         return res.redirect("/pages/login.html");
     }
     next();
 });
 
-// 14. Serve os arquivos estáticos do projeto (html, css, imagens...)
+// 9) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
+// `express.static` mapeia a pasta-pai do projeto para requisições HTTP
 app.use(express.static(path.join(__dirname, "..")));
 
 /*
 ===============================================
-2 PARTE - CRIAR ROTAS
+2 PARTE - CRIAR ROTAS (API)
 ===============================================
 */
 
-// 1. Define a rota GET "/"
+// Rota raiz: redireciona para a página inicial do site
 app.get("/", function (req, res) {
     res.redirect("/pages/index.html");
 });
 
-// 2. Define a rota POST "/cadastro"
+// Rota de cadastro: cria um novo usuário no banco
+// Recebe JSON com `{ nome, email, senha, tipo }`
 app.post("/cadastro", async (req, res) => {
     try {
         const { nome, email, senha, tipo } = req.body;
 
+        // Validação básica de entrada
         if (!nome || !email || !senha || !tipo) {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        // Verifica se o e-mail já existe na tabela `tb_usuarios`
         const [existentes] = await pool.execute(
             "SELECT id FROM tb_usuarios WHERE email = ?", [email]
         );
@@ -122,13 +135,16 @@ app.post("/cadastro", async (req, res) => {
             return res.status(409).json({ erro: "E-mail já cadastrado" });
         }
 
+        // Hash da senha antes de salvar (boa prática de segurança)
         const senhaHash = await bcrypt.hash(senha, 10);
 
+        // Insere o usuário no banco e obtém o `insertId`
         const [resultado] = await pool.execute(
             "INSERT INTO tb_usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)",
             [nome, email, senhaHash, tipo]
         );
 
+        // Salva informações mínimas na sessão (não guardar senha em sessão)
         req.session.usuario = {
             id: resultado.insertId,
             nome: nome,
@@ -136,6 +152,7 @@ app.post("/cadastro", async (req, res) => {
             tipo: tipo
         };
 
+        // Resposta com 201 (criado)
         res.status(201).json({ mensagem: "Cadastro realizado com sucesso!", usuario: req.session.usuario });
     } catch (error) {
         console.error(error);
@@ -143,7 +160,8 @@ app.post("/cadastro", async (req, res) => {
     }
 });
 
-// 3. Define a rota POST "/login"
+// Rota de login: valida usuário e senha
+// Recebe `{ email, senha }` e compara com hash no banco
 app.post("/login", async (req, res) => {
     try {
         const { email, senha } = req.body;
@@ -152,6 +170,7 @@ app.post("/login", async (req, res) => {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        // Busca o usuário pelo e-mail
         const [linhas] = await pool.execute(
             "SELECT id, nome, email, senha, tipo FROM tb_usuarios WHERE email = ?", [email]
         );
@@ -162,12 +181,14 @@ app.post("/login", async (req, res) => {
 
         const usuario = linhas[0];
 
+        // Compara senha enviada com o hash armazenado
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaCorreta) {
             return res.status(401).json({ erro: "Senha inválida" });
         }
 
+        // Armazena dados não sensíveis na sessão
         req.session.usuario = {
             id: usuario.id,
             nome: usuario.nome,
@@ -182,7 +203,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// 4. Define a rota GET "/me" - verificar sessão
+// Rota para verificar sessão do usuário atual
 app.get("/me", (req, res) => {
     if (!req.session.usuario) {
         return res.status(401).json({ logado: false });
@@ -194,7 +215,7 @@ app.get("/me", (req, res) => {
     });
 });
 
-// 5. Define a rota POST "/logout" - encerrar sessão
+// Rota de logout: destrói a sessão e limpa o cookie
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.clearCookie("conrad.sid");
@@ -202,7 +223,7 @@ app.post("/logout", (req, res) => {
     });
 });
 
-// 6. Define a rota POST "/contato"
+// Rota de contato: armazena mensagens de usuários no banco
 app.post("/contato", async (req, res) => {
     try {
         const { nome, email, mensagem } = req.body;
@@ -223,7 +244,7 @@ app.post("/contato", async (req, res) => {
     }
 });
 
-// 7. Define a rota GET "/health"
+// Rota simples para checar se a API está ativa
 app.get("/health", (req, res) => {
     res.json({ status: "ok" });
 });
@@ -233,12 +254,16 @@ app.get("/health", (req, res) => {
 3 PARTE - INICIAR O SERVIDOR
 ===============================================
 */
+
+// Porta do servidor (padrão 3000) — pode ser sobrescrita por variável de ambiente
 const PORT = process.env.PORT || 3000;
 
+// Se este arquivo foi executado diretamente (e não importado), inicia o servidor
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`Servidor rodando na porta ${PORT}`);
     });
 }
 
+// Exporta a instância `app` para testes ou uso por outros módulos
 module.exports = app;
