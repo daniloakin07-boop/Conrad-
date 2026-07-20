@@ -31,8 +31,7 @@ Conrad-
 ├── img/
 ├── pages/
 ├── package.json
-├── README.md
-└── server.js
+└── README.md
 ```
 
 ## Como rodar
