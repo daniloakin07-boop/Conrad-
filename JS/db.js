@@ -3,8 +3,12 @@
 CONEXÃO COM O BANCO DE DADOS (MySQL)
 ===============================================
 */
-// Importar as variáveis de ambiente
+// Carrega variáveis de ambiente (.env) usadas para configurar a conexão
 require("dotenv").config();
+
+// Este arquivo exporta um `pool` do mysql2/promise que o servidor usa para
+// executar consultas SQL de forma assíncrona (async/await). Mantemos o pool
+// para reaproveitar conexões e melhorar performance.
 
 // 1. Importar o mysql2 no formato "promise" - permite usar async/await
 const mysql = require("mysql2/promise");

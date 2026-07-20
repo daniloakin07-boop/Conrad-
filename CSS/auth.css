@@ -1,4 +1,7 @@
 /* ===== BLOCO AUTH (login / cadastro) ===== */
+/* Este bloco define a área principal da página de login/cadastro.
+   Ele centraliza o conteúdo, define o fundo e garante que a altura
+   ocupe a tela inteira, menos o espaço reservado para header/rodapé. */
 .pagina-auth {
   position: relative;
   display: flex;
@@ -10,6 +13,9 @@
   overflow: hidden;
 }
 
+/* As pseudo-classes ::before e ::after criam efeitos visuais laterais
+   sem atrapalhar a interação do usuário. Elas usam `pointer-events: none`
+   para que não bloqueiem cliques nos campos do formulário. */
 .pagina-auth::before,
 .pagina-auth::after {
   content: "";
@@ -35,6 +41,8 @@
   background-image: url("../img/Captura%20de%20tela%202026-07-10%20171954.png");
 }
 
+/* O container branco central do formulário. Ele mantém os campos bem
+   separados do fundo da página e limita a largura para melhorar a leitura. */
 .bloco-auth {
   background: #fff;
   border: 1px solid #e3e7eb;
@@ -102,6 +110,8 @@
 }
 
 /* Tipo de usuário */
+/* Define o layout dos botões de rádio personalizados para escolher o tipo
+   de usuário. Cada opção fica lado a lado e responde ao clique. */
 .tipo-usuario {
   display: flex;
   gap: 8px;
@@ -112,6 +122,8 @@
   display: none;
 }
 
+/* Os labels atuam como botões para os radios escondidos. Quando o input está
+   selecionado, o estilo muda para indicar qual opção está ativa. */
 .tipo-usuario label {
   flex: 1;
   text-align: center;
@@ -161,6 +173,8 @@
 }
 
 /* Botão */
+/* Botão principal do formulário. Ele usa cor de alto contraste para
+   chamar atenção e ocupa largura total para facilitar o clique/tap. */
 .btn-primario {
   background: #0A1F44;
   color: #fff;

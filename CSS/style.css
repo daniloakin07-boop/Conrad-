@@ -1,11 +1,19 @@
+/* Google Fonts usados no projeto:
+   - Bebas Neue: títulos e logotipo
+   - Nunito: texto do corpo e formulários */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap');
 
+/* Reset básico que remove margens/paddings padrão do navegador e faz o
+   box-sizing considerar padding/border dentro da largura total. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Estilos base do corpo da página.
+   Aqui definimos a fonte principal, cor de texto, fundo e o layout de coluna
+   para que o conteúdo ocupe toda a altura disponível. */
 body {
   font-family: 'Nunito', sans-serif;
   background: #f5f6f8;
