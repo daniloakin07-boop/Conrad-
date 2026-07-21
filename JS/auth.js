@@ -6,11 +6,11 @@ const BASE_URL = window.location.hostname === "localhost" || window.location.hos
     ? "http://localhost:3000"
     : "https://conrad-virtual-school.onrender.com";
 
-// Função utilitária para mostrar mensagens de erro/sucesso nas páginas de auth
+// Função utilitária para exibir mensagens no HTML
 function mostrarMensagem(elemento, texto, tipo) {
-    // `elemento` é um DOM node onde a mensagem será exibida
+    // `elemento` é um elemento DOM onde vamos colocar a mensagem
     elemento.textContent = texto;
-    // `tipo` controla a classe CSS (ex.: 'sucesso' ou 'erro')
+    // A classe CSS determina o estilo da mensagem: sucesso ou erro
     elemento.className = "mensagem-auth " + tipo;
 }
 

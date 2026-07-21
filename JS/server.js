@@ -10,8 +10,8 @@ require("dotenv").config();
 
 // 1) Importar bibliotecas principais
 // - express: framework web para criar o servidor e rotas
-// - path: utilitário para montar caminhos de arquivos (cross-platform)
-// - cors: middleware para controlar quais origens podem fazer requisições
+// - path: utilitário para montar caminhos de arquivos com segurança
+// - cors: middleware para permitir/restringir origens HTTP
 // - express-session: gerencia sessões por cookie no navegador
 // - bcryptjs: utilitário para hashear e comparar senhas com segurança
 const express = require("express");
@@ -20,12 +20,11 @@ const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 
-// Cria a instância do servidor Express
+// Cria a instância principal do servidor Express
 const app = express();
 
 // 2) Pool de conexão com o banco de dados
-// O arquivo `JS/db.js` deve exportar um pool (mysql2) para executar queries
-// Usamos o banco para persistir usuários e contatos do site.
+// O arquivo `JS/db.js` exporta um pool mysql2 que o servidor usa para executar queries
 const pool = require("./db.js");
 
 // 3) Origens permitidas para CORS
@@ -38,7 +37,7 @@ const listOrigins = [
 
 // 4) Configurar CORS
 // - `origin` limita quem pode chamar a API
-// - `credentials: true` permite enviar cookies (necessário para sessões)
+// - `credentials: true` permite enviar cookies com as requisições
 app.use(cors({
     origin: listOrigins,
     credentials: true,
@@ -46,11 +45,11 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// 5) Middleware para entender JSON no corpo das requisições
-// Sem isso, `req.body` ficará undefined ao receber JSON do front-end
+// 5) Middleware para interpretar JSON no corpo das requisições
+// Sem isso, `req.body` ficaria undefined ao receber JSON do front-end.
 app.use(express.json());
 
-// 6) Middleware simples de log
+// 6) Middleware simples de log para depuração
 // Exibe no terminal cada requisição recebida: método e caminho
 app.use((req, res, next) => {
     console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
@@ -58,10 +57,10 @@ app.use((req, res, next) => {
 });
 
 // 7) Configuração das sessions (cookies de sessão)
-// - `secret`: string usada para assinar/encriptar o cookie
-// - `resave` e `saveUninitialized` controlam comportamento de salvamento
-// - `name` é o nome do cookie no navegador
-// - `cookie` permite ajustar segurança e tempo de expiração
+// - `secret` assina/encripta o cookie
+// - `resave` e `saveUninitialized` controlam quando o session é salvo
+// - `name` é o nome do cookie que o navegador recebe
+// - `cookie` ajusta segurança e validade do cookie
 const sessionConfig = {
     secret: process.env.SESSION_SECRET || "segredo-conrad",
     resave: false,
@@ -73,13 +72,13 @@ const sessionConfig = {
     }
 };
 
-// Em produção (ex: Render) precisamos permitir cookies cross-site e HTTPS
+// Em produção, precisamos de configurações de cookie mais seguras
 if (process.env.NODE_ENV == "production") {
-    app.set("trust proxy", 1); // caso o app esteja atrás de proxy
+    app.set("trust proxy", 1); // se o app estiver atrás de um proxy reverso
     sessionConfig.cookie.sameSite = "none"; // permite envio cross-site
     sessionConfig.cookie.secure = true; // só envia cookie via HTTPS
 } else {
-    // Em desenvolvimento, mantemos menos restrições para facilitar testes locais
+    // Em desenvolvimento local, lembre-se de não exigir HTTPS
     sessionConfig.cookie.sameSite = "lax";
     sessionConfig.cookie.secure = false;
 }
@@ -88,13 +87,13 @@ if (process.env.NODE_ENV == "production") {
 app.use(session(sessionConfig));
 
 // 8) Rotas que exigem sessão (ex.: páginas internas)
-// `paginasProtegidas` lista arquivos HTML que exigem usuário logado
+// `paginasProtegidas` lista arquivos HTML que devem exigir login
 const paginasProtegidas = ["aluno.html", "educador.html"];
 
 // Middleware para checar acesso às páginas estáticas protegidas
 app.get("/pages/:pagina", function (req, res, next) {
     if (paginasProtegidas.includes(req.params.pagina) && !req.session.usuario) {
-        // Se não estiver logado, redireciona para a página de login
+        // Se não estiver logado, redireciona para login
         return res.redirect("/pages/login.html");
     }
     next();
@@ -144,7 +143,7 @@ app.post("/cadastro", async (req, res) => {
             [nome, email, senhaHash, tipo]
         );
 
-        // Salva informações mínimas na sessão (não guardar senha em sessão)
+        // Salva apenas dados não sensíveis na sessão (não guardar senha)
         req.session.usuario = {
             id: resultado.insertId,
             nome: nome,
@@ -161,7 +160,7 @@ app.post("/cadastro", async (req, res) => {
 });
 
 // Rota de login: valida usuário e senha
-// Recebe `{ email, senha }` e compara com hash no banco
+// Recebe `{ email, senha }` e compara com o hash armazenado no banco
 app.post("/login", async (req, res) => {
     try {
         const { email, senha } = req.body;
@@ -204,6 +203,7 @@ app.post("/login", async (req, res) => {
 });
 
 // Rota para verificar sessão do usuário atual
+// Retorna se o usuário está logado e seus dados básicos
 app.get("/me", (req, res) => {
     if (!req.session.usuario) {
         return res.status(401).json({ logado: false });
@@ -215,7 +215,7 @@ app.get("/me", (req, res) => {
     });
 });
 
-// Rota de logout: destrói a sessão e limpa o cookie
+// Rota de logout: destrói a sessão e limpa o cookie no navegador
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.clearCookie("conrad.sid");
@@ -224,6 +224,7 @@ app.post("/logout", (req, res) => {
 });
 
 // Rota de contato: armazena mensagens de usuários no banco
+// Recebe `{ nome, email, mensagem }`
 app.post("/contato", async (req, res) => {
     try {
         const { nome, email, mensagem } = req.body;
