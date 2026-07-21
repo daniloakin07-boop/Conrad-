@@ -37,7 +37,6 @@
 
 .pagina-auth::after {
   right: 0;
-  transform: scaleX(-1);
   background-image: url("../img/Captura%20de%20tela%202026-07-10%20171954.png");
 }
 
