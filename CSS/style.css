@@ -362,3 +362,169 @@ body {
     margin-left: -20px;
   }
 }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#dfe5ef;
+}
+
+.containers{
+    display:flex;
+    height:100vh;
+}
+
+/* MENU */
+
+.sidebar{
+    height: 1000px;
+    width:220px;
+    background:white;
+    border-right:2px solid #000;
+
+}
+
+.logos{
+    background:#12376B;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.logos img{
+    width:220px;
+    height: 200px   ;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:18px;
+    border-bottom:1px solid black;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.sidebar li i{
+    color:#163B74;
+    margin-right:10px;
+
+}
+
+.sidebar li:hover{
+    background:#ececec;
+
+}
+
+/* CHAT */
+
+.chat{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+header{
+    height:80px;
+    background:#edf1f6;
+    border-bottom:2px solid black;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px;
+}
+
+.usuario{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.usuario i{
+    font-size:32px;
+    color:#163B74;
+}
+
+.acoes i{
+
+    font-size:28px;
+    color:#163B74;
+    margin-left:25px;
+    cursor:pointer;
+}
+
+.mensagens{
+    flex:1;
+    padding:30px;
+    overflow:auto;
+
+}
+
+/* mensagens */
+
+.msg{
+    width:max-content;
+    max-width:400px;
+    padding:12px 18px;
+    margin-bottom:15px;
+    border-radius:15px;
+}
+
+.eu{
+    background:#1F4E79;
+    color:white;
+    margin-left:auto;
+}
+
+.outro{
+    background:white;
+}
+
+.enviarr{
+    display:flex;
+    align-items:center;
+    padding:15px;
+    background:white;
+    border-top:1px solid #ccc;
+}
+
+.enviarr i{
+    font-size:28px;
+    color:#163B74;
+    margin-right:15px;
+}
+
+.enviarr input{
+    flex:1;
+    padding:12px;
+    font-size:16px;
+}
+
+.enviarr button{
+    margin-left:15px;
+    background:#E58A24;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    cursor:pointer;
+    border-radius:5px;
+    
+
+}
+.imagenss{
+
+    width: 250px;
+    height: 80px;
+    align-items: center;
+    
+}
+
+

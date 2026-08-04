@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- Define que o documento utiliza HTML5 -->
+
+<html lang="pt-BR">
+<!-- Início do documento HTML e define o idioma como português do Brasil -->
+
+<head>
+    <!-- Configurações da página -->
+
+    <meta charset="UTF-8">
+    <!-- Permite o uso de caracteres especiais, como ç e acentos -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Faz com que o site seja responsivo em celulares e tablets -->
+
+    <title>Chat - Conrad Virtual School</title>
+    <!-- Título exibido na aba do navegador -->
+
+    <!-- Arquivo CSS responsável pela aparência da página -->
+    <link rel="stylesheet" href="../CSS/style.css">
+
+    <!-- Biblioteca Font Awesome utilizada para adicionar ícones -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- Container principal que engloba toda a interface -->
+<div class="containers">
+
+    <!-- ================= MENU LATERAL ================= -->
+
+    <aside class="sidebar">
+
+        <!-- Logo da escola -->
+        <div class="logos">
+            <img class="imagenss" src="../img/Captura de tela 2026-07-10 181529.png">
+        </div>
+
+        <!-- Lista de opções do menu -->
+        <ul>
+
+            <!-- Opção atualmente selecionada -->
+            <li class="active">
+                <i class="fa-solid fa-message"></i>
+                Chat
+            </li>
+
+            <!-- Opção Salas -->
+            <li>
+                <i class="fa-solid fa-user-group"></i>
+                Salas
+            </li>
+
+            <!-- Opção Avaliações -->
+            <li>
+                <i class="fa-solid fa-desktop"></i>
+                Avaliações
+            </li>
+
+            <!-- Opção Atividades -->
+            <li>
+                <i class="fa-solid fa-clipboard"></i>
+                Atividades
+            </li>
+
+            <!-- Opção Perfil -->
+            <li>
+                <i class="fa-solid fa-circle-user"></i>
+                Perfil
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= ÁREA PRINCIPAL DO CHAT ================= -->
+
+    <main class="chat">
+
+        <!-- Cabeçalho do chat -->
+        <header>
+
+            <!-- Informações do usuário -->
+            <div class="usuario">
+
+                <!-- Ícone do usuário -->
+                <i class="fa-solid fa-user"></i>
+
+                <!-- Nome do contato -->
+                <h2>TEACHER 1</h2>
+
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="acoes">
+
+                <!-- Botão de chamada -->
+                <i class="fa-solid fa-phone"></i>
+
+                <!-- Botão de vídeo -->
+                <i class="fa-solid fa-video"></i>
+
+                <!-- Botão de informações -->
+                <i class="fa-solid fa-circle-info"></i>
+
+            </div>
+
+        </header>
+
+        <!-- ================= ÁREA DAS MENSAGENS ================= -->
+
+        <!-- Local onde as mensagens serão inseridas pelo JavaScript -->
+        <div class="mensagens" id="mensagens">
+
+        </div>
+
+        <!-- ================= ÁREA DE ENVIO ================= -->
+         
+        <div class="enviarr">
+
+            <!-- Ícone para anexar arquivos -->
+            <i class="fa-solid fa-link"></i>
+
+            <!-- Campo onde o usuário digita a mensagem -->
+            <input
+                type="text"
+                id="texto"
+                placeholder="Digite uma mensagem">
+
+            <!-- Botão que chama a função enviarMensagem() -->
+            <button onclick="enviarMensagem()">
+                Enviar
+            </button>
+
+        </div>
+    </main>
+
+</div>
+
+<!-- Arquivo JavaScript responsável pelas funcionalidades do chat -->
+<script src="../JS/script.js"></script>
+
+</body>
+</html>
