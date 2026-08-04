@@ -1,0 +1,1500 @@
+/* ==================================================
+                DASHBOARD PROFESSOR
+================================================== */
+
+/* ---------- Layout ---------- */
+
+.dashboard-professor{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+    margin-top:20px;
+}
+
+/* ==================================================
+                    MENU LATERAL
+================================================== */
+
+.menu-lateral{
+
+    width:240px;
+    background:#0A1F44;
+    border-radius:10px;
+    padding:25px 20px;
+    color:#fff;
+
+    position:sticky;
+    top:25px;
+
+    box-shadow:
+    0 6px 20px rgba(0,0,0,.08);
+
+}
+
+.menu-lateral h3{
+
+    font-family:'Bebas Neue',sans-serif;
+    font-size:28px;
+    letter-spacing:1px;
+
+    margin-bottom:25px;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+    padding-bottom:12px;
+
+}
+
+/* Itens */
+
+.menu-item{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#FFF;
+
+    padding:12px 15px;
+
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.menu-item:hover{
+
+    background:rgba(255,255,255,.12);
+
+    transform:translateX(4px);
+
+}
+
+.menu-item.ativo{
+
+    background:#F5821F;
+
+}
+
+.menu-item.ativo:hover{
+
+    transform:none;
+
+}
+
+/* ==================================================
+                    CONTEÚDO
+================================================== */
+
+.conteudo-dashboard{
+
+    flex:1;
+
+}
+
+/* ==================================================
+                TÍTULO DA DASHBOARD
+================================================== */
+
+.titulo-dashboard{
+
+    background:#FFF;
+
+    border-radius:10px;
+
+    padding:25px 30px;
+
+    margin-bottom:25px;
+
+    border:1px solid #E4E7EB;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.titulo-dashboard h1{
+
+    font-family:'Bebas Neue',sans-serif;
+
+    font-size:38px;
+
+    letter-spacing:1px;
+
+    color:#0A1F44;
+
+}
+
+.titulo-dashboard p{
+
+    margin-top:6px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+/* ==================================================
+                CARDS SUPERIORES
+================================================== */
+
+.cards-resumo{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+/* Card */
+
+.card-resumo{
+
+    background:#FFF;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:10px;
+
+    padding:22px;
+
+    transition:.25s;
+
+    cursor:pointer;
+
+}
+
+.card-resumo:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+
+    0 12px 25px rgba(0,0,0,.08);
+
+}
+
+.card-resumo h2{
+
+    font-size:40px;
+
+    margin-bottom:12px;
+
+}
+
+.card-resumo h3{
+
+    color:#0A1F44;
+
+    margin-bottom:8px;
+
+}
+
+.card-resumo span{
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+/* Pequena barra inferior */
+
+.card-resumo::after{
+
+    content:"";
+
+    display:block;
+
+    width:55px;
+
+    height:4px;
+
+    margin-top:18px;
+
+    background:#F5821F;
+
+    border-radius:20px;
+
+}
+
+/* ==================================================
+                PAINEL PRINCIPAL
+================================================== */
+
+.painel-dashboard{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+    align-items:start;
+}
+
+/* ==================================================
+                CARDS BRANCOS
+================================================== */
+
+.card-avaliacoes,
+.card-media,
+.card-pendencias{
+
+    background:#FFF;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:10px;
+
+    padding:24px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.04);
+
+}
+
+/* Espaço entre Média e Pendências */
+
+.card-media{
+
+    margin-bottom:20px;
+
+}
+
+/* ==================================================
+                TÍTULOS
+================================================== */
+
+.titulo-card{
+
+    margin-bottom:18px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #ECECEC;
+
+}
+
+.titulo-card h2{
+
+    font-family:'Bebas Neue',sans-serif;
+
+    font-size:28px;
+
+    color:#0A1F44;
+
+    letter-spacing:.5px;
+
+}
+
+.card-media h3,
+.card-pendencias h3{
+
+    font-family:'Bebas Neue',sans-serif;
+
+    font-size:26px;
+
+    margin-bottom:10px;
+
+    color:#0A1F44;
+
+}
+
+/* ==================================================
+            LISTA DE ALUNOS
+================================================== */
+
+.aluno{
+
+    display:grid;
+
+    grid-template-columns:2fr 70px 110px;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #F0F0F0;
+
+}
+
+.aluno:last-child{
+
+    border-bottom:none;
+
+}
+
+.aluno span:first-child{
+
+    font-weight:700;
+
+    color:#0A1F44;
+
+}
+
+.aluno strong{
+
+    text-align:center;
+
+    font-size:16px;
+
+}
+
+/* ==================================================
+                    STATUS
+================================================== */
+
+.status{
+
+    text-align:center;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+/* Verde */
+
+.status.ativo{
+
+    background:#E8F8EF;
+
+    color:#1D8F4E;
+
+}
+
+/* Vermelho */
+
+.status.pendente{
+
+    background:#FDECEC;
+
+    color:#C0392B;
+
+}
+
+/* ==================================================
+                    MÉDIA
+================================================== */
+
+.card-media h1{
+
+    font-size:58px;
+
+    color:#F5821F;
+
+    margin:10px 0;
+
+    text-align:center;
+
+}
+
+.card-media p{
+
+    color:#666;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+/* ==================================================
+                    GRÁFICO
+================================================== */
+
+.grafico-fake{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    height:180px;
+
+    margin-top:10px;
+
+}
+
+/* Barras */
+
+.grafico-fake div{
+
+    width:30px;
+
+    border-radius:6px 6px 0 0;
+
+    background:#F5821F;
+
+    transition:.3s;
+
+}
+
+/* Alturas */
+
+.grafico-fake div:nth-child(1){
+
+    height:60px;
+
+}
+
+.grafico-fake div:nth-child(2){
+
+    height:110px;
+
+}
+
+.grafico-fake div:nth-child(3){
+
+    height:150px;
+
+}
+
+.grafico-fake div:nth-child(4){
+
+    height:90px;
+
+}
+
+.grafico-fake div:nth-child(5){
+
+    height:130px;
+
+}
+
+/* Hover */
+
+.grafico-fake div:hover{
+
+    background:#0A1F44;
+
+    transform:scaleY(1.05);
+
+}
+
+/* ==================================================
+                PENDÊNCIAS
+================================================== */
+
+.pendencia{
+
+    background:#F8F9FB;
+
+    border:1px solid #E6E8EC;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    margin-top:18px;
+
+}
+
+.pendencia:first-of-type{
+
+    margin-top:15px;
+
+}
+
+.pendencia h4{
+
+    color:#0A1F44;
+
+    margin-bottom:8px;
+
+}
+
+.pendencia p{
+
+    color:#666;
+
+    font-size:14px;
+
+    margin-bottom:15px;
+
+}
+
+/* Botões dentro das pendências */
+
+.pendencia .btn-primario,
+.pendencia .btn-secundario{
+
+    width:100%;
+
+}
+
+/* ==================================================
+                PAINEL LATERAL
+================================================== */
+
+.painel-lateral{
+    display:flex;
+    flex-direction:column;
+}
+
+/* ==================================================
+                    BOTÕES
+================================================== */
+
+.btn-secundario{
+
+    background:#0A1F44;
+    color:#FFF;
+
+    border:none;
+
+    border-radius:6px;
+
+    padding:10px 16px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.btn-secundario:hover{
+
+    background:#163A6E;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==================================================
+                EFEITOS GERAIS
+================================================== */
+
+.card-avaliacoes:hover,
+.card-media:hover,
+.card-pendencias:hover{
+
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.menu-item,
+.card-resumo,
+.btn-secundario,
+.btn-primario{
+
+    transition:.25s;
+
+}
+
+/* ==================================================
+                SCROLL PERSONALIZADO
+================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ECECEC;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0A1F44;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#163A6E;
+
+}
+
+/* ==================================================
+                ANIMAÇÃO
+================================================== */
+
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.card-resumo,
+.card-avaliacoes,
+.card-media,
+.card-pendencias{
+
+    animation:aparecer .5s ease;
+
+}
+
+/* ==================================================
+                RESPONSIVIDADE
+================================================== */
+
+@media (max-width:1100px){
+
+    .dashboard-professor{
+
+        flex-direction:column;
+
+    }
+
+    .menu-lateral{
+
+        width:100%;
+
+        position:relative;
+
+        top:0;
+
+    }
+
+    .cards-resumo{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .painel-dashboard{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .titulo-dashboard{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+
+    }
+
+    .cards-resumo{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .aluno{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+
+        text-align:left;
+
+    }
+
+    .status{
+
+        width:120px;
+
+    }
+
+}b/* ==================================================
+                PAINEL LATERAL
+================================================== */
+
+.painel-lateral{
+    display:flex;
+    flex-direction:column;
+}
+
+/* ==================================================
+                    BOTÕES
+================================================== */
+
+.btn-secundario{
+
+    background:#0A1F44;
+    color:#FFF;
+
+    border:none;
+
+    border-radius:6px;
+
+    padding:10px 16px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.btn-secundario:hover{
+
+    background:#163A6E;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==================================================
+                EFEITOS GERAIS
+================================================== */
+
+.card-avaliacoes:hover,
+.card-media:hover,
+.card-pendencias:hover{
+
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.menu-item,
+.card-resumo,
+.btn-secundario,
+.btn-primario{
+
+    transition:.25s;
+
+}
+
+/* ==================================================
+                SCROLL PERSONALIZADO
+================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ECECEC;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0A1F44;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#163A6E;
+
+}
+
+/* ==================================================
+                ANIMAÇÃO
+================================================== */
+
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.card-resumo,
+.card-avaliacoes,
+.card-media,
+.card-pendencias{
+
+    animation:aparecer .5s ease;
+
+}
+
+/* ==================================================
+                RESPONSIVIDADE
+================================================== */
+
+@media (max-width:1100px){
+
+    .dashboard-professor{
+
+        flex-direction:column;
+
+    }
+
+    .menu-lateral{
+
+        width:100%;
+
+        position:relative;
+
+        top:0;
+
+    }
+
+    .cards-resumo{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .painel-dashboard{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .titulo-dashboard{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+
+    }
+
+    .cards-resumo{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .aluno{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+
+        text-align:left;
+
+    }
+
+    .status{
+
+        width:120px;
+
+    }
+
+}
+
+/* ==================================================
+            INFORMAÇÕES DO PROFESSOR
+================================================== */
+
+.info-professor{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding:18px 22px;
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+    border-radius:8px;
+    min-width:220px;
+}
+
+.info-professor strong{
+    font-size:13px;
+    color:#0A1F44;
+}
+
+.info-professor span{
+    font-size:14px;
+    color:#6B7280;
+    margin-bottom:8px;
+}
+
+/* ==================================================
+                TÍTULO DOS CARDS
+================================================== */
+
+.titulo-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.titulo-card .btn-secundario{
+    width:auto;
+    padding:8px 16px;
+    font-size:13px;
+}
+
+/* ==================================================
+            BOTÕES DOS CARDS SUPERIORES
+================================================== */
+
+.card-resumo button{
+
+    width:100%;
+
+    margin-top:18px;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#0A1F44;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.card-resumo button:hover{
+
+    background:#163A6E;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==================================================
+                AVISOS
+================================================== */
+
+.card-pendencias:last-child{
+
+    margin-top:20px;
+
+}
+
+.card-pendencias:last-child .pendencia{
+
+    background:#FFF8EE;
+
+    border-left:5px solid #F5821F;
+
+}
+
+/* ==================================================
+                HOVER DOS CARDS
+================================================== */
+
+.card-resumo,
+.card-avaliacoes,
+.card-media,
+.card-pendencias{
+
+    transition:.3s;
+
+}
+
+.card-resumo:hover,
+.card-avaliacoes:hover,
+.card-media:hover,
+.card-pendencias:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+}
+
+/* ==================================================
+            EFEITO MENU LATERAL
+================================================== */
+
+.menu-item{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.menu-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:0;
+
+    background:rgba(255,255,255,.12);
+
+    transition:.25s;
+
+}
+
+.menu-item:hover::before{
+
+    width:100%;
+
+}
+
+.menu-item span{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ==================================================
+                HEADER DASHBOARD
+================================================== */
+
+.acoes-topo{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+}
+
+.acoes-topo .btn-secundario{
+
+    width:auto;
+
+}
+
+.acoes-topo .btn-primario{
+
+    width:auto;
+
+    margin-top:0;
+
+    padding:10px 18px;
+
+}
+
+/* ==================================================
+                TRANSIÇÕES
+================================================== */
+
+button{
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    cursor:pointer;
+
+}
+
+/* ==================================================
+                ANIMAÇÃO DE ENTRADA
+================================================== */
+
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card-resumo{
+    animation:aparecer .5s ease;
+}
+
+.card-avaliacoes{
+    animation:aparecer .7s ease;
+}
+
+.card-media{
+    animation:aparecer .9s ease;
+}
+
+.card-pendencias{
+    animation:aparecer 1.1s ease;
+}
+
+/* ==================================================
+                    GRÁFICO
+================================================== */
+
+.grafico-fake{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    gap:10px;
+
+    height:180px;
+
+    margin-top:20px;
+
+    padding:0 5px;
+
+}
+
+.grafico-fake::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:2px;
+
+    background:#D9DCE1;
+
+}
+
+.grafico-fake div{
+
+    flex:1;
+
+    border-radius:8px 8px 0 0;
+
+    background:linear-gradient(
+        to top,
+        #0A1F44,
+        #F5821F
+    );
+
+    transition:.35s;
+
+}
+
+.grafico-fake div:hover{
+
+    transform:translateY(-6px);
+
+    opacity:.9;
+
+}
+
+.grafico-fake div:nth-child(1){height:55px;}
+.grafico-fake div:nth-child(2){height:90px;}
+.grafico-fake div:nth-child(3){height:145px;}
+.grafico-fake div:nth-child(4){height:110px;}
+.grafico-fake div:nth-child(5){height:165px;}
+
+/* ==================================================
+                CARDS
+================================================== */
+
+.card-resumo h2{
+
+    transition:.25s;
+
+}
+
+.card-resumo:hover h2{
+
+    transform:scale(1.15);
+
+}
+
+.card-resumo span{
+
+    display:block;
+
+    margin:10px 0 18px;
+
+}
+
+/* ==================================================
+                ALUNOS
+================================================== */
+
+.aluno{
+
+    transition:.25s;
+
+    border-radius:6px;
+
+    padding-left:10px;
+
+    padding-right:10px;
+
+}
+
+.aluno:hover{
+
+    background:#F8FAFC;
+
+}
+
+.aluno strong{
+
+    color:#0A1F44;
+
+}
+
+/* ==================================================
+            STATUS
+================================================== */
+
+.status{
+
+    letter-spacing:.3px;
+
+}
+
+.status.ativo{
+
+    box-shadow:0 0 0 1px rgba(40,167,69,.15);
+
+}
+
+.status.pendente{
+
+    box-shadow:0 0 0 1px rgba(220,53,69,.12);
+
+}
+
+/* ==================================================
+                MENU LATERAL
+================================================== */
+
+.menu-lateral{
+
+    min-height:720px;
+
+}
+
+.menu-item{
+
+    transition:.25s;
+
+}
+
+.menu-item:hover{
+
+    padding-left:20px;
+
+}
+
+/* ==================================================
+                SCROLL
+================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ECECEC;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0A1F44;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#163A6E;
+
+}
+
+/* ==================================================
+            RESPONSIVIDADE
+================================================== */
+
+@media (max-width:1200px){
+
+    .cards-resumo{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:980px){
+
+    .dashboard-professor{
+
+        flex-direction:column;
+
+    }
+
+    .menu-lateral{
+
+        width:100%;
+
+        position:relative;
+
+        top:0;
+
+        min-height:auto;
+
+    }
+
+    .painel-dashboard{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .cards-resumo{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .titulo-dashboard{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .info-professor{
+
+        width:100%;
+
+    }
+
+    .titulo-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .aluno{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+
+    }
+
+    .status{
+
+        width:120px;
+
+    }
+
+}
+
+/* ==================================================
+                DETALHES
+================================================== */
+
+.card-media h1{
+
+    text-shadow:0 3px 12px rgba(245,130,31,.18);
+
+}
+
+.card-resumo::after{
+
+    transition:.25s;
+
+}
+
+.card-resumo:hover::after{
+
+    width:100%;
+
+}
+
+.card-avaliacoes,
+.card-media,
+.card-pendencias{
+
+    overflow:hidden;
+
+}
