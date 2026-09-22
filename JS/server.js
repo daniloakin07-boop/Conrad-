@@ -21,6 +21,7 @@ const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
