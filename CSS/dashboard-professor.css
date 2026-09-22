@@ -2,6 +2,11 @@
         DASHBOARD DO PROFESSOR
    ================================================== */
 
+:root{
+  --accent-color: #ff6a00; /* laranja mais forte */
+  --brand-dark: #163B74;
+}
+
 /* Estrutura principal da dashboard */
 
 .dashboard-professor {
@@ -287,7 +292,7 @@
 
 .card-media h1 {
   font-size: 42px;
-  color: #F5821F;
+  color: var(--accent-color);
   margin: 5px 0;
 }
 
@@ -503,3 +508,367 @@
   }
 
 }
+
+
+/* =========================================
+   ESTILOS EXISTENTES DO SITE
+   ========================================= */
+
+/* Todo o CSS que já estava no arquivo permanece aqui */
+
+
+/* =========================================
+   ESTILOS EXCLUSIVOS DA PÁGINA EDUCADOR
+   ========================================= */
+
+/* Cole os novos estilos abaixo desta linha */
+
+
+/* =========================================
+   ESTRUTURA PRINCIPAL
+   ========================================= */
+
+.pagina-educador {
+  background: #eef1f6;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagina-educador .educator-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg,#f4f6fa 0%, #eef1f6 100%);
+  color: #1a2433;
+}
+
+
+/* =========================================
+   MENU LATERAL
+   ========================================= */
+
+.pagina-educador .educator-sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(16,43,88,0.08);
+  border-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pagina-educador .sidebar-brand {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg,#102b58 0%, #163b74 100%);
+  padding: 8px 0;
+}
+
+.pagina-educador .sidebar-logo {
+  max-width: 160px;
+  max-height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+.pagina-educador .educator-nav-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina-educador .educator-nav-list{ margin-top: 6px }
+
+.pagina-educador .educator-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  height: 56px;
+  border-bottom: 1px solid rgba(16,43,88,0.06);
+  background: transparent;
+  color: #163B74;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.pagina-educador .sidebar-bottom{ padding: 12px; margin-top: 8px; background: transparent; }
+.pagina-educador .sidebar-bottom .sidebar-tip{ display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:8px; background: linear-gradient(90deg, rgba(255,106,0,0.06), rgba(255,255,255,0)); border-left: 4px solid rgba(255,106,0,0.18) }
+.pagina-educador .sidebar-bottom .sidebar-tip span{ color: var(--accent-color); font-size:18px; margin-top:2px }
+.pagina-educador .sidebar-bottom .sidebar-tip strong{ display:block; color:var(--brand-dark); font-size:13px }
+.pagina-educador .sidebar-bottom .sidebar-tip small{ display:block; color:#556; font-size:12px }
+.pagina-educador .sidebar-bottom .user-profile{ width:100%; margin-top:10px; border-radius:8px; padding:8px; background:#fff; box-shadow:0 6px 14px rgba(16,43,88,0.04); display:flex; gap:10px; align-items:center; border:1px solid rgba(16,43,88,0.06) }
+.pagina-educador .sidebar-bottom .user-profile .avatar{ width:40px; height:40px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-weight:700 }
+.pagina-educador .sidebar-bottom .user-profile strong{ font-size:13px }
+.pagina-educador .sidebar-bottom .user-profile small{ display:block; font-size:12px; color:#667 }
+
+/* Modal styles */
+.modal-overlay{ position:fixed; inset:0; background:rgba(10,18,34,0.45); display:flex; align-items:center; justify-content:center; z-index:1200; padding:20px }
+.modal-overlay[hidden]{ display:none }
+.modal{ width:420px; max-width:100%; background:#fff; border-radius:12px; box-shadow:0 18px 50px rgba(10,18,34,0.3); padding:18px; position:relative }
+.modal h3{ margin:0 0 8px 0; font-size:18px; color:#163B74 }
+.modal .modal-body{ color:#333; font-size:14px; margin-bottom:12px }
+.modal .modal-actions{ display:flex; gap:8px; justify-content:flex-end }
+.modal .modal-close{ position:absolute; right:10px; top:8px; background:transparent; border:0; font-size:22px; line-height:1; color:#666; cursor:pointer }
+.modal .btn-primario{ background:#163B74; color:#fff; border:0; padding:8px 12px; border-radius:8px }
+.modal .btn-secundario{ background:transparent; color:#163B74; border:1px solid rgba(22,59,116,0.12); padding:8px 12px; border-radius:8px }
+
+@media (max-width: 520px){
+  .modal{ width:100%; height:auto; max-height:86vh; overflow:auto; border-radius:10px }
+  .modal-overlay{ align-items:flex-end; padding:12px }
+}
+
+.pagina-educador .educator-nav-item .nav-icon{
+  width: 24px;
+  display:inline-flex;
+  justify-content:center;
+  color:#163B74;
+}
+
+.pagina-educador .educator-nav-item:hover,
+.pagina-educador .educator-nav-item:focus,
+.pagina-educador .educator-nav-item.active {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.pagina-educador .educator-nav-item:focus-visible{
+  outline: 3px solid rgba(245,130,31,0.25);
+  outline-offset: 2px;
+}
+
+
+/* =========================================
+   CABEÇALHO E CONTEÚDO
+   ========================================= */
+
+.pagina-educador .educator-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: transparent;
+}
+
+.pagina-educador .educator-main {
+  flex: 1;
+  min-width: 0;
+  background: #eef1f6;
+}
+
+.pagina-educador .educator-content {
+  padding: 18px 24px 30px;
+}
+
+.pagina-educador .educator-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.pagina-educador h1 {
+  margin: 0;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 21px;
+}
+
+
+/* =========================================
+   CARDS DE MÉTRICAS
+   ========================================= */
+
+.pagina-educador .metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pagina-educador .metric-card {
+  min-height: 70px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(16,43,88,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pagina-educador .metric-card strong {
+  color: #0b1a33;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.pagina-educador .metric-card.violet { border-left: 4px solid #786be7 }
+.pagina-educador .metric-card.cyan { border-left: 4px solid #2fb6c9 }
+.pagina-educador .metric-card.amber { border-left: 4px solid var(--accent-color) }
+.pagina-educador .metric-card.rose  { border-left: 4px solid #e26a9e }
+
+
+/* =========================================
+   PAINÉIS DO DASHBOARD
+   ========================================= */
+
+.pagina-educador .dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr .55fr;
+  grid-template-areas:
+    "classes agenda performance"
+    "pending messages messages";
+  gap: 20px 30px;
+}
+
+.pagina-educador .dashboard-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(16,43,88,0.06);
+}
+
+.pagina-educador .classes-card {
+  grid-area: classes;
+}
+
+.pagina-educador .agenda-card {
+  grid-area: agenda;
+}
+
+.pagina-educador .performance-card {
+  grid-area: performance;
+}
+
+.pagina-educador .pending-card {
+  grid-area: pending;
+}
+
+.pagina-educador .messages-card {
+  grid-area: messages;
+}
+
+
+/* =========================================
+   TURMAS E AGENDA
+   ========================================= */
+
+.pagina-educador .class-line,
+.pagina-educador .agenda-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 6px;
+  border: 0;
+  border-top: 1px solid rgba(16,43,88,0.06);
+  background: transparent;
+  text-align: left;
+  transition: background 160ms ease;
+}
+.pagina-educador .class-line:hover,
+.pagina-educador .agenda-line:hover { background: rgba(16,43,88,0.03); }
+
+.pagina-educador .class-line span,
+.pagina-educador .agenda-line span {
+  flex: 1;
+}
+
+.pagina-educador .class-line strong,
+.pagina-educador .agenda-line strong {
+  display: block;
+  color: #111;
+  font-size: 8px;
+}
+
+.pagina-educador .class-line small,
+.pagina-educador .agenda-line small {
+  display: block;
+  margin-top: 2px;
+  color: #555;
+  font-size: 7px;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: #163B74;
+  color: #fff;
+  padding: 8px 12px;
+  z-index: 1000;
+}
+.skip-link:focus { left: 12px; outline: 3px solid rgba(245,130,31,0.4); }
+
+/* Toast */
+.educator-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #163B74;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(16,43,88,0.12);
+  transform: translateY(14px);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+  pointer-events: none;
+}
+.educator-toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+/* Avatars */
+.avatar { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; font-weight:700; color:#fff; }
+.avatar-purple { background: linear-gradient(90deg,#786be7,#6659d9); }
+.avatar-violet { background:#786be7 }
+.avatar-cyan { background:#2fb6c9 }
+.avatar-amber { background:#f5a623 }
+
+@media (max-width: 850px) {
+  .pagina-educador .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "classes agenda"
+      "performance performance"
+      "pending messages";
+  }
+
+  .pagina-educador .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .pagina-educador .educator-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    transform: translateX(-100%);
+  }
+
+  .pagina-educador .educator-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .pagina-educador .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "classes"
+      "agenda"
+      "performance"
+      "pending"
+      "messages";
+  }
+}
+
