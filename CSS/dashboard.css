@@ -1,0 +1,842 @@
+/* =====================================================
+   CONRAD PAINEL — DASHBOARD
+   Cores originais preservadas
+===================================================== */
+
+
+/* =====================================================
+   CONFIGURAÇÕES GERAIS
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #F7F5EF;
+    color: #171B2E;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.topo {
+    height: 56px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E7E3D8;
+}
+
+
+/* =====================================================
+   LAYOUT PRINCIPAL
+===================================================== */
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 56px);
+}
+
+
+/* =====================================================
+   MENU LATERAL
+===================================================== */
+
+.menu-lateral {
+    width: 220px;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    background: #1A1F44;
+    color: #FFFFFF;
+    padding: 24px 18px;
+}
+
+.menu-lateral h3 {
+    margin-bottom: 22px;
+    font-size: 17px;
+}
+
+
+/* Links */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-lateral a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #C7CBE8;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.menu-lateral a:hover {
+    background: #262F52;
+    color: #FFFFFF;
+}
+
+
+/* Página atual */
+
+.menu-lateral a.menu-item-ativo,
+.menu-lateral a.pagina-atual {
+    background: #f5821f;
+    color: #1B2340;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   ÁREA DE AJUDA
+===================================================== */
+
+.lateral-ajuda {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lateral-ajuda h2 {
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.lateral-ajuda p {
+    color: #C7CBE8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* Botão */
+
+.btn-secundario {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    margin-top: 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.btn-secundario:hover {
+    background: #262F52;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+
+/* =====================================================
+   PERFIL DO ALUNO
+===================================================== */
+
+.perfil-aluno {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: #A7ABCB;
+    font-size: 13px;
+}
+
+.perfil-aluno strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #FFFFFF;
+}
+
+
+/* =====================================================
+   CONTEÚDO PRINCIPAL
+===================================================== */
+
+.conteudo-principal {
+    flex: 1;
+    min-width: 0;
+    padding: 32px 40px 40px;
+}
+
+
+/* =====================================================
+   CABEÇALHO DO DASHBOARD
+===================================================== */
+
+.cabecalho-dashboard {
+    margin-bottom: 28px;
+}
+
+.boas-vindas h1 {
+    color: #171B2E;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.boas-vindas p {
+    margin-top: 8px;
+    color: #6B6F86;
+    font-size: 14px;
+}
+
+
+/* Compatibilidade com seu HTML antigo */
+
+.bloco-auth {
+    padding: 30px 40px 10px;
+}
+
+/* =====================================================
+   GRID DO DASHBOARD
+===================================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(300px, 1fr);
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+}
+
+
+/* =====================================================
+   COLUNA DIREITA
+===================================================== */
+
+.coluna-direita {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #E7E3D8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(27, 35, 64, 0.04);
+}
+
+
+/* Cabeçalho do card */
+
+.card-header {
+    margin-bottom: 15px;
+}
+
+.card-header h2 {
+    color: #171B2E;
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   ABAS DOS DIAS
+===================================================== */
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 1px solid #E7E3D8;
+    margin-bottom: 5px;
+}
+
+.tabs a {
+    padding: 9px 12px;
+    color: #6B6F86;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.tabs a:hover {
+    color: #1B2340;
+}
+
+.tabs a.ativo {
+    color: #1B2340;
+    font-weight: bold;
+    border-bottom: 2px solid #f5821f;
+}
+
+
+/* =====================================================
+   LISTA DE HORÁRIOS
+===================================================== */
+
+.lista-horarios {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lista-horarios li {
+    display: grid;
+    grid-template-columns:
+        55px
+        4px
+        1fr;
+    align-items: center;
+    gap: 14px;
+    min-height: 58px;
+    border-bottom: 1px solid #E7E3D8;
+}
+
+.lista-horarios li:last-child {
+    border-bottom: none;
+}
+
+
+/* Compatibilidade caso continue usando .card > ul */
+
+.card > ul {
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+
+/* Hora */
+
+.hora {
+    width: 55px;
+
+    color: #6B6F86;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* Barra dourada */
+
+.barra {
+    width: 3px;
+
+    height: 28px;
+
+    background: #f5821f;
+
+    border-radius: 3px;
+}
+
+
+/* Informações */
+
+.info {
+    min-width: 0;
+}
+
+.materia {
+    color: #171B2E;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.sala {
+    margin-top: 3px;
+
+    color: #6B6F86;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   MURAL DE AVISOS
+===================================================== */
+
+.bloco-avisos {
+    width: 100%;
+}
+
+.aviso {
+    display: grid;
+
+    grid-template-columns:
+        auto
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #E7E3D8;
+}
+
+.aviso:last-child {
+    border-bottom: none;
+}
+
+
+/* Texto */
+
+.texto {
+    min-width: 0;
+
+    margin: 0;
+
+    color: #4F566A;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+}
+
+
+/* Tempo */
+
+.quando {
+    color: #6B6F86;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TAGS DOS AVISOS
+===================================================== */
+
+.tag-aviso,
+.tag-evento,
+.tag-comunicado {
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.tag-aviso {
+    background: #FBE3E1;
+
+    color: #C1443B;
+}
+
+.tag-evento {
+    background: #DFF0E8;
+
+    color: #2E8B63;
+}
+
+.tag-comunicado {
+    background: #E2E5FA;
+
+    color: #4C5FD5;
+}
+
+
+/* =====================================================
+   FREQUÊNCIA
+===================================================== */
+
+.frequencia-card {
+    width: 100%;
+
+    background: #1B2340;
+
+    border: 1px solid #303A57;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    color: #FFFFFF;
+}
+
+.frequencia-topo {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.frequencia-topo h2 {
+    color: #FFFFFF;
+
+    font-size: 17px;
+
+    font-family: Georgia, serif;
+}
+
+.frequencia-topo span {
+    color: #A7ABCB;
+
+    font-size: 13px;
+}
+
+
+/* Conteúdo */
+
+.frequencia-conteudo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+
+/* =====================================================
+   GRÁFICO DE FREQUÊNCIA
+===================================================== */
+
+.grafico-frequencia {
+    width: 85px;
+
+    height: 85px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.circulo {
+    width: 84px;
+
+    height: 84px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #8BC9A8 0deg 331deg,
+            #303A57 331deg 360deg
+        );
+}
+
+.circulo::before {
+    content: "";
+
+    position: absolute;
+
+    width: 68px;
+
+    height: 68px;
+
+    border-radius: 50%;
+
+    background: #1B2340;
+}
+
+.circulo span {
+    position: relative;
+
+    z-index: 1;
+
+    color: #FFFFFF;
+
+    font-family: Georgia, serif;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+
+/* Informações */
+
+.frequencia-info h3 {
+    margin-bottom: 7px;
+
+    color: #FFFFFF;
+
+    font-size: 16px;
+
+    font-family: Georgia, serif;
+}
+
+.frequencia-info p {
+    margin: 5px 0;
+
+    color: #A7ABCB;
+
+    font-size: 13px;
+}
+
+.frequencia-info strong {
+    color: #FFFFFF;
+}
+
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coluna-direita {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        align-items: start;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .menu-lateral {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .conteudo-principal {
+        padding: 25px 20px;
+    }
+
+    .bloco-auth {
+        padding: 20px;
+    }
+
+    .coluna-direita {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .boas-vindas h1 {
+        font-size: 24px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .aviso {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+
+    .quando {
+        margin-top: -5px;
+    }
+
+    .frequencia-conteudo {
+        gap: 15px;
+    }
+
+    .tabs {
+        overflow-x: auto;
+    }
+
+    .tabs a {
+        white-space: nowrap;
+    }
+}
+
+/* =====================================================
+   TAREFAS PENDENTES
+===================================================== */
+
+.tarefas-card {
+    width: 100%;
+
+    background: #1B2340;
+
+    border: 1px solid #303A57;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    color: #1A1F44;
+}
+
+.tarefas-topo {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.tarefas-topo h2 {
+    color: #FFFFFF;
+
+    font-size: 17px;
+
+    font-family: Georgia, serif;
+}
+
+.tarefas-topo span {
+    color: #A7ABCB;
+
+    font-size: 13px;
+}
+
+
+/* Lista */
+
+.lista-tarefas {
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+.lista-tarefas li {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px dashed #303A57;
+}
+
+.lista-tarefas li:last-child {
+    border-bottom: none;
+}
+
+
+/* Checkbox */
+
+.checkbox {
+    width: 18px;
+
+    height: 18px;
+
+    margin-top: 2px;
+
+    flex-shrink: 0;
+
+    appearance: none;
+
+    border: 2px solid #4A4E68;
+
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.checkbox:checked {
+    background: #8BC9A8;
+
+    border-color: #8BC9A8;
+}
+
+
+/* Texto da tarefa */
+
+.tarefa-titulo {
+    margin: 0 0 4px;
+
+    color: #FFFFFF;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.tarefa-meta {
+    margin: 0;
+
+    color: #A7ABCB;
+
+    font-size: 12px;
+}
+
+.tarefa-meta.urgente {
+    color: #E4785C;
+}
+
+
+/* Tarefa concluída */
+
+.lista-tarefas li.concluida .tarefa-titulo {
+    color: #6B7090;
+
+    text-decoration: line-through;
+}
+
+.lista-tarefas li.concluida .tarefa-meta {
+    color: #565B78;
+}

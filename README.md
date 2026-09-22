@@ -9,6 +9,7 @@ Projeto simples de uma plataforma web com páginas de cadastro, login e contato.
 - Permite login de usuários
 - Envia mensagens pelo formulário de contato
 - Usa um servidor Node.js com Express
+- Oferece bate-papo em tempo real com Socket.IO
 
 ## Tecnologias usadas
 
@@ -21,6 +22,7 @@ Projeto simples de uma plataforma web com páginas de cadastro, login e contato.
 - cors
 - express-session
 - bcryptjs
+- socket.io
 
 ## Estrutura do projeto
 
@@ -65,6 +67,12 @@ Conrad-
 - POST `/logout` → encerra a sessão
 - POST `/contato` → envia mensagem de contato
 - GET `/health` → verifica se o servidor está funcionando
+
+## Como testar o bate-papo
+
+O chat está disponível em `/pages/bate-papo.html`. Inicie o projeto com `npm start` e abra essa página em duas janelas ou abas do navegador usando `http://localhost:3000`. As mensagens são transmitidas em tempo real, as últimas 100 mensagens ficam disponíveis para quem entra depois e o nome do usuário autenticado é usado automaticamente. Para testar sem login, o chat identifica o remetente como `Aluno Anônimo`.
+
+O servidor deve ser iniciado pelo `JS/server.js`, pois o Socket.IO precisa compartilhar o mesmo servidor HTTP do Express. Não abra o HTML diretamente pelo arquivo (`file://`) nem use o Live Server para essa página; acesse a URL fornecida pelo Express.
 
 ## Observação
 

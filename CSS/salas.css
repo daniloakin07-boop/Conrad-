@@ -1,0 +1,263 @@
+/* Salas Virtuais — visual alinhado ao index.html (navy/laranja, Bebas Neue + Nunito) */
+
+.sidebar {
+  background: #0A1F44;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logos {
+  background: transparent;
+  padding: 24px 0 18px;
+}
+
+.sidebar .logos .logo-texto {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #fff;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+.sidebar ul {
+  padding: 10px 0;
+}
+
+.sidebar li {
+  color: rgba(255,255,255,0.75);
+  border-bottom: none;
+  padding: 14px 24px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border-left: 4px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar li:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+.sidebar li.ativo {
+  background: rgba(245, 130, 31, 0.12);
+  color: #fff;
+  border-left: 4px solid #F5821F;
+}
+
+.salas-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f5f6f8;
+}
+
+/* Banner no topo, igual gradiente do hero da home */
+
+.salas-topo {
+  background: linear-gradient(180deg, #0A1F44 0%, #10265a 100%);
+  padding: 28px 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  min-height: 96px;
+}
+
+.salas-topo-texto span {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #F5821F;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.salas-topo h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 2.2vw, 2.7rem);
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.salas-busca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px;
+  padding: 10px 18px;
+  min-width: 270px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.salas-busca i { color: rgba(255,255,255,0.7); }
+
+.salas-busca input {
+  border: none;
+  outline: none;
+  flex: 1;
+  background: transparent;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+
+.salas-busca input::placeholder { color: rgba(255,255,255,0.6); }
+
+/* Grid de cards, igual espírito dos .card-simples da home */
+
+.salas-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 34px 36px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px 20px;
+  align-content: start;
+}
+
+.sala-card {
+  background: #fff;
+  border: 1px solid #dfe3ea;
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sala-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(10, 31, 68, 0.1);
+}
+
+.sala-card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.sala-icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--acento, #163B74) 14%, white);
+  color: var(--acento, #163B74);
+}
+
+.status-pill {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.status-pill.vivo { background: #ffe4d6; color: #c8500f; }
+.status-pill.breve { background: #dbeafe; color: #1d4ed8; }
+.status-pill.livre { background: #dcfce7; color: #15803d; }
+
+.sala-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+.sala-card p {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+
+.sala-card-rodape {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #163B74;
+  font-weight: 700;
+  padding-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+/* Tela da sala com vídeo */
+
+.sala-video-view { display: none; flex: 1; flex-direction: column; }
+.sala-video-view.ativa { display: flex; }
+.salas-grid.oculto { display: none; }
+
+.sala-video-topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 34px;
+  background: #0A1F44;
+}
+
+.sala-video-topo button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+.sala-video-topo strong {
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.sala-video-frame {
+  flex: 1;
+  background: #071333;
+}
+
+.sala-video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.sala-video-controles {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  background: #0A1F44;
+}
+
+.sala-video-controles button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sala-video-controles button:hover { background: rgba(255,255,255,0.2); }
+
+.sala-video-controles button.desligado,
+.sala-video-controles button.sair {
+  background: #F5821F;
+}

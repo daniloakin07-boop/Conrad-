@@ -16,12 +16,16 @@ require("dotenv").config();
 // - bcryptjs: utilitário para hashear e comparar senhas com segurança
 const express = require("express");
 const path = require("path");
+const http = require("http");
 const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const { Server } = require("socket.io");
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
+const httpServer = http.createServer(app);
 
 // 2) Pool de conexão com o banco de dados
 // O arquivo `JS/db.js` exporta um pool mysql2 que o servidor usa para executar queries
@@ -83,8 +87,63 @@ if (process.env.NODE_ENV == "production") {
     sessionConfig.cookie.secure = false;
 }
 
-// Ativa o middleware de sessão com a configuração definida acima
-app.use(session(sessionConfig));
+// Ativa o middleware de sessão com a configuração definida acima.
+// A mesma instância também será compartilhada com o Socket.IO.
+const sessionMiddleware = session(sessionConfig);
+app.use(sessionMiddleware);
+
+// Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
+// A lista de origens deve conter apenas os endereços realmente usados pelo site.
+const io = new Server(httpServer, {
+    cors: {
+        origin: listOrigins,
+        credentials: true
+    }
+});
+
+// Permite que os eventos do chat conheçam o usuário autenticado na sessão.
+// O middleware do Engine.IO roda antes de o Socket.IO criar o socket.
+io.engine.use(sessionMiddleware);
+
+const historicoChat = [];
+const limiteHistorico = 100;
+
+io.on("connection", (socket) => {
+    const usuario = socket.request.session?.usuario;
+
+    // Envia as últimas mensagens para quem acabou de entrar.
+    socket.emit("chat:historico", historicoChat);
+    io.emit("chat:online", { quantidade: io.engine.clientsCount });
+
+    socket.on("chat:enviar", (texto, callback) => {
+        const mensagemTexto = typeof texto === "string" ? texto.trim() : "";
+
+        if (!mensagemTexto || mensagemTexto.length > 500) {
+            return callback?.({
+                ok: false,
+                erro: "A mensagem deve ter entre 1 e 500 caracteres."
+            });
+        }
+
+        const mensagem = {
+            id: `${Date.now()}-${socket.id}`,
+            autor: usuario?.nome || "Aluno Anônimo",
+            usuarioId: usuario?.id || null,
+            texto: mensagemTexto,
+            data: new Date().toISOString()
+        };
+
+        historicoChat.push(mensagem);
+        if (historicoChat.length > limiteHistorico) historicoChat.shift();
+
+        io.emit("chat:mensagem", mensagem);
+        callback?.({ ok: true });
+    });
+
+    socket.on("disconnect", () => {
+        io.emit("chat:online", { quantidade: io.engine.clientsCount });
+    });
+});
 
 // 8) Rotas que exigem sessão (ex.: páginas internas)
 // `paginasProtegidas` lista arquivos HTML que devem exigir login
@@ -261,7 +320,7 @@ const PORT = process.env.PORT || 3000;
 
 // Se este arquivo foi executado diretamente (e não importado), inicia o servidor
 if (require.main === module) {
-    app.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
         console.log(`Servidor rodando na porta ${PORT}`);
     });
 }

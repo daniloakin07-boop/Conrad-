@@ -90,7 +90,10 @@
                 <i class="fa-solid fa-user"></i>
 
                 <!-- Nome do contato -->
-                <h2>TEACHER 1</h2>
+                <div>
+                    <h2>CHAT DA TURMA</h2>
+                    <small id="status-chat">Conectando...</small>
+                </div>
 
             </div>
 
@@ -113,7 +116,7 @@
         <!-- ================= ÁREA DAS MENSAGENS ================= -->
 
         <!-- Local onde as mensagens serão inseridas pelo JavaScript -->
-        <div class="mensagens" id="mensagens">
+        <div class="mensagens" id="mensagens" aria-live="polite">
 
         </div>
 
@@ -128,7 +131,11 @@
             <input
                 type="text"
                 id="texto"
+                maxlength="500"
+                autocomplete="off"
                 placeholder="Digite uma mensagem">
+
+            <span id="contador-online" aria-live="polite">0 pessoas online</span>
 
             <!-- Botão que chama a função enviarMensagem() -->
             <button onclick="enviarMensagem()">
@@ -141,6 +148,7 @@
 </div>
 
 <!-- Arquivo JavaScript responsável pelas funcionalidades do chat -->
+<script src="/socket.io/socket.io.js"></script>
 <script src="../JS/script.js"></script>
 
 </body>
