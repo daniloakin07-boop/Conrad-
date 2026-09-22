@@ -1,303 +1,469 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="stylesheet" href="../CSS/dashboard-professor.css">
+```
+<link rel="stylesheet" href="../CSS/style.css">
+<link rel="stylesheet" href="../CSS/professor.css">
 
-    <title>CONRAD Virtual School - Dashboard do Professor</title>
+<title>CONRAD Virtual School - Dashboard do Professor</title>
+```
+
 </head>
+
 <body>
 
+```
+<!-- CABEÇALHO -->
 <header class="topo">
 
     <a href="#" class="logo">CONRAD</a>
 
     <nav class="menu">
-        <a href="#">Dashboard</a>
+        <a href="dashboard.html" class="ativo">Dashboard</a>
         <a href="#">Turmas</a>
         <a href="#">Conteúdos</a>
     </nav>
 
     <div class="acoes-topo">
-        <button class="btn-secundario">👤 Prof. Jordan</button>
-        <button class="btn-primario">Sair</button>
+        <button class="btn-secundario">
+            👤 Prof. Jordan
+        </button>
+
+        <button class="btn-primario">
+            Sair
+        </button>
     </div>
 
 </header>
 
+
 <main class="container">
 
-<div class="dashboard-professor">
+    <div class="dashboard-professor">
 
-    <!-- MENU -->
+        <!-- MENU LATERAL -->
+        <aside class="menu-lateral">
 
-    <aside class="menu-lateral">
+            <h3>Conrad</h3>
 
-        <h3>Painel</h3>
+            <a href="dashboard.html" class="menu-item ativo">
+                <span>Dashboard</span>
+            </a>
 
-        <a href="#" class="menu-item ativo">🏠 Dashboard</a>
-        <a href="#" class="menu-item">👨‍🏫 Minhas Turmas</a>
-        <a href="#" class="menu-item">📚 Conteúdos</a>
-        <a href="#" class="menu-item">📝 Atividades</a>
-        <a href="#" class="menu-item">📊 Avaliações</a>
-        <a href="#" class="menu-item">📖 Notas</a>
-        <a href="#" class="menu-item">💬 Mensagens</a>
+            <a href="#" class="menu-item">
+                <span>Minhas Turmas</span>
+            </a>
 
-    </aside>
+            <a href="#" class="menu-item">
+                <span>Conteúdos</span>
+            </a>
 
-    <!-- CONTEÚDO -->
+            <a href="#" class="menu-item">
+                <span>Atividades</span>
+            </a>
 
-    <section class="conteudo-dashboard">
+            <a href="#" class="menu-item">
+                <span>Bate-Papo</span>
+            </a>
 
-        <div class="titulo-dashboard">
+            <div class="menu-ajuda">
+                <strong>Precisa de ajuda?</strong>
+                <p>Acesse o suporte da plataforma.</p>
+                <button class="btn-secundario">Suporte</button>
+            </div>
 
-            <div>
+        </aside>
 
-                <h1>Olá, Prof. Jordan 👋</h1>
 
-                <p>
-                    Bem-vindo novamente. Confira o desempenho das suas turmas e acompanhe as atividades em andamento.
-                </p>
+        <!-- CONTEÚDO PRINCIPAL -->
+        <section class="conteudo-dashboard">
+
+            <!-- TÍTULO -->
+            <div class="titulo-dashboard">
+
+                <div class="boas-vindas">
+
+                    <span class="tag-dashboard">
+                        DASHBOARD
+                    </span>
+
+                    <h1>
+                        Olá, Prof. Jordan! 👋
+                    </h1>
+
+                    <p>
+                        Bem-vindo novamente. Acompanhe o desempenho
+                        das suas turmas e gerencie suas atividades.
+                    </p>
+
+                </div>
+
+
+                <div class="info-professor">
+
+                    <div>
+                        <strong>Disciplina</strong>
+                        <span>Desenvolvimento de Sistemas</span>
+                    </div>
+
+                    <div>
+                        <strong>Último acesso</strong>
+                        <span>Hoje • 09:42</span>
+                    </div>
+
+                </div>
 
             </div>
 
-            <div class="info-professor">
 
-                <strong>Disciplina</strong>
-                <span>Desenvolvimento de Sistemas</span>
+            <!-- CARDS DE RESUMO -->
+            <section class="cards-resumo">
 
-                <strong>Último acesso</strong>
-                <span>Hoje • 09:42</span>
+                <div class="card-resumo">
 
-            </div>
+                    <div class="icone-card">
+                        📝
+                    </div>
 
-        </div>
-
-        <!-- CARDS -->
-
-        <section class="cards-resumo">
-
-            <div class="card-resumo">
-                <h2></h2>
-
-                <h3>Atividades</h3>
-
-                <span>1 atividade cadastrada</span>
-
-                <button class="btn-secundario">
-                    Gerenciar
-                </button>
-
-            </div>
-
-            <div class="card-resumo">
-
-                <h2></h2>
-
-                <h3>Alunos</h3>
-
-                <span>8 alunos ativos</span>
-
-                <button class="btn-secundario">
-                    Ver alunos
-                </button>
-
-            </div>
-
-            <div class="card-resumo">
-
-                <h2></h2>
-
-                <h3>Entregas</h3>
-
-                <span>5 atividades entregues</span>
-
-                <button class="btn-secundario">
-                    Corrigir
-                </button>
-
-            </div>
-
-            <div class="card-resumo">
-
-                <h2></h2>
-
-                <h3>Próximo Prazo</h3>
-
-                <span>01/01 às 23:59</span>
-
-                <button class="btn-secundario">
-                    Calendário
-                </button>
-
-            </div>
-
-        </section>
-
-        <!-- PAINEL -->
-
-        <section class="painel-dashboard">
-
-            <!-- ESQUERDA -->
-
-            <div class="card-avaliacoes">
-
-                <div class="titulo-card">
-
-                    <h2>Avaliação dos Alunos</h2>
+                    <div>
+                        <h3>Atividades</h3>
+                        <strong class="numero-card">1</strong>
+                        <span>atividade cadastrada</span>
+                    </div>
 
                     <button class="btn-secundario">
-                        Exportar Relatório
+                        Gerenciar →
                     </button>
 
                 </div>
 
-                <div class="aluno">
-                    <span>Davi Céu Leal</span>
-                    <strong>10,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
 
-                <div class="aluno">
-                    <span>Davi Portugal</span>
-                    <strong>9,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
+                <div class="card-resumo">
 
-                <div class="aluno">
-                    <span>Fellype</span>
-                    <strong>10,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
-
-                <div class="aluno">
-                    <span>Kahrel</span>
-                    <strong>--</strong>
-                    <span class="status pendente">Pendente</span>
-                </div>
-
-                <div class="aluno">
-                    <span>Guilherme</span>
-                    <strong>7,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
-
-                <div class="aluno">
-                    <span>Flávio</span>
-                    <strong>--</strong>
-                    <span class="status pendente">Pendente</span>
-                </div>
-
-                <div class="aluno">
-                    <span>Alexandre</span>
-                    <strong>8,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
-
-                <div class="aluno">
-                    <span>Danilo</span>
-                    <strong>8,0</strong>
-                    <span class="status ativo">Entregue</span>
-                </div>
-
-            </div>
-
-            <!-- DIREITA -->
-
-            <div class="painel-lateral">
-
-                <div class="card-media">
-
-                    <h3>Média Geral</h3>
-
-                    <h1>8,67</h1>
-
-                    <p>Média das avaliações da turma.</p>
-
-                    <div class="grafico-fake">
-
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-
+                    <div class="icone-card">
+                        👨‍🎓
                     </div>
 
-                </div>
-
-                <div class="card-pendencias">
-
-                    <h3>Atividades Pendentes</h3>
-
-                    <div class="pendencia">
-
-                        <h4>📝 Corrigir atividades</h4>
-
-                        <p>2 alunos aguardando correção.</p>
-
-                        <button class="btn-primario">
-                            Abrir
-                        </button>
-
+                    <div>
+                        <h3>Alunos</h3>
+                        <strong class="numero-card">8</strong>
+                        <span>alunos ativos</span>
                     </div>
 
-                    <div class="pendencia">
+                    <button class="btn-secundario">
+                        Ver alunos →
+                    </button>
 
-                        <h4>📖 Lançar notas</h4>
+                </div>
 
-                        <p>2 avaliações aguardando lançamento.</p>
+
+                <div class="card-resumo">
+
+                    <div class="icone-card">
+                        📥
+                    </div>
+
+                    <div>
+                        <h3>Entregas</h3>
+                        <strong class="numero-card">5</strong>
+                        <span>atividades entregues</span>
+                    </div>
+
+                    <button class="btn-secundario">
+                        Corrigir →
+                    </button>
+
+                </div>
+
+
+                <div class="card-resumo">
+
+                    <div class="icone-card">
+                        📅
+                    </div>
+
+                    <div>
+                        <h3>Próximo prazo</h3>
+                        <strong class="numero-card">01/01</strong>
+                        <span>até às 23:59</span>
+                    </div>
+
+                    <button class="btn-secundario">
+                        Calendário →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- PAINEL PRINCIPAL -->
+            <section class="painel-dashboard">
+
+
+                <!-- AVALIAÇÕES -->
+                <div class="card-avaliacoes">
+
+                    <div class="titulo-card">
+
+                        <div>
+                            <span class="subtitulo-card">
+                                DESEMPENHO
+                            </span>
+
+                            <h2>
+                                Avaliação dos Alunos
+                            </h2>
+                        </div>
 
                         <button class="btn-secundario">
-                            Acessar
+                            📊 Exportar Relatório
                         </button>
 
                     </div>
 
+
+                    <!-- CABEÇALHO DA TABELA -->
+                    <div class="cabecalho-alunos">
+                        <span>Aluno</span>
+                        <span>Nota</span>
+                        <span>Status</span>
+                    </div>
+
+
+                    <div class="aluno">
+                        <span>Davi Céu Leal</span>
+                        <strong>10,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Davi Portugal</span>
+                        <strong>9,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Fellype</span>
+                        <strong>10,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Kahrel</span>
+                        <strong>--</strong>
+                        <span class="status pendente">Pendente</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Guilherme</span>
+                        <strong>7,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Flávio</span>
+                        <strong>--</strong>
+                        <span class="status pendente">Pendente</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Alexandre</span>
+                        <strong>8,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
+                    <div class="aluno">
+                        <span>Danilo</span>
+                        <strong>8,0</strong>
+                        <span class="status ativo">Entregue</span>
+                    </div>
+
                 </div>
 
-                <div class="card-pendencias">
 
-                    <h3>📢 Avisos</h3>
+                <!-- PAINEL DIREITO -->
+                <div class="painel-lateral">
 
-                    <div class="pendencia">
 
-                        <h4>Reunião Pedagógica</h4>
+                    <!-- MÉDIA -->
+                    <div class="card-media">
 
-                        <p>Sexta-feira às 14h na sala dos professores.</p>
+                        <div class="cabecalho-media">
+                            <div>
+                                <span class="subtitulo-card">
+                                    DESEMPENHO DA TURMA
+                                </span>
+
+                                <h3>
+                                    Média Geral
+                                </h3>
+                            </div>
+
+                            <span class="icone-media">
+                                📈
+                            </span>
+                        </div>
+
+                        <h1>8,67</h1>
+
+                        <p>
+                            Média das avaliações da turma.
+                        </p>
+
+                        <div class="barra-progresso">
+                            <div class="progresso"></div>
+                        </div>
+
+                        <small>
+                            Bom desempenho geral
+                        </small>
 
                     </div>
 
-                    <div class="pendencia">
 
-                        <h4>Atualização da Plataforma</h4>
+                    <!-- PENDÊNCIAS -->
+                    <div class="card-pendencias">
 
-                        <p>Novos conteúdos foram disponibilizados para as turmas.</p>
+                        <div class="titulo-card">
+                            <h3>
+                                Atividades Pendentes
+                            </h3>
+
+                            <span class="contador">
+                                2
+                            </span>
+                        </div>
+
+
+                        <div class="pendencia">
+
+                            <div class="icone-pendencia">
+                                📝
+                            </div>
+
+                            <div>
+                                <h4>
+                                    Corrigir atividades
+                                </h4>
+
+                                <p>
+                                    2 alunos aguardando correção.
+                                </p>
+                            </div>
+
+                            <button class="btn-primario">
+                                Abrir
+                            </button>
+
+                        </div>
+
+
+                        <div class="pendencia">
+
+                            <div class="icone-pendencia">
+                                📖
+                            </div>
+
+                            <div>
+                                <h4>
+                                    Lançar notas
+                                </h4>
+
+                                <p>
+                                    2 avaliações aguardando lançamento.
+                                </p>
+                            </div>
+
+                            <button class="btn-secundario">
+                                Acessar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AVISOS -->
+                    <div class="card-pendencias">
+
+                        <div class="titulo-card">
+                            <h3>📢 Avisos</h3>
+                        </div>
+
+
+                        <div class="aviso">
+
+                            <span class="aviso-data">
+                                19 SET
+                            </span>
+
+                            <div>
+                                <h4>
+                                    Reunião Pedagógica
+                                </h4>
+
+                                <p>
+                                    Sexta-feira às 14h na sala dos professores.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="aviso">
+
+                            <span class="aviso-data">
+                                NOVO
+                            </span>
+
+                            <div>
+                                <h4>
+                                    Atualização da Plataforma
+                                </h4>
+
+                                <p>
+                                    Novos conteúdos foram disponibilizados
+                                    para as turmas.
+                                </p>
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
         </section>
 
-    </section>
-
-</div>
+    </div>
 
 </main>
 
+
+<!-- RODAPÉ -->
 <footer class="rodape">
 
-    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p>
+        © 2026 Conrad Virtual School. Todos os direitos reservados.
+    </p>
 
-    <p><a href="#">Entre em contato</a></p>
+    <p>
+        <a href="#">
+            Entre em contato
+        </a>
+    </p>
 
 </footer>
+```
 
 </body>
+
 </html>
