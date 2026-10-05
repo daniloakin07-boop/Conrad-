@@ -107,208 +107,31 @@
                         <!-- DIAS DA SEMANA -->
                         <div class="tabs">
 
-                            <a href="#" class="ativo">
+                            <a href="#" class="ativo" data-dia="seg">
                                 Seg
                             </a>
 
-                            <a href="#">
+                            <a href="#" data-dia="ter">
                                 Ter
                             </a>
 
-                            <a href="#">
+                            <a href="#" data-dia="qua">
                                 Qua
                             </a>
 
-                            <a href="#">
+                            <a href="#" data-dia="qui">
                                 Qui
                             </a>
 
-                            <a href="#">
+                            <a href="#" data-dia="sex">
                                 Sex
                             </a>
 
                         </div>
 
 
-                        <!-- LISTA DE HORÁRIOS -->
-                        <ul class="lista-horarios">
-
-                            <li>
-
-                                <span class="hora">
-                                    07:15
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Português
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 3 · Prof. Eloane
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    08:00
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Filosofia
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 12 · Prof. Carlos
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    08:45
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Intervalo
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    08:55
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Física
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 6 · Prof. Margarete
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    09:40
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Química
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 1 · Prof. Diana
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    10:25
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Intervalo
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    10:50
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        História
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 1 · Prof. João
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-
-                            <li>
-
-                                <span class="hora">
-                                    11:35
-                                </span>
-
-                                <div class="barra"></div>
-
-                                <div class="info">
-
-                                    <div class="materia">
-                                        Matemática
-                                    </div>
-
-                                    <div class="sala">
-                                        Sala 2 · Prof. Guilherme
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-                        </ul>
+                        <!-- LISTA DE HORÁRIOS: preenchida pelo script.js a partir do calendario.json -->
+                        <ul class="lista-horarios" id="lista-horarios"></ul>
 
                     </div>
 
@@ -479,7 +302,6 @@
                                     <p class="tarefa-meta">Português · Entrega quarta-feira</p>
                                 </div>
                             </li>
-                            </li>
                         </ul>
                     </section>
                 </div>
@@ -489,6 +311,8 @@
         </section>
 
     </main>
+
+    <script src="../JS/horarios.js"></script>
 
 </body>
 
