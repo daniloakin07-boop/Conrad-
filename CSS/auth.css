@@ -32,12 +32,12 @@
 
 .pagina-auth::before {
   left: 0;
-  background-image: url("../img/Captura%20de%20tela%202026-07-10%20171954.png");
+  background-image: url("../img/Banner\ Escolar\ CONRAD.png");
 }
 
 .pagina-auth::after {
   right: 0;
-  background-image: url("../img/Captura%20de%20tela%202026-07-10%20171954.png");
+  background-image: url("../img/Banner\ Escolar\ CONRAD.png");
 }
 
 /* O container branco central do formulário. Ele mantém os campos bem
@@ -175,8 +175,10 @@
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  margin-top: 0;
+  margin-top: 0 200px;
   font-size: 13px;
+  white-space: nowrap;
+  transform: translateY(2px);
 }
 
 /* Botão */
