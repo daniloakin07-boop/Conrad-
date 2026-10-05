@@ -21,6 +21,7 @@ const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
@@ -33,6 +34,8 @@ const pool = require("./db.js");
 // 3) Origens permitidas para CORS
 // Lista de endereços que podem acessar a API via browser (evita requests não autorizados)
 const listOrigins = [
+    "http://localhost:5500", // Live Server
+    "http://127.0.0.1:5500",
     "http://localhost:5501", // Live Server / previews locais
     "http://127.0.0.1:5501",
     "http://localhost:3000"  // quando servimos arquivos estáticos localmente
@@ -145,9 +148,6 @@ io.on("connection", (socket) => {
 });
 
 // 8) Rotas que exigem sessão (ex.: páginas internas)
-// `paginasProtegidas` lista arquivos HTML que devem exigir login
-const paginasProtegidas = ["aluno.html", "educador.html"];
-
 // Middleware para checar acesso às páginas estáticas protegidas
 app.get("/pages/:pagina", function (req, res, next) {
     if (paginasProtegidas.includes(req.params.pagina) && !req.session.usuario) {

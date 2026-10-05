@@ -48,12 +48,14 @@ Conrad-
    npm install
    ```
 
-3. Inicie o servidor:
+3. Atualize o esquema do MySQL executando `JS/migrations/001-add-tipo-to-tb-usuarios.sql` no banco configurado no `.env`. A coluna `tipo` fica nula para contas antigas, pois o esquema anterior não guardava essa informação.
+
+4. Inicie o servidor:
    ```bash
    npm start
    ```
 
-4. Acesse no navegador:
+5. Acesse no navegador:
    ```text
    http://localhost:3000
    ```

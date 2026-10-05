@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONRAD - Atividades</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <link rel="stylesheet" href="../CSS/professor.css" />
+  <style>
+    body {
+      background: #edf2f7;
+    }
+
+    .pagina-atividades {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .conteudo-atividades {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .topo-atividades {
+      background: #fff;
+      border: 1px solid #e3e7eb;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topo-atividades h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      color: #0A1F44;
+      margin: 0;
+    }
+
+    .topo-atividades p {
+      color: #666;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    .stats-rapidas {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: #fff;
+      border: 1px solid #e3e7eb;
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 8px 18px rgba(10, 31, 68, 0.04);
+    }
+
+    .stat-box h4 {
+      font-size: 12px;
+      color: #667085;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 28px;
+      color: #0A1F44;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-box span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .quick-actions a {
+      text-decoration: none;
+    }
+
+    .lista-atividades {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card-atividade {
+      background: #fff;
+      border: 1px solid #e3e7eb;
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 8px 18px rgba(10, 31, 68, 0.04);
+    }
+
+    .card-atividade-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .icone-atividade {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff4eb 0%, #ffe0c2 100%);
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .card-atividade h3 {
+      font-size: 18px;
+      color: #0A1F44;
+      margin-bottom: 4px;
+    }
+
+    .card-atividade p {
+      color: #666;
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .card-atividade-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 94px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge.pendente {
+      background: #fdecec;
+      color: #b33a32;
+    }
+
+    .status-badge.ativo {
+      background: #e8f6ed;
+      color: #287a45;
+    }
+
+    .status-badge.nova {
+      background: #eef4ff;
+      color: #2958a8;
+    }
+
+    .btn-primario,
+    .btn-secundario,
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .btn-primario {
+      background: linear-gradient(135deg, #f5821f 0%, #ff8e3c 100%);
+      color: #fff;
+      border-color: rgba(245, 130, 31, 0.35);
+    }
+
+    .btn-secundario {
+      background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
+      color: #0A1F44;
+      border-color: rgba(10, 31, 68, 0.12);
+    }
+
+    .btn-link {
+      background: #0A1F44;
+      color: #fff;
+      border-color: rgba(10, 31, 68, 0.18);
+    }
+
+    .btn-primario:hover,
+    .btn-secundario:hover,
+    .btn-link:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+
+    .bloco-secao {
+      margin-top: 22px;
+      background: #fff;
+      border: 1px solid #e3e7eb;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .bloco-secao h2 {
+      font-size: 22px;
+      color: #0A1F44;
+      margin-bottom: 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .lista-mini {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+      border: 1px solid #edf1f5;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .mini-item strong {
+      display: block;
+      color: #0A1F44;
+      margin-bottom: 2px;
+    }
+
+    .mini-item span {
+      color: #666;
+      font-size: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .card-atividade {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .card-atividade-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .topo-atividades {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stats-rapidas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body data-page="atividades">
+  <header class="topo">
+    <a href="#" class="logo">CONRAD</a>
+
+    <nav class="menu">
+      <a href="dashboard.html" class="ativo">Dashboard</a>
+      <a href="#">Turmas</a>
+      <a href="#">Conteúdos</a>
+    </nav>
+
+    <div class="acoes-topo">
+      <a href="perfil-educador.html" class="user-link" aria-label="Perfil do professor">
+        <span class="user-avatar">👤</span>
+        <span>Prof. Jordan</span>
+      </a>
+      <a href="index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="dashboard-professor pagina-atividades">
+      <aside class="menu-lateral">
+        <h3>Conrad</h3>
+
+        <a href="dashboard.html" class="menu-item">
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span>Minhas Turmas</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span>Conteúdos</span>
+        </a>
+        <a href="atividades.html" class="menu-item ativo">
+          <span>Atividades</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span>Bate-Papo</span>
+        </a>
+
+        <div class="menu-ajuda">
+          <strong>Precisa de ajuda?</strong>
+          <p>Acesse o suporte da plataforma.</p>
+          <button class="btn-secundario">Suporte</button>
+        </div>
+      </aside>
+
+      <section class="conteudo-atividades">
+        <div class="topo-atividades">
+          <div>
+            <span class="tag-dashboard">ATIVIDADES</span>
+            <h1>Gerenciamento de atividades</h1>
+            <p>Organize tarefas, prazos e entregas da turma.</p>
+          </div>
+          <a href="avaliação.html" class="btn-secundario">Voltar para avaliação</a>
+        </div>
+
+        <div id="statsRapidas" class="stats-rapidas"></div>
+
+        <div class="quick-actions">
+          <a href="#pendentes" class="btn-primario">Pendentes</a>
+          <a href="#cronograma" class="btn-secundario">Cronograma</a>
+          <a href="#tarefas" class="btn-link">Tarefas da turma</a>
+          <a href="avaliação.html" class="btn-secundario">Abrir avaliação</a>
+        </div>
+
+        <div id="pendentes" class="lista-atividades" aria-live="polite">
+          <div id="atividadesList"></div>
+        </div>
+
+        <div id="tarefas" class="bloco-secao">
+          <h2>Tarefas da turma</h2>
+          <div id="tarefasList" class="lista-mini"></div>
+        </div>
+
+        <div id="cronograma" class="bloco-secao">
+          <h2>Cronograma</h2>
+          <div id="cronogramaList" class="lista-mini"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="#">Entre em contato</a></p>
+  </footer>
+
+  <script src="../JS/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+ALTER TABLE tb_usuarios
+ADD COLUMN tipo VARCHAR(20) NULL;

@@ -3,7 +3,7 @@
 
 // BASE_URL: define a URL da API dependendo se estamos em localhost ou produção
 const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-    ? "http://localhost:3000"
+    ? `${window.location.protocol}//${window.location.hostname}:3000`
     : "https://conrad-virtual-school.onrender.com";
 
 // Função utilitária para exibir mensagens no HTML
@@ -33,6 +33,7 @@ if (formLogin) {
         try {
             const resposta = await fetch(`${BASE_URL}/login`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
             });
@@ -41,7 +42,8 @@ if (formLogin) {
 
             if (resposta.ok) {
                 mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso");
-                window.location.href = "aluno.html";
+                const pagina = dados.usuario?.tipo === "educador" ? "educador.html" : "aluno.html";
+                window.location.href = `${BASE_URL}/pages/${pagina}`;
             } else {
                 mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro");
             }
@@ -82,6 +84,7 @@ if (formCadastro) {
         try {
             const resposta = await fetch(`${BASE_URL}/cadastro`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nome, email, senha, tipo: tipo.value })
             });

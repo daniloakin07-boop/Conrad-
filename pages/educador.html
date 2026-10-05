@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conrad Virtual School | Educador</title>
+
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/dashboard-professor.css">
+</head>
+
+<body class="pagina-educador">
+  <a href="#mainContent" class="skip-link">Pular para o conteúdo</a>
+
+  <header class="topo topo-home">
+    <nav class="menu">
+      <a href="index.html">inicio</a>
+      <a href="sobre.html">sobre</a>
+      <a href="contato.html">contato</a>
+      <a href="bate-papo.html">bate-papo</a>
+      <a href="perfil-educador.html">perfil</a>
+    </nav>
+
+    <!-- topo-acoes removido nesta página (educador) -->
+  </header>
+
+  <div class="educator-layout">
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <aside class="educator-sidebar" id="educatorSidebar">
+      <div class="sidebar-brand">
+        <a href="index.html" class="logo"><img class="sidebar-logo" src="../img/Captura de tela 2026-07-10 181529.png" alt="Conrad Virtual School" onerror="this.style.display='none'"></a>
+      </div>
+
+      <nav class="educator-nav" aria-label="Menu do educador">
+        <ul class="educator-nav-list">
+          <li><a href="#" class="educator-nav-item active" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span><span class="nav-label">Visão geral</span></a></li>
+          <li><a href="#" class="educator-nav-item"><span class="nav-icon" aria-hidden="true">♧</span><span class="nav-label">Minhas turmas</span></a></li>
+          <li><a href="#" class="educator-nav-item"><span class="nav-icon" aria-hidden="true">✓</span><span class="nav-label">Avaliações</span></a></li>
+          <li><a href="#" class="educator-nav-item"><span class="nav-icon" aria-hidden="true">☷</span><span class="nav-label">Atividades</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip" role="note" aria-label="Dica rápida"><span aria-hidden="true">✦</span><div><strong>Dica rápida</strong><small>Organize sua semana em poucos cliques.</small></div></div>
+        <button class="user-profile" type="button" data-message="Seu perfil está atualizado." aria-label="Abrir menu do usuário">
+          <span class="avatar avatar-purple" aria-hidden="true">J</span>
+          <span class="user-meta"><strong>Jordan Alves</strong><small>Educador</small></span>
+          <span class="user-actions" aria-hidden="true">•••</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="educator-main">
+      <header class="educator-topbar">
+        <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Abrir menu">☰</button>
+        <div class="breadcrumb"><span>Painel</span><b>›</b><strong>Visão geral</strong></div>
+        <div class="topbar-tools">
+          <button class="topbar-icon" type="button" data-message="Busca rápida em breve." aria-label="Pesquisar">⌕</button>
+          <button class="topbar-icon notification-icon" type="button" data-message="Você não tem novas notificações." aria-label="Notificações">♧<i></i></button>
+          <button class="topbar-user" type="button" data-message="Seu perfil está atualizado."><span class="avatar avatar-purple">J</span><span><strong>Jordan</strong><small>Educador</small></span><b>›</b></button>
+        </div>
+      </header>
+
+      <div class="educator-content">
+        <section class="educor-welcome-wrapper">
+          <div class="educator-welcome">
+            <div>
+              <div class="eyebrow"><i aria-hidden="true"></i> <time datetime="2026-09-21">SEGUNDA-FEIRA, 21 DE SETEMBRO</time></div>
+              <h1>Olá, Jordan<span aria-hidden="true">.</span></h1>
+              <p>Aqui está o resumo das suas atividades de hoje.</p>
+            </div>
+          </div>
+          <button class="primary-action" type="button" data-message="Nova atividade pronta para configurar.">＋ Nova atividade</button>
+        </section>
+
+        <section class="metrics-grid">
+          <article class="metric-card violet"><div class="metric-card-top"><span>◯</span><b>+12%</b></div><small>Turmas ativas</small><strong>6</strong><em>+1 este mês</em></article>
+          <article class="metric-card cyan"><div class="metric-card-top"><span>〽</span><b>Atenção</b></div><small>Atividades pendentes</small><strong>6</strong><em>+1 este mês</em></article>
+          <article class="metric-card amber"><div class="metric-card-top"><span>♧</span><b>Total</b></div><small>Alunos</small><strong>120</strong><em>+1 este mês</em></article>
+          <article class="metric-card rose"><div class="metric-card-top"><span>⌁</span><b>+0,8</b></div><small>Média geral da turma</small><strong>6,8</strong><em>+1 este mês</em></article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="dashboard-card classes-card">
+            <header class="titulo-card"><div><small>ACOMPANHAMENTO</small><h2>Minhas turmas</h2></div><button class="btn-primario" type="button" data-message="Lista completa de turmas em breve.">Ver todas ↗</button></header>
+            <div class="class-list" id="classesList">
+              <button class="class-line" type="button" data-class-name="Matemática II · 1º ano A" data-class-level="2º ano do Ensino Médio" data-class-students="28" aria-label="Abrir turma Matemática II · 1º ano A"><i class="dot violet" aria-hidden="true"></i><span><strong>Matemática II · 1º ano A</strong><small>2º ano do Ensino Médio</small></span><em>28 alunos</em><b>Ativa</b><span class="chev" aria-hidden="true">›</span></button>
+              <button class="class-line" type="button" data-class-name="Física II · 2º ano B" data-class-level="2º ano do Ensino Médio" data-class-students="26" aria-label="Abrir turma Física II · 2º ano B"><i class="dot cyan" aria-hidden="true"></i><span><strong>Física II · 2º ano B</strong><small>2º ano do Ensino Médio</small></span><em>26 alunos</em><b>Ativa</b><span class="chev" aria-hidden="true">›</span></button>
+              <button class="class-line" type="button" data-class-name="Biologia II · 1º ano" data-class-level="2º ano do Ensino Médio" data-class-students="24" aria-label="Abrir turma Biologia II · 1º ano"><i class="dot amber" aria-hidden="true"></i><span><strong>Biologia II · 1º ano</strong><small>2º ano do Ensino Médio</small></span><em>24 alunos</em><b>Ativa</b><span class="chev" aria-hidden="true">›</span></button>
+              <button class="class-line" type="button" data-class-name="Português II · 1º ano" data-class-level="2º ano do Ensino Médio" data-class-students="28" aria-label="Abrir turma Português II · 1º ano"><i class="dot rose" aria-hidden="true"></i><span><strong>Português II · 1º ano</strong><small>2º ano do Ensino Médio</small></span><em>28 alunos</em><b>Ativa</b><span class="chev" aria-hidden="true">›</span></button>
+            </div>
+          </article>
+
+          <article class="dashboard-card agenda-card">
+            <header class="titulo-card"><div><small>AGENDA</small><h2>Hoje <mark>21 SET</mark></h2></div><button class="btn-secundario" type="button" data-message="Preferências da agenda em breve.">☷</button></header>
+            <div class="agenda-list">
+              <button class="agenda-line" type="button" data-agenda-title="Aula de Matemática II · 1º ano A" data-agenda-room="Sala 12" data-agenda-time="12:20" aria-label="Ver evento 12:20 Aula de Matemática II"><time>12:20</time><i class="dot violet"></i><span><strong>Aula de Matemática II · 1º ano A</strong><small>Sala 12</small></span><b>›</b></button>
+              <button class="agenda-line" type="button" data-agenda-title="Aula de Português II · 1º ano A" data-agenda-room="Sala 7" data-agenda-time="09:00" aria-label="Ver evento 09:00 Aula de Português II"><time>09:00</time><i class="dot cyan"></i><span><strong>Aula de Português II · 1º ano A</strong><small>Sala 7</small></span><b>›</b></button>
+              <button class="agenda-line" type="button" data-agenda-title="Aula de Geografia II · 1º ano B" data-agenda-room="Sala 8" data-agenda-time="07:40" aria-label="Ver evento 07:40 Aula de Geografia II"><time>07:40</time><i class="dot amber"></i><span><strong>Aula de Geografia II · 1º ano B</strong><small>Sala 8</small></span><b>›</b></button>
+              <button class="agenda-line" type="button" data-agenda-title="Aula de História II · 1º ano A" data-agenda-room="Sala 2" data-agenda-time="08:20" aria-label="Ver evento 08:20 Aula de História II"><time>08:20</time><i class="dot rose"></i><span><strong>Aula de História II · 1º ano A</strong><small>Sala 2</small></span><b>›</b></button>
+              <button class="agenda-line" type="button" data-agenda-title="Aula de Inglês II · 1º ano A" data-agenda-room="Sala 1" data-agenda-time="10:20" aria-label="Ver evento 10:20 Aula de Inglês II"><time>10:20</time><i class="dot cyan"></i><span><strong>Aula de Inglês II · 1º ano A</strong><small>Sala 1</small></span><b>›</b></button>
+            </div>
+          </article>
+
+          <article class="dashboard-card performance-card">
+            <header><div><small>DESEMPENHO</small><h2>Média dos alunos</h2></div><button class="square-action" type="button" data-message="Mais detalhes de desempenho em breve.">•••</button></header>
+            <div class="performance-summary"><strong>6,8</strong><span><b>↗ 8,4%</b> vs. mês anterior</span></div>
+            <div class="chart"><div class="chart-scale"><span>8</span><span>6</span><span>4</span><span>2</span></div><svg viewBox="0 0 320 130" aria-label="Gráfico de evolução da média dos alunos"><defs><linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#786be7" stop-opacity=".25"/><stop offset="1" stop-color="#786be7" stop-opacity="0"/></linearGradient></defs><path d="M3 110 L46 88 L89 94 L132 64 L175 49 L218 42 L261 8 L315 50 L315 130 L3 130Z" fill="url(#chartGradient)"/><path d="M3 110 L46 88 L89 94 L132 64 L175 49 L218 42 L261 8 L315 50" fill="none" stroke="#6659d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="261" cy="8" r="5" fill="#fff" stroke="#6659d9" stroke-width="3"/></svg></div><div class="chart-months"><span>JUN</span><span>JUL</span><span>AGO</span><span>SET</span></div>
+          </article>
+
+          <article class="dashboard-card pending-card">
+            <header class="titulo-card"><div><small>PARA FAZER</small><h2>Atividades pendentes</h2></div><button class="btn-primario" type="button" data-message="Todas as pendências estão listadas aqui.">Ver todas ↗</button></header>
+            <div class="pending-list">
+              <button type="button" class="pending-item" data-activity-title="Corrigir atividades" data-activity-meta="8 entregas" aria-label="Abrir atividade Corrigir atividades"><span>✓</span><strong>Corrigir atividades<small>8 entregas</small></strong></button>
+              <button type="button" class="pending-item" data-activity-title="Lançar notas" data-activity-meta="4 turmas" aria-label="Abrir atividade Lançar notas"><span>⌁</span><strong>Lançar notas<small>4 turmas</small></strong></button>
+              <button type="button" class="pending-item" data-activity-title="Provas" data-activity-meta="5 provas" aria-label="Abrir atividade Provas"><span>▱</span><strong>Provas<small>5 provas</small></strong></button>
+              <button type="button" class="pending-item" data-activity-title="Criar sala" data-activity-meta="3 turmas" aria-label="Abrir atividade Criar sala"><span>＋</span><strong>Criar sala<small>3 turmas</small></strong></button>
+            </div>
+          </article>
+
+          <article class="dashboard-card messages-card">
+            <header class="titulo-card"><div><small>COMUNICAÇÃO</small><h2>Mensagens <mark class="new-badge">3 novas</mark></h2></div><button class="btn-secundario" type="button" data-message="Caixa de mensagens em breve.">Ver todas ↗</button></header>
+            <div class="message-list">
+              <button type="button" data-message="Mensagem de Ana Paula selecionada."><span class="avatar avatar-violet">AP</span><strong>Ana Paula · Matemática II<small>Professor, posso tirar uma dúvida sobre a atividade?</small></strong><time>10:42</time></button>
+              <button type="button" data-message="Mensagem de Rafael selecionada."><span class="avatar avatar-cyan">RF</span><strong>Rafael Souza · 2º B<small>Enviei a prova revisada para correção.</small></strong><time>09:18</time></button>
+              <button type="button" data-message="Mensagem da Coordenação selecionada."><span class="avatar avatar-amber">CO</span><strong>Coordenação pedagógica<small>Lembrete: reunião de alinhamento às 16h.</small></strong><time>Ontem</time></button>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="educator-toast" id="educatorToast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <!-- Modal para detalhes de turma/agenda -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="classModal">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">×</button>
+      <h3 id="modalTitle"></h3>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-actions">
+        <button id="openClassBtn" class="btn-primario">Abrir</button>
+        <button id="markDoneBtn" class="btn-secundario">Marcar concluída</button>
+        <button id="modalClose2" class="btn-secundario">Fechar</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const toast = document.getElementById('educatorToast');
+    let toastTimer;
+    function showMessage(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+    document.querySelectorAll('[data-message]').forEach((element) => {
+      element.addEventListener('click', () => showMessage(element.dataset.message));
+    });
+    document.querySelectorAll('.educator-nav-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.educator-nav-item').forEach((nav) => nav.classList.remove('active'));
+        item.classList.add('active');
+        if (item.dataset.section !== 'Visão geral') showMessage(item.dataset.section + ': em breve no seu painel.');
+        document.getElementById('educatorSidebar').classList.remove('open');
+        document.getElementById('mobileOverlay').classList.remove('show');
+      });
+    });
+    document.getElementById('mobileMenuButton').addEventListener('click', () => {
+      document.getElementById('educatorSidebar').classList.add('open');
+      document.getElementById('mobileOverlay').classList.add('show');
+    });
+    document.getElementById('mobileOverlay').addEventListener('click', () => {
+      document.getElementById('educatorSidebar').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('show');
+    });
+    
+    // Modal and interactive controls for class/agenda
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const openClassBtn = document.getElementById('openClassBtn');
+    const markDoneBtn = document.getElementById('markDoneBtn');
+    function openModal(title, bodyHtml, openHref){
+      modalTitle.textContent = title;
+      modalBody.innerHTML = bodyHtml;
+      openClassBtn.onclick = () => { if(openHref) location.href = openHref; };
+      markDoneBtn.onclick = () => {
+        // mark current activity as done visually
+        const currentTitle = modalTitle.textContent;
+        document.querySelectorAll('.pending-item').forEach((it)=>{
+          if(it.dataset.activityTitle === currentTitle){
+            it.classList.add('done');
+            it.setAttribute('aria-pressed','true');
+            it.querySelector('small')?.insertAdjacentText('beforebegin','Concluído • ');
+          }
+        });
+        showMessage(currentTitle + ' marcada como concluída.');
+        closeModal();
+      };
+      modalOverlay.hidden = false;
+      modalOverlay.classList.add('show');
+    }
+    function closeModal(){
+      modalOverlay.hidden = true;
+      modalOverlay.classList.remove('show');
+      openClassBtn.onclick = null;
+    }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalClose2').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e)=>{ if(e.target===modalOverlay) closeModal(); });
+
+    document.querySelectorAll('.class-line').forEach((btn)=>{
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const name = btn.dataset.className || btn.querySelector('strong')?.innerText || 'Turma';
+        const level = btn.dataset.classLevel || '';
+        const students = btn.dataset.classStudents ? (btn.dataset.classStudents + ' alunos') : (btn.querySelector('em')?.innerText || '');
+        const body = `<p><strong>${students}</strong></p><p>${level}</p>`;
+        const href = `perfil-educador.html?turma=${encodeURIComponent(name)}`;
+        openModal(name, body, href);
+      });
+    });
+
+    document.querySelectorAll('.agenda-line').forEach((btn)=>{
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const title = btn.dataset.agendaTitle || btn.querySelector('strong')?.innerText || 'Evento';
+        const room = btn.dataset.agendaRoom || btn.querySelector('small')?.innerText || '';
+        const time = btn.dataset.agendaTime || btn.querySelector('time')?.innerText || '';
+        const body = `<p><strong>${time}</strong> — ${room}</p><p>${title}</p>`;
+        openModal(title, body, null);
+      });
+    });
+  </script>
+</body>
+</html>
+
+

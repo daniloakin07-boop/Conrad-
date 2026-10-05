@@ -6,37 +6,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
+
 <link rel="stylesheet" href="../CSS/style.css">
 <link rel="stylesheet" href="../CSS/professor.css">
 
 <title>CONRAD Virtual School - Dashboard do Professor</title>
-```
+
 
 </head>
 
-<body>
+<body data-page="avaliacao">
 
-```
+
 <!-- CABEÇALHO -->
 <header class="topo">
 
-    <a href="#" class="logo">CONRAD</a>
+    <a href="index.html" class="logo">CONRAD</a>
 
     <nav class="menu">
         <a href="dashboard.html" class="ativo">Dashboard</a>
-        <a href="#">Turmas</a>
-        <a href="#">Conteúdos</a>
+        <a href="salas.html">Turmas</a>
+        <a href="sobre.html">Conteúdos</a>
     </nav>
 
     <div class="acoes-topo">
-        <button class="btn-secundario">
-            👤 Prof. Jordan
-        </button>
+        <a href="perfil-educador.html" class="user-link" aria-label="Perfil do professor">
+            <span class="user-avatar">👤</span>
+            <span>Prof. Jordan</span>
+        </a>
 
-        <button class="btn-primario">
-            Sair
-        </button>
+        <a href="index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
 
 </header>
@@ -55,26 +54,26 @@
                 <span>Dashboard</span>
             </a>
 
-            <a href="#" class="menu-item">
+            <a href="salas.html" class="menu-item">
                 <span>Minhas Turmas</span>
             </a>
 
-            <a href="#" class="menu-item">
+            <a href="sobre.html" class="menu-item">
                 <span>Conteúdos</span>
             </a>
 
-            <a href="#" class="menu-item">
+            <a href="atividades.html" class="menu-item">
                 <span>Atividades</span>
             </a>
 
-            <a href="#" class="menu-item">
+            <a href="bate-papo.html" class="menu-item">
                 <span>Bate-Papo</span>
             </a>
 
             <div class="menu-ajuda">
                 <strong>Precisa de ajuda?</strong>
                 <p>Acesse o suporte da plataforma.</p>
-                <button class="btn-secundario">Suporte</button>
+                <button type="button" class="btn-secundario" data-link="contato.html">Suporte</button>
             </div>
 
         </aside>
@@ -120,84 +119,19 @@
 
             </div>
 
+            <div class="feedback-banner">
+                <div class="feedback-texto">
+                    <h3>Correção e feedback</h3>
+                </div>
+
+                <div class="feedback-meta">
+                    <span>Quinta • 14:00</span>
+                    <button type="button" class="agenda-badge" data-link="atividades.html#cronograma">AGENDA</button>
+                </div>
+            </div>
 
             <!-- CARDS DE RESUMO -->
             <section class="cards-resumo">
-
-                <div class="card-resumo">
-
-                    <div class="icone-card">
-                        📝
-                    </div>
-
-                    <div>
-                        <h3>Atividades</h3>
-                        <strong class="numero-card">1</strong>
-                        <span>atividade cadastrada</span>
-                    </div>
-
-                    <button class="btn-secundario">
-                        Gerenciar →
-                    </button>
-
-                </div>
-
-
-                <div class="card-resumo">
-
-                    <div class="icone-card">
-                        👨‍🎓
-                    </div>
-
-                    <div>
-                        <h3>Alunos</h3>
-                        <strong class="numero-card">8</strong>
-                        <span>alunos ativos</span>
-                    </div>
-
-                    <button class="btn-secundario">
-                        Ver alunos →
-                    </button>
-
-                </div>
-
-
-                <div class="card-resumo">
-
-                    <div class="icone-card">
-                        📥
-                    </div>
-
-                    <div>
-                        <h3>Entregas</h3>
-                        <strong class="numero-card">5</strong>
-                        <span>atividades entregues</span>
-                    </div>
-
-                    <button class="btn-secundario">
-                        Corrigir →
-                    </button>
-
-                </div>
-
-
-                <div class="card-resumo">
-
-                    <div class="icone-card">
-                        📅
-                    </div>
-
-                    <div>
-                        <h3>Próximo prazo</h3>
-                        <strong class="numero-card">01/01</strong>
-                        <span>até às 23:59</span>
-                    </div>
-
-                    <button class="btn-secundario">
-                        Calendário →
-                    </button>
-
-                </div>
 
             </section>
 
@@ -209,81 +143,6 @@
                 <!-- AVALIAÇÕES -->
                 <div class="card-avaliacoes">
 
-                    <div class="titulo-card">
-
-                        <div>
-                            <span class="subtitulo-card">
-                                DESEMPENHO
-                            </span>
-
-                            <h2>
-                                Avaliação dos Alunos
-                            </h2>
-                        </div>
-
-                        <button class="btn-secundario">
-                            📊 Exportar Relatório
-                        </button>
-
-                    </div>
-
-
-                    <!-- CABEÇALHO DA TABELA -->
-                    <div class="cabecalho-alunos">
-                        <span>Aluno</span>
-                        <span>Nota</span>
-                        <span>Status</span>
-                    </div>
-
-
-                    <div class="aluno">
-                        <span>Davi Céu Leal</span>
-                        <strong>10,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Davi Portugal</span>
-                        <strong>9,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Fellype</span>
-                        <strong>10,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Kahrel</span>
-                        <strong>--</strong>
-                        <span class="status pendente">Pendente</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Guilherme</span>
-                        <strong>7,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Flávio</span>
-                        <strong>--</strong>
-                        <span class="status pendente">Pendente</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Alexandre</span>
-                        <strong>8,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
-                    <div class="aluno">
-                        <span>Danilo</span>
-                        <strong>8,0</strong>
-                        <span class="status ativo">Entregue</span>
-                    </div>
-
                 </div>
 
 
@@ -294,146 +153,17 @@
                     <!-- MÉDIA -->
                     <div class="card-media">
 
-                        <div class="cabecalho-media">
-                            <div>
-                                <span class="subtitulo-card">
-                                    DESEMPENHO DA TURMA
-                                </span>
-
-                                <h3>
-                                    Média Geral
-                                </h3>
-                            </div>
-
-                            <span class="icone-media">
-                                📈
-                            </span>
-                        </div>
-
-                        <h1>8,67</h1>
-
-                        <p>
-                            Média das avaliações da turma.
-                        </p>
-
-                        <div class="barra-progresso">
-                            <div class="progresso"></div>
-                        </div>
-
-                        <small>
-                            Bom desempenho geral
-                        </small>
-
                     </div>
 
 
                     <!-- PENDÊNCIAS -->
                     <div class="card-pendencias">
 
-                        <div class="titulo-card">
-                            <h3>
-                                Atividades Pendentes
-                            </h3>
-
-                            <span class="contador">
-                                2
-                            </span>
-                        </div>
-
-
-                        <div class="pendencia">
-
-                            <div class="icone-pendencia">
-                                📝
-                            </div>
-
-                            <div>
-                                <h4>
-                                    Corrigir atividades
-                                </h4>
-
-                                <p>
-                                    2 alunos aguardando correção.
-                                </p>
-                            </div>
-
-                            <button class="btn-primario">
-                                Abrir
-                            </button>
-
-                        </div>
-
-
-                        <div class="pendencia">
-
-                            <div class="icone-pendencia">
-                                📖
-                            </div>
-
-                            <div>
-                                <h4>
-                                    Lançar notas
-                                </h4>
-
-                                <p>
-                                    2 avaliações aguardando lançamento.
-                                </p>
-                            </div>
-
-                            <button class="btn-secundario">
-                                Acessar
-                            </button>
-
-                        </div>
-
                     </div>
 
 
                     <!-- AVISOS -->
                     <div class="card-pendencias">
-
-                        <div class="titulo-card">
-                            <h3>📢 Avisos</h3>
-                        </div>
-
-
-                        <div class="aviso">
-
-                            <span class="aviso-data">
-                                19 SET
-                            </span>
-
-                            <div>
-                                <h4>
-                                    Reunião Pedagógica
-                                </h4>
-
-                                <p>
-                                    Sexta-feira às 14h na sala dos professores.
-                                </p>
-                            </div>
-
-                        </div>
-
-
-                        <div class="aviso">
-
-                            <span class="aviso-data">
-                                NOVO
-                            </span>
-
-                            <div>
-                                <h4>
-                                    Atualização da Plataforma
-                                </h4>
-
-                                <p>
-                                    Novos conteúdos foram disponibilizados
-                                    para as turmas.
-                                </p>
-                            </div>
-
-                        </div>
 
                     </div>
 
@@ -456,14 +186,30 @@
     </p>
 
     <p>
-        <a href="#">
+        <a href="contato.html">
             Entre em contato
         </a>
     </p>
 
 </footer>
-```
 
-</body>
+<script src="../JS/dashboard.js"></script>
 
-</html>
+<script>
+  document.addEventListener('click', function (event) {
+    const button = event.target.closest('[data-link]');
+
+    if (!button) return;
+
+    const target = button.dataset.link;
+
+    if (target === 'print') {
+      window.print();
+      return;
+    }
+
+    if (target) {
+      window.location.href = target;
+    }
+  });
+</script>

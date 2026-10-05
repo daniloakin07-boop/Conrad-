@@ -1,0 +1,179 @@
+{
+  "professor": {
+    "nome": "Prof. Jordan",
+    "disciplina": "Desenvolvimento de Sistemas",
+    "ultimoAcesso": "Hoje • 09:42"
+  },
+  "metrics": [
+    {
+      "icon": "📝",
+      "titulo": "Atividades",
+      "valor": "1",
+      "descricao": "atividade cadastrada",
+      "acao": "Gerenciar →",
+      "destino": "atividades.html"
+    },
+    {
+      "icon": "👨‍🎓",
+      "titulo": "Alunos",
+      "valor": "8",
+      "descricao": "alunos ativos",
+      "acao": "Ver alunos →",
+      "destino": "aluno.html"
+    },
+    {
+      "icon": "📥",
+      "titulo": "Entregas",
+      "valor": "5",
+      "descricao": "atividades entregues",
+      "acao": "Corrigir →",
+      "destino": "atividades.html#pendentes"
+    },
+    {
+      "icon": "📅",
+      "titulo": "Próximo prazo",
+      "valor": "01/01",
+      "descricao": "até às 23:59",
+      "acao": "Calendário →",
+      "destino": "atividades.html#cronograma"
+    }
+  ],
+  "alunos": [
+    { "nome": "Davi Céu Leal", "nota": "10,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Davi Portugal", "nota": "9,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Fellype", "nota": "10,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Maria Eduarda", "nota": "10,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Guilherme", "nota": "7,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Flávio", "nota": "--", "status": "Pendente", "tipo": "pendente" },
+    { "nome": "Alexandre", "nota": "8,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Danilo", "nota": "8,0", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "João Pedro", "nota": "9,5", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Isabela", "nota": "--", "status": "Pendente", "tipo": "pendente" },
+    { "nome": "Renan", "nota": "8,5", "status": "Entregue", "tipo": "ativo" },
+    { "nome": "Camila", "nota": "9,0", "status": "Entregue", "tipo": "ativo" }
+  ],
+  "mediaGeral": "8,67",
+  "materias": [
+    { "nome": "Desenvolvimento de Sistemas", "nota": "9,2" },
+    { "nome": "Física", "nota": "8,4" },
+    { "nome": "Matemática", "nota": "8,9" },
+    { "nome": "Português", "nota": "7,8" }
+  ],
+  "pendencias": [
+    {
+      "icon": "📝",
+      "titulo": "Corrigir atividades",
+      "descricao": "2 alunos aguardando correção.",
+      "acao": "Abrir",
+      "tipo": "primario",
+      "destino": "atividades.html#pendentes"
+    },
+    {
+      "icon": "📖",
+      "titulo": "Lançar notas",
+      "descricao": "2 avaliações aguardando lançamento.",
+      "acao": "Acessar",
+      "tipo": "secundario",
+      "destino": "atividades.html#cronograma"
+    }
+  ],
+  "avisos": [
+    {
+      "data": "19 SET",
+      "titulo": "Reunião Pedagógica",
+      "texto": "Sexta-feira às 14h na sala dos professores.",
+      "tipo": "normal"
+    },
+    {
+      "data": "NOVO",
+      "titulo": "Atualização da Plataforma",
+      "texto": "Novos conteúdos foram disponibilizados para as turmas.",
+      "tipo": "novo"
+    }
+  ],
+  "atividades": [
+    {
+      "icon": "📝",
+      "titulo": "Corrigir atividades",
+      "descricao": "2 alunos aguardando correção • Prazo final: 18/10",
+      "status": "Pendente",
+      "statusClass": "pendente",
+      "acao": "Abrir",
+      "botaoClass": "btn-primario",
+      "destino": "avaliação.html"
+    },
+    {
+      "icon": "📘",
+      "titulo": "Lançar notas",
+      "descricao": "2 avaliações aguardando lançamento • Prazo: 20/10",
+      "status": "Ativa",
+      "statusClass": "ativo",
+      "acao": "Acessar",
+      "botaoClass": "btn-secundario",
+      "destino": "avaliação.html"
+    },
+    {
+      "icon": "📚",
+      "titulo": "Trabalho em grupo",
+      "descricao": "Projeto final • 25/10",
+      "status": "Em andamento",
+      "statusClass": "ativo",
+      "acao": "Detalhes",
+      "botaoClass": "btn-secundario",
+      "destino": "#"
+    },
+    {
+      "icon": "🧪",
+      "titulo": "Quiz de revisão",
+      "descricao": "Explicação final e práticas • Disponível até 22/10",
+      "status": "Nova",
+      "statusClass": "nova",
+      "acao": "Ver",
+      "botaoClass": "btn-primario",
+      "destino": "#"
+    }
+  ],
+  "tarefas": [
+    {
+      "titulo": "Trabalho em grupo",
+      "meta": "Projeto final • 25/10",
+      "botao": "Detalhes",
+      "botaoClass": "btn-secundario",
+      "destino": "#"
+    },
+    {
+      "titulo": "Quiz de revisão",
+      "meta": "Refazer conteúdo • 22/10",
+      "botao": "Ver",
+      "botaoClass": "btn-primario",
+      "destino": "#"
+    },
+    {
+      "titulo": "Leitura complementar",
+      "meta": "Capítulo 5 • 19/10",
+      "botao": "Abrir",
+      "botaoClass": "btn-secundario",
+      "destino": "#"
+    }
+  ],
+  "cronograma": [
+    {
+      "titulo": "Entrega de atividade prática",
+      "meta": "Segunda • 08:00",
+      "status": "Nova",
+      "statusClass": "nova"
+    },
+    {
+      "titulo": "Revisão de conteúdo",
+      "meta": "Quarta • 10:30",
+      "status": "OK",
+      "statusClass": "ativo"
+    },
+    {
+      "titulo": "Correção e feedback",
+      "meta": "Quinta • 14:00",
+      "status": "Agend.",
+      "statusClass": "pendente"
+    }
+  ]
+}

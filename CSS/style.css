@@ -21,63 +21,136 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 /* Estrutura base da página e do layout geral. */
 .topo {
   background: #0A1F44;
-  padding: 12px 20px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.topo .logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.topo .menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex: 1;
+}
+
+.topo .menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  opacity: 0.92;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.topo .menu a:hover,
+.topo .menu a.ativo {
+  color: #F5821F;
+  opacity: 1;
+}
+
+.topo .acoes-topo {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
-.topo topo-home{
-  display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-}
-
-
-.menu {
-  display: flex;
-  gap: 16px;
-}
-
-.menu a {
-  color: #fff;
+.topo .user-link,
+.topo .logout-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 13px;
   font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.menu a:hover {
-  color: #F5821F;
+.topo .user-link {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  gap: 8px;
+}
+
+.topo .user-link:hover,
+.topo .logout-link:hover {
+  transform: translateY(-1px);
+}
+
+.topo .user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 12px;
+}
+
+.topo .logout-link {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+.topo .logout-link:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* Espaço principal do conteúdo, ocupando o restante da tela. */
 .container {
   flex: 1;
-  padding: 24px 20px;
+  padding: 0 20px 0;
 }
 
 /* Rodapé com fundo escuro e texto simples. */
 .rodape {
   background: #0A1F44;
-  color: #cfcfcf;
+  color: #fff;
   text-align: center;
-  padding: 14px 20px;
-  font-size: 12px;
+  padding: 12px 20px;
+  font-size: 13px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
+  margin: 0;
+  width: 100%;
 }
 
 .rodape a {
-  color: #F5821F;
+  color: #f5c29b;
   text-decoration: none;
   font-weight: 700;
 }
@@ -380,45 +453,55 @@ body {
 
 body{
     background:#dfe5ef;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    font-family: 'Nunito', sans-serif;
 }
 
 .containers{
     display:flex;
-    height:100vh;
+    flex:1;
+    min-height:0;
 }
 /*-----------------------------------------------------------------------------------------------
 /* MENU */
 
 .sidebar{
-    height: 1000px;
-    width:220px;
-    background:white;
-    border-right:2px solid #000;
-
+    width: 230px;
+    background:#0d2347;
+    border-right:none;
+    box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
 }
 
 .logos{
-    background:#12376B;
+    background:#0d2347;
     display:flex;
     justify-content:center;
     align-items:center;
-
+    padding: 18px 12px;
+    min-height: 84px;
 }
 
 .logos img{
-    width:220px;
-    height: 200px   ;
+    width: 150px;
+    height: auto;
+    object-fit: contain;
 }
 
 .sidebar ul{
     list-style:none;
+    padding: 6px 0;
 }
 
 .sidebar li{
-    padding:18px;
-    border-bottom:1px solid black;
+    padding: 18px 20px;
+    border-bottom:none;
     cursor:pointer;
-    font-weight:bold;
+    font-weight:700;
+    color:#eaf1ff;
+    font-size: 1.05rem;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .sidebar li i{
@@ -428,8 +511,14 @@ body{
 }
 
 .sidebar li:hover{
-    background:#ececec;
+    background: rgba(255,255,255,0.05);
+}
 
+.salas-main > header {
+    height: auto;
+    background: transparent;
+    border-bottom: none;
+    padding: 0;
 }
 
 /* CHAT */
@@ -535,9 +624,6 @@ header{
     align-items: center;
     
 }
-
-
-
 
 /* Complementos do chat em tempo real */
 #status-chat {

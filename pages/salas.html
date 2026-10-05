@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salas Virtuais — CONRAD</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/salas.css">
+</head>
+<body>
+
+  <div class="containers">
+    <aside class="sidebar">
+      <div class="logos">
+        <img src="../img/logo-conrad.png" alt="CONRAD">
+      </div>
+      <ul>
+        <li onclick="location.href='bate-papo.html'">Chat</li>
+        <li class="ativo">Salas virtuais</li>
+        <li onclick="location.href='perfil-aluno.html'">Perfil</li>
+        <li onclick="location.href='avaliação.html'">Avaliações</li>
+        <li>Atividades</li>
+      </ul>
+    </aside>
+
+    <div class="salas-main">
+      <header>
+        <div class="salas-topo" style="flex:1;">
+          <h1>Salas Virtuais</h1>
+          <div class="salas-busca">
+            <i class="fa fa-search"></i>
+            <input type="text" id="busca-sala" placeholder="Buscar sala ou assunto">
+          </div>
+        </div>
+      </header>
+
+      <section class="salas-grid" id="salas-grid"></section>
+
+      <section class="sala-video-view" id="sala-video-view">
+        <div class="sala-video-topo">
+          <button id="voltar-salas">← Voltar para salas</button>
+          <strong id="sala-video-titulo"></strong>
+        </div>
+        <div class="sala-video-frame">
+          <iframe id="sala-video-iframe" allow="camera; microphone; fullscreen; display-capture"></iframe>
+        </div>
+        <div class="sala-video-controles">
+          <button id="btn-mic"><i class="fa fa-microphone"></i></button>
+          <button id="btn-cam"><i class="fa fa-video"></i></button>
+          <button class="sair" id="btn-sair"><i class="fa fa-phone-slash"></i></button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
+
+  <script src="../JS/salas.js"></script>
+</body>
+</html>
