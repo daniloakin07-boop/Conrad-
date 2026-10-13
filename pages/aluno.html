@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/dashboard.css">
 
-    <title>Conrad | Dashboard</title>
+    <title>Conrad | Meu Perfil</title>
 </head>
 
 <body>
@@ -21,47 +21,27 @@
             <h3>Conrad Painel</h3>
 
             <nav class="menu">
-                <a href="dashboard.html" class="menu-item-ativo">
-                    Dashboard
-                </a>
-
-                <a href="bate-papo.html">
-                    Bate-Papo
-                </a>
-
-                <a href="avaliação.html">
-                    Atividades
-                </a>
-
-                <a href="sala-virtual.html">
-                    Sala Virtual
-                </a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="#calendario">Calendário</a>
+                <a href="#frequencia">Frequência das aulas</a>
+                <a href="#desempenho">Desempenho do aluno</a>
+                <a href="bate-papo.html">Bate-Papo</a>
+                <a href="avaliação.html">Atividades</a>
+                <a href="sala-virtual.html">Sala Virtual</a>
+                <a href="aluno.html" class="menu-item-ativo">Meu Perfil</a>
             </nav>
 
             <!-- ÁREA DE AJUDA -->
             <div class="lateral-ajuda">
-
                 <h2>Precisa de ajuda?</h2>
-
-                <p>
-                    Envie uma mensagem na página de contato.
-                </p>
-
-                <a href="contato.html" class="btn-secundario">
-                    Página de contato
-                </a>
-
+                <p>Envie uma mensagem na página de contato.</p>
+                <a href="contato.html" class="btn-secundario">Página de contato</a>
             </div>
 
             <!-- PERFIL -->
             <div class="perfil-aluno">
-
                 <strong>Rickson Jordan</strong>
-
-                <span>
-                    3º ano C · Turma 04
-                </span>
-
+                <span>3º ano C · Turma 04</span>
             </div>
 
         </aside>
@@ -70,209 +50,154 @@
         <!-- CONTEÚDO PRINCIPAL -->
         <section class="conteudo-principal">
 
-            <!-- CABEÇALHO -->
             <header class="cabecalho-dashboard">
-
                 <div class="boas-vindas">
-
-                    <h1>
-                        Boa tarde, Rickson Jordan
-                    </h1>
-
-                    <p>
-                        Confira seus horários e avisos de hoje.
-                    </p>
-
+                    <h1>Rickson Jordan</h1>
+                    <p>3º ano C · Turma 04 · Matrícula 2024.03.0417</p>
                 </div>
-
             </header>
 
 
-            <!-- ÁREA DOS CARDS -->
             <div class="dashboard-grid">
 
-
-                <!-- HORÁRIOS -->
+                <!-- COLUNA ESQUERDA -->
                 <section class="bloco-horarios">
 
+                    <!-- DADOS PESSOAIS -->
                     <div class="card">
 
                         <div class="card-header">
-
-                            <h2>Horário</h2>
-
+                            <h2>Dados pessoais</h2>
                         </div>
 
+                        <p><strong>Nome completo:</strong> Rickson Jordan</p>
+                        <p><strong>Data de nascimento:</strong> 14/08/2008</p>
+                        <p><strong>E-mail:</strong> rickson.jordan@aluno.conrad.edu.br</p>
+                        <p><strong>Telefone:</strong> (61) 90000-0000</p>
+                        <p><strong>Responsável:</strong> Maria Jordan</p>
+                        <p><strong>Contato do responsável:</strong> (61) 91111-1111</p>
 
-                        <!-- DIAS DA SEMANA -->
-                        <div class="tabs">
+                    </div>
 
-                            <a href="#" class="ativo" data-dia="seg">
-                                Seg
-                            </a>
 
-                            <a href="#" data-dia="ter">
-                                Ter
-                            </a>
+                    <!-- CALENDÁRIO -->
+                    <div class="card" id="calendario">
 
-                            <a href="#" data-dia="qua">
-                                Qua
-                            </a>
-
-                            <a href="#" data-dia="qui">
-                                Qui
-                            </a>
-
-                            <a href="#" data-dia="sex">
-                                Sex
-                            </a>
-
+                        <div class="card-header">
+                            <h2>Calendário</h2>
+                            <span class="contador">Outubro</span>
                         </div>
 
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Dia</th>
+                                    <th>Evento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>15/10</td><td>Qui</td><td>Feira de ciências</td></tr>
+                                <tr><td>25/10</td><td>Sex</td><td>Prova de Química (1º horário)</td></tr>
+                                <tr><td>30/10</td><td>Qua</td><td>Reunião de pais e mestres, 19h</td></tr>
+                            </tbody>
+                        </table>
 
-                        <!-- LISTA DE HORÁRIOS: preenchida pelo script.js a partir do calendario.json -->
-                        <ul class="lista-horarios" id="lista-horarios"></ul>
+                    </div>
+
+
+                    <!-- DESEMPENHO DO ALUNO -->
+                    <div class="card" id="desempenho">
+
+                        <div class="card-header">
+                            <h2>Desempenho do aluno</h2>
+                            <span class="contador">3º bimestre</span>
+                        </div>
+
+                        <p><strong>Média geral:</strong> 7,8</p>
+                        <p><strong>Melhor disciplina:</strong> Biologia (9,5)</p>
+                        <p><strong>Precisa de atenção:</strong> Química (6,0)</p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Disciplina</th>
+                                    <th>1º bim.</th>
+                                    <th>2º bim.</th>
+                                    <th>3º bim.</th>
+                                    <th>Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Matemática</td><td>8,5</td><td>7,0</td><td>9,0</td><td>Aprovado</td></tr>
+                                <tr><td>Português</td><td>7,5</td><td>8,0</td><td>8,5</td><td>Aprovado</td></tr>
+                                <tr><td>História</td><td>6,0</td><td>6,5</td><td>7,0</td><td>Aprovado</td></tr>
+                                <tr><td>Química</td><td>5,0</td><td>5,5</td><td>6,0</td><td>Atenção</td></tr>
+                                <tr><td>Física</td><td>6,5</td><td>7,0</td><td>6,5</td><td>Aprovado</td></tr>
+                                <tr><td>Biologia</td><td>9,0</td><td>8,5</td><td>9,5</td><td>Aprovado</td></tr>
+                            </tbody>
+                        </table>
 
                     </div>
 
                 </section>
 
 
-
                 <!-- COLUNA DIREITA -->
                 <div class="coluna-direita">
 
-
-                    <!-- MURAL DE AVISOS -->
-                    <section class="bloco-avisos">
-
-                        <div class="card">
-
-                            <div class="card-header">
-
-                                <h2>
-                                    Mural de Avisos
-                                </h2>
-
-                            </div>
-
-
-                            <div class="aviso">
-
-                                <span class="tag-aviso">
-                                    Aviso
-                                </span>
-
-                                <p class="texto">
-                                    Prova de Química remarcada para sexta-feira,
-                                    dia 25, no 1º horário.
-                                </p>
-
-                                <span class="quando">
-                                    há 2 horas
-                                </span>
-
-                            </div>
-
-
-                            <div class="aviso">
-
-                                <span class="tag-evento">
-                                    Evento
-                                </span>
-
-                                <p class="texto">
-                                    Feira de ciências quinta-feira.
-                                </p>
-
-                                <span class="quando">
-                                    há 30 minutos
-                                </span>
-
-                            </div>
-
-
-                            <div class="aviso">
-
-                                <span class="tag-comunicado">
-                                    Comunicado
-                                </span>
-
-                                <p class="texto">
-                                    Reunião de pais e mestres marcada
-                                    para o dia 30, às 19h no auditório.
-                                </p>
-
-                                <span class="quando">
-                                    há 6 horas
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-
-                    <!-- FREQUÊNCIA -->
-                    <section class="frequencia-card">
+                    <!-- FREQUÊNCIA DAS AULAS -->
+                    <section class="frequencia-card" id="frequencia">
 
                         <div class="frequencia-topo">
-
-                            <h2>
-                                Frequência
-                            </h2>
-
-                            <span>
-                                Bimestre
-                            </span>
-
+                            <h2>Frequência das aulas</h2>
+                            <span>Bimestre</span>
                         </div>
-
 
                         <div class="frequencia-conteudo">
 
-                            <!-- GRÁFICO -->
                             <div class="grafico-frequencia">
-
                                 <div class="circulo">
-
-                                    <span>
-                                        92%
-                                    </span>
-
+                                    <span>92%</span>
                                 </div>
-
                             </div>
 
-
-                            <!-- INFORMAÇÕES -->
                             <div class="frequencia-info">
-
-                                <h3>
-                                    3 faltas este bimestre
-                                </h3>
-
-                                <p>
-                                    Limite permitido:
-                                    <strong>15%</strong>
-                                </p>
-
-                                <p>
-                                    Você está
-                                    <strong>
-                                        dentro do limite
-                                    </strong>
-                                </p>
-
+                                <h3>3 faltas este bimestre</h3>
+                                <p>Limite permitido: <strong>15%</strong></p>
+                                <p>Você está <strong>dentro do limite</strong></p>
                             </div>
 
                         </div>
 
                     </section>
 
+
+                    <!-- AVISOS RECENTES -->
+                    <section class="card">
+
+                        <div class="card-header">
+                            <h2>Avisos recentes</h2>
+                        </div>
+
+                        <div class="aviso">
+                            <span class="tag-aviso">Aviso</span>
+                            <p class="texto">Prova de Química remarcada para sexta-feira, dia 25, no 1º horário.</p>
+                            <span class="quando">há 2 horas</span>
+                        </div>
+
+                        <div class="aviso">
+                            <span class="tag-comunicado">Comunicado</span>
+                            <p class="texto">Reunião de pais e mestres marcada para o dia 30, às 19h no auditório.</p>
+                            <span class="quando">há 6 horas</span>
+                        </div>
+
+                    </section>
+
+
+                    <!-- TAREFAS PENDENTES -->
                     <section class="card card-tarefas">
+
                         <div class="card-header">
                             <h2>Tarefas pendentes</h2>
                             <span class="contador">3</span>
@@ -303,7 +228,9 @@
                                 </div>
                             </li>
                         </ul>
+
                     </section>
+
                 </div>
 
             </div>
@@ -311,8 +238,6 @@
         </section>
 
     </main>
-
-    <script src="../JS/horarios.js"></script>
 
 </body>
 
