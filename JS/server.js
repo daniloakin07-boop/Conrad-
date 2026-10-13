@@ -23,6 +23,9 @@ const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
 const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
 
+const mediasRoutes = require("./medias.js");
+app.use("/api", mediasRoutes);
+
 // Cria a instância principal do servidor Express
 const app = express();
 const httpServer = http.createServer(app);

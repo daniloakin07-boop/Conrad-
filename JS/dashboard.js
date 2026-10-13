@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await fetch('../JS/dashboardData.json');
+    const response = await fetch('../data/dashboardData.json');
     if (!response.ok) throw new Error('Erro ao carregar JSON');
 
     const data = await response.json();
