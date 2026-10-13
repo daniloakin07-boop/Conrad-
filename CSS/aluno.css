@@ -1,0 +1,235 @@
+/* ===== Coluna direita ===== */
+.painel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== Cards brancos ===== */
+.al-card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-shadow: 0 1px 3px rgba(20, 30, 70, 0.05);
+}
+
+.al-titulo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #1a1d33;
+  margin: 0 0 16px;
+}
+
+/* ===== Mural de avisos ===== */
+.al-aviso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8eaf0;
+}
+
+.al-aviso:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.al-tag {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.al-tag-aviso { background: #fde4e1; color: #c0392b; }
+.al-tag-evento { background: #dff2e8; color: #2e7d5b; }
+.al-tag-comunicado { background: #e3e6fb; color: #4f55c9; }
+
+.al-texto {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #3b3f58;
+}
+
+.al-quando {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b708c;
+  white-space: nowrap;
+}
+
+/* ===== Frequência (card escuro) ===== */
+.al-frequencia {
+  background: #1e2444;
+  border-radius: 12px;
+  padding: 24px 20px;
+  color: #fff;
+}
+
+.al-freq-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.al-freq-topo h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+  margin: 0;
+}
+
+.al-freq-topo span {
+  font-size: 14px;
+  color: #b8bedc;
+}
+
+.al-freq-corpo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.al-anel {
+  --valor: 92;
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(#8fc7a8 calc(var(--valor) * 1%), #3a4263 0);
+}
+
+.al-anel::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  background: #1e2444;
+  border-radius: 50%;
+}
+
+.al-anel span {
+  position: relative;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.al-freq-info h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.al-freq-info p {
+  font-size: 14px;
+  color: #b8bedc;
+  margin: 0 0 4px;
+}
+
+.al-freq-info strong {
+  color: #fff;
+}
+
+/* ===== Tarefas pendentes ===== */
+.al-contador {
+  display: block;
+  font-size: 14px;
+  color: #1a1d33;
+  margin: -10px 0 8px;
+}
+
+.al-tarefas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.al-tarefas li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px dashed #1a1d33;
+}
+
+.al-tarefas li:last-child {
+  border-bottom: none;
+  padding-bottom: 6px;
+}
+
+.al-tarefas input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #2b2f4d;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+.al-tarefas input[type="checkbox"]:checked {
+  background: #2b2f4d;
+}
+
+.al-tarefas input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.al-tarefa-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1d33;
+  margin: 0 0 4px;
+}
+
+.al-tarefa-meta {
+  font-size: 12px;
+  color: #9a9fc4;
+  margin: 0;
+}
+
+.al-tarefa-meta.urgente {
+  color: #e07a4f;
+}
+
+.al-tarefas li.feita .al-tarefa-titulo {
+  text-decoration: line-through;
+  color: #98a2b3;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 520px) {
+  .al-aviso {
+    flex-wrap: wrap;
+  }
+
+  .al-quando {
+    width: 100%;
+  }
+}
