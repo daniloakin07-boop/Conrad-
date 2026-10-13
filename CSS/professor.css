@@ -493,8 +493,24 @@
   margin-bottom: 12px;
 }
 
-.submissions-card .pendencia { padding: 8px 0; border-bottom: 1px solid #f1f3f5; }
-.submissions-card .pendencia:last-child { border-bottom: none; }
+ .submissions-card .pendencia { padding: 8px 0; border-bottom: 1px solid #f1f3f5; }
+ .submissions-card .pendencia:last-child { border-bottom: none; }
+
+ /* Ajuste de tipografia para submissões recentes (educador) */
+ .submissions-card .pendencia h4 {
+  font-size: 14px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+ }
+
+ .submissions-card .pendencia p {
+  font-size: 13px;
+  color: #556;
+  line-height: 1.4;
+  margin: 0;
+ }
+
+ .submissions-card .pendencia { font-size: 13px; }
 
 /* ==================================================
         PERFIL DOCENTE

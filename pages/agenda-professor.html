@@ -1,257 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conrad | Agenda do professor</title>
-  <link rel="stylesheet" href="../CSS/style.css" />
-  <link rel="stylesheet" href="../CSS/professor.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conrad Virtual School | Agenda do Professor</title>
+
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/professor.css">
+
   <style>
-    body {
-      background: #f5f7fb;
-    }
-
-    .agenda-page {
-      max-width: 1280px;
-      margin: 28px auto;
-      padding: 0 20px 40px;
-    }
-
-    .agenda-topbar {
-      background: #0A1F44;
-      color: #fff;
-      border-radius: 16px 16px 0 0;
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .agenda-topbar h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
-      letter-spacing: 0.5px;
-    }
-
-    .agenda-layout {
-      display: grid;
-      grid-template-columns: 1.4fr 0.9fr;
-      gap: 22px;
-      background: #fff;
-      border: 1px solid #e7ebf2;
-      border-top: none;
-      border-radius: 0 0 16px 16px;
-      padding: 22px;
-    }
-
-    .agenda-card,
-    .agenda-sidebar {
-      background: #fff;
-      border: 1px solid #edf1f5;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 6px 16px rgba(16,43,88,0.04);
-    }
-
-    .agenda-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 14px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #edf1f5;
-    }
-
-    .agenda-header h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 0.5px;
-      color: #0A1F44;
-    }
-
-    .agenda-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .agenda-day {
-      background: #f8fafc;
-      border: 1px solid #edf1f5;
-      border-radius: 12px;
-      padding: 12px 10px;
-      min-height: 120px;
-    }
-
-    .agenda-day h4 {
-      font-size: 12px;
-      color: #667085;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .agenda-evento {
-      background: #eef4ff;
-      border-left: 3px solid #3b82f6;
-      border-radius: 8px;
-      padding: 8px 9px;
-      font-size: 12px;
-      color: #0A1F44;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .agenda-evento.orange {
-      background: #fff5eb;
-      border-left-color: #f5821f;
-    }
-
-    .agenda-evento.green {
-      background: #edf9f0;
-      border-left-color: #2bb673;
-    }
-
-    .agenda-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .mini-card {
-      background: #f9fafb;
-      border: 1px solid #ebeff5;
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .mini-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-      color: #0A1F44;
-    }
-
-    .mini-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .mini-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #edf1f5;
-      font-size: 13px;
-    }
-
-    .mini-item:last-child {
-      border-bottom: none;
-    }
-
-    .mini-item strong {
-      color: #0A1F44;
-    }
-
-    .mini-item span {
-      color: #667085;
-    }
-
-    @media (max-width: 980px) {
-      .agenda-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .agenda-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    /* pequenas adaptações visuais específicas para o calendário */
+    .calendar-card { padding:18px; }
+    .agenda-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
+    .agenda-day { min-height:120px; padding:10px; background:#f8fafc; border-radius:10px; }
+    .agenda-evento { background:#eef4ff; padding:6px 8px; border-left:3px solid #3b82f6; border-radius:6px; margin-bottom:8px; cursor:pointer; }
+    @media(max-width:900px){ .agenda-grid{grid-template-columns:repeat(2,1fr);} }
   </style>
 </head>
 <body>
-  <main class="agenda-page">
-    <header class="agenda-topbar">
-      <h1>Agenda do professor</h1>
-      <div class="topbar-actions">
-        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+
+  <header class="topo topo-home">
+    <a href="index.html" class="logo">CONRAD</a>
+
+    <nav class="menu">
+      <a href="index.html">inicio</a>
+      <a href="sobre.html">sobre</a>
+      <a href="contato.html">contato</a>
+    </nav>
+  </header>
+
+  <main class="dashboard-professor">
+
+    <aside class="menu-lateral">
+      <h3>Conrad Educador</h3>
+      <nav>
+        <a href="educador.html" class="menu-item">Painel</a>
+        <a href="#turmas" class="menu-item">Minhas turmas</a>
+        <a href="avaliação.html" class="menu-item">Avaliações</a>
+        <a href="agenda-professor.html" class="menu-item ativo">Agenda</a>
+        <a href="#mensagens" class="menu-item">Mensagens</a>
+      </nav>
+      <div style="margin-top:18px;">
+        <strong>Rickson Jordan</strong>
+        <div style="font-size:12px;color:#cbd5e1;">Educador</div>
       </div>
-    </header>
+    </aside>
 
-    <section class="agenda-layout">
-      <div class="agenda-card">
-        <div class="agenda-header">
-          <h2>Calendário</h2>
-          <a href="#" class="btn-primario">+ Novo evento</a>
+    <section class="conteudo-dashboard">
+
+      <header class="titulo-dashboard">
+        <div>
+          <h1>Agenda do professor</h1>
+          <p>Visão semanal rápida das suas turmas e compromissos</p>
         </div>
 
-        <div class="agenda-grid">
-          <div class="agenda-day">
-            <h4>Seg</h4>
-            <div class="agenda-evento">8:00 · 3º ano C</div>
-            <div class="agenda-evento orange">10:00 · 2º ano A</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Ter</h4>
-            <div class="agenda-evento green">9:00 · Reunião</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Qua</h4>
-            <div class="agenda-evento">8:00 · 3º ano C</div>
-            <div class="agenda-evento orange">14:00 · 1º ano B</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Qui</h4>
-            <div class="agenda-evento green">11:00 · Correção</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Sex</h4>
-            <div class="agenda-evento">8:00 · 3º ano C</div>
-            <div class="agenda-evento orange">10:30 · 2º ano A</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Sáb</h4>
-            <div class="agenda-evento green">9:00 · Planejamento</div>
-          </div>
-
-          <div class="agenda-day">
-            <h4>Dom</h4>
-            <div class="agenda-evento">Livre</div>
+        <div class="header-right">
+          <div class="header-profile">
+            <div class="avatar avatar-purple">RJ</div>
+            <div class="profile-name">
+              <strong>Rickson Jordan</strong>
+              <small>Educador</small>
+            </div>
           </div>
         </div>
+      </header>
+
+      <div class="painel-dashboard">
+
+        <div>
+          <article class="card-avaliacoes calendar-card">
+            <div class="titulo-card">
+              <h2>Calendário</h2>
+              <a href="educador.html" class="btn-secundario">← Voltar ao painel</a>
+            </div>
+
+            <div style="margin-top:12px;">
+              <button class="btn-primario" id="openNew">+ Novo evento</button>
+            </div>
+
+            <div class="agenda-grid" id="agendaGrid" style="margin-top:14px;">
+              <div class="agenda-day" data-day="Seg"><h4>Seg</h4><div class="agenda-evento">8:00 · 3º ano C</div></div>
+              <div class="agenda-day" data-day="Ter"><h4>Ter</h4><div class="agenda-evento">9:00 · Reunião</div></div>
+              <div class="agenda-day" data-day="Qua"><h4>Qua</h4><div class="agenda-evento">14:00 · 1º ano B</div></div>
+              <div class="agenda-day" data-day="Qui"><h4>Qui</h4><div class="agenda-evento">11:00 · Correção</div></div>
+              <div class="agenda-day" data-day="Sex"><h4>Sex</h4><div class="agenda-evento">8:00 · 3º ano C</div></div>
+              <div class="agenda-day" data-day="Sáb"><h4>Sáb</h4><div class="agenda-evento">9:00 · Planejamento</div></div>
+              <div class="agenda-day" data-day="Dom"><h4>Dom</h4><div class="agenda-evento">Livre</div></div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="painel-lateral">
+          <article class="submissions-card">
+            <div class="titulo-card"><h2>Resumo</h2></div>
+            <div class="pendencia"><h4>Turmas</h4><p>4</p></div>
+          </article>
+        </aside>
+
       </div>
 
-      <aside class="agenda-sidebar">
-        <div class="mini-card">
-          <h3>Resumo</h3>
-          <div class="mini-list">
-            <div class="mini-item"><strong>Turmas</strong><span>4</span></div>
-            <div class="mini-item"><strong>Aulas</strong><span>12</span></div>
-            <div class="mini-item"><strong>Reuniões</strong><span>3</span></div>
-          </div>
-        </div>
-
-        <div class="mini-card">
-          <h3>Próximos eventos</h3>
-          <div class="mini-list">
-            <div class="mini-item"><strong>02/10</strong><span>Prova · 3º ano C</span></div>
-            <div class="mini-item"><strong>03/10</strong><span>Reunião de pais</span></div>
-            <div class="mini-item"><strong>04/10</strong><span>Recuperação · 2º ano A</span></div>
-          </div>
-        </div>
-      </aside>
     </section>
   </main>
+
+  <!-- Modal simples -->
+  <div class="modal-overlay" id="agendaModal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Novo evento</h3>
+        <button class="close-modal" type="button">×</button>
+      </div>
+      <form id="eventForm">
+        <div class="form-field"><label>Dia</label>
+          <select id="eventDay"><option value="Seg">Seg</option><option value="Ter">Ter</option><option value="Qua">Qua</option><option value="Qui">Qui</option><option value="Sex">Sex</option><option value="Sáb">Sáb</option><option value="Dom">Dom</option></select>
+        </div>
+        <div class="form-field"><label>Horário</label><input id="eventTime" type="text" placeholder="Ex: 08:30"></div>
+        <div class="form-field"><label>Título</label><input id="eventTitle" type="text" placeholder="Ex: Aula"></div>
+        <div class="modal-actions"><button type="button" class="btn-secundario" id="cancelEventBtn">Cancelar</button><button type="submit" class="btn-primario">Salvar</button></div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // simples modal + adicionar evento no DOM (sem persistência)
+    const modal = document.getElementById('agendaModal');
+    const openNew = document.getElementById('openNew');
+    const closeBtn = document.querySelector('.close-modal');
+    const cancelBtn = document.getElementById('cancelEventBtn');
+    const form = document.getElementById('eventForm');
+
+    function showModal(){ modal.style.display='flex'; }
+    function hideModal(){ modal.style.display='none'; form.reset(); }
+
+    openNew.addEventListener('click', showModal);
+    closeBtn.addEventListener('click', hideModal);
+    cancelBtn.addEventListener('click', hideModal);
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const day = document.getElementById('eventDay').value;
+      const time = document.getElementById('eventTime').value.trim();
+      const title = document.getElementById('eventTitle').value.trim();
+      if(!time||!title){ alert('Preencha horário e título'); return; }
+      const col = document.querySelector('.agenda-day[data-day="'+day+'"]');
+      if(col){ const d = document.createElement('div'); d.className='agenda-evento'; d.textContent = time+' · '+title; col.appendChild(d); }
+      hideModal();
+    });
+  </script>
+
 </body>
 </html>

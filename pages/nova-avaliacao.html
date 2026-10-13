@@ -236,5 +236,41 @@
       </aside>
     </section>
   </main>
+
+  <script>
+    const form = document.querySelector('form');
+    const tituloInput = document.getElementById('titulo');
+    const turmaInput = document.getElementById('turma');
+    const disciplinaInput = document.getElementById('disciplina');
+    const dataInput = document.getElementById('data');
+    const valorInput = document.getElementById('valor');
+    const descricaoInput = document.getElementById('descricao');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const avaliacao = {
+        titulo: tituloInput.value.trim(),
+        turma: turmaInput.value,
+        disciplina: disciplinaInput.value,
+        data: dataInput.value,
+        valor: valorInput.value.trim(),
+        descricao: descricaoInput.value.trim(),
+        criadoEm: new Date().toISOString()
+      };
+
+      if (!avaliacao.titulo || !avaliacao.data || !avaliacao.descricao) {
+        alert('Preencha o nome, a data e a descrição da avaliação.');
+        return;
+      }
+
+      const avaliacoes = JSON.parse(localStorage.getItem('avaliacoesProfessor') || '[]');
+      avaliacoes.push(avaliacao);
+      localStorage.setItem('avaliacoesProfessor', JSON.stringify(avaliacoes));
+
+      alert('Avaliação criada com sucesso!');
+      form.reset();
+    });
+  </script>
 </body>
 </html>
