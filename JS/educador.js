@@ -94,9 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Quick actions
+  // Quick actions - only simulate for placeholder links (href="#" or missing)
   document.querySelectorAll('.quick-actions a').forEach(btn => {
     btn.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href && href !== '#') return; // allow real navigation
       e.preventDefault();
       const text = this.innerText.trim();
       showModal({title: text, message: text + ' — função de exemplo (implemente backend)', confirmText: 'OK'});

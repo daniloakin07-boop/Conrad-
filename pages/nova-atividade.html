@@ -236,5 +236,41 @@
       </aside>
     </section>
   </main>
+
+  <script>
+    const form = document.querySelector('form');
+    const tituloInput = document.getElementById('titulo');
+    const turmaInput = document.getElementById('turma');
+    const disciplinaInput = document.getElementById('disciplina');
+    const dataInput = document.getElementById('data');
+    const valorInput = document.getElementById('valor');
+    const descricaoInput = document.getElementById('descricao');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const atividade = {
+        titulo: tituloInput.value.trim(),
+        turma: turmaInput.value,
+        disciplina: disciplinaInput.value,
+        data: dataInput.value,
+        valor: valorInput.value.trim(),
+        descricao: descricaoInput.value.trim(),
+        criadoEm: new Date().toISOString()
+      };
+
+      if (!atividade.titulo || !atividade.data || !atividade.descricao) {
+        alert('Preencha o título, a data e a descrição da atividade.');
+        return;
+      }
+
+      const atividades = JSON.parse(localStorage.getItem('atividadesProfessor') || '[]');
+      atividades.push(atividade);
+      localStorage.setItem('atividadesProfessor', JSON.stringify(atividades));
+
+      alert('Atividade criada com sucesso!');
+      form.reset();
+    });
+  </script>
 </body>
 </html>
