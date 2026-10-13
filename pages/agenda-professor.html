@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conrad | Agenda do professor</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <link rel="stylesheet" href="../CSS/professor.css" />
+  <style>
+    body {
+      background: #f5f7fb;
+    }
+
+    .agenda-page {
+      max-width: 1280px;
+      margin: 28px auto;
+      padding: 0 20px 40px;
+    }
+
+    .agenda-topbar {
+      background: #0A1F44;
+      color: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .agenda-topbar h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    .agenda-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+      background: #fff;
+      border: 1px solid #e7ebf2;
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 22px;
+    }
+
+    .agenda-card,
+    .agenda-sidebar {
+      background: #fff;
+      border: 1px solid #edf1f5;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+    }
+
+    .agenda-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #edf1f5;
+    }
+
+    .agenda-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+      color: #0A1F44;
+    }
+
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .agenda-day {
+      background: #f8fafc;
+      border: 1px solid #edf1f5;
+      border-radius: 12px;
+      padding: 12px 10px;
+      min-height: 120px;
+    }
+
+    .agenda-day h4 {
+      font-size: 12px;
+      color: #667085;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .agenda-evento {
+      background: #eef4ff;
+      border-left: 3px solid #3b82f6;
+      border-radius: 8px;
+      padding: 8px 9px;
+      font-size: 12px;
+      color: #0A1F44;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .agenda-evento.orange {
+      background: #fff5eb;
+      border-left-color: #f5821f;
+    }
+
+    .agenda-evento.green {
+      background: #edf9f0;
+      border-left-color: #2bb673;
+    }
+
+    .agenda-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: #f9fafb;
+      border: 1px solid #ebeff5;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .mini-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      color: #0A1F44;
+    }
+
+    .mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mini-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf1f5;
+      font-size: 13px;
+    }
+
+    .mini-item:last-child {
+      border-bottom: none;
+    }
+
+    .mini-item strong {
+      color: #0A1F44;
+    }
+
+    .mini-item span {
+      color: #667085;
+    }
+
+    @media (max-width: 980px) {
+      .agenda-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .agenda-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="agenda-page">
+    <header class="agenda-topbar">
+      <h1>Agenda do professor</h1>
+      <div class="topbar-actions">
+        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+      </div>
+    </header>
+
+    <section class="agenda-layout">
+      <div class="agenda-card">
+        <div class="agenda-header">
+          <h2>Calendário</h2>
+          <a href="#" class="btn-primario">+ Novo evento</a>
+        </div>
+
+        <div class="agenda-grid">
+          <div class="agenda-day">
+            <h4>Seg</h4>
+            <div class="agenda-evento">8:00 · 3º ano C</div>
+            <div class="agenda-evento orange">10:00 · 2º ano A</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Ter</h4>
+            <div class="agenda-evento green">9:00 · Reunião</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Qua</h4>
+            <div class="agenda-evento">8:00 · 3º ano C</div>
+            <div class="agenda-evento orange">14:00 · 1º ano B</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Qui</h4>
+            <div class="agenda-evento green">11:00 · Correção</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Sex</h4>
+            <div class="agenda-evento">8:00 · 3º ano C</div>
+            <div class="agenda-evento orange">10:30 · 2º ano A</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Sáb</h4>
+            <div class="agenda-evento green">9:00 · Planejamento</div>
+          </div>
+
+          <div class="agenda-day">
+            <h4>Dom</h4>
+            <div class="agenda-evento">Livre</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="agenda-sidebar">
+        <div class="mini-card">
+          <h3>Resumo</h3>
+          <div class="mini-list">
+            <div class="mini-item"><strong>Turmas</strong><span>4</span></div>
+            <div class="mini-item"><strong>Aulas</strong><span>12</span></div>
+            <div class="mini-item"><strong>Reuniões</strong><span>3</span></div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h3>Próximos eventos</h3>
+          <div class="mini-list">
+            <div class="mini-item"><strong>02/10</strong><span>Prova · 3º ano C</span></div>
+            <div class="mini-item"><strong>03/10</strong><span>Reunião de pais</span></div>
+            <div class="mini-item"><strong>04/10</strong><span>Recuperação · 2º ano A</span></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

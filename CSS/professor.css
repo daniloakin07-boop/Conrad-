@@ -416,6 +416,176 @@
 }
 
 /* ==================================================
+       AJUSTES ADICIONAIS E COMPONENTES DO EDUCADOR
+   ================================================== */
+
+/* Espaçamento geral da tela */
+.dashboard-professor {
+  padding: 28px;
+  gap: 32px;
+}
+
+/* Cabeçalho maior e com alinhamento para ações e perfil */
+.titulo-dashboard {
+  padding: 20px 24px;
+}
+
+.titulo-dashboard h1 {
+  font-size: 26px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-actions .btn-primario,
+.quick-actions .btn-secundario {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.profile-name strong { display:block; font-size:13px; }
+.profile-name small { color:#666; font-size:12px; }
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 42px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 8px 0;
+  min-width: 140px;
+  z-index: 40;
+}
+
+.profile-dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: #0A1F44;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.profile-dropdown a:hover { background: #f6f9fc; }
+
+/* Submissões recentes */
+.submissions-card {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.submissions-card .pendencia { padding: 8px 0; border-bottom: 1px solid #f1f3f5; }
+.submissions-card .pendencia:last-child { border-bottom: none; }
+
+/* ==================================================
+        PERFIL DOCENTE
+   ================================================== */
+
+.perfil-professor {
+  background: linear-gradient(180deg, #f9fbff 0%, #ffffff 100%);
+}
+
+.perfil-docente {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 18px;
+  padding: 12px;
+  background: #f4f7fb;
+  border: 1px solid #e7ebf2;
+  border-radius: 10px;
+}
+
+.perfil-docente .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #163b74, #f5821f);
+}
+
+.perfil-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.perfil-detalhes strong {
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+.perfil-detalhes small {
+  color: #667085;
+  font-size: 12px;
+}
+
+.lista-perfil {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-perfil li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 1px solid #edf1f5;
+}
+
+.lista-perfil span {
+  font-size: 12px;
+  color: #667085;
+}
+
+.lista-perfil strong {
+  font-size: 12px;
+  color: #0A1F44;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .lista-perfil li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lista-perfil strong {
+    text-align: left;
+  }
+}
+
+/* ==================================================
         RESPONSIVIDADE
    ================================================== */
 
