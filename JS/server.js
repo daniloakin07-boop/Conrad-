@@ -41,7 +41,8 @@ const listOrigins = [
     "http://127.0.0.1:5500",
     "http://localhost:5501", // Live Server / previews locais
     "http://127.0.0.1:5501",
-    "http://localhost:3000"  // quando servimos arquivos estáticos localmente
+    "http://localhost:3000",
+    "https://daniloakin07.github.io"  // quando servimos arquivos estáticos localmente
 ];
 
 // 4) Configurar CORS
