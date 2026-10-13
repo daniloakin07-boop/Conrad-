@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conrad | Nova atividade</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <link rel="stylesheet" href="../CSS/professor.css" />
+  <style>
+    body {
+      background: #f5f7fb;
+    }
+
+    .form-page {
+      max-width: 1280px;
+      margin: 28px auto;
+      padding: 0 20px 40px;
+    }
+
+    .form-topbar {
+      background: #0A1F44;
+      color: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .form-topbar h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 22px;
+      background: #fff;
+      border: 1px solid #e7ebf2;
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 22px;
+    }
+
+    .form-card,
+    .sidebar-card {
+      background: #fff;
+      border: 1px solid #edf1f5;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+    }
+
+    .form-card h2,
+    .sidebar-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+      color: #0A1F44;
+      margin-bottom: 18px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0A1F44;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid #dfe4ea;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font: inherit;
+      color: #0A1F44;
+      background: #fff;
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .sidebar-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .mini-box {
+      background: #f9fafb;
+      border: 1px solid #ebeff5;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .mini-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #0A1F44;
+    }
+
+    .mini-box p,
+    .mini-box li {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .mini-box ul {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .form-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="form-page">
+    <header class="form-topbar">
+      <h1>Nova atividade</h1>
+      <div class="topbar-actions">
+        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+      </div>
+    </header>
+
+    <section class="form-layout">
+      <div class="form-card">
+        <h2>Criar atividade</h2>
+
+        <form>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="titulo">Título da atividade</label>
+              <input id="titulo" type="text" placeholder="Ex: Lista de exercícios sobre frações" />
+            </div>
+
+            <div class="field">
+              <label for="turma">Turma</label>
+              <select id="turma">
+                <option>3º ano C</option>
+                <option>2º ano A</option>
+                <option>1º ano B</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="disciplina">Disciplina</label>
+              <select id="disciplina">
+                <option>Matemática</option>
+                <option>Português</option>
+                <option>História</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="data">Data de entrega</label>
+              <input id="data" type="date" />
+            </div>
+
+            <div class="field">
+              <label for="valor">Valor</label>
+              <input id="valor" type="text" placeholder="Ex: 10 pontos" />
+            </div>
+
+            <div class="field full">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" placeholder="Descreva a atividade, objetivos e instruções..."></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn-secundario">Cancelar</button>
+            <button type="submit" class="btn-primario">Publicar atividade</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="sidebar-card">
+        <h3>Dicas</h3>
+
+        <div class="mini-box">
+          <strong>Estrutura da tarefa</strong>
+          <p>Inclua objetivos, instruções e critérios de avaliação para facilitar a entrega.</p>
+        </div>
+
+        <div class="mini-box">
+          <strong>Boa prática</strong>
+          <ul>
+            <li>Defina prazo claro.</li>
+            <li>Use linguagem objetiva.</li>
+            <li>Organize por turma.</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('form');
+    const tituloInput = document.getElementById('titulo');
+    const turmaInput = document.getElementById('turma');
+    const disciplinaInput = document.getElementById('disciplina');
+    const dataInput = document.getElementById('data');
+    const valorInput = document.getElementById('valor');
+    const descricaoInput = document.getElementById('descricao');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const atividade = {
+        titulo: tituloInput.value.trim(),
+        turma: turmaInput.value,
+        disciplina: disciplinaInput.value,
+        data: dataInput.value,
+        valor: valorInput.value.trim(),
+        descricao: descricaoInput.value.trim(),
+        criadoEm: new Date().toISOString()
+      };
+
+      if (!atividade.titulo || !atividade.data || !atividade.descricao) {
+        alert('Preencha o título, a data e a descrição da atividade.');
+        return;
+      }
+
+      const atividades = JSON.parse(localStorage.getItem('atividadesProfessor') || '[]');
+      atividades.push(atividade);
+      localStorage.setItem('atividadesProfessor', JSON.stringify(atividades));
+
+      alert('Atividade criada com sucesso!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>

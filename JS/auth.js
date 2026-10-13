@@ -13,7 +13,8 @@ function mostrarMensagem(elemento, texto, tipo) {
     // A classe CSS determina o estilo da mensagem: sucesso ou erro
     elemento.className = "mensagem-auth " + tipo;
 }
-
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------*/
 // ---- Login: pega o formulário de login (se houver) ----
 const formLogin = document.getElementById("formLogin");
 if (formLogin) {
@@ -52,7 +53,8 @@ if (formLogin) {
         }
     });
 }
-
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------*/
 const formCadastro = document.getElementById("formCadastro");
 if (formCadastro) {
     // Cadastro: coleta dados e envia para `/cadastro` no backend
@@ -103,6 +105,8 @@ if (formCadastro) {
     });
 }
 
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------*/
 const formContato = document.getElementById("formContato");
 if (formContato) {
     // Contato: envia mensagem do usuário para `/contato` no backend
@@ -111,11 +115,22 @@ if (formContato) {
 
         const nome = document.getElementById("nome").value.trim();
         const email = document.getElementById("email").value.trim();
-        const mensagemTexto = document.getElementById("mensagem").value.trim();
+        const textocontato = document.getElementById("mensagem").value.trim();
         const mensagem = document.getElementById("mensagemContato");
+        
 
-        if (!nome || !email || !mensagemTexto) {
+            if (!nome || !email || !textocontato) {
             mostrarMensagem(mensagem, "Preencha todos os campos.", "erro");
+            return;
+        }
+
+        if (textocontato.length < 10) {
+            mostrarMensagem(mensagem,"A mensagem deve ter no mínimo 10 caracteres.","erro" );
+            return;
+        }
+
+        if (textocontato.length > 300) {
+            mostrarMensagem(mensagem,"A mensagem deve ter no máximo 300 caracteres.","erro");
             return;
         }
 
@@ -123,7 +138,11 @@ if (formContato) {
             const resposta = await fetch(`${BASE_URL}/contato`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nome, email, mensagem: mensagemTexto })
+                body: JSON.stringify({
+                    nome,
+                    email,
+                    mensagem: textocontato
+                })
             });
 
             const dados = await resposta.json();
@@ -132,7 +151,11 @@ if (formContato) {
                 mostrarMensagem(mensagem, "Mensagem enviada com sucesso!", "sucesso");
                 formContato.reset();
             } else {
-                mostrarMensagem(mensagem, dados.erro || "Falha ao enviar mensagem.", "erro");
+                mostrarMensagem(
+                    mensagem,
+                    dados.erro || "Falha ao enviar mensagem.",
+                    "erro"
+                );
             }
         } catch {
             mostrarMensagem(mensagem, "Erro ao conectar com o servidor.", "erro");
