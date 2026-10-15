@@ -1,3 +1,4 @@
+
 /* Google Fonts usados no projeto:
    - Bebas Neue: títulos e logotipo
    - Nunito: texto do corpo e formulários */
@@ -134,19 +135,24 @@ body {
 }
 
 /* Rodapé com fundo escuro e texto simples. */
+/* O rodapé é fixo na parte inferior da página, mesmo que o conteúdo seja curto. att 14/10 (alex) */ 
 .rodape {
   background: #0A1F44;
   color: #fff;
   text-align: center;
-  padding: 12px 20px;
+  padding: 10px 16px;
   font-size: 13px;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0;
+
   width: 100%;
+  box-sizing: border-box;
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .rodape a {
