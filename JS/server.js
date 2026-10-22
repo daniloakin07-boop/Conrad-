@@ -43,6 +43,7 @@ const listOrigins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://conrad-1.onrender.com", // Servidor publicado no Render
+    "https://conrad.onrender.com",
     "https://daniloakin07-boop.github.io"
 ];
 

@@ -1,10 +1,13 @@
 // JS/auth.js - scripts do front-end para login, cadastro e contato
 // Este arquivo roda no navegador e chama as rotas do backend (server.js)
 
-// BASE_URL: define a URL da API dependendo se estamos em localhost ou produção
-const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-    ? `${window.location.protocol}//${window.location.hostname}:3000`
-    : "https://conrad-1.onrender.com";
+const emLiveServer = ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "3000";
+
+const API_URL = emLiveServer
+    ? "http://127.0.0.1:3000"
+    : location.hostname.endsWith("github.io")
+        ? "https://conrad.onrender.com"
+        : "";
 
 // Função utilitária para exibir mensagens no HTML
 function mostrarMensagem(elemento, texto, tipo) {
@@ -32,7 +35,7 @@ if (formLogin) {
         }
 
         try {
-            const resposta = await fetch(`${BASE_URL}/login`, {
+            const resposta = await fetch(`${API_URL}/login`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -44,7 +47,7 @@ if (formLogin) {
             if (resposta.ok) {
                 mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso");
                 const pagina = dados.usuario?.tipo === "educador" ? "perfil-educador.html" : "perfil-aluno.html";
-                window.location.href = `${BASE_URL}/pages/${pagina}`;
+                window.location.href = `${API_URL}/pages/${pagina}`;
             } else {
                 mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro");
             }
@@ -84,7 +87,7 @@ if (formCadastro) {
         }
 
         try {
-            const resposta = await fetch(`${BASE_URL}/cadastro`, {
+            const resposta = await fetch(`${API_URL}/cadastro`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -135,7 +138,7 @@ if (formContato) {
         }
 
         try {
-            const resposta = await fetch(`${BASE_URL}/contato`, {
+            const resposta = await fetch(`${API_URL}/contato`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
