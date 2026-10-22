@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const pool = require("../db.js");
+const pool = require("./db.js");
 
 // Coloque aqui a validação de acesso do educador
 function exigirEducador(req, res, next) {
@@ -83,7 +83,7 @@ router.get("/medias", exigirEducador, async (req, res) => {
             )
                 ON n.aluno_id = u.id
 
-            WHERE u.tipo = 'estudante'
+            WHERE u.tipo = 'aluno'
 
             GROUP BY u.id, u.nome
             ORDER BY u.nome

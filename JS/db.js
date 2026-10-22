@@ -4,7 +4,7 @@ CONEXÃO COM O BANCO DE DADOS (MySQL)
 ===============================================
 */
 // Carrega variáveis de ambiente (.env) usadas para configurar a conexão
-// Ex.: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT
+// Ex.: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, DB_CA_PATH
 require("dotenv").config();
 
 // Este arquivo exporta um `pool` do mysql2/promise para que o servidor
@@ -18,8 +18,10 @@ const mysql = require("mysql2/promise");
 const fs = require("fs");
 const path = require("path");
 
-// 1.2. Localiza o certificado CA que o banco pode exigir para conexões seguras
-const caminhoCertificado = path.join(__dirname, "ca.pem");
+// 1.2. Localiza o certificado CA que o banco exige para conexões seguras
+// - No Render: use DB_CA_PATH=/etc/secrets/ca.pem (Secret File)
+// - Local: usa o arquivo `ca.pem` ao lado deste arquivo
+const caminhoCertificado = process.env.DB_CA_PATH || path.join(__dirname, "ca.pem");
 const certificadoCA = fs.existsSync(caminhoCertificado)
     ? fs.readFileSync(caminhoCertificado)
     : undefined;
@@ -33,7 +35,7 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME || "conrad",
     ssl: certificadoCA
         ? { ca: certificadoCA }             // Usa certificado CA se existir
-        : { rejectUnauthorized: false },    // Em teste local, desativa validação SSL
+        : { rejectUnauthorized: false },    // Sem certificado: não valida o SSL
     waitForConnections: true, // Aguarda conexão livre quando o pool está cheio
     connectionLimit: 10,      // Máximo de conexões simultâneas no pool
     queueLimit: 0             // 0 = fila de espera ilimitada para conexões

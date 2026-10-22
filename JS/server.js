@@ -23,9 +23,6 @@ const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
 const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
 
-const mediasRoutes = require("./medias.js");
-app.use("/api", mediasRoutes);
-
 // Cria a instância principal do servidor Express
 const app = express();
 const httpServer = http.createServer(app);
@@ -41,8 +38,12 @@ const listOrigins = [
     "http://127.0.0.1:5500",
     "http://localhost:5501", // Live Server / previews locais
     "http://127.0.0.1:5501",
+    "http://localhost:5502",
+    "http://127.0.0.1:5502",
     "http://localhost:3000",
-    "https://daniloakin07.github.io"  // quando servimos arquivos estáticos localmente
+    "http://127.0.0.1:3000",
+    "https://conrad-1.onrender.com", // Servidor publicado no Render
+    "https://daniloakin07-boop.github.io"
 ];
 
 // 4) Configurar CORS
@@ -84,7 +85,7 @@ const sessionConfig = {
 
 // Em produção, precisamos de configurações de cookie mais seguras
 if (process.env.NODE_ENV == "production") {
-    app.set("trust proxy", 1); // se o app estiver atrás de um proxy reverso
+    app.set("trust proxy", 1); // o Render fica na frente do app como proxy reverso
     sessionConfig.cookie.sameSite = "none"; // permite envio cross-site
     sessionConfig.cookie.secure = true; // só envia cookie via HTTPS
 } else {
@@ -97,6 +98,9 @@ if (process.env.NODE_ENV == "production") {
 // A mesma instância também será compartilhada com o Socket.IO.
 const sessionMiddleware = session(sessionConfig);
 app.use(sessionMiddleware);
+
+const mediasRoutes = require("./medias.js");
+app.use("/api", mediasRoutes);
 
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
@@ -161,7 +165,26 @@ app.get("/pages/:pagina", function (req, res, next) {
     next();
 });
 
-// 9) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
+// 9) Bloqueia arquivos internos que não devem ser baixados pelo navegador
+// Como o `express.static` serve a pasta-pai inteira, sem isso o código do
+// servidor e o package.json ficariam acessíveis por URL.
+const arquivosBloqueados = [
+    "/js/server.js",
+    "/js/db.js",
+    "/js/medias.js",
+    "/js/ca.pem",
+    "/package.json",
+    "/package-lock.json"
+];
+
+app.use((req, res, next) => {
+    if (arquivosBloqueados.includes(req.path.toLowerCase())) {
+        return res.status(404).send("Not found");
+    }
+    next();
+});
+
+// 10) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
 // `express.static` mapeia a pasta-pai do projeto para requisições HTTP
 app.use(express.static(path.join(__dirname, "..")));
 
@@ -318,7 +341,7 @@ app.get("/health", (req, res) => {
 ===============================================
 */
 
-// Porta do servidor (padrão 3000) — pode ser sobrescrita por variável de ambiente
+// Porta do servidor (padrão 3000) — o Render define a PORT automaticamente
 const PORT = process.env.PORT || 3000;
 
 // Se este arquivo foi executado diretamente (e não importado), inicia o servidor
