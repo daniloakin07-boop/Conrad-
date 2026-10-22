@@ -4,7 +4,7 @@
 // BASE_URL: define a URL da API dependendo se estamos em localhost ou produção
 const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? `${window.location.protocol}//${window.location.hostname}:3000`
-    : "https://conrad.onrender.com";
+    : "https://conrad-1.onrender.com";
 
 // Função utilitária para exibir mensagens no HTML
 function mostrarMensagem(elemento, texto, tipo) {
