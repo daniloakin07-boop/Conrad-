@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conrad | Correção de atividades</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <style>
+    .pagina { max-width: 960px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
+    .cabecalho { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+    .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
+    .subtitulo { color: #667085; font-size: 14px; margin-top: 4px; }
+    .botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn, .btn-sec { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;
+      padding: 11px 16px; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; border: 1px solid transparent; }
+    .btn { background: #F5821F; color: #fff; }
+    .btn:hover { background: #de7110; }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+    .btn-sec { background: #fff; color: #0A1F44; border-color: #d8dce1; }
+    .btn-sec:hover { background: #f4f7fb; }
+
+    .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+      box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
+    .card-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .card h3 { font-size: 19px; color: #0A1F44; margin: 6px 0 4px; }
+    .meta { font-size: 13px; color: #667085; }
+    .tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; }
+    .tag.atividade { background: #eef4ff; color: #2958a8; }
+    .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
+    .contagem { font-size: 13px; font-weight: 700; color: #0A1F44; }
+
+    .entregas { margin-top: 14px; border-top: 1px dashed #d8dce1; padding-top: 14px; display: grid; gap: 12px; }
+    .entrega { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 14px; }
+    .entrega-topo { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .entrega-topo strong { color: #0A1F44; }
+    .entrega-topo span { font-size: 12px; color: #667085; }
+    .resposta { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 10px 12px; font-size: 14px;
+      white-space: pre-wrap; margin-bottom: 10px; color: #344054; }
+    .corrigir { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: start; }
+    .corrigir input, .corrigir textarea { width: 100%; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+    .corrigir textarea { min-height: 70px; resize: vertical; }
+    .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .msg { font-size: 13px; }
+    .msg.ok { color: #287a45; }
+    .msg.erro { color: #c0392b; }
+    .vazio { text-align: center; color: #667085; padding: 40px 0; }
+    @media (max-width: 600px) { .corrigir { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="topo">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="educador.html">Painel</a>
+      <a href="professor-correcao.html" class="ativo">Atividades</a>
+      <a href="salas.html">Turmas</a>
+    </nav>
+    <div class="acoes-topo">
+      <span class="user-link" id="nome-usuario">👤</span>
+      <a href="#" class="logout-link" id="sair">Sair</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="pagina">
+      <div class="cabecalho">
+        <div>
+          <h1>Atividades e correção</h1>
+          <p class="subtitulo">Publique atividades e provas, receba as entregas dos alunos e dê nota e feedback.</p>
+        </div>
+        <div class="botoes">
+          <a href="nova-atividade.html" class="btn">+ Nova atividade</a>
+          <a href="nova-avaliacao.html" class="btn-sec">+ Nova avaliação</a>
+        </div>
+      </div>
+
+      <div id="lista"></div>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="../JS/config.js"></script>
+  <script>
+    const $ = (seletor) => document.querySelector(seletor);
+
+    // Cria um elemento com texto seguro (textContent evita injeção de HTML)
+    function h(tag, classe, texto) {
+      const el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (texto != null) el.textContent = texto;
+      return el;
+    }
+
+    function dataBR(iso) {
+      if (!iso) return 'sem prazo';
+      const [a, m, d] = iso.split('-');
+      return d + '/' + m + '/' + a;
+    }
+
+    function criarEntrega(entrega, valorMaximo, atualizarContagem) {
+      const caixa = h('div', 'entrega');
+
+      const topo = h('div', 'entrega-topo');
+      topo.append(
+        h('strong', null, entrega.aluno),
+        h('span', null, 'Enviada em ' + new Date(entrega.enviada_em).toLocaleString('pt-BR'))
+      );
+
+      const campoNota = h('input');
+      campoNota.type = 'number';
+      campoNota.min = '0';
+      campoNota.max = String(Number(valorMaximo));
+      campoNota.step = '0.1';
+      campoNota.placeholder = 'Nota / ' + Number(valorMaximo);
+      if (entrega.nota != null) campoNota.value = Number(entrega.nota);
+
+      const campoFeedback = h('textarea');
+      campoFeedback.placeholder = 'Feedback para o aluno (opcional)';
+      campoFeedback.value = entrega.feedback || '';
+
+      const corrigir = h('div', 'corrigir');
+      corrigir.append(campoNota, campoFeedback);
+
+      const botao = h('button', 'btn', entrega.corrigida_em ? 'Atualizar correção' : 'Salvar correção');
+      botao.type = 'button';
+      const msg = h('span', 'msg');
+
+      botao.addEventListener('click', async () => {
+        botao.disabled = true;
+        try {
+          await conradFetch('/api/entregas/' + entrega.id + '/correcao', {
+            method: 'PUT',
+            body: JSON.stringify({ nota: campoNota.value, feedback: campoFeedback.value })
+          });
+          msg.className = 'msg ok';
+          msg.textContent = 'Correção salva!';
+          botao.textContent = 'Atualizar correção';
+          atualizarContagem();
+        } catch (erro) {
+          msg.className = 'msg erro';
+          msg.textContent = erro.message;
+        } finally {
+          botao.disabled = false;
+        }
+      });
+
+      const acoes = h('div', 'acoes');
+      acoes.append(botao, msg);
+
+      caixa.append(topo, h('div', 'resposta', entrega.resposta), corrigir, acoes);
+      return caixa;
+    }
+
+    function criarCard(a) {
+      const card = h('article', 'card');
+
+      const contagem = h('span', 'contagem');
+      const mostrarContagem = () => {
+        contagem.textContent = a.total_entregas + ' entrega(s) • ' + a.corrigidas + ' corrigida(s)';
+      };
+      mostrarContagem();
+
+      const topo = h('div', 'card-topo');
+      topo.append(h('span', 'tag ' + a.tipo, a.tipo === 'avaliacao' ? 'Avaliação' : 'Atividade'), contagem);
+
+      const botao = h('button', 'btn-sec', 'Ver entregas');
+      botao.type = 'button';
+      const painel = h('div', 'entregas');
+      painel.hidden = true;
+      let carregado = false;
+
+      botao.addEventListener('click', async () => {
+        painel.hidden = !painel.hidden;
+        botao.textContent = painel.hidden ? 'Ver entregas' : 'Ocultar entregas';
+        if (painel.hidden || carregado) return;
+
+        try {
+          const dados = await conradFetch('/api/atividades/' + a.id + '/entregas');
+          painel.replaceChildren();
+          if (dados.entregas.length === 0) {
+            painel.append(h('p', 'vazio', 'Nenhum aluno entregou ainda.'));
+          }
+          dados.entregas.forEach((e) => {
+            painel.append(criarEntrega(e, dados.valor_maximo, recarregarContagem));
+          });
+          carregado = true;
+        } catch (erro) {
+          painel.replaceChildren(h('p', 'msg erro', erro.message));
+        }
+      });
+
+      // Atualiza o contador de corrigidas buscando a lista de novo
+      async function recarregarContagem() {
+        const lista = await conradFetch('/api/atividades');
+        const atual = lista.find((x) => x.id === a.id);
+        if (atual) {
+          a.total_entregas = atual.total_entregas;
+          a.corrigidas = atual.corrigidas;
+          mostrarContagem();
+        }
+      }
+
+      const rodape = h('div', 'acoes');
+      rodape.append(botao);
+
+      card.append(
+        topo,
+        h('h3', null, a.titulo),
+        h('p', 'meta', a.disciplina + ' • ' + a.turma + ' • Prazo: ' + dataBR(a.data_aplicacao) +
+          ' • Valor: ' + Number(a.valor_maximo) + ' pts'),
+        rodape,
+        painel
+      );
+      return card;
+    }
+
+    async function carregar() {
+      const atividades = await conradFetch('/api/atividades');
+      const lista = $('#lista');
+      lista.replaceChildren();
+      atividades.forEach((a) => lista.append(criarCard(a)));
+      if (atividades.length === 0) {
+        lista.append(h('p', 'vazio', 'Você ainda não publicou nenhuma atividade. Use os botões acima para começar.'));
+      }
+    }
+
+    $('#sair').addEventListener('click', (evento) => {
+      evento.preventDefault();
+      conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
+    });
+
+    function mostrarErro(erro) {
+      $('#lista').replaceChildren(h('p', 'msg erro', 'Não foi possível carregar: ' + erro.message));
+    }
+
+    (async function iniciar() {
+      try {
+        const eu = await conradFetch('/me');
+        if (eu.usuario.tipo !== 'educador') {
+          location.href = 'aluno-atividades.html';
+          return;
+        }
+        $('#nome-usuario').textContent = '👤 ' + eu.usuario.nome;
+        await carregar();
+      } catch (erro) {
+        if (erro.status === 401) location.href = 'login.html';
+        else mostrarErro(erro);
+      }
+    })();
+  </script>
+</body>
+</html>

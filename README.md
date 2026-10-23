@@ -48,7 +48,11 @@ Conrad-
    npm install
    ```
 
-3. Atualize o esquema do MySQL executando `JS/migrations/001-add-tipo-to-tb-usuarios.sql` no banco configurado no `.env`. A coluna `tipo` fica nula para contas antigas, pois o esquema anterior não guardava essa informação.
+3. Atualize o esquema do MySQL, no banco configurado no `.env`, executando nesta ordem:
+   - `JS/migrations/001-add-tipo-to-tb-usuarios.sql`
+   - `JS/migrations/002-atividades-entregas.sql`
+
+   A primeira migração adiciona o tipo de usuário. A segunda prepara as colunas e tabelas usadas por atividades, entregas e correções. Ela não remove dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a segunda migração para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente.
 
 4. Inicie o servidor:
    ```bash

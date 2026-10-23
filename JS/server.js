@@ -16,12 +16,21 @@ require("dotenv").config();
 // - bcryptjs: utilitário para hashear e comparar senhas com segurança
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const http = require("http");
 const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
-const paginasProtegidas = ["aluno.html", "educador.html", "salas.html"];
+const paginasProtegidas = [
+    "aluno.html",
+    "educador.html",
+    "salas.html",
+    "aluno-atividades.html",
+    "professor-correcao.html",
+    "nova-atividade.html",
+    "nova-avaliacao.html"
+];
 
 // Cria a instância principal do servidor Express
 const app = express();
@@ -100,8 +109,16 @@ if (process.env.NODE_ENV == "production") {
 const sessionMiddleware = session(sessionConfig);
 app.use(sessionMiddleware);
 
-const mediasRoutes = require("./medias.js");
-app.use("/api", mediasRoutes);
+// Rotas de mídia (opcionais): só são carregadas se o arquivo medias.js existir
+if (fs.existsSync(path.join(__dirname, "medias.js"))) {
+    app.use("/api", require("./medias.js"));
+} else {
+    console.warn("medias.js não encontrado: rotas de mídia desativadas.");
+}
+
+// Atividades, provas, entregas e notas (professor <-> aluno)
+const atividadesRoutes = require("./atividades.js");
+app.use("/api", atividadesRoutes);
 
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
@@ -173,6 +190,7 @@ const arquivosBloqueados = [
     "/js/server.js",
     "/js/db.js",
     "/js/medias.js",
+    "/js/atividades.js",
     "/js/ca.pem",
     "/package.json",
     "/package-lock.json"
@@ -211,6 +229,12 @@ app.post("/cadastro", async (req, res) => {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        // O formulário pode enviar "estudante"; o banco guarda "aluno"
+        const tipoBanco = tipo === "estudante" ? "aluno" : tipo;
+        if (!["aluno", "educador"].includes(tipoBanco)) {
+            return res.status(400).json({ erro: "Tipo de usuário inválido" });
+        }
+
         // Verifica se o e-mail já existe na tabela `tb_usuarios`
         const [existentes] = await pool.execute(
             "SELECT id FROM tb_usuarios WHERE email = ?", [email]
@@ -226,7 +250,7 @@ app.post("/cadastro", async (req, res) => {
         // Insere o usuário no banco e obtém o `insertId`
         const [resultado] = await pool.execute(
             "INSERT INTO tb_usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)",
-            [nome, email, senhaHash, tipo]
+            [nome, email, senhaHash, tipoBanco]
         );
 
         // Salva apenas dados não sensíveis na sessão (não guardar senha)
@@ -234,7 +258,7 @@ app.post("/cadastro", async (req, res) => {
             id: resultado.insertId,
             nome: nome,
             email: email,
-            tipo: tipo
+            tipo: tipoBanco
         };
 
         // Resposta com 201 (criado)

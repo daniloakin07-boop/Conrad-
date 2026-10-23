@@ -43,7 +43,7 @@ router.get("/medias", exigirEducador, async (req, res) => {
             LEFT JOIN tb_notas AS n
                 ON n.atividade_id = a.id
 
-            WHERE a.avaliativa = 1
+            WHERE a.tipo = 'avaliacao'
               AND a.aplicada = 1
               AND a.valor_maximo > 0
 
@@ -77,7 +77,7 @@ router.get("/medias", exigirEducador, async (req, res) => {
 
                 INNER JOIN tb_atividades AS a
                     ON a.id = n.atividade_id
-                   AND a.avaliativa = 1
+                   AND a.tipo = 'avaliacao'
                    AND a.aplicada = 1
                    AND a.valor_maximo > 0
             )
@@ -105,7 +105,7 @@ router.get("/medias", exigirEducador, async (req, res) => {
             INNER JOIN tb_atividades AS a
                 ON a.id = n.atividade_id
 
-            WHERE a.avaliativa = 1
+            WHERE a.tipo = 'avaliacao'
               AND a.aplicada = 1
               AND a.valor_maximo > 0
         `);

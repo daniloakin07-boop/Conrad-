@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conrad | Minhas atividades</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <style>
+    .pagina { max-width: 900px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
+    .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
+    .subtitulo { color: #667085; font-size: 14px; margin: 4px 0 18px; }
+
+    .barra-turma { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+    .barra-turma label { font-weight: 700; font-size: 14px; }
+    .barra-turma select { padding: 9px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+
+    .resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .resumo div { background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; }
+    .resumo strong { display: block; font-size: 26px; color: #0A1F44; }
+    .resumo span { font-size: 12px; color: #667085; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+      box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
+    .card-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .card h3 { font-size: 19px; color: #0A1F44; margin-bottom: 4px; }
+    .meta { font-size: 13px; color: #667085; margin-bottom: 8px; }
+    .desc { font-size: 14px; color: #344054; margin-bottom: 12px; white-space: pre-wrap; }
+
+    .tag, .status { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 5px 11px; border-radius: 999px; }
+    .tag.atividade { background: #eef4ff; color: #2958a8; }
+    .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
+    .status.pendente { background: #fdecec; color: #b33a32; }
+    .status.enviada { background: #fff4d6; color: #9a6b00; }
+    .status.corrigida { background: #e8f6ed; color: #287a45; }
+
+    textarea { width: 100%; min-height: 110px; padding: 12px 14px; border: 1px solid #d8dce1; border-radius: 10px;
+      font: inherit; resize: vertical; color: #0A1F44; }
+    .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .btn { background: #F5821F; color: #fff; border: none; border-radius: 10px; padding: 11px 18px;
+      font-weight: 800; font-size: 13px; cursor: pointer; }
+    .btn:hover { background: #de7110; }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+    .msg { font-size: 13px; }
+    .msg.ok { color: #287a45; }
+    .msg.erro { color: #c0392b; }
+
+    .nota-box { background: #f0f9f3; border: 1px solid #cfe9d8; border-radius: 10px; padding: 12px 14px; margin-top: 8px; }
+    .nota-box strong { font-size: 18px; color: #287a45; }
+    .nota-box p { margin-top: 6px; font-size: 14px; color: #344054; white-space: pre-wrap; }
+    .resposta-enviada { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 10px 12px;
+      margin-top: 10px; font-size: 13px; color: #475467; white-space: pre-wrap; }
+    .vazio { text-align: center; color: #667085; padding: 40px 0; }
+    @media (max-width: 600px) { .resumo { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="topo">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="aluno.html">Painel</a>
+      <a href="aluno-atividades.html" class="ativo">Atividades</a>
+      <a href="salas.html">Salas</a>
+    </nav>
+    <div class="acoes-topo">
+      <span class="user-link" id="nome-usuario">👤</span>
+      <a href="#" class="logout-link" id="sair">Sair</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="pagina">
+      <h1>Minhas atividades e provas</h1>
+      <p class="subtitulo">Envie suas respostas e acompanhe notas e feedback do professor.</p>
+
+      <div class="barra-turma">
+        <label for="turma">Minha turma:</label>
+        <select id="turma">
+          <option value="">Selecione…</option>
+          <option>1º ano B</option>
+          <option>2º ano A</option>
+          <option>3º ano C</option>
+        </select>
+        <button type="button" class="btn" id="salvar-turma">Salvar turma</button>
+        <span class="msg" id="msg-turma"></span>
+      </div>
+
+      <div class="resumo">
+        <div><strong id="n-pendentes">0</strong><span>Pendentes</span></div>
+        <div><strong id="n-enviadas">0</strong><span>Enviadas</span></div>
+        <div><strong id="n-corrigidas">0</strong><span>Corrigidas</span></div>
+      </div>
+
+      <div id="lista"></div>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="../JS/config.js"></script>
+  <script>
+    const $ = (seletor) => document.querySelector(seletor);
+
+    // Cria um elemento com texto seguro (textContent evita injeção de HTML)
+    function h(tag, classe, texto) {
+      const el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (texto != null) el.textContent = texto;
+      return el;
+    }
+
+    function dataBR(iso) {
+      if (!iso) return 'sem prazo';
+      const [a, m, d] = iso.split('-');
+      return d + '/' + m + '/' + a;
+    }
+
+    function statusDe(a) {
+      if (a.corrigida_em) return ['corrigida', 'Corrigida'];
+      if (a.enviada_em) return ['enviada', 'Enviada'];
+      return ['pendente', 'Pendente'];
+    }
+
+    function criarCard(a) {
+      const [classeStatus, rotuloStatus] = statusDe(a);
+      const card = h('article', 'card');
+
+      const topo = h('div', 'card-topo');
+      topo.append(
+        h('span', 'tag ' + a.tipo, a.tipo === 'avaliacao' ? 'Avaliação' : 'Atividade'),
+        h('span', 'status ' + classeStatus, rotuloStatus)
+      );
+
+      card.append(
+        topo,
+        h('h3', null, a.titulo),
+        h('p', 'meta', a.disciplina + ' • ' + a.turma + ' • Prazo: ' + dataBR(a.data_aplicacao) +
+          ' • Valor: ' + Number(a.valor_maximo) + ' pts')
+      );
+      if (a.descricao) card.append(h('p', 'desc', a.descricao));
+
+      // Já corrigida: mostra nota, feedback e a resposta enviada
+      if (a.corrigida_em) {
+        const box = h('div', 'nota-box');
+        box.append(h('strong', null, 'Nota: ' + Number(a.nota) + ' / ' + Number(a.valor_maximo)));
+        if (a.feedback) box.append(h('p', null, 'Feedback: ' + a.feedback));
+        card.append(box, h('div', 'resposta-enviada', 'Sua resposta: ' + a.resposta));
+        return card;
+      }
+
+      // Pendente ou enviada: formulário de resposta
+      const campo = h('textarea');
+      campo.placeholder = 'Escreva aqui a sua resposta…';
+      campo.maxLength = 5000;
+      campo.value = a.resposta || '';
+
+      const botao = h('button', 'btn', a.enviada_em ? 'Atualizar resposta' : 'Enviar resposta');
+      botao.type = 'button';
+      const msg = h('span', 'msg');
+
+      botao.addEventListener('click', async () => {
+        if (!campo.value.trim()) {
+          msg.className = 'msg erro';
+          msg.textContent = 'Escreva a resposta antes de enviar.';
+          return;
+        }
+        botao.disabled = true;
+        try {
+          await conradFetch('/api/atividades/' + a.id + '/entrega', {
+            method: 'POST',
+            body: JSON.stringify({ resposta: campo.value })
+          });
+          await carregar();
+        } catch (erro) {
+          msg.className = 'msg erro';
+          msg.textContent = erro.message;
+          botao.disabled = false;
+        }
+      });
+
+      const acoes = h('div', 'acoes');
+      acoes.append(botao, msg);
+      card.append(campo, acoes);
+      return card;
+    }
+
+    async function carregar() {
+      const dados = await conradFetch('/api/aluno/atividades');
+      $('#turma').value = dados.turma || '';
+
+      const lista = $('#lista');
+      lista.replaceChildren();
+
+      let pendentes = 0, enviadas = 0, corrigidas = 0;
+      dados.atividades.forEach((a) => {
+        if (a.corrigida_em) corrigidas++;
+        else if (a.enviada_em) enviadas++;
+        else pendentes++;
+        lista.append(criarCard(a));
+      });
+
+      $('#n-pendentes').textContent = pendentes;
+      $('#n-enviadas').textContent = enviadas;
+      $('#n-corrigidas').textContent = corrigidas;
+
+      if (!dados.turma) {
+        lista.append(h('p', 'vazio', 'Selecione e salve sua turma para ver as atividades disponíveis.'));
+      } else if (dados.atividades.length === 0) {
+        lista.append(h('p', 'vazio', 'Nenhuma atividade publicada para a sua turma ainda.'));
+      }
+    }
+
+    $('#salvar-turma').addEventListener('click', async () => {
+      const msg = $('#msg-turma');
+      const turma = $('#turma').value;
+      if (!turma) {
+        msg.className = 'msg erro';
+        msg.textContent = 'Escolha uma turma.';
+        return;
+      }
+      try {
+        await conradFetch('/api/aluno/turma', { method: 'PUT', body: JSON.stringify({ turma }) });
+        msg.className = 'msg ok';
+        msg.textContent = 'Turma salva!';
+        await carregar();
+      } catch (erro) {
+        msg.className = 'msg erro';
+        msg.textContent = erro.message;
+      }
+    });
+
+    $('#sair').addEventListener('click', (evento) => {
+      evento.preventDefault();
+      conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
+    });
+
+    function mostrarErro(erro) {
+      $('#lista').replaceChildren(h('p', 'msg erro', 'Não foi possível carregar: ' + erro.message));
+    }
+
+    (async function iniciar() {
+      try {
+        const eu = await conradFetch('/me');
+        if (eu.usuario.tipo === 'educador') {
+          location.href = 'professor-correcao.html';
+          return;
+        }
+        $('#nome-usuario').textContent = '👤 ' + eu.usuario.nome;
+        await carregar();
+      } catch (erro) {
+        if (erro.status === 401) location.href = 'login.html';
+        else mostrarErro(erro);
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -46,7 +46,7 @@ if (formLogin) {
 
             if (resposta.ok) {
                 mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso");
-                const pagina = dados.usuario?.tipo === "educador" ? "perfil-educador.html" : "perfil-aluno.html";
+                const pagina = dados.usuario?.tipo === "educador" ? "educador.html" : "aluno.html";
                 window.location.href = `${API_URL}/pages/${pagina}`;
             } else {
                 mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro");

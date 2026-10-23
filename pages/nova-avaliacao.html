@@ -201,7 +201,7 @@
 
             <div class="field">
               <label for="valor">Pontuação</label>
-              <input id="valor" type="text" placeholder="Ex: 100 pontos" />
+              <input id="valor" type="number" min="0.5" step="0.5" value="10" />
             </div>
 
             <div class="field full">
@@ -237,39 +237,52 @@
     </section>
   </main>
 
+  <script src="../JS/config.js"></script>
   <script>
-    const form = document.querySelector('form');
-    const tituloInput = document.getElementById('titulo');
-    const turmaInput = document.getElementById('turma');
-    const disciplinaInput = document.getElementById('disciplina');
-    const dataInput = document.getElementById('data');
-    const valorInput = document.getElementById('valor');
-    const descricaoInput = document.getElementById('descricao');
+    const TIPO = "avaliacao";
+    const ROTULO = "avaliação";
 
-    form.addEventListener('submit', function (event) {
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const avaliacao = {
-        titulo: tituloInput.value.trim(),
-        turma: turmaInput.value,
-        disciplina: disciplinaInput.value,
-        data: dataInput.value,
-        valor: valorInput.value.trim(),
-        descricao: descricaoInput.value.trim(),
-        criadoEm: new Date().toISOString()
+      const dados = {
+        titulo: document.getElementById('titulo').value.trim(),
+        turma: document.getElementById('turma').value,
+        disciplina: document.getElementById('disciplina').value,
+        data_aplicacao: document.getElementById('data').value,
+        valor_maximo: Number(document.getElementById('valor').value),
+        descricao: document.getElementById('descricao').value.trim(),
+        tipo: TIPO
       };
 
-      if (!avaliacao.titulo || !avaliacao.data || !avaliacao.descricao) {
-        alert('Preencha o nome, a data e a descrição da avaliação.');
+      if (!dados.titulo || !dados.data_aplicacao || !dados.descricao) {
+        alert('Preencha o nome, a data e a descrição.');
         return;
       }
 
-      const avaliacoes = JSON.parse(localStorage.getItem('avaliacoesProfessor') || '[]');
-      avaliacoes.push(avaliacao);
-      localStorage.setItem('avaliacoesProfessor', JSON.stringify(avaliacoes));
+      if (!dados.valor_maximo || dados.valor_maximo <= 0) {
+        alert('Informe um valor/pontuação maior que zero.');
+        return;
+      }
 
-      alert('Avaliação criada com sucesso!');
-      form.reset();
+      const botao = form.querySelector('[type="submit"]');
+      botao.disabled = true;
+
+      try {
+        await conradFetch('/api/atividades', {
+          method: 'POST',
+          body: JSON.stringify(dados)
+        });
+        alert('Sua ' + ROTULO + ' foi publicada e já aparece para os alunos da turma!');
+        form.reset();
+        document.getElementById('valor').value = 10;
+      } catch (erro) {
+        alert(erro.message);
+      } finally {
+        botao.disabled = false;
+      }
     });
   </script>
 </body>

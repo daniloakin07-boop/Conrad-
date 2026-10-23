@@ -37,7 +37,7 @@
       <nav>
         <a href="educador.html" class="menu-item ativo">Painel</a>
         <a href="#turmas" class="menu-item">Minhas turmas</a>
-        <a href="avaliação.html" class="menu-item">Avaliações</a>
+        <a href="professor-correcao.html" class="menu-item">Atividades e correção</a>
         <a href="agenda-professor.html" class="menu-item">Agenda</a>
         <a href="#mensagens" class="menu-item">Mensagens</a>
       </nav>
@@ -63,6 +63,7 @@
           <div class="quick-actions">
             <a href="nova-atividade.html" class="btn-primario">Criar atividade</a>
             <a href="nova-avaliacao.html" class="btn-secundario">Criar avaliação</a>
+            <a href="professor-correcao.html" class="btn-secundario">Corrigir entregas</a>
           </div>
 
           <div class="header-profile">
@@ -75,7 +76,7 @@
 
             <div id="profileDropdown" class="profile-dropdown" style="display:none;">
               <a href="perfil-educador.html">Editar</a>
-              <a href="../index.html">Sair</a>
+              <a href="../index.html" data-sair>Sair</a>
             </div>
           </div>
         </div>
@@ -252,5 +253,85 @@
       </div>
     </div>
   </div>
+<script src="../JS/config.js"></script>
+  <script>
+  (async function () {
+    const h = (tag, classe, texto) => {
+      const el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (texto != null) el.textContent = texto;
+      return el;
+    };
+
+    function saudacao() {
+      const hora = new Date().getHours();
+      return hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
+    }
+
+    function iniciais(nome) {
+      const p = nome.trim().split(/\s+/);
+      return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase();
+    }
+
+    function preencherNome(nome) {
+      const titulo = document.querySelector('.titulo-dashboard h1');
+      if (titulo) titulo.textContent = saudacao() + ', ' + nome;
+      document.querySelectorAll('.menu-lateral > div > strong, .profile-name strong')
+        .forEach((el) => { el.textContent = nome; });
+      const avatar = document.querySelector('.header-profile .avatar');
+      if (avatar) avatar.textContent = iniciais(nome);
+    }
+
+    document.querySelectorAll('[data-sair]').forEach((link) => {
+      link.addEventListener('click', (evento) => {
+        evento.preventDefault();
+        conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
+      });
+    });
+
+    try {
+      const eu = await conradFetch('/me');
+      if (eu.usuario.tipo !== 'educador') { location.href = 'aluno.html'; return; }
+      preencherNome(eu.usuario.nome);
+
+      const atividades = await conradFetch('/api/atividades');
+
+      // Quarto cartão: entregas aguardando correção
+      const aCorrigir = atividades.reduce(
+        (soma, a) => soma + (Number(a.total_entregas) - Number(a.corrigidas)), 0);
+      const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
+      if (cartoes[3]) {
+        cartoes[3].querySelector('h2').textContent = aCorrigir;
+        cartoes[3].querySelector('h3').textContent = 'Para corrigir';
+        cartoes[3].querySelector('span').textContent = 'Entregas aguardando correção';
+      }
+
+      // Submissões recentes: atividades que já têm entregas
+      const cartao = document.querySelector('.submissions-card');
+      if (cartao) {
+        cartao.querySelectorAll('.pendencia').forEach((el) => el.remove());
+        const comEntregas = atividades.filter((a) => Number(a.total_entregas) > 0).slice(0, 5);
+
+        if (comEntregas.length === 0) {
+          cartao.append(h('p', null, 'Nenhuma entrega recebida ainda.'));
+        }
+
+        comEntregas.forEach((a) => {
+          const item = h('div', 'pendencia');
+          item.style.cursor = 'pointer';
+          item.addEventListener('click', () => { location.href = 'professor-correcao.html'; });
+          item.append(
+            h('h4', null, a.titulo),
+            h('p', null, 'Turma: ' + a.turma + ' · ' + a.total_entregas + ' entrega(s) · ' + a.corrigidas + ' corrigida(s)')
+          );
+          cartao.append(item);
+        });
+      }
+    } catch (erro) {
+      if (erro.status === 401) location.href = 'login.html';
+      else console.error(erro);
+    }
+  })();
+  </script>
 </body>
 </html>
