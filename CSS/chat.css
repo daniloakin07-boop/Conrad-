@@ -1,0 +1,176 @@
+/* =====================================================
+   BATE-PAPO — usa o mesmo padrão de card das outras telas
+   (antes estes estilos ficavam no style.css e afetavam
+   todas as páginas do site)
+   Os nomes das classes .msg, .eu, .outro, .mensagens e
+   .enviarr são usados pelo JS/script.js — não renomear.
+===================================================== */
+
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 330px);
+  min-height: 460px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-topo .usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-topo .usuario i {
+  font-size: 28px;
+  color: #163B74;
+}
+
+.chat-topo h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+.chat-topo .acoes i {
+  margin-left: 18px;
+  font-size: 18px;
+  color: #163B74;
+  cursor: pointer;
+}
+
+#status-chat {
+  display: block;
+  color: #7b8798;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#status-chat.conectado {
+  color: #198754;
+}
+
+.mensagens {
+  flex: 1;
+  padding: 24px;
+  overflow: auto;
+  background: #f8f9fb;
+}
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: max-content;
+  max-width: min(420px, 85%);
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.msg strong {
+  font-size: 13px;
+}
+
+.msg span {
+  line-height: 1.4;
+}
+
+.msg small {
+  align-self: flex-end;
+  opacity: 0.7;
+  font-size: 10px;
+}
+
+.eu {
+  margin-left: auto;
+  background: #0A1F44;
+  color: #fff;
+}
+
+.outro {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #0A1F44;
+}
+
+.enviarr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.enviarr i {
+  font-size: 20px;
+  color: #163B74;
+}
+
+.enviarr input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid #d8dce1;
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+.enviarr input:focus {
+  outline: none;
+  border-color: #0A1F44;
+}
+
+.enviarr button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #F5821F;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.enviarr button:hover {
+  background: #db770f;
+}
+
+#contador-online {
+  white-space: nowrap;
+  color: #666;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .chat-card {
+    height: 70vh;
+  }
+
+  .enviarr {
+    flex-wrap: wrap;
+  }
+
+  #contador-online {
+    order: 3;
+    width: 100%;
+  }
+}

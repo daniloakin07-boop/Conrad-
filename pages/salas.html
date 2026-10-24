@@ -1,63 +1,106 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salas Virtuais — CONRAD</title>
   <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/professor.css">
+  <link rel="stylesheet" href="../CSS/painel.css">
   <link rel="stylesheet" href="../CSS/salas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 
-  <div class="containers">
-    <aside class="sidebar">
-      <div class="logos">
-        <img src="../img/conradcad.png" alt="CONRAD">
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
+        <span class="user-avatar">👤</span>
+        <span>Minha conta</span>
+      </a>
+      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="dashboard-professor">
+
+    <aside class="menu-lateral" data-menu="auto">
+      <h3>Conrad Aluno</h3>
+
+      <nav>
+        <a href="aluno.html" class="menu-item">Painel</a>
+        <a href="aluno.html#calendario" class="menu-item">Calendário</a>
+        <a href="aluno.html#frequencia" class="menu-item">Frequência das aulas</a>
+        <a href="aluno.html#desempenho" class="menu-item">Desempenho do aluno</a>
+        <a href="dashboard.html" class="menu-item">Horário das aulas</a>
+        <a href="avaliação.html" class="menu-item">Atividades</a>
+        <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
+        <a href="salas.html" class="menu-item ativo">Salas virtuais</a>
+        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
+      </nav>
+
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
       </div>
-      <ul>
-        <li onclick="location.href='bate-papo.html'">Chat</li>
-        <li class="ativo">Salas virtuais</li>
-        <li onclick="location.href='perfil-aluno.html'">Perfil</li>
-        <li onclick="location.href='avaliação.html'">Avaliações</li>
-        <li>Atividades</li>
-      </ul>
+
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Aluno</span>
+      </div>
     </aside>
 
-    <div class="salas-main">
-      <header>
-        <div class="salas-topo" style="flex:1;">
-          <h1>Salas Virtuais</h1>
+      <section class="conteudo-dashboard" id="mainContent">
+
+        <header class="titulo-dashboard">
+          <div>
+            <h1>Salas Virtuais</h1>
+            <p>Escolha uma sala para entrar na aula ao vivo.</p>
+          </div>
+
           <div class="salas-busca">
             <i class="fa fa-search"></i>
             <input type="text" id="busca-sala" placeholder="Buscar sala ou assunto">
           </div>
-        </div>
-      </header>
+        </header>
 
-      <section class="salas-grid" id="salas-grid"></section>
+        <section class="salas-grid" id="salas-grid"></section>
 
-      <section class="sala-video-view" id="sala-video-view">
-        <div class="sala-video-topo">
-          <button id="voltar-salas">← Voltar para salas</button>
-          <strong id="sala-video-titulo"></strong>
-        </div>
-        <div class="sala-video-frame">
-          <iframe id="sala-video-iframe" allow="camera; microphone; fullscreen; display-capture"></iframe>
-        </div>
-        <div class="sala-video-controles">
-          <button id="btn-mic"><i class="fa fa-microphone"></i></button>
-          <button id="btn-cam"><i class="fa fa-video"></i></button>
-          <button class="sair" id="btn-sair"><i class="fa fa-phone-slash"></i></button>
-        </div>
+        <section class="sala-video-view" id="sala-video-view">
+          <div class="sala-video-topo">
+            <button id="voltar-salas">← Voltar para salas</button>
+            <strong id="sala-video-titulo"></strong>
+          </div>
+          <div class="sala-video-frame">
+            <iframe id="sala-video-iframe" allow="camera; microphone; fullscreen; display-capture"></iframe>
+          </div>
+          <div class="sala-video-controles">
+            <button id="btn-mic"><i class="fa fa-microphone"></i></button>
+            <button id="btn-cam"><i class="fa fa-video"></i></button>
+            <button class="sair" id="btn-sair"><i class="fa fa-phone-slash"></i></button>
+          </div>
+        </section>
+
       </section>
+
     </div>
-  </div>
+  </main>
 
   <footer class="rodape">
-    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
 
   <script src="../JS/salas.js"></script>
+  <script src="../JS/layout.js" defer></script>
 </body>
 </html>

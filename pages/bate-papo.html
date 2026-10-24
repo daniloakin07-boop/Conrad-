@@ -1,158 +1,124 @@
 <!DOCTYPE html>
-<!-- Define que o documento utiliza HTML5 -->
-
 <html lang="pt-BR">
-<!-- Início do documento HTML e define o idioma como português do Brasil -->
-
 <head>
-    <!-- Configurações da página -->
-
-    <meta charset="UTF-8">
-    <!-- Permite o uso de caracteres especiais, como ç e acentos -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Faz com que o site seja responsivo em celulares e tablets -->
-
-    <title>Chat - Conrad Virtual School</title>
-    <!-- Título exibido na aba do navegador -->
-
-    <!-- Arquivo CSS responsável pela aparência da página -->
-    <link rel="stylesheet" href="../CSS/style.css">
-
-    <!-- Biblioteca Font Awesome utilizada para adicionar ícones -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - Conrad Virtual School</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/professor.css">
+  <link rel="stylesheet" href="../CSS/painel.css">
+  <link rel="stylesheet" href="../CSS/chat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-
 <body>
 
-<!-- Container principal que engloba toda a interface -->
-<div class="containers">
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
 
-    <!-- ================= MENU LATERAL ================= -->
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
+        <span class="user-avatar">👤</span>
+        <span>Minha conta</span>
+      </a>
+      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
+  </header>
 
-    <aside class="sidebar">
+  <main class="container">
+    <div class="dashboard-professor">
 
-        <!-- Logo da escola -->
-        <div class="logos">
-            <img class="imagenss" src="../img/Captura de tela 2026-07-10 181529.png">
-        </div>
+    <aside class="menu-lateral" data-menu="auto">
+      <h3>Conrad Aluno</h3>
 
-        <!-- Lista de opções do menu -->
-        <ul>
+      <nav>
+        <a href="aluno.html" class="menu-item">Painel</a>
+        <a href="aluno.html#calendario" class="menu-item">Calendário</a>
+        <a href="aluno.html#frequencia" class="menu-item">Frequência das aulas</a>
+        <a href="aluno.html#desempenho" class="menu-item">Desempenho do aluno</a>
+        <a href="dashboard.html" class="menu-item">Horário das aulas</a>
+        <a href="avaliação.html" class="menu-item">Atividades</a>
+        <a href="bate-papo.html" class="menu-item ativo">Bate-Papo</a>
+        <a href="salas.html" class="menu-item">Salas virtuais</a>
+        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
+      </nav>
 
-            <!-- Opção atualmente selecionada -->
-            <li class="active">
-                <i class="fa-solid fa-message"></i>
-                Chat
-            </li>
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
+      </div>
 
-            <!-- Opção Salas -->
-            <li>
-                <i class="fa-solid fa-user-group"></i>
-                Salas
-            </li>
-
-            <!-- Opção Avaliações -->
-            <li>
-                <i class="fa-solid fa-desktop"></i>
-                Avaliações
-            </li>
-            <!-- Opção Atividades -->
-            <li>
-                <i class="fa-solid fa-clipboard"></i>
-                Atividades
-            </li>
-            <!-- Opção Perfil -->
-            <li>
-                <i class="fa-solid fa-circle-user"></i>
-                Perfil
-                
-            </li>
-
-        </ul>
-
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Aluno</span>
+      </div>
     </aside>
 
-    <!-- ================= ÁREA PRINCIPAL DO CHAT ================= -->
+      <section class="conteudo-dashboard" id="mainContent">
 
-    <main class="chat">
-
-        <!-- Cabeçalho do chat -->
-        <header>
-
-            <!-- Informações do usuário -->
-            <div class="usuario">
-
-                <!-- Ícone do usuário -->
-                <i class="fa-solid fa-user"></i>
-
-                <!-- Nome do contato -->
-                <div>
-                    <h2>CHAT DA TURMA</h2>
-                    <small id="status-chat">Conectando...</small>
-                </div>
-
-            </div>
-
-            <!-- Botões de ação -->
-            <div class="acoes">
-
-                <!-- Botão de chamada -->
-                <i class="fa-solid fa-phone"></i>
-
-                <!-- Botão de vídeo -->
-                <i class="fa-solid fa-video"></i>
-
-                <!-- Botão de informações -->
-                <i class="fa-solid fa-circle-info"></i>
-
-            </div>
-
+        <header class="titulo-dashboard">
+          <div>
+            <h1>Bate-papo</h1>
+            <p>Converse em tempo real com a sua turma.</p>
+          </div>
         </header>
 
-        <!-- ================= ÁREA DAS MENSAGENS ================= -->
+        <div class="chat-card">
 
-        <!-- Local onde as mensagens serão inseridas pelo JavaScript -->
-        <div class="mensagens" id="mensagens" aria-live="polite">
+          <div class="chat-topo">
+            <div class="usuario">
+              <i class="fa-solid fa-user"></i>
+              <div>
+                <h2>Chat da turma</h2>
+                <small id="status-chat">Conectando...</small>
+              </div>
+            </div>
 
-        </div>
+            <div class="acoes">
+              <i class="fa-solid fa-phone"></i>
+              <i class="fa-solid fa-video"></i>
+              <i class="fa-solid fa-circle-info"></i>
+            </div>
+          </div>
 
-        <!-- ================= ÁREA DE ENVIO ================= -->
-         
-        <div class="enviarr">
+          <!-- As mensagens são inseridas aqui pelo JS/script.js -->
+          <div class="mensagens" id="mensagens" aria-live="polite"></div>
 
-            <!-- Ícone para anexar arquivos -->
+          <div class="enviarr">
             <i class="fa-solid fa-link"></i>
 
-            <!-- Campo onde o usuário digita a mensagem -->
             <input
-                type="text"
-                id="texto"
-                maxlength="500"
-                autocomplete="off"
-                placeholder="Digite uma mensagem">
+              type="text"
+              id="texto"
+              maxlength="500"
+              autocomplete="off"
+              placeholder="Digite uma mensagem">
 
             <span id="contador-online" aria-live="polite">0 pessoas online</span>
 
-            <!-- Botão que chama a função enviarMensagem() -->
-            <button onclick="enviarMensagem()">
-                Enviar
-            </button>
+            <!-- O clique do botão é ligado no JS/script.js -->
+            <button type="button">Enviar</button>
+          </div>
 
         </div>
-    </main>
 
-</div>
-<!-- ============================================================================================================================ -->git 
-<!-- ================= RODAPÉ ================= -->
-<footer class="rodape">
-    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
-<!-- Arquivo JavaScript responsável pelas funcionalidades do chat -->
-<script src="/socket.io/socket.io.js"></script>
-<script src="../JS/script.js"></script>
+  </footer>
 
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="../JS/script.js"></script>
+  <script src="../JS/layout.js" defer></script>
 </body>
 </html>

@@ -1,158 +1,143 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../CSS/perfil.css">
   <title>CONRAD Virtual School - Perfil</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/professor.css">
+  <link rel="stylesheet" href="../CSS/painel.css">
 </head>
-
 <body>
 
-    <!-- Barra lateral -->
-    <aside class="sidebar">
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
 
-        <!-- Logo -->
-        <div class="logo">
-            LOGO
-        </div>
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
+        <span class="user-avatar">👤</span>
+        <span>Minha conta</span>
+      </a>
+      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
+  </header>
 
-        <!-- Menu de navegação -->
-        <nav>
+  <main class="container">
+    <div class="dashboard-professor">
 
-            <a href="#">🏠</a>
+    <aside class="menu-lateral">
+      <h3>Conrad Aluno</h3>
 
-            <a href="#">📚</a>
+      <nav>
+        <a href="aluno.html" class="menu-item">Painel</a>
+        <a href="aluno.html#calendario" class="menu-item">Calendário</a>
+        <a href="aluno.html#frequencia" class="menu-item">Frequência das aulas</a>
+        <a href="aluno.html#desempenho" class="menu-item">Desempenho do aluno</a>
+        <a href="dashboard.html" class="menu-item">Horário das aulas</a>
+        <a href="avaliação.html" class="menu-item">Atividades</a>
+        <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
+        <a href="salas.html" class="menu-item">Salas virtuais</a>
+        <a href="perfil-aluno.html" class="menu-item ativo">Meu perfil</a>
+      </nav>
 
-            <a href="#">🎓</a>
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
+      </div>
 
-            <a href="#">📏</a>
-
-        </nav>
-
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Aluno</span>
+      </div>
     </aside>
 
-    <!-- Conteúdo principal -->
-    <main class="conteudo">
+      <section class="conteudo-dashboard" id="mainContent">
 
-        <!-- Cabeçalho -->
-        <header class="topo">
+        <header class="titulo-dashboard">
+          <div>
+            <h1>Painel principal de ensino e acompanhamento</h1>
+            <p>Uma experiência centralizada para publicar atividades, acompanhar desempenho e acessar salas virtuais.</p>
+          </div>
 
-            <!-- Campo de pesquisa -->
-            <input
-                type="text"
-                placeholder="Buscar aulas, atividades">
-
-            <!-- Área dos ícones -->
-            <div class="icones">
-
-                🔔
-
-                👤
-
-            </div>
-
+          <div class="quick-actions">
+            <button type="button" class="btn-primario">Criar atividade</button>
+            <a href="salas.html" class="btn-secundario">Entrar ao vivo</a>
+          </div>
         </header>
 
-        <!-- Primeira linha -->
-        <section class="linha">
+        <section class="cards-resumo tres">
+          <div class="card-resumo">
+            <h2>12</h2>
+            <h3>Atividades</h3>
+            <span>Atividades cadastradas</span>
+          </div>
 
-            <!-- Banner principal -->
-            <div class="banner">
+          <div class="card-resumo">
+            <h2>03</h2>
+            <h3>Salas</h3>
+            <span>Salas virtuais disponíveis</span>
+          </div>
 
-                <h1>Painel principal de ensino e acompanhamento</h1>
-
-                <p>
-                    Uma experiência centralizada para publicar atividades,
-                    acompanhar desempenho e acessar salas virtuais.
-                </p>
-
-                <button>Criar atividade</button>
-
-                <button>Entrar ao vivo</button>
-
-            </div>
-
-            <!-- Resumo -->
-            <div class="resumo">
-
-                <h2>Resumo rápido</h2>
-
-                <p>Atividades: 12</p>
-
-                <p>Salas: 03</p>
-
-                <p>Alertas: 05</p>
-
-            </div>
-
+          <div class="card-resumo">
+            <h2>05</h2>
+            <h3>Alertas</h3>
+            <span>Alertas para acompanhar</span>
+          </div>
         </section>
 
-        <!-- Segunda linha -->
-        <section class="linha">
+        <div class="painel-dashboard">
 
-            <!-- Lista de atividades -->
-            <div class="atividades">
-
-                <h2>Atividades recentes</h2>
-
-                <!-- Card de atividade -->
-                <div class="atividade">
-
-                    <div>
-
-                        <h4>Atividade de Programação</h4>
-
-                        <small>Entrega até 15/07</small>
-
-                    </div>
-
-                    <span class="status pendente">
-
-                        Pendente
-
-                    </span>
-
-                </div>
-
+          <article class="card-avaliacoes">
+            <div class="titulo-card">
+              <h2>Atividades recentes</h2>
             </div>
 
-            <!-- Coluna da direita -->
-            <div class="direita">
-
-                <!-- Card de desempenho -->
-                <div class="desempenho">
-
-                    <h2>Desempenho</h2>
-
-                    <!-- Barra -->
-                    <div class="barra">
-                        <div style="width:70%;"></div>
-                    </div>
-
-                    <div class="barra">
-                        <div style="width:90%;"></div>
-                    </div>
-
+            <div class="lista-simples">
+              <div class="mini-item">
+                <div>
+                  <strong>Atividade de Programação</strong>
+                  <span>Entrega até 15/07</span>
                 </div>
-
-                <!-- Próximos eventos -->
-                <div class="eventos">
-
-                    <h2>Próximos eventos</h2>
-
-                    <p>Mentoria - 14:00</p>
-
-                    <p>Correção - 14:00</p>
-
-                </div>
-
+                <span class="status pendente">Pendente</span>
+              </div>
             </div>
+          </article>
 
-        </section>
+          <aside class="painel-lateral">
 
-    </main>
+            <article class="card-media">
+              <h3>Desempenho</h3>
+              <div class="barra-progresso"><div class="progresso" style="width:70%;"></div></div>
+              <div class="barra-progresso"><div class="progresso" style="width:90%;"></div></div>
+            </article>
 
+            <article class="card-pendencias">
+              <div class="titulo-card">
+                <h3>Próximos eventos</h3>
+              </div>
+              <div class="agenda-line">Mentoria - 14:00</div>
+              <div class="agenda-line">Correção - 14:00</div>
+            </article>
+
+          </aside>
+
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
+  <script src="../JS/layout.js" defer></script>
 </body>
-
 </html>

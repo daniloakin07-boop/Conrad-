@@ -7,28 +7,36 @@
 
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/professor.css">
+  <link rel="stylesheet" href="../CSS/painel.css">
     <link rel="stylesheet" href="../CSS/aluno.css">
 </head>
 
 <body>
 
   <header class="topo topo-home">
-    <a href="index.html" class="logo">CONRAD</a>
-
+    <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
-      <a href="index.html">inicio</a>
-      <a href="sobre.html">sobre</a>
-      <a href="contato.html">contato</a>
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
     </nav>
+
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
+        <span class="user-avatar">👤</span>
+        <span>Minha conta</span>
+      </a>
+      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
   </header>
 
   <a href="#mainContent" class="skip-link">Ir para o conteúdo</a>
 
-  <main class="dashboard-professor">
+  <main class="container">
+  <div class="dashboard-professor">
 
     <!-- MENU LATERAL -->
     <aside class="menu-lateral">
-
       <h3>Conrad Aluno</h3>
 
       <nav>
@@ -38,14 +46,20 @@
         <a href="#desempenho" class="menu-item">Desempenho do aluno</a>
         <a href="aluno-atividades.html" class="menu-item">Atividades</a>
         <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-        <a href="sala-virtual.html" class="menu-item">Sala Virtual</a>
+        <a href="salas.html" class="menu-item">Salas virtuais</a>
+        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
       </nav>
 
-      <div style="margin-top:18px;">
-        <strong>Rickson Jordan</strong>
-        <div style="font-size:12px;color:#cbd5e1;">3º ano C · Turma 04</div>
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
       </div>
 
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Aluno</span>
+      </div>
     </aside>
 
 
@@ -54,7 +68,7 @@
 
       <header class="titulo-dashboard">
         <div>
-          <h1>Boa tarde, Rickson Jordan</h1>
+          <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
           <p>Resumo rápido das suas notas, frequência e pendências</p>
         </div>
 
@@ -289,28 +303,15 @@
 
     </section>
 
+    </div>
   </main>
 
   <footer class="rodape">
-    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
 
   <script>
-    // Menu de perfil
-    const profileToggle = document.getElementById('profileToggle');
-    const profileDropdown = document.getElementById('profileDropdown');
-
-    profileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const aberto = profileDropdown.style.display === 'block';
-      profileDropdown.style.display = aberto ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', () => {
-      profileDropdown.style.display = 'none';
-    });
-
     // Tarefas: marcar como concluída e atualizar o contador
     const listaTarefas = document.getElementById('listaTarefas');
     const contadorTarefas = document.getElementById('contadorTarefas');
