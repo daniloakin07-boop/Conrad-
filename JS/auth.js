@@ -76,6 +76,11 @@ if (formCadastro) {
             return;
         }
 
+        if (senha.length < 6) {
+            mostrarMensagem(mensagem, "A senha deve ter no mínimo 6 caracteres.", "erro");
+            return;
+        }
+
         if (senha !== confirmasenha) {
             mostrarMensagem(mensagem, "As senhas não coincidem.", "erro");
             return;

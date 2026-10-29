@@ -225,6 +225,10 @@ app.post("/cadastro", async (req, res) => {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        if (typeof senha !== "string" || senha.length < 6) {
+            return res.status(400).json({ erro: "A senha deve ter no mínimo 6 caracteres." });
+        }
+
         // O formulário pode enviar "estudante"; o banco guarda "aluno"
         const tipoBanco = tipo === "estudante" ? "aluno" : tipo;
         if (!["aluno", "educador"].includes(tipoBanco)) {
