@@ -22,15 +22,8 @@ const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
-const paginasProtegidas = [
-    "aluno.html",
-    "educador.html",
-    "salas.html",
-    "aluno-atividades.html",
-    "professor-correcao.html",
-    "nova-atividade.html",
-    "nova-avaliacao.html"
-];
+const mediasRoutes = require("./medias.js");
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "perfil-aluno.html", "boletim.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
@@ -108,6 +101,9 @@ if (process.env.NODE_ENV == "production") {
 // A mesma instância também será compartilhada com o Socket.IO.
 const sessionMiddleware = session(sessionConfig);
 app.use(sessionMiddleware);
+
+// Rotas de médias e boletim: ficam depois da sessão para validar o estudante autenticado.
+app.use("/api", mediasRoutes);
 
 // Rotas de mídia (opcionais): só são carregadas se o arquivo medias.js existir
 if (fs.existsSync(path.join(__dirname, "medias.js"))) {

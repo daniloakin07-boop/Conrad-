@@ -484,3 +484,18 @@ body{
         grid-template-columns: 1fr;
     }
 }
+
+/* Atalho para o boletim individual */
+.atalho-boletim {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    padding: 11px 16px;
+    border-radius: 9px;
+    background: #f5821f;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+.atalho-boletim:hover { background: #dc6e10; }

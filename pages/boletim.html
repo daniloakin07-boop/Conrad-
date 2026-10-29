@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Boletim individual de atividades e notas da CONRAD Virtual School.">
+    <title>Meu boletim | CONRAD Virtual School</title>
+    <link rel="stylesheet" href="../CSS/boletim.css">
+</head>
+<body>
+    <main class="pagina-boletim">
+        <div class="barra-acoes no-print">
+            <a class="botao botao-secundario" href="perfil-aluno.html">← Voltar ao painel</a>
+            <button class="botao botao-principal" id="btnSalvarPdf" type="button">Salvar boletim em PDF</button>
+        </div>
+
+        <section class="documento-boletim" aria-labelledby="tituloBoletim">
+            <header class="cabecalho-documento">
+                <div class="marca-conrad" aria-label="CONRAD Virtual School">
+                    <span class="marca-simbolo">C</span>
+                    <span><strong>CONRAD</strong><small>VIRTUAL SCHOOL</small></span>
+                </div>
+                <div class="identificacao-escola">
+                    <h1 id="tituloBoletim">Boletim individual</h1>
+                    <p>Registro de atividades avaliativas e desempenho acadêmico</p>
+                </div>
+                <div class="status-documento">
+                    <span>DOCUMENTO</span>
+                    <strong>INDIVIDUAL</strong>
+                </div>
+            </header>
+
+            <div id="mensagemStatus" class="mensagem-status" role="status" aria-live="polite">
+                Carregando suas notas...
+            </div>
+
+            <section class="dados-aluno" aria-label="Dados do estudante">
+                <div class="dado-aluno dado-principal">
+                    <span>Estudante</span>
+                    <strong id="nomeAluno">—</strong>
+                </div>
+                <div class="dado-aluno">
+                    <span>Sala virtual / turma</span>
+                    <strong id="turmaAluno">—</strong>
+                </div>
+                <div class="dado-aluno">
+                    <span>Data de emissão</span>
+                    <strong id="dataEmissao">—</strong>
+                </div>
+            </section>
+
+            <section class="resumo-notas" aria-label="Resumo do desempenho">
+                <article class="indicador">
+                    <span>Média individual</span>
+                    <strong id="mediaGeral">—</strong>
+                    <small>Escala de 0 a 10</small>
+                </article>
+                <article class="indicador">
+                    <span>Atividades listadas</span>
+                    <strong id="totalAtividades">0</strong>
+                    <small>Da sala / registros encontrados</small>
+                </article>
+                <article class="indicador">
+                    <span>Notas lançadas</span>
+                    <strong id="totalNotas">0</strong>
+                    <small>Consideradas na média</small>
+                </article>
+                <article class="indicador">
+                    <span>Última atividade</span>
+                    <strong class="indicador-data" id="ultimaAtividade">—</strong>
+                    <small>Data de aplicação</small>
+                </article>
+            </section>
+
+            <section class="secao-atividades">
+                <div class="titulo-secao">
+                    <div>
+                        <span class="etiqueta-secao">DESEMPENHO</span>
+                        <h2>Atividades e notas</h2>
+                    </div>
+                    <span class="legenda-nota">Notas convertidas para escala de 0 a 10</span>
+                </div>
+
+                <div class="tabela-responsiva">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Atividade</th>
+                                <th>Disciplina</th>
+                                <th>Sala / turma</th>
+                                <th>Data de aplicação</th>
+                                <th>Data realizada</th>
+                                <th>Nota obtida</th>
+                                <th>Nota em 10</th>
+                                <th>Situação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabelaAtividades">
+                            <tr><td colspan="8" class="linha-vazia">Carregando atividades...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="avisosBoletim" class="avisos-boletim" aria-label="Observações do boletim"></section>
+
+            <section class="criterios-media">
+                <h2>Como a média é calculada</h2>
+                <p>A média individual é a média aritmética das notas registradas nas atividades avaliativas aplicadas. Quando uma atividade possui valor máximo diferente de 10, a nota é convertida proporcionalmente para a escala de 0 a 10 antes do cálculo.</p>
+                <p class="nota-metodologica">Este documento reflete os dados disponíveis no banco de dados no momento da emissão. Atividades sem nota lançada não entram no cálculo da média.</p>
+            </section>
+
+            <footer class="rodape-documento">
+                <span>CONRAD Virtual School · Boletim individual</span>
+                <span id="rodapeData">Documento gerado pelo sistema</span>
+            </footer>
+        </section>
+
+        <p class="instrucao-pdf no-print">Para gerar o arquivo, clique em “Salvar boletim em PDF” e escolha <strong>Salvar como PDF</strong> no destino de impressão do navegador.</p>
+    </main>
+
+    <script src="../JS/boletim.js"></script>
+</body>
+</html>
