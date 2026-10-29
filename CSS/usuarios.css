@@ -18,7 +18,8 @@
 
 /* Estrutura principal da dashboard */
 
-.dashboard-professor {
+.dashboard-professor,
+.dashboard-aluno {
   display: flex;
   gap: 24px;
   align-items: flex-start;
@@ -628,7 +629,8 @@
 
 @media (max-width: 850px) {
 
-  .dashboard-professor {
+  .dashboard-professor,
+  .dashboard-aluno {
     flex-direction: column;
   }
 
