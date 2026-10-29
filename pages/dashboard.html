@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conrad | Horário das aulas</title>
-  <link rel="stylesheet" href="../CSS/style.css">
-  <link rel="stylesheet" href="../CSS/professor.css">
-  <link rel="stylesheet" href="../CSS/painel.css">
-  <link rel="stylesheet" href="../CSS/aluno.css">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
 </head>
-<body>
-
+<body class="css-painel css-aluno">
+<!-- =================================================================================================================== -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -27,7 +25,7 @@
       <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
   </header>
-
+<!-- =================================================================================================================== -->
   <main class="container">
     <div class="dashboard-professor">
 
@@ -45,30 +43,28 @@
         <a href="salas.html" class="menu-item">Salas virtuais</a>
         <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
       </nav>
-
+<!-- =================================================================================================================== -->
       <div class="menu-ajuda">
         <strong>Precisa de ajuda?</strong>
         <p>Acesse o suporte da plataforma.</p>
         <a href="contato.html" class="btn-secundario">Suporte</a>
       </div>
-
+<!-- =================================================================================================================== -->
       <div class="menu-perfil">
         <strong>Minha conta</strong>
         <span>Aluno</span>
       </div>
     </aside>
-
       <section class="conteudo-dashboard" id="mainContent">
-
+<!-- =================================================================================================================== -->
         <header class="titulo-dashboard">
           <div>
             <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
             <p>Confira seus horários e avisos de hoje.</p>
           </div>
         </header>
-
+<!-- =================================================================================================================== -->
         <div class="painel-dashboard">
-
           <div>
             <!-- HORÁRIO: a lista é preenchida pelo JS/horarios.js a partir de data/horarios.json -->
             <article class="card-avaliacoes">
@@ -89,7 +85,7 @@
           </div>
 
           <aside class="painel-lateral">
-
+<!-- =================================================================================================================== -->
           <!-- MURAL DE AVISOS -->
           <article class="al-card">
             <h2 class="al-titulo">Mural de Avisos</h2>
@@ -112,8 +108,7 @@
               <span class="al-quando">há 6 horas</span>
             </div>
           </article>
-
-
+<!-- =================================================================================================================== -->
           <!-- FREQUÊNCIA -->
           <article class="al-frequencia" id="frequencia">
             <div class="al-freq-topo">
@@ -133,8 +128,7 @@
               </div>
             </div>
           </article>
-
-
+<!-- =================================================================================================================== -->
           <!-- TAREFAS PENDENTES -->
           <article class="al-card">
             <h2 class="al-titulo">Tarefas pendentes</h2>
@@ -166,20 +160,17 @@
               </li>
             </ul>
           </article>
-
         </aside>
-
         </div>
       </section>
-
     </div>
   </main>
-
+<!-- =================================================================================================================== -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
-
+<!-- =================================================================================================================== -->
   <script src="../JS/horarios.js"></script>
   <script>
     // Tarefas: marcar como concluída e atualizar o contador

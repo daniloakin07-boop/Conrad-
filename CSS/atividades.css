@@ -1,0 +1,535 @@
+/* ==============================================================
+   ATIVIDADES — atividades, avaliações e correção
+   Lista de atividades, formulário de nova atividade/avaliação, correção do
+   professor e entrega de atividades do aluno.
+   Seções marcadas com 'css-...' só valem nas páginas com essa classe no <body>.
+   ============================================================== */
+
+/* ---------- Lista de atividades do educador  (atividades.css original) ---------- */
+/* Só vale em páginas com <body class="css-atividades">. */
+
+body:where(.css-atividades) {
+  background: #edf2f7;
+}
+
+:where(.css-atividades) .pagina-atividades {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+:where(.css-atividades) .conteudo-atividades {
+  flex: 1;
+  min-width: 0;
+}
+
+:where(.css-atividades) .topo-atividades {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+:where(.css-atividades) .topo-atividades h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin: 0;
+}
+
+:where(.css-atividades) .topo-atividades p {
+  color: #666;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+:where(.css-atividades) .stats-rapidas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+:where(.css-atividades) .stat-box {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 18px rgba(10, 31, 68, 0.04);
+}
+
+:where(.css-atividades) .stat-box h4 {
+  font-size: 12px;
+  color: #667085;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+:where(.css-atividades) .stat-box strong {
+  display: block;
+  font-size: 28px;
+  color: #0A1F44;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+:where(.css-atividades) .stat-box span {
+  font-size: 12px;
+  color: #666;
+}
+
+:where(.css-atividades) .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+:where(.css-atividades) .quick-actions a {
+  text-decoration: none;
+}
+
+:where(.css-atividades) .lista-atividades {
+  display: grid;
+  gap: 16px;
+}
+
+:where(.css-atividades) .card-atividade {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 8px 18px rgba(10, 31, 68, 0.04);
+}
+
+:where(.css-atividades) .card-atividade-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+:where(.css-atividades) .icone-atividade {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff4eb 0%, #ffe0c2 100%);
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+:where(.css-atividades) .card-atividade h3 {
+  font-size: 18px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-atividades) .card-atividade p {
+  color: #666;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+:where(.css-atividades) .card-atividade-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+:where(.css-atividades) .status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 94px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+:where(.css-atividades) .status-badge.pendente {
+  background: #fdecec;
+  color: #b33a32;
+}
+
+:where(.css-atividades) .status-badge.ativo {
+  background: #e8f6ed;
+  color: #287a45;
+}
+
+:where(.css-atividades) .status-badge.nova {
+  background: #eef4ff;
+  color: #2958a8;
+}
+
+:where(.css-atividades) .btn-primario,
+:where(.css-atividades) .btn-secundario,
+:where(.css-atividades) .btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+:where(.css-atividades) .btn-primario {
+  background: linear-gradient(135deg, #f5821f 0%, #ff8e3c 100%);
+  color: #fff;
+  border-color: rgba(245, 130, 31, 0.35);
+}
+
+:where(.css-atividades) .btn-secundario {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
+  color: #0A1F44;
+  border-color: rgba(10, 31, 68, 0.12);
+}
+
+:where(.css-atividades) .btn-link {
+  background: #0A1F44;
+  color: #fff;
+  border-color: rgba(10, 31, 68, 0.18);
+}
+
+:where(.css-atividades) .btn-primario:hover,
+:where(.css-atividades) .btn-secundario:hover,
+:where(.css-atividades) .btn-link:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+:where(.css-atividades) .bloco-secao {
+  margin-top: 22px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+:where(.css-atividades) .bloco-secao h2 {
+  font-size: 22px;
+  color: #0A1F44;
+  margin-bottom: 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+:where(.css-atividades) .lista-mini {
+  display: grid;
+  gap: 12px;
+}
+
+:where(.css-atividades) .mini-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid #edf1f5;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+:where(.css-atividades) .mini-item strong {
+  display: block;
+  color: #0A1F44;
+  margin-bottom: 2px;
+}
+
+:where(.css-atividades) .mini-item span {
+  color: #666;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  :where(.css-atividades) .card-atividade {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  :where(.css-atividades) .card-atividade-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  :where(.css-atividades) .topo-atividades {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  :where(.css-atividades) .stats-rapidas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Nova atividade e nova avaliação  (formulario-atividade.css original) ---------- */
+/* Só vale em páginas com <body class="css-formulario">. */
+
+body:where(.css-formulario) {
+  background: #f5f7fb;
+}
+
+:where(.css-formulario) .form-page {
+  max-width: 1280px;
+  margin: 28px auto;
+  padding: 0 20px 40px;
+}
+
+:where(.css-formulario) .form-topbar {
+  background: #0A1F44;
+  color: #fff;
+  border-radius: 16px 16px 0 0;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+:where(.css-formulario) .form-topbar h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+
+:where(.css-formulario) .form-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr;
+  gap: 22px;
+  background: #fff;
+  border: 1px solid #e7ebf2;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  padding: 22px;
+}
+
+:where(.css-formulario) .form-card,
+:where(.css-formulario) .sidebar-card {
+  background: #fff;
+  border: 1px solid #edf1f5;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+}
+
+:where(.css-formulario) .form-card h2,
+:where(.css-formulario) .sidebar-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 18px;
+}
+
+:where(.css-formulario) .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+:where(.css-formulario) .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+:where(.css-formulario) .field.full {
+  grid-column: 1 / -1;
+}
+
+:where(.css-formulario) .field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-formulario) .field input,
+:where(.css-formulario) .field select,
+:where(.css-formulario) .field textarea {
+  width: 100%;
+  border: 1px solid #dfe4ea;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font: inherit;
+  color: #0A1F44;
+  background: #fff;
+}
+
+:where(.css-formulario) .field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+:where(.css-formulario) .sidebar-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+:where(.css-formulario) .mini-box {
+  background: #f9fafb;
+  border: 1px solid #ebeff5;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+:where(.css-formulario) .mini-box strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+:where(.css-formulario) .mini-box p,
+:where(.css-formulario) .mini-box li {
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+:where(.css-formulario) .mini-box ul {
+  padding-left: 18px;
+  margin-top: 8px;
+}
+
+:where(.css-formulario) .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  :where(.css-formulario) .form-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  :where(.css-formulario) .field-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Correção de atividades  (professor-correcao.css original) ---------- */
+/* Só vale em páginas com <body class="css-correcao">. */
+
+:where(.css-correcao) .pagina { max-width: 960px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
+:where(.css-correcao) .cabecalho { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+:where(.css-correcao) .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
+:where(.css-correcao) .subtitulo { color: #667085; font-size: 14px; margin-top: 4px; }
+:where(.css-correcao) .botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+:where(.css-correcao) .btn, :where(.css-correcao) .btn-sec { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;
+  padding: 11px 16px; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; border: 1px solid transparent; }
+:where(.css-correcao) .btn { background: #F5821F; color: #fff; }
+:where(.css-correcao) .btn:hover { background: #de7110; }
+:where(.css-correcao) .btn:disabled { opacity: 0.6; cursor: default; }
+:where(.css-correcao) .btn-sec { background: #fff; color: #0A1F44; border-color: #d8dce1; }
+:where(.css-correcao) .btn-sec:hover { background: #f4f7fb; }
+
+:where(.css-correcao) .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
+:where(.css-correcao) .card-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+:where(.css-correcao) .card h3 { font-size: 19px; color: #0A1F44; margin: 6px 0 4px; }
+:where(.css-correcao) .meta { font-size: 13px; color: #667085; }
+:where(.css-correcao) .tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; }
+:where(.css-correcao) .tag.atividade { background: #eef4ff; color: #2958a8; }
+:where(.css-correcao) .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
+:where(.css-correcao) .contagem { font-size: 13px; font-weight: 700; color: #0A1F44; }
+
+:where(.css-correcao) .entregas { margin-top: 14px; border-top: 1px dashed #d8dce1; padding-top: 14px; display: grid; gap: 12px; }
+:where(.css-correcao) .entrega { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 14px; }
+:where(.css-correcao) .entrega-topo { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+:where(.css-correcao) .entrega-topo strong { color: #0A1F44; }
+:where(.css-correcao) .entrega-topo span { font-size: 12px; color: #667085; }
+:where(.css-correcao) .resposta { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 10px 12px; font-size: 14px;
+  white-space: pre-wrap; margin-bottom: 10px; color: #344054; }
+:where(.css-correcao) .corrigir { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: start; }
+:where(.css-correcao) .corrigir input, :where(.css-correcao) .corrigir textarea { width: 100%; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+:where(.css-correcao) .corrigir textarea { min-height: 70px; resize: vertical; }
+:where(.css-correcao) .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+:where(.css-correcao) .msg { font-size: 13px; }
+:where(.css-correcao) .msg.ok { color: #287a45; }
+:where(.css-correcao) .msg.erro { color: #c0392b; }
+:where(.css-correcao) .vazio { text-align: center; color: #667085; padding: 40px 0; }
+@media (max-width: 600px) { :where(.css-correcao) .corrigir { grid-template-columns: 1fr; } }
+
+/* ---------- Atividades do aluno  (aluno-atividades.css original) ---------- */
+/* Só vale em páginas com <body class="css-aluno-atividades">. */
+
+:where(.css-aluno-atividades) .pagina { max-width: 900px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
+:where(.css-aluno-atividades) .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
+:where(.css-aluno-atividades) .subtitulo { color: #667085; font-size: 14px; margin: 4px 0 18px; }
+
+:where(.css-aluno-atividades) .barra-turma { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+:where(.css-aluno-atividades) .barra-turma label { font-weight: 700; font-size: 14px; }
+:where(.css-aluno-atividades) .barra-turma select { padding: 9px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+
+:where(.css-aluno-atividades) .resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+:where(.css-aluno-atividades) .resumo div { background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; }
+:where(.css-aluno-atividades) .resumo strong { display: block; font-size: 26px; color: #0A1F44; }
+:where(.css-aluno-atividades) .resumo span { font-size: 12px; color: #667085; text-transform: uppercase; letter-spacing: 0.05em; }
+
+:where(.css-aluno-atividades) .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
+:where(.css-aluno-atividades) .card-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+:where(.css-aluno-atividades) .card h3 { font-size: 19px; color: #0A1F44; margin-bottom: 4px; }
+:where(.css-aluno-atividades) .meta { font-size: 13px; color: #667085; margin-bottom: 8px; }
+:where(.css-aluno-atividades) .desc { font-size: 14px; color: #344054; margin-bottom: 12px; white-space: pre-wrap; }
+
+:where(.css-aluno-atividades) .tag, :where(.css-aluno-atividades) .status { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 5px 11px; border-radius: 999px; }
+:where(.css-aluno-atividades) .tag.atividade { background: #eef4ff; color: #2958a8; }
+:where(.css-aluno-atividades) .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
+:where(.css-aluno-atividades) .status.pendente { background: #fdecec; color: #b33a32; }
+:where(.css-aluno-atividades) .status.enviada { background: #fff4d6; color: #9a6b00; }
+:where(.css-aluno-atividades) .status.corrigida { background: #e8f6ed; color: #287a45; }
+
+:where(.css-aluno-atividades) textarea { width: 100%; min-height: 110px; padding: 12px 14px; border: 1px solid #d8dce1; border-radius: 10px;
+  font: inherit; resize: vertical; color: #0A1F44; }
+:where(.css-aluno-atividades) .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+:where(.css-aluno-atividades) .btn { background: #F5821F; color: #fff; border: none; border-radius: 10px; padding: 11px 18px;
+  font-weight: 800; font-size: 13px; cursor: pointer; }
+:where(.css-aluno-atividades) .btn:hover { background: #de7110; }
+:where(.css-aluno-atividades) .btn:disabled { opacity: 0.6; cursor: default; }
+:where(.css-aluno-atividades) .msg { font-size: 13px; }
+:where(.css-aluno-atividades) .msg.ok { color: #287a45; }
+:where(.css-aluno-atividades) .msg.erro { color: #c0392b; }
+
+:where(.css-aluno-atividades) .nota-box { background: #f0f9f3; border: 1px solid #cfe9d8; border-radius: 10px; padding: 12px 14px; margin-top: 8px; }
+:where(.css-aluno-atividades) .nota-box strong { font-size: 18px; color: #287a45; }
+:where(.css-aluno-atividades) .nota-box p { margin-top: 6px; font-size: 14px; color: #344054; white-space: pre-wrap; }
+:where(.css-aluno-atividades) .resposta-enviada { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 10px 12px;
+  margin-top: 10px; font-size: 13px; color: #475467; white-space: pre-wrap; }
+:where(.css-aluno-atividades) .vazio { text-align: center; color: #667085; padding: 40px 0; }
+@media (max-width: 600px) { :where(.css-aluno-atividades) .resumo { grid-template-columns: 1fr; } }

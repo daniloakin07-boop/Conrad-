@@ -4,33 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Conrad Virtual School | Agenda do Professor</title>
-
-  <link rel="stylesheet" href="../CSS/style.css">
-  <link rel="stylesheet" href="../CSS/professor.css">
-
-  <style>
-    /* pequenas adaptações visuais específicas para o calendário */
-    .calendar-card { padding:18px; }
-    .agenda-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
-    .agenda-day { min-height:120px; padding:10px; background:#f8fafc; border-radius:10px; }
-    .agenda-evento { background:#eef4ff; padding:6px 8px; border-left:3px solid #3b82f6; border-radius:6px; margin-bottom:8px; cursor:pointer; }
-    @media(max-width:900px){ .agenda-grid{grid-template-columns:repeat(2,1fr);} }
-  </style>
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
 </head>
-<body>
-
+<!-- ============================================================================================================================ -->
+<body class="css-agenda">
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
-
     <nav class="menu">
       <a href="../index.html">inicio</a>
       <a href="sobre.html">sobre</a>
       <a href="contato.html">contato</a>
     </nav>
   </header>
-
+<!-- ============================================================================================================================ -->
   <main class="dashboard-professor">
-
     <aside class="menu-lateral">
       <h3>Conrad Educador</h3>
       <nav>
@@ -45,15 +33,14 @@
         <div style="font-size:12px;color:#cbd5e1;">Educador</div>
       </div>
     </aside>
-
+<!-- ============================================================================================================================ -->
     <section class="conteudo-dashboard">
-
       <header class="titulo-dashboard">
         <div>
           <h1>Agenda do professor</h1>
           <p>Visão semanal rápida das suas turmas e compromissos</p>
         </div>
-
+<!-- ============================================================================================================================ -->
         <div class="header-right">
           <div class="header-profile">
             <div class="avatar avatar-purple">RJ</div>
@@ -64,7 +51,7 @@
           </div>
         </div>
       </header>
-
+<!-- ============================================================================================================================ -->
       <div class="painel-dashboard">
 
         <div>
@@ -77,7 +64,7 @@
             <div style="margin-top:12px;">
               <button class="btn-primario" id="openNew">+ Novo evento</button>
             </div>
-
+<!-- ============================================================================================================================ -->
             <div class="agenda-grid" id="agendaGrid" style="margin-top:14px;">
               <div class="agenda-day" data-day="Seg"><h4>Seg</h4><div class="agenda-evento">8:00 · 3º ano C</div></div>
               <div class="agenda-day" data-day="Ter"><h4>Ter</h4><div class="agenda-evento">9:00 · Reunião</div></div>
@@ -89,7 +76,7 @@
             </div>
           </article>
         </div>
-
+<!-- ============================================================================================================================ -->
         <aside class="painel-lateral">
           <article class="submissions-card">
             <div class="titulo-card"><h2>Resumo</h2></div>
@@ -101,7 +88,7 @@
 
     </section>
   </main>
-
+<!-- ============================================================================================================================ -->
   <!-- Modal simples -->
   <div class="modal-overlay" id="agendaModal" style="display:none;">
     <div class="modal-card">
@@ -119,11 +106,11 @@
       </form>
     </div>
   </div>
-
+<!-- ============================================================================================================================ -->
   <footer class="rodape">
     <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
   </footer>
-
+<!-- ============================================================================================================================ -->
   <script>
     // simples modal + adicionar evento no DOM (sem persistência)
     const modal = document.getElementById('agendaModal');

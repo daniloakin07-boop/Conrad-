@@ -1,0 +1,3128 @@
+/* ==============================================================
+   USUÁRIOS — painéis do aluno e do educador
+   Layout dos painéis, menu lateral, perfis, chat, salas virtuais e agenda.
+   Seções marcadas com 'css-...' só valem nas páginas com essa classe no <body>.
+   ============================================================== */
+
+/* ---------- Base dos painéis (aluno e educador)  (professor.css original) ---------- */
+/* Vale em todas as páginas que carregam este arquivo. */
+
+/* ==================================================
+        DASHBOARD DO PROFESSOR
+   ================================================== */
+
+:root{
+  --accent-color: #ff6a00; /* laranja mais forte */
+  --brand-dark: #163B74;
+}
+
+/* Estrutura principal da dashboard */
+
+.dashboard-professor {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ==================================================
+        MENU LATERAL
+   ================================================== */
+
+.menu-lateral {
+  width: 230px;
+  background: #0A1F44;
+  border-radius: 8px;
+  padding: 22px 16px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.menu-lateral h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+  padding: 0 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.menu-item {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 11px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.menu-item.ativo {
+  background: #F5821F;
+}
+
+/* ==================================================
+        CONTEÚDO
+   ================================================== */
+
+.conteudo-dashboard {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ==================================================
+        CABEÇALHO DA DASHBOARD
+   ================================================== */
+
+.titulo-dashboard {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.titulo-dashboard h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+.titulo-dashboard p {
+  color: #666;
+  font-size: 13px;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* Informações do professor */
+
+.info-professor {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 210px;
+  padding-left: 20px;
+  border-left: 1px solid #e3e7eb;
+}
+
+.info-professor strong {
+  font-size: 12px;
+  color: #0A1F44;
+}
+
+.info-professor span {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 7px;
+}
+
+/* ==================================================
+        CARDS DE RESUMO
+   ================================================== */
+
+.cards-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card-resumo {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 18px;
+  transition: box-shadow 0.2s ease;
+}
+
+.card-resumo:hover {
+  box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+}
+
+.card-resumo h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card-resumo h3 {
+  font-size: 16px;
+  color: #0A1F44;
+  margin-bottom: 5px;
+}
+
+.card-resumo span {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.4;
+  min-height: 34px;
+}
+
+.card-resumo button {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ==================================================
+        PAINEL PRINCIPAL
+   ================================================== */
+
+.painel-dashboard {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Cards principais */
+
+.card-avaliacoes,
+.card-media,
+.card-pendencias {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* ==================================================
+        TÍTULOS DOS CARDS
+   ================================================== */
+
+.titulo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.titulo-card h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+.titulo-card .btn-secundario {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+/* ==================================================
+        AVALIAÇÃO DOS ALUNOS
+   ================================================== */
+
+.aluno {
+  display: grid;
+  grid-template-columns: 1fr 60px 100px;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.aluno:last-child {
+  border-bottom: none;
+}
+
+.aluno span:first-child {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+.aluno strong {
+  font-size: 13px;
+  text-align: center;
+  color: #0A1F44;
+}
+
+.status {
+  display: inline-block;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Status entregue */
+
+.status.ativo {
+  background: #e8f6ed;
+  color: #287a45;
+}
+
+/* Status pendente */
+
+.status.pendente {
+  background: #fdecec;
+  color: #b33a32;
+}
+
+/* ==================================================
+        PAINEL LATERAL
+   ================================================== */
+
+.painel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==================================================
+        MÉDIA GERAL
+   ================================================== */
+
+.card-media h3,
+.card-pendencias h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+.card-media h1 {
+  font-size: 42px;
+  color: var(--accent-color);
+  margin: 5px 0;
+}
+
+.card-media p {
+  color: #666;
+  font-size: 12px;
+}
+
+/* ==================================================
+        GRÁFICO SIMPLES
+   ================================================== */
+
+.grafico-fake {
+  height: 130px;
+  margin-top: 20px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.grafico-fake div {
+  width: 18%;
+  background: #0A1F44;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Altura das barras */
+
+.grafico-fake div:nth-child(1) {
+  height: 45%;
+}
+
+.grafico-fake div:nth-child(2) {
+  height: 65%;
+}
+
+.grafico-fake div:nth-child(3) {
+  height: 85%;
+}
+
+.grafico-fake div:nth-child(4) {
+  height: 60%;
+}
+
+.grafico-fake div:nth-child(5) {
+  height: 75%;
+}
+
+/* ==================================================
+        ATIVIDADES PENDENTES
+   ================================================== */
+
+.card-pendencias {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pendencia {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 0;
+}
+
+.pendencia h4 {
+  color: #0A1F44;
+  font-size: 15px;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.pendencia p {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.pendencia button {
+  width: 120px;
+  min-height: 42px;
+  margin-top: 0;
+  justify-self: end;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* ==================================================
+        AVISOS
+   ================================================== */
+
+.card-pendencias:last-child .pendencia {
+  background: #fff;
+  border-left: 3px solid #F5821F;
+}
+
+/* ==================================================
+        BOTÕES DO TOPO
+   ================================================== */
+
+.acoes-topo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.acoes-topo .btn-secundario,
+.acoes-topo .btn-primario {
+  width: auto;
+  margin-top: 0;
+}
+
+/* ==================================================
+       AJUSTES ADICIONAIS E COMPONENTES DO EDUCADOR
+   ================================================== */
+
+/* Espaçamento geral da tela */
+.dashboard-professor {
+  padding: 28px;
+  gap: 32px;
+}
+
+/* Cabeçalho maior e com alinhamento para ações e perfil */
+.titulo-dashboard {
+  padding: 20px 24px;
+}
+
+.titulo-dashboard h1 {
+  font-size: 26px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-actions .btn-primario,
+.quick-actions .btn-secundario {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.profile-name strong { display:block; font-size:13px; }
+.profile-name small { color:#666; font-size:12px; }
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 42px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 8px 0;
+  min-width: 140px;
+  z-index: 40;
+}
+
+.profile-dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: #0A1F44;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.profile-dropdown a:hover { background: #f6f9fc; }
+
+/* Submissões recentes */
+.submissions-card {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+ .submissions-card .pendencia { padding: 8px 0; border-bottom: 1px solid #f1f3f5; }
+ .submissions-card .pendencia:last-child { border-bottom: none; }
+
+ /* Ajuste de tipografia para submissões recentes (educador) */
+ .submissions-card .pendencia h4 {
+  font-size: 14px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+ }
+
+ .submissions-card .pendencia p {
+  font-size: 13px;
+  color: #556;
+  line-height: 1.4;
+  margin: 0;
+ }
+
+ .submissions-card .pendencia { font-size: 13px; }
+
+/* ==================================================
+        PERFIL DOCENTE
+   ================================================== */
+
+.perfil-professor {
+  background: linear-gradient(180deg, #f9fbff 0%, #ffffff 100%);
+}
+
+.perfil-docente {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 18px;
+  padding: 12px;
+  background: #f4f7fb;
+  border: 1px solid #e7ebf2;
+  border-radius: 10px;
+}
+
+.perfil-docente .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #163b74, #f5821f);
+}
+
+.perfil-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.perfil-detalhes strong {
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+.perfil-detalhes small {
+  color: #667085;
+  font-size: 12px;
+}
+
+.lista-perfil {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-perfil li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 1px solid #edf1f5;
+}
+
+.lista-perfil span {
+  font-size: 12px;
+  color: #667085;
+}
+
+.lista-perfil strong {
+  font-size: 12px;
+  color: #0A1F44;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .lista-perfil li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lista-perfil strong {
+    text-align: left;
+  }
+}
+
+/* ==================================================
+        RESPONSIVIDADE
+   ================================================== */
+
+@media (max-width: 1100px) {
+
+  .cards-resumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .painel-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 850px) {
+
+  .dashboard-professor {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%;
+  }
+
+  .menu-lateral h3 {
+    margin-bottom: 12px;
+  }
+
+  .menu-item {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  .titulo-dashboard {
+    align-items: flex-start;
+  }
+
+  .info-professor {
+    min-width: 180px;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo-dashboard {
+    flex-direction: column;
+  }
+
+  .info-professor {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 12px;
+    border-left: none;
+    border-top: 1px solid #e3e7eb;
+  }
+
+  .titulo-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .aluno {
+    grid-template-columns: 1fr 50px;
+  }
+
+  .aluno .status {
+    grid-column: 1 / -1;
+    width: 100px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .container {
+    padding: 18px 12px;
+  }
+
+  .menu-lateral {
+    padding: 16px 12px;
+  }
+
+  .menu-item {
+    display: block;
+    margin-right: 0;
+  }
+
+  .titulo-dashboard {
+    padding: 18px;
+  }
+
+  .titulo-dashboard h1 {
+    font-size: 26px;
+  }
+
+  .card-avaliacoes,
+  .card-media,
+  .card-pendencias {
+    padding: 16px;
+  }
+
+}
+
+
+/* =========================================
+   ESTILOS EXISTENTES DO SITE
+   ========================================= */
+
+/* Todo o CSS que já estava no arquivo permanece aqui */
+
+
+/* =========================================
+   ESTILOS EXCLUSIVOS DA PÁGINA EDUCADOR
+   ========================================= */
+
+/* Cole os novos estilos abaixo desta linha */
+
+
+/* =========================================
+   ESTRUTURA PRINCIPAL
+   ========================================= */
+
+.pagina-educador {
+  background: #eef1f6;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagina-educador .educator-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg,#f4f6fa 0%, #eef1f6 100%);
+  color: #1a2433;
+}
+
+
+/* =========================================
+   MENU LATERAL
+   ========================================= */
+
+.pagina-educador .educator-sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(16,43,88,0.08);
+  border-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pagina-educador .sidebar-brand {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg,#102b58 0%, #163b74 100%);
+  padding: 8px 0;
+}
+
+.pagina-educador .sidebar-logo {
+  max-width: 160px;
+  max-height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+.pagina-educador .educator-nav-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagina-educador .educator-nav-list{ margin-top: 6px }
+
+.pagina-educador .educator-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  height: 56px;
+  border-bottom: 1px solid rgba(16,43,88,0.06);
+  background: transparent;
+  color: #163B74;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.pagina-educador .sidebar-bottom{ padding: 12px; margin-top: 8px; background: transparent; }
+.pagina-educador .sidebar-bottom .sidebar-tip{ display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:8px; background: linear-gradient(90deg, rgba(255,106,0,0.06), rgba(255,255,255,0)); border-left: 4px solid rgba(255,106,0,0.18) }
+.pagina-educador .sidebar-bottom .sidebar-tip span{ color: var(--accent-color); font-size:18px; margin-top:2px }
+.pagina-educador .sidebar-bottom .sidebar-tip strong{ display:block; color:var(--brand-dark); font-size:13px }
+.pagina-educador .sidebar-bottom .sidebar-tip small{ display:block; color:#556; font-size:12px }
+.pagina-educador .sidebar-bottom .user-profile{ width:100%; margin-top:10px; border-radius:8px; padding:8px; background:#fff; box-shadow:0 6px 14px rgba(16,43,88,0.04); display:flex; gap:10px; align-items:center; border:1px solid rgba(16,43,88,0.06) }
+.pagina-educador .sidebar-bottom .user-profile .avatar{ width:40px; height:40px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-weight:700 }
+.pagina-educador .sidebar-bottom .user-profile strong{ font-size:13px }
+.pagina-educador .sidebar-bottom .user-profile small{ display:block; font-size:12px; color:#667 }
+
+/* Modal styles */
+.modal-overlay{ position:fixed; inset:0; background:rgba(10,18,34,0.45); display:flex; align-items:center; justify-content:center; z-index:1200; padding:20px }
+.modal-overlay[hidden]{ display:none }
+.modal{ width:420px; max-width:100%; background:#fff; border-radius:12px; box-shadow:0 18px 50px rgba(10,18,34,0.3); padding:18px; position:relative }
+.modal h3{ margin:0 0 8px 0; font-size:18px; color:#163B74 }
+.modal .modal-body{ color:#333; font-size:14px; margin-bottom:12px }
+.modal .modal-actions{ display:flex; gap:8px; justify-content:flex-end }
+.modal .modal-close{ position:absolute; right:10px; top:8px; background:transparent; border:0; font-size:22px; line-height:1; color:#666; cursor:pointer }
+.modal .btn-primario{ background:#163B74; color:#fff; border:0; padding:8px 12px; border-radius:8px }
+.modal .btn-secundario{ background:transparent; color:#163B74; border:1px solid rgba(22,59,116,0.12); padding:8px 12px; border-radius:8px }
+
+@media (max-width: 520px){
+  .modal{ width:100%; height:auto; max-height:86vh; overflow:auto; border-radius:10px }
+  .modal-overlay{ align-items:flex-end; padding:12px }
+}
+
+.pagina-educador .educator-nav-item .nav-icon{
+  width: 24px;
+  display:inline-flex;
+  justify-content:center;
+  color:#163B74;
+}
+
+.pagina-educador .educator-nav-item:hover,
+.pagina-educador .educator-nav-item:focus,
+.pagina-educador .educator-nav-item.active {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.pagina-educador .educator-nav-item:focus-visible{
+  outline: 3px solid rgba(245,130,31,0.25);
+  outline-offset: 2px;
+}
+
+
+/* =========================================
+   CABEÇALHO E CONTEÚDO
+   ========================================= */
+
+.pagina-educador .educator-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: transparent;
+}
+
+.pagina-educador .educator-main {
+  flex: 1;
+  min-width: 0;
+  background: #eef1f6;
+}
+
+.pagina-educador .educator-content {
+  padding: 18px 24px 30px;
+}
+
+.pagina-educador .educator-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.pagina-educador h1 {
+  margin: 0;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 21px;
+}
+
+
+/* =========================================
+   CARDS DE MÉTRICAS
+   ========================================= */
+
+.pagina-educador .metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pagina-educador .metric-card {
+  min-height: 70px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(16,43,88,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pagina-educador .metric-card strong {
+  color: #0b1a33;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.pagina-educador .metric-card.violet { border-left: 4px solid #786be7 }
+.pagina-educador .metric-card.cyan { border-left: 4px solid #2fb6c9 }
+.pagina-educador .metric-card.amber { border-left: 4px solid var(--accent-color) }
+.pagina-educador .metric-card.rose  { border-left: 4px solid #e26a9e }
+
+
+/* =========================================
+   PAINÉIS DO DASHBOARD
+   ========================================= */
+
+.pagina-educador .dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr .55fr;
+  grid-template-areas:
+    "classes agenda performance"
+    "pending messages messages";
+  gap: 20px 30px;
+}
+
+.pagina-educador .dashboard-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(16,43,88,0.06);
+}
+
+.pagina-educador .classes-card {
+  grid-area: classes;
+}
+
+.pagina-educador .agenda-card {
+  grid-area: agenda;
+}
+
+.pagina-educador .performance-card {
+  grid-area: performance;
+}
+
+.pagina-educador .pending-card {
+  grid-area: pending;
+}
+
+.pagina-educador .messages-card {
+  grid-area: messages;
+}
+
+
+/* =========================================
+   TURMAS E AGENDA
+   ========================================= */
+
+.pagina-educador .class-line,
+.pagina-educador .agenda-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 6px;
+  border: 0;
+  border-top: 1px solid rgba(16,43,88,0.06);
+  background: transparent;
+  text-align: left;
+  transition: background 160ms ease;
+}
+.pagina-educador .class-line:hover,
+.pagina-educador .agenda-line:hover { background: rgba(16,43,88,0.03); }
+
+.pagina-educador .class-line span,
+.pagina-educador .agenda-line span {
+  flex: 1;
+}
+
+.pagina-educador .class-line strong,
+.pagina-educador .agenda-line strong {
+  display: block;
+  color: #111;
+  font-size: 8px;
+}
+
+.pagina-educador .class-line small,
+.pagina-educador .agenda-line small {
+  display: block;
+  margin-top: 2px;
+  color: #555;
+  font-size: 7px;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: #163B74;
+  color: #fff;
+  padding: 8px 12px;
+  z-index: 1000;
+}
+.skip-link:focus { left: 12px; outline: 3px solid rgba(245,130,31,0.4); }
+
+/* Toast */
+.educator-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #163B74;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(16,43,88,0.12);
+  transform: translateY(14px);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+  pointer-events: none;
+}
+.educator-toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+/* Avatars */
+.avatar { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; font-weight:700; color:#fff; }
+.avatar-purple { background: linear-gradient(90deg,#786be7,#6659d9); }
+.avatar-violet { background:#786be7 }
+.avatar-cyan { background:#2fb6c9 }
+.avatar-amber { background:#f5a623 }
+
+@media (max-width: 850px) {
+  .pagina-educador .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "classes agenda"
+      "performance performance"
+      "pending messages";
+  }
+
+  .pagina-educador .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .pagina-educador .educator-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    transform: translateX(-100%);
+  }
+
+  .pagina-educador .educator-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .pagina-educador .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "classes"
+      "agenda"
+      "performance"
+      "pending"
+      "messages";
+  }
+}
+
+/* ==================================================
+        AJUSTES DA PÁGINA DE AVALIAÇÃO
+   ================================================== */
+
+main.container {
+  margin-top: 18px;
+}
+
+.dashboard-professor .btn-primario,
+.dashboard-professor .btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  border: 1px solid transparent;
+}
+
+.dashboard-professor .btn-primario:hover,
+.dashboard-professor .btn-secundario:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+.dashboard-professor .btn-primario {
+  background: linear-gradient(135deg, #f5821f 0%, #ff8e3c 100%);
+  color: #fff;
+  border-color: rgba(245, 130, 31, 0.35);
+  box-shadow: 0 8px 18px rgba(245, 130, 31, 0.2);
+}
+
+.dashboard-professor .btn-secundario {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
+  color: #0A1F44;
+  border-color: rgba(10, 31, 68, 0.12);
+  box-shadow: 0 8px 16px rgba(10, 31, 68, 0.06);
+}
+
+.dashboard-professor .card-resumo .btn-secundario,
+.dashboard-professor .menu-ajuda .btn-secundario,
+.dashboard-professor .titulo-card .btn-secundario {
+  width: auto;
+  white-space: nowrap;
+}
+
+.dashboard-professor .titulo-card .btn-secundario {
+  min-width: 170px;
+}
+
+.dashboard-professor .pendencia .btn-primario,
+.dashboard-professor .pendencia .btn-secundario {
+  width: 110px;
+  min-height: 40px;
+}
+
+/* ==================================================
+        STATUS
+   ================================================== */
+
+.feedback-banner {
+  background: #f7f8fa;
+  border: 1px solid #dfe5ec;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.feedback-texto h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #0A1F44;
+  font-weight: 800;
+}
+
+.feedback-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feedback-meta span {
+  color: #4f5d75;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.agenda-badge {
+  border: none;
+  background: #f4c7b6;
+  color: #c14a1a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.rodape {
+  background: #0A1F44;
+  color: #fff;
+  padding: 16px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  margin-top: 18px;
+}
+
+.rodape a {
+  color: #f5c29b;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}
+
+/* ==================================================
+        ESTILOS DA PÁGINA DE AVALIAÇÃO
+   ================================================== */
+
+.cabecalho-media {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.icone-media {
+  font-size: 26px;
+}
+
+.barra-progresso {
+  width: 100%;
+  height: 10px;
+  background: #eef2f7;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 16px 0 10px;
+}
+
+.progresso {
+  width: 82%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #F5821F 0%, #ff9d4d 100%);
+}
+
+.materias-media {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1f5;
+}
+
+.materias-media h4 {
+  font-size: 13px;
+  color: #0A1F44;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.materia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f3f7;
+}
+
+.materia-item:last-child {
+  border-bottom: none;
+}
+
+.materia-item span {
+  color: #4e5d75;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.materia-item strong {
+  color: #0A1F44;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ---------- Painel do aluno  (painel.css original) ---------- */
+/* Só vale em páginas com <body class="css-painel">. */
+
+/* =====================================================
+   PAINEL — padrão visual de TODAS as telas internas
+   (professor e aluno). Segue o mesmo visual da tela de
+   avaliação e da página inicial: topo azul, menu lateral
+   azul, cards brancos e botões laranja.
+
+   Carregar DEPOIS de style.css e professor.css.
+   Aqui ficam os componentes que antes estavam em
+   <style> dentro de cada página.
+===================================================== */
+
+
+/* =====================================================
+   MENU LATERAL (extras)
+===================================================== */
+
+:where(.css-painel) .menu-lateral nav {
+  display: flex;
+  flex-direction: column;
+}
+
+:where(.css-painel) .menu-ajuda {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:where(.css-painel) .menu-ajuda strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+:where(.css-painel) .menu-ajuda p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+}
+
+:where(.css-painel) .dashboard-professor .menu-ajuda .btn-secundario {
+  width: 100%;
+}
+
+:where(.css-painel) .menu-perfil {
+  margin-top: 18px;
+  padding: 14px 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+:where(.css-painel) .menu-perfil strong {
+  display: block;
+  font-size: 13px;
+}
+
+:where(.css-painel) .menu-perfil span {
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+
+/* =====================================================
+   TÍTULO DA PÁGINA
+===================================================== */
+
+:where(.css-painel) .tag-dashboard,
+:where(.css-painel) .subtitulo-card {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #F5821F;
+  margin-bottom: 4px;
+}
+
+:where(.css-painel) .titulo-dashboard > div:first-child {
+  min-width: 0;
+}
+
+:where(.css-painel) .titulo-dashboard .quick-actions {
+  flex-shrink: 0;
+}
+
+/* Submissões recentes (educador): título e texto empilhados, sem a coluna estreita do .pendencia */
+:where(.css-painel) .submissions-card .pendencia {
+  display: block;
+}
+
+
+/* =====================================================
+   BOTÕES (dentro do painel)
+===================================================== */
+
+:where(.css-painel) .dashboard-professor .btn-primario,
+:where(.css-painel) .dashboard-professor .btn-secundario,
+:where(.css-painel) .dashboard-professor .btn-link {
+  text-decoration: none;
+}
+
+:where(.css-painel) .dashboard-professor .btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #0A1F44;
+  color: #fff;
+  border: 1px solid rgba(10, 31, 68, 0.18);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+:where(.css-painel) .dashboard-professor .btn-link:hover {
+  filter: brightness(1.15);
+}
+
+:where(.css-painel) .barra-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   FORMULÁRIOS (nova atividade, nova avaliação, perfil)
+===================================================== */
+
+:where(.css-painel) .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+:where(.css-painel) .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+:where(.css-painel) .field.full {
+  grid-column: 1 / -1;
+}
+
+:where(.css-painel) .field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .field input,
+:where(.css-painel) .field select,
+:where(.css-painel) .field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 6px;
+  background: #fff;
+  color: #0A1F44;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+
+:where(.css-painel) .field input:focus,
+:where(.css-painel) .field select:focus,
+:where(.css-painel) .field textarea:focus {
+  outline: none;
+  border-color: #0A1F44;
+}
+
+:where(.css-painel) .field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+:where(.css-painel) .acoes-form {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+:where(.css-painel) .hidden-input {
+  display: none;
+}
+
+/* Caixinhas de dicas / listas dentro dos cards laterais */
+
+:where(.css-painel) .mini-box {
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+:where(.css-painel) .mini-box strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .mini-box p,
+:where(.css-painel) .mini-box li {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+:where(.css-painel) .mini-box ul {
+  padding-left: 18px;
+  margin-top: 8px;
+}
+
+
+/* =====================================================
+   LISTAS E LINHAS
+===================================================== */
+
+:where(.css-painel) .lista-simples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+:where(.css-painel) .card-avaliacoes + .card-avaliacoes {
+  margin-top: 14px;
+}
+
+:where(.css-painel) .agenda-line {
+  padding: 10px 4px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .agenda-line:last-child {
+  border-bottom: none;
+}
+
+:where(.css-painel) .aluno small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+}
+
+:where(.css-painel) .cards-resumo.tres {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* =====================================================
+   ATIVIDADES
+===================================================== */
+
+:where(.css-painel) .stats-rapidas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+:where(.css-painel) .stat-box {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+:where(.css-painel) .stat-box h4 {
+  font-size: 12px;
+  color: #667085;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+:where(.css-painel) .stat-box strong {
+  display: block;
+  font-size: 28px;
+  color: #0A1F44;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+:where(.css-painel) .stat-box span {
+  font-size: 12px;
+  color: #666;
+}
+
+:where(.css-painel) .lista-atividades,
+:where(.css-painel) .lista-atividades > div {
+  display: grid;
+  gap: 16px;
+}
+
+:where(.css-painel) .card-atividade {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+:where(.css-painel) .card-atividade-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+:where(.css-painel) .icone-atividade {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff4eb 0%, #ffe0c2 100%);
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+:where(.css-painel) .card-atividade h3 {
+  font-size: 18px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-painel) .card-atividade p {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+:where(.css-painel) .card-atividade-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+:where(.css-painel) .status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 94px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+:where(.css-painel) .status-badge.pendente { background: #fdecec; color: #b33a32; }
+:where(.css-painel) .status-badge.ativo    { background: #e8f6ed; color: #287a45; }
+:where(.css-painel) .status-badge.nova     { background: #eef4ff; color: #2958a8; }
+
+:where(.css-painel) .bloco-secao {
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+:where(.css-painel) .bloco-secao h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 14px;
+}
+
+:where(.css-painel) .lista-mini {
+  display: grid;
+  gap: 12px;
+}
+
+:where(.css-painel) .mini-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8f9fb;
+}
+
+:where(.css-painel) .mini-item strong {
+  display: block;
+  color: #0A1F44;
+  margin-bottom: 2px;
+}
+
+:where(.css-painel) .mini-item span {
+  color: #666;
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   AGENDA DO PROFESSOR
+===================================================== */
+
+:where(.css-painel) .agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+:where(.css-painel) .agenda-day {
+  min-height: 120px;
+  padding: 10px;
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+:where(.css-painel) .agenda-day h4 {
+  font-size: 13px;
+  color: #0A1F44;
+  margin-bottom: 8px;
+}
+
+:where(.css-painel) .agenda-evento {
+  background: #fff4eb;
+  padding: 6px 8px;
+  border-left: 3px solid #F5821F;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .modal-card {
+  width: 420px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(10, 18, 34, 0.3);
+  padding: 20px;
+}
+
+:where(.css-painel) .modal-card .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+:where(.css-painel) .modal-card .modal-header h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .modal-card .close-modal {
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+}
+
+:where(.css-painel) .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+:where(.css-painel) .form-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .form-field input,
+:where(.css-painel) .form-field select {
+  padding: 10px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+
+/* =====================================================
+   PERFIL (aluno e educador)
+===================================================== */
+
+:where(.css-painel) .perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+:where(.css-painel) .perfil-foto-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+:where(.css-painel) .perfil-foto {
+  display: block;
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #163b74, #f5821f);
+  border: 3px solid #fff;
+  box-shadow: 0 8px 18px rgba(22, 59, 116, 0.15);
+}
+
+:where(.css-painel) .perfil-foto-btn {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #F5821F;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(245, 130, 31, 0.3);
+}
+
+:where(.css-painel) .perfil-header-info h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-painel) .perfil-header-info p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+:where(.css-painel) .perfil-status {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e8f6ed;
+  color: #287a45;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+:where(.css-painel) .perfil-sala-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+:where(.css-painel) .perfil-sala-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .perfil-sala-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+:where(.css-painel) .perfil-sala-item {
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+:where(.css-painel) .perfil-sala-item strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .perfil-sala-item span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #666;
+}
+
+:where(.css-painel) .perfil-sala-item .perfil-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e8f6ed;
+  color: #287a45;
+  font-weight: 700;
+}
+
+:where(.css-painel) .perfil-online::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35b76f;
+}
+
+:where(.css-painel) .barra-desempenho {
+  margin: 14px 0 0;
+}
+
+:where(.css-painel) .barra-desempenho span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+
+/* =====================================================
+   HORÁRIO DAS AULAS (aluno)
+===================================================== */
+
+:where(.css-painel) .tabs {
+  display: flex;
+  gap: 5px;
+  margin: 4px 0 8px;
+  border-bottom: 1px solid #e3e7eb;
+}
+
+:where(.css-painel) .tabs a {
+  padding: 9px 14px;
+  color: #666;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+:where(.css-painel) .tabs a:hover {
+  color: #0A1F44;
+}
+
+:where(.css-painel) .tabs a.ativo {
+  color: #0A1F44;
+  border-bottom: 2px solid #F5821F;
+}
+
+:where(.css-painel) .lista-horarios {
+  list-style: none;
+}
+
+:where(.css-painel) .lista-horarios li {
+  display: grid;
+  grid-template-columns: 55px 4px 1fr;
+  align-items: center;
+  gap: 14px;
+  min-height: 58px;
+  border-bottom: 1px solid #eee;
+}
+
+:where(.css-painel) .lista-horarios li:last-child {
+  border-bottom: none;
+}
+
+:where(.css-painel) .lista-horarios .hora {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+}
+
+:where(.css-painel) .lista-horarios .barra {
+  width: 3px;
+  height: 28px;
+  border-radius: 3px;
+  background: #F5821F;
+}
+
+:where(.css-painel) .lista-horarios .materia {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-painel) .lista-horarios .sala {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #666;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media (max-width: 900px) {
+  :where(.css-painel) .agenda-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  :where(.css-painel) .stats-rapidas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  :where(.css-painel) .cards-resumo.tres {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  :where(.css-painel) .card-atividade {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  :where(.css-painel) .card-atividade-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  :where(.css-painel) .titulo-dashboard .quick-actions {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+  }
+
+  :where(.css-painel) .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  :where(.css-painel) .perfil-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Resumo do aluno (avisos, frequência, tarefas)  (aluno.css original) ---------- */
+/* Só vale em páginas com <body class="css-aluno">. */
+
+/* ===== Coluna direita ===== */
+:where(.css-aluno) .painel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== Cards brancos ===== */
+:where(.css-aluno) .al-card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 12px;
+  padding: 24px 20px;
+}
+
+:where(.css-aluno) .al-titulo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #1a1d33;
+  margin: 0 0 16px;
+}
+
+/* ===== Mural de avisos ===== */
+:where(.css-aluno) .al-aviso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8eaf0;
+}
+
+:where(.css-aluno) .al-aviso:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+:where(.css-aluno) .al-tag {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+:where(.css-aluno) .al-tag-aviso { background: #fde4e1; color: #c0392b; }
+:where(.css-aluno) .al-tag-evento { background: #dff2e8; color: #2e7d5b; }
+:where(.css-aluno) .al-tag-comunicado { background: #e3e6fb; color: #4f55c9; }
+
+:where(.css-aluno) .al-texto {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #3b3f58;
+}
+
+:where(.css-aluno) .al-quando {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b708c;
+  white-space: nowrap;
+}
+
+/* ===== Frequência (card escuro) ===== */
+:where(.css-aluno) .al-frequencia {
+  background: #1e2444;
+  border-radius: 12px;
+  padding: 24px 20px;
+  color: #fff;
+}
+
+:where(.css-aluno) .al-freq-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+:where(.css-aluno) .al-freq-topo h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+  margin: 0;
+}
+
+:where(.css-aluno) .al-freq-topo span {
+  font-size: 14px;
+  color: #b8bedc;
+}
+
+:where(.css-aluno) .al-freq-corpo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+:where(.css-aluno) .al-anel {
+  --valor: 92;
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(#8fc7a8 calc(var(--valor) * 1%), #3a4263 0);
+}
+
+:where(.css-aluno) .al-anel::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  background: #1e2444;
+  border-radius: 50%;
+}
+
+:where(.css-aluno) .al-anel span {
+  position: relative;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+:where(.css-aluno) .al-freq-info h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+:where(.css-aluno) .al-freq-info p {
+  font-size: 14px;
+  color: #b8bedc;
+  margin: 0 0 4px;
+}
+
+:where(.css-aluno) .al-freq-info strong {
+  color: #fff;
+}
+
+/* ===== Tarefas pendentes ===== */
+:where(.css-aluno) .al-contador {
+  display: block;
+  font-size: 14px;
+  color: #1a1d33;
+  margin: -10px 0 8px;
+}
+
+:where(.css-aluno) .al-tarefas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:where(.css-aluno) .al-tarefas li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px dashed #1a1d33;
+}
+
+:where(.css-aluno) .al-tarefas li:last-child {
+  border-bottom: none;
+  padding-bottom: 6px;
+}
+
+:where(.css-aluno) .al-tarefas input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #2b2f4d;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+:where(.css-aluno) .al-tarefas input[type="checkbox"]:checked {
+  background: #2b2f4d;
+}
+
+:where(.css-aluno) .al-tarefas input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+}
+
+:where(.css-aluno) .al-tarefa-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1d33;
+  margin: 0 0 4px;
+}
+
+:where(.css-aluno) .al-tarefa-meta {
+  font-size: 12px;
+  color: #9a9fc4;
+  margin: 0;
+}
+
+:where(.css-aluno) .al-tarefa-meta.urgente {
+  color: #e07a4f;
+}
+
+:where(.css-aluno) .al-tarefas li.feita .al-tarefa-titulo {
+  text-decoration: line-through;
+  color: #98a2b3;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 520px) {
+  :where(.css-aluno) .al-aviso {
+    flex-wrap: wrap;
+  }
+
+  :where(.css-aluno) .al-quando {
+    width: 100%;
+  }
+}
+
+/* ---------- Bate-papo e avaliação  (chat.css original) ---------- */
+/* Só vale em páginas com <body class="css-chat">. */
+
+/* =====================================================
+   BATE-PAPO — usa o mesmo padrão de card das outras telas
+   (antes estes estilos ficavam no style.css e afetavam
+   todas as páginas do site)
+   Os nomes das classes .msg, .eu, .outro, .mensagens e
+   .enviarr são usados pelo JS/script.js — não renomear.
+===================================================== */
+
+:where(.css-chat) .chat-card {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 330px);
+  min-height: 460px;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+:where(.css-chat) .chat-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+:where(.css-chat) .chat-topo .usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+:where(.css-chat) .chat-topo .usuario i {
+  font-size: 28px;
+  color: #163B74;
+}
+
+:where(.css-chat) .chat-topo h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+}
+
+:where(.css-chat) .chat-topo .acoes i {
+  margin-left: 18px;
+  font-size: 18px;
+  color: #163B74;
+  cursor: pointer;
+}
+
+:where(.css-chat) #status-chat {
+  display: block;
+  color: #7b8798;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+:where(.css-chat) #status-chat.conectado {
+  color: #198754;
+}
+
+:where(.css-chat) .mensagens {
+  flex: 1;
+  padding: 24px;
+  overflow: auto;
+  background: #f8f9fb;
+}
+
+:where(.css-chat) .msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: max-content;
+  max-width: min(420px, 85%);
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+:where(.css-chat) .msg strong {
+  font-size: 13px;
+}
+
+:where(.css-chat) .msg span {
+  line-height: 1.4;
+}
+
+:where(.css-chat) .msg small {
+  align-self: flex-end;
+  opacity: 0.7;
+  font-size: 10px;
+}
+
+:where(.css-chat) .eu {
+  margin-left: auto;
+  background: #0A1F44;
+  color: #fff;
+}
+
+:where(.css-chat) .outro {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #0A1F44;
+}
+
+:where(.css-chat) .enviarr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+:where(.css-chat) .enviarr i {
+  font-size: 20px;
+  color: #163B74;
+}
+
+:where(.css-chat) .enviarr input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid #d8dce1;
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+:where(.css-chat) .enviarr input:focus {
+  outline: none;
+  border-color: #0A1F44;
+}
+
+:where(.css-chat) .enviarr button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #F5821F;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+:where(.css-chat) .enviarr button:hover {
+  background: #db770f;
+}
+
+:where(.css-chat) #contador-online {
+  white-space: nowrap;
+  color: #666;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  :where(.css-chat) .chat-card {
+    height: 70vh;
+  }
+
+  :where(.css-chat) .enviarr {
+    flex-wrap: wrap;
+  }
+
+  :where(.css-chat) #contador-online {
+    order: 3;
+    width: 100%;
+  }
+}
+
+/* ---------- Salas virtuais  (salas.css original) ---------- */
+/* Só vale em páginas com <body class="css-salas">. */
+
+/* Salas Virtuais — visual alinhado ao index.html (navy/laranja, Bebas Neue + Nunito) */
+
+:where(.css-salas) .sidebar {
+  background: #0A1F44;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+
+:where(.css-salas) .sidebar .logos {
+  background: transparent;
+  padding: 24px 0 18px;
+}
+
+:where(.css-salas) .sidebar .logos .logo-texto {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #fff;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+:where(.css-salas) .sidebar ul {
+  padding: 10px 0;
+}
+
+:where(.css-salas) .sidebar li {
+  color: rgba(255,255,255,0.75);
+  border-bottom: none;
+  padding: 14px 24px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border-left: 4px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+:where(.css-salas) .sidebar li:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+:where(.css-salas) .sidebar li.ativo {
+  background: rgba(245, 130, 31, 0.12);
+  color: #fff;
+  border-left: 4px solid #F5821F;
+}
+
+:where(.css-salas) .salas-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f5f6f8;
+}
+
+/* Banner no topo, igual gradiente do hero da home */
+
+:where(.css-salas) .salas-topo {
+  background: linear-gradient(180deg, #0A1F44 0%, #10265a 100%);
+  padding: 28px 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  min-height: 96px;
+}
+
+:where(.css-salas) .salas-topo-texto span {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #F5821F;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+:where(.css-salas) .salas-topo h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 2.2vw, 2.7rem);
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+:where(.css-salas) .salas-busca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px;
+  padding: 10px 18px;
+  min-width: 270px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+:where(.css-salas) .salas-busca i { color: rgba(255,255,255,0.7); }
+
+:where(.css-salas) .salas-busca input {
+  border: none;
+  outline: none;
+  flex: 1;
+  background: transparent;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+
+:where(.css-salas) .salas-busca input::placeholder { color: rgba(255,255,255,0.6); }
+
+/* Grid de cards, igual espírito dos .card-simples da home */
+
+:where(.css-salas) .salas-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 34px 36px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px 20px;
+  align-content: start;
+}
+
+:where(.css-salas) .sala-card {
+  background: #fff;
+  border: 1px solid #dfe3ea;
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:where(.css-salas) .sala-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(10, 31, 68, 0.1);
+}
+
+:where(.css-salas) .sala-card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+:where(.css-salas) .sala-icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--acento, #163B74) 14%, white);
+  color: var(--acento, #163B74);
+}
+
+:where(.css-salas) .status-pill {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+:where(.css-salas) .status-pill.vivo { background: #ffe4d6; color: #c8500f; }
+:where(.css-salas) .status-pill.breve { background: #dbeafe; color: #1d4ed8; }
+:where(.css-salas) .status-pill.livre { background: #dcfce7; color: #15803d; }
+
+:where(.css-salas) .sala-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-salas) .sala-card p {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+
+:where(.css-salas) .sala-card-rodape {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #163B74;
+  font-weight: 700;
+  padding-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+/* Tela da sala com vídeo */
+
+:where(.css-salas) .sala-video-view { display: none; flex: 1; flex-direction: column; }
+:where(.css-salas) .sala-video-view.ativa { display: flex; }
+:where(.css-salas) .salas-grid.oculto { display: none; }
+
+:where(.css-salas) .sala-video-topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 34px;
+  background: #0A1F44;
+}
+
+:where(.css-salas) .sala-video-topo button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+:where(.css-salas) .sala-video-topo strong {
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+:where(.css-salas) .sala-video-frame {
+  flex: 1;
+  background: #071333;
+}
+
+:where(.css-salas) .sala-video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+:where(.css-salas) .sala-video-controles {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  background: #0A1F44;
+}
+
+:where(.css-salas) .sala-video-controles button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+:where(.css-salas) .sala-video-controles button:hover { background: rgba(255,255,255,0.2); }
+
+:where(.css-salas) .sala-video-controles button.desligado,
+:where(.css-salas) .sala-video-controles button.sair {
+  background: #F5821F;
+}
+
+/* ---------- Modal do painel do educador  (educador-modal.css original) ---------- */
+/* Só vale em páginas com <body class="css-modal-educador">. */
+
+/* Modal simples para interações */
+:where(.css-modal-educador) .modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+}
+
+:where(.css-modal-educador) .modal-dialog {
+  background: #fff;
+  border-radius: 10px;
+  width: 92%;
+  max-width: 520px;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.2);
+  overflow: hidden;
+}
+
+:where(.css-modal-educador) .modal-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+:where(.css-modal-educador) .modal-title { font-size: 16px; color: #0A1F44; }
+:where(.css-modal-educador) .modal-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+
+:where(.css-modal-educador) .modal-body {
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+:where(.css-modal-educador) .modal-footer {
+  display:flex;
+  gap:8px;
+  padding: 12px 16px;
+  justify-content: flex-end;
+  border-top: 1px solid #eef2f6;
+}
+
+:where(.css-modal-educador) .modal-cancel {
+  background: #f3f4f6;
+  border: 1px solid #e6e9ee;
+  color: #0A1F44;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+:where(.css-modal-educador) .modal-confirm {
+  background: var(--accent-color, #ff6a00);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@media (max-width:480px){
+  :where(.css-modal-educador) .modal-dialog{ max-width: 92%; }
+}
+
+/* ---------- Agenda do professor  (agenda-professor.css original) ---------- */
+/* Só vale em páginas com <body class="css-agenda">. */
+
+/* pequenas adaptações visuais específicas para o calendário */
+:where(.css-agenda) .calendar-card { padding:18px; }
+:where(.css-agenda) .agenda-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
+:where(.css-agenda) .agenda-day { min-height:120px; padding:10px; background:#f8fafc; border-radius:10px; }
+:where(.css-agenda) .agenda-evento { background:#eef4ff; padding:6px 8px; border-left:3px solid #3b82f6; border-radius:6px; margin-bottom:8px; cursor:pointer; }
+@media(max-width:900px){ :where(.css-agenda) .agenda-grid{grid-template-columns:repeat(2,1fr);} }
+
+/* ---------- Perfil do educador  (perfil-educador.css original) ---------- */
+/* Só vale em páginas com <body class="css-perfil-educador">. */
+
+body:where(.css-perfil-educador) {
+  background: #f5f7fb;
+}
+
+:where(.css-perfil-educador) .perfil-page {
+  max-width: 1280px;
+  margin: 28px auto;
+  padding: 0 20px 40px;
+}
+
+:where(.css-perfil-educador) .perfil-topbar {
+  background: #0A1F44;
+  color: #fff;
+  border-radius: 16px 16px 0 0;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+:where(.css-perfil-educador) .perfil-topbar h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+
+:where(.css-perfil-educador) .perfil-topbar .topbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+:where(.css-perfil-educador) .perfil-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 0.95fr;
+  gap: 22px;
+  background: #fff;
+  border: 1px solid #e7ebf2;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  padding: 22px;
+}
+
+:where(.css-perfil-educador) .perfil-card,
+:where(.css-perfil-educador) .sala-card {
+  background: #fff;
+  border: 1px solid #edf1f5;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+}
+
+:where(.css-perfil-educador) .perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+:where(.css-perfil-educador) .perfil-foto-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+:where(.css-perfil-educador) .perfil-foto {
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #163b74, #f5821f);
+  border: 3px solid #fff;
+  box-shadow: 0 8px 18px rgba(22,59,116,0.15);
+  display: block;
+}
+
+:where(.css-perfil-educador) .perfil-foto-btn {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  background: #F5821F;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(245,130,31,0.3);
+}
+
+:where(.css-perfil-educador) .perfil-header-info h2 {
+  font-size: 26px;
+  color: #0A1F44;
+  margin-bottom: 6px;
+}
+
+:where(.css-perfil-educador) .perfil-header-info p {
+  color: #667085;
+  margin-bottom: 10px;
+}
+
+:where(.css-perfil-educador) .status-badge {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #edf8f0;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+:where(.css-perfil-educador) .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+:where(.css-perfil-educador) .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+:where(.css-perfil-educador) .field.full {
+  grid-column: 1 / -1;
+}
+
+:where(.css-perfil-educador) .field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-perfil-educador) .field input,
+:where(.css-perfil-educador) .field textarea,
+:where(.css-perfil-educador) .field select {
+  width: 100%;
+  border: 1px solid #dfe4ea;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font: inherit;
+  color: #0A1F44;
+  background: #fff;
+}
+
+:where(.css-perfil-educador) .field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+:where(.css-perfil-educador) .actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+:where(.css-perfil-educador) .btn-primario,
+:where(.css-perfil-educador) .btn-secundario,
+:where(.css-perfil-educador) .btn-link {
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 11px 15px;
+  font-weight: 700;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+:where(.css-perfil-educador) .btn-primario {
+  background: #F5821F;
+  color: #fff;
+}
+
+:where(.css-perfil-educador) .btn-primario:hover {
+  background: #de7110;
+}
+
+:where(.css-perfil-educador) .btn-secundario {
+  background: #eff4fb;
+  color: #0A1F44;
+  border: 1px solid #dfe8f4;
+}
+
+:where(.css-perfil-educador) .btn-secundario:hover {
+  background: #e8eef9;
+}
+
+:where(.css-perfil-educador) .sala-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: linear-gradient(180deg, #f7faff 0%, #ffffff 100%);
+}
+
+:where(.css-perfil-educador) .sala-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+:where(.css-perfil-educador) .sala-header h3 {
+  font-size: 22px;
+  color: #0A1F44;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+:where(.css-perfil-educador) .sala-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+:where(.css-perfil-educador) .sala-item {
+  background: #f7f9fc;
+  border: 1px solid #ebeff5;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+:where(.css-perfil-educador) .sala-item strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #0A1F44;
+}
+
+:where(.css-perfil-educador) .sala-item span {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+:where(.css-perfil-educador) .sala-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2f8f52;
+  background: #ebf8ef;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+:where(.css-perfil-educador) .sala-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #35b76f;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+:where(.css-perfil-educador) .hidden-input {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  :where(.css-perfil-educador) .perfil-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  :where(.css-perfil-educador) .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  :where(.css-perfil-educador) .perfil-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -4,58 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Minhas atividades</title>
-  <link rel="stylesheet" href="../CSS/style.css" />
-  <style>
-    .pagina { max-width: 900px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
-    .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
-    .subtitulo { color: #667085; font-size: 14px; margin: 4px 0 18px; }
-
-    .barra-turma { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
-    .barra-turma label { font-weight: 700; font-size: 14px; }
-    .barra-turma select { padding: 9px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
-
-    .resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
-    .resumo div { background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; }
-    .resumo strong { display: block; font-size: 26px; color: #0A1F44; }
-    .resumo span { font-size: 12px; color: #667085; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
-      box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
-    .card-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .card h3 { font-size: 19px; color: #0A1F44; margin-bottom: 4px; }
-    .meta { font-size: 13px; color: #667085; margin-bottom: 8px; }
-    .desc { font-size: 14px; color: #344054; margin-bottom: 12px; white-space: pre-wrap; }
-
-    .tag, .status { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
-      padding: 5px 11px; border-radius: 999px; }
-    .tag.atividade { background: #eef4ff; color: #2958a8; }
-    .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
-    .status.pendente { background: #fdecec; color: #b33a32; }
-    .status.enviada { background: #fff4d6; color: #9a6b00; }
-    .status.corrigida { background: #e8f6ed; color: #287a45; }
-
-    textarea { width: 100%; min-height: 110px; padding: 12px 14px; border: 1px solid #d8dce1; border-radius: 10px;
-      font: inherit; resize: vertical; color: #0A1F44; }
-    .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-    .btn { background: #F5821F; color: #fff; border: none; border-radius: 10px; padding: 11px 18px;
-      font-weight: 800; font-size: 13px; cursor: pointer; }
-    .btn:hover { background: #de7110; }
-    .btn:disabled { opacity: 0.6; cursor: default; }
-    .msg { font-size: 13px; }
-    .msg.ok { color: #287a45; }
-    .msg.erro { color: #c0392b; }
-
-    .nota-box { background: #f0f9f3; border: 1px solid #cfe9d8; border-radius: 10px; padding: 12px 14px; margin-top: 8px; }
-    .nota-box strong { font-size: 18px; color: #287a45; }
-    .nota-box p { margin-top: 6px; font-size: 14px; color: #344054; white-space: pre-wrap; }
-    .resposta-enviada { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 10px 12px;
-      margin-top: 10px; font-size: 13px; color: #475467; white-space: pre-wrap; }
-    .vazio { text-align: center; color: #667085; padding: 40px 0; }
-    @media (max-width: 600px) { .resumo { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="../CSS/geral.css" />
+  <link rel="stylesheet" href="../CSS/atividades.css" />
 </head>
-<body>
+<!-- ============================================================================================================================ -->
+<body class="css-aluno-atividades">
   <header class="topo">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -68,7 +21,7 @@
       <a href="#" class="logout-link" id="sair">Sair</a>
     </div>
   </header>
-
+<!-- ============================================================================================================================ -->
   <main class="container">
     <div class="pagina">
       <h1>Minhas atividades e provas</h1>
@@ -95,11 +48,11 @@
       <div id="lista"></div>
     </div>
   </main>
-
+<!-- ============================================================================================================================ -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
   </footer>
-
+<!-- ============================================================================================================================ -->
   <script src="../JS/config.js"></script>
   <script>
     const $ = (seletor) => document.querySelector(seletor);

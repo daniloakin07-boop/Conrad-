@@ -4,51 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Correção de atividades</title>
-  <link rel="stylesheet" href="../CSS/style.css" />
-  <style>
-    .pagina { max-width: 960px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
-    .cabecalho { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-    .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
-    .subtitulo { color: #667085; font-size: 14px; margin-top: 4px; }
-    .botoes { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn, .btn-sec { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;
-      padding: 11px 16px; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; border: 1px solid transparent; }
-    .btn { background: #F5821F; color: #fff; }
-    .btn:hover { background: #de7110; }
-    .btn:disabled { opacity: 0.6; cursor: default; }
-    .btn-sec { background: #fff; color: #0A1F44; border-color: #d8dce1; }
-    .btn-sec:hover { background: #f4f7fb; }
-
-    .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
-      box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
-    .card-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .card h3 { font-size: 19px; color: #0A1F44; margin: 6px 0 4px; }
-    .meta { font-size: 13px; color: #667085; }
-    .tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; }
-    .tag.atividade { background: #eef4ff; color: #2958a8; }
-    .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
-    .contagem { font-size: 13px; font-weight: 700; color: #0A1F44; }
-
-    .entregas { margin-top: 14px; border-top: 1px dashed #d8dce1; padding-top: 14px; display: grid; gap: 12px; }
-    .entrega { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 14px; }
-    .entrega-topo { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-    .entrega-topo strong { color: #0A1F44; }
-    .entrega-topo span { font-size: 12px; color: #667085; }
-    .resposta { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 10px 12px; font-size: 14px;
-      white-space: pre-wrap; margin-bottom: 10px; color: #344054; }
-    .corrigir { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: start; }
-    .corrigir input, .corrigir textarea { width: 100%; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
-    .corrigir textarea { min-height: 70px; resize: vertical; }
-    .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-    .msg { font-size: 13px; }
-    .msg.ok { color: #287a45; }
-    .msg.erro { color: #c0392b; }
-    .vazio { text-align: center; color: #667085; padding: 40px 0; }
-    @media (max-width: 600px) { .corrigir { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="../CSS/geral.css" />
+  <link rel="stylesheet" href="../CSS/atividades.css" />
+<!-- =================================================================================================================== -->
 </head>
-<body>
+<body class="css-correcao">
   <header class="topo">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -61,7 +21,7 @@
       <a href="#" class="logout-link" id="sair">Sair</a>
     </div>
   </header>
-
+<!-- =================================================================================================================== -->
   <main class="container">
     <div class="pagina">
       <div class="cabecalho">
@@ -78,12 +38,13 @@
       <div id="lista"></div>
     </div>
   </main>
-
+<!-- =================================================================================================================== -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
   </footer>
 
   <script src="../JS/config.js"></script>
+  <!-- =================================================================================================================== -->
   <script>
     const $ = (seletor) => document.querySelector(seletor);
 
