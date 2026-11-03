@@ -142,7 +142,7 @@ body {
   flex: 1;
   padding: 0 20px 0;
 }
-
+/* -----------------------------------------------------------------------------------------*/
 /* Rodapé com fundo escuro e texto simples. */
 /* O rodapé é fixo na parte inferior da página, mesmo que o conteúdo seja curto. att 14/10 (alex) */ 
 .rodape {
@@ -1051,4 +1051,386 @@ header{
   :where(.css-auth) .contato-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================================
+   SISTEMA DE 3 TEMAS - CONRAD
+   NORMAL | CLARO | ESCURO
+========================================================== */
+
+
+/* ==========================================================
+   1. TEMA NORMAL
+   Mantém as cores originais da Conrad.
+========================================================== */
+
+:root[data-tema="normal"] {
+    color-scheme: light;
+}
+
+
+/* ==========================================================
+   2. TEMA CLARO
+========================================================== */
+
+:root[data-tema="claro"] {
+    color-scheme: light;
+
+    --fundo: #f5f6fa;
+    --painel: #ffffff;
+    --card: #ffffff;
+    --texto: #0A1F44;
+    --texto-secundario: #667085;
+    --borda: #dce2eb;
+}
+
+/* Fundo geral */
+
+:root[data-tema="claro"] body {
+    background: var(--fundo);
+    color: var(--texto);
+}
+
+:root[data-tema="claro"] .container,
+:root[data-tema="claro"] .containers,
+:root[data-tema="claro"] .chat,
+:root[data-tema="claro"] .mensagens {
+    background: var(--fundo);
+    color: var(--texto);
+}
+
+/* Cabeçalho */
+
+:root[data-tema="claro"] .topo {
+    background: #ffffff;
+    border-bottom-color: var(--borda);
+}
+
+:root[data-tema="claro"] .topo .logo,
+:root[data-tema="claro"] .topo .menu a {
+    color: #0A1F44;
+}
+
+:root[data-tema="claro"] .topo .menu a:hover,
+:root[data-tema="claro"] .topo .menu a.ativo {
+    color: #F5821F;
+}
+
+:root[data-tema="claro"] .topo .user-link,
+:root[data-tema="claro"] .topo .logout-link {
+    color: #0A1F44;
+    border-color: #cbd5e1;
+}
+
+:root[data-tema="claro"] .topo .user-link {
+    background: #f1f5f9;
+}
+
+/* Banner inicial */
+
+:root[data-tema="claro"] .hero-simples {
+    background: linear-gradient(
+        180deg,
+        #eaf1fb 0%,
+        #dce7f6 100%
+    );
+}
+
+:root[data-tema="claro"] .hero-simples-texto h1 {
+    color: #0A1F44;
+}
+
+:root[data-tema="claro"] .hero-simples-texto p {
+    color: #344054;
+}
+
+/* Recursos e cards */
+
+:root[data-tema="claro"] .recursos-simples {
+    background: #f5f6fa;
+}
+
+:root[data-tema="claro"] .card-simples,
+:root[data-tema="claro"] .bloco-auth,
+:root[data-tema="claro"] .contato-canais,
+:root[data-tema="claro"] .contato-form-bloco .bloco-auth,
+:root[data-tema="claro"] .canal-item,
+:root[data-tema="claro"] .faq-item {
+    background: var(--card);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* Menu lateral */
+
+:root[data-tema="claro"] .sidebar,
+:root[data-tema="claro"] .logos {
+    background: #ffffff;
+}
+
+:root[data-tema="claro"] .sidebar li {
+    color: #0A1F44;
+}
+
+:root[data-tema="claro"] .sidebar li i {
+    color: #F5821F;
+}
+
+:root[data-tema="claro"] .sidebar li:hover {
+    background: #edf2f8;
+}
+
+/* Chat */
+
+:root[data-tema="claro"] .chat header {
+    background: #ffffff;
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+:root[data-tema="claro"] .outro,
+:root[data-tema="claro"] .enviarr {
+    background: #ffffff;
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* Textos */
+
+:root[data-tema="claro"] .card-simples strong {
+    color: #0A1F44;
+}
+
+:root[data-tema="claro"] .card-simples p,
+:root[data-tema="claro"] .texto-auth,
+:root[data-tema="claro"] .pagina-contato > p {
+    color: #667085;
+}
+
+
+/* ==========================================================
+   3. TEMA ESCURO
+========================================================== */
+
+:root[data-tema="escuro"] {
+    color-scheme: dark;
+
+    --fundo: #121827;
+    --painel: #1e293b;
+    --card: #243247;
+    --texto: #f1f5f9;
+    --texto-secundario: #cbd5e1;
+    --borda: #374151;
+}
+
+/* Fundo geral */
+
+:root[data-tema="escuro"] body {
+    background: var(--fundo);
+    color: var(--texto);
+}
+
+:root[data-tema="escuro"] .container,
+:root[data-tema="escuro"] .containers,
+:root[data-tema="escuro"] .chat,
+:root[data-tema="escuro"] .mensagens {
+    background: var(--fundo);
+    color: var(--texto);
+}
+
+/* Cabeçalhos */
+
+:root[data-tema="escuro"] header:not(.topo) {
+    background: var(--painel);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* O cabeçalho principal mantém o azul da Conrad */
+
+/* Recursos e cards */
+
+:root[data-tema="escuro"] .recursos-simples {
+    background: var(--fundo);
+}
+
+:root[data-tema="escuro"] .card-simples,
+:root[data-tema="escuro"] .bloco-auth,
+:root[data-tema="escuro"] .contato-canais,
+:root[data-tema="escuro"] .contato-form-bloco .bloco-auth,
+:root[data-tema="escuro"] .canal-item,
+:root[data-tema="escuro"] .faq-item,
+:root[data-tema="escuro"] .outro,
+:root[data-tema="escuro"] .enviarr {
+    background: var(--card);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* Menu lateral */
+
+:root[data-tema="escuro"] .sidebar,
+:root[data-tema="escuro"] .logos {
+    background: #1e293b;
+}
+
+:root[data-tema="escuro"] .sidebar li {
+    color: #f1f5f9;
+}
+
+:root[data-tema="escuro"] .sidebar li i {
+    color: #93c5fd;
+}
+
+:root[data-tema="escuro"] .sidebar li:hover {
+    background: #334155;
+}
+
+/* Textos dos cards e formulários */
+
+:root[data-tema="escuro"] .card-simples strong,
+:root[data-tema="escuro"] .bloco-auth h1 {
+    color: #bfdbfe;
+}
+
+:root[data-tema="escuro"] .card-simples p,
+:root[data-tema="escuro"] .texto-auth,
+:root[data-tema="escuro"] .pagina-contato > p,
+:root[data-tema="escuro"] .canal-item span,
+:root[data-tema="escuro"] .texto-auth,
+:root[data-tema="escuro"] .link-auth {
+    color: var(--texto-secundario);
+}
+
+/* Campos de formulários */
+
+:root[data-tema="escuro"] .form-auth input,
+:root[data-tema="escuro"] .form-auth textarea,
+:root[data-tema="escuro"] .form-auth select,
+:root[data-tema="escuro"] .enviarr input {
+    background: var(--fundo);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+/* Labels e opções */
+
+:root[data-tema="escuro"] .tipo-usuario label {
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+:root[data-tema="escuro"] .form-row a,
+:root[data-tema="escuro"] .link-auth a {
+    color: #93c5fd;
+}
+
+/* Ícones do chat */
+
+:root[data-tema="escuro"] .usuario i,
+:root[data-tema="escuro"] .acoes i,
+:root[data-tema="escuro"] .enviarr i {
+    color: #93c5fd;
+}
+
+/* Mensagens do chat */
+
+:root[data-tema="escuro"] .outro {
+    background: var(--card);
+    color: var(--texto);
+}
+
+/* Rodapé mantém a identidade visual original */
+
+/* ==========================================================
+   TRANSIÇÃO ENTRE OS TEMAS
+========================================================== */
+
+body,
+.topo,
+.sidebar,
+.logos,
+.recursos-simples,
+.card-simples,
+.bloco-auth,
+.canal-item,
+.faq-item,
+.chat header,
+.mensagens,
+.enviarr {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* ==========================================
+   BOTÃO DE ALTERNÂNCIA DE TEMA - CONRAD
+========================================== */
+
+button#theme {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    padding: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+
+    font-family: Arial, sans-serif;
+    font-size: 21px;
+    line-height: 1;
+
+    cursor: pointer;
+    flex-shrink: 0;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Efeito ao passar o mouse */
+
+button#theme:hover {
+    background: #F5821F;
+    border-color: #F5821F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 130, 31, 0.3);
+}
+
+/* Efeito ao clicar */
+
+button#theme:active {
+    transform: scale(0.92);
+}
+
+/* Acessibilidade */
+
+button#theme:focus-visible {
+    outline: 2px solid #F5821F;
+    outline-offset: 4px;
+}
+
+/* Ajuste para o tema claro */
+
+:root[data-tema="claro"] button#theme {
+    background: #0A1F44;
+    color: #ffffff;
+    border-color: #0A1F44;
+}
+
+:root[data-tema="claro"] button#theme:hover {
+    background: #F5821F;
+    border-color: #F5821F;
 }
