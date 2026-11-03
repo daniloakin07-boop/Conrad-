@@ -41,11 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Acessar turma (botões 'Acessar')
+  // Links com destino real abrem a página da turma normalmente.
+  // Mantém o modal apenas para os antigos links de demonstração (#).
   document.querySelectorAll('.aluno a.btn-secundario').forEach(btn => {
     btn.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href && href !== '#') return;
       e.preventDefault();
-      const turma = this.closest('.aluno').querySelector('strong').innerText;
+      const turma = this.closest('.aluno')?.querySelector('strong')?.innerText || 'Turma';
       showModal({title: 'Abrir turma', message: 'Abrindo página da turma: ' + turma, confirmText: 'OK'});
     });
   });

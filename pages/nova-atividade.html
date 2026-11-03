@@ -14,7 +14,7 @@
     <header class="form-topbar">
       <h1>Nova atividade</h1>
       <div class="topbar-actions">
-        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+        <a href="turmas.html" class="btn-secundario">Voltar às turmas</a>
       </div>
     </header>
 
@@ -31,20 +31,13 @@
 
             <div class="field">
               <label for="turma">Turma</label>
-              <select id="turma">
-                <option>3º ano C</option>
-                <option>2º ano A</option>
-                <option>1º ano B</option>
-              </select>
+              <select id="turma" required><option value="">Carregando turmas...</option></select>
+              <small class="campo-ajuda" id="ajuda-turma">Selecione a turma em que este conteúdo será publicado.</small>
             </div>
 
             <div class="field">
               <label for="disciplina">Disciplina</label>
-              <select id="disciplina">
-                <option>Matemática</option>
-                <option>Português</option>
-                <option>História</option>
-              </select>
+              <input id="disciplina" type="text" maxlength="120" required placeholder="Disciplina da turma">
             </div>
 
             <div class="field">
@@ -96,13 +89,53 @@
     const ROTULO = "atividade";
 
     const form = document.querySelector('form');
+    const seletorTurma = document.getElementById('turma');
+    const params = new URLSearchParams(location.search);
+    let turmasDisponiveis = [];
+
+    async function carregarTurmas() {
+      try {
+        const sessao = await conradFetch('/me');
+        if (sessao.usuario?.tipo !== 'educador') {
+          location.href = 'turmas.html';
+          return;
+        }
+        const dados = await conradFetch('/api/turmas');
+        turmasDisponiveis = (dados.turmas || []).filter((turma) => turma.papel === 'educador');
+        seletorTurma.replaceChildren(new Option('Selecione uma turma...', ''));
+        turmasDisponiveis.forEach((turma) => {
+          seletorTurma.add(new Option(`${turma.nome} — ${turma.disciplina}`, String(turma.id)));
+        });
+        const turmaPreselecionada = params.get('turmaId');
+        if (turmaPreselecionada && [...seletorTurma.options].some((opcao) => opcao.value === turmaPreselecionada)) {
+          seletorTurma.value = turmaPreselecionada;
+          seletorTurma.disabled = true;
+          const escolhida = turmasDisponiveis.find((turma) => String(turma.id) === turmaPreselecionada);
+          if (escolhida) document.getElementById('disciplina').value = escolhida.disciplina;
+        }
+        if (seletorTurma.options.length <= 1) {
+          const ajuda = document.getElementById('ajuda-turma');
+          ajuda.textContent = 'Você ainda não tem turmas. Crie uma turma antes de publicar.';
+          ajuda.innerHTML += ' <a href="turmas.html">Criar turma</a>';
+        }
+      } catch (erro) {
+        seletorTurma.replaceChildren(new Option('Não foi possível carregar as turmas', ''));
+        document.getElementById('ajuda-turma').textContent = erro.message;
+      }
+    }
+
+    seletorTurma.addEventListener('change', () => {
+      const escolhida = turmasDisponiveis.find((turma) => String(turma.id) === seletorTurma.value);
+      if (escolhida) document.getElementById('disciplina').value = escolhida.disciplina;
+    });
 
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
 
       const dados = {
         titulo: document.getElementById('titulo').value.trim(),
-        turma: document.getElementById('turma').value,
+        turma_id: document.getElementById('turma').value,
+        turma: document.getElementById('turma').selectedOptions[0]?.textContent || '',
         disciplina: document.getElementById('disciplina').value,
         data_aplicacao: document.getElementById('data').value,
         valor_maximo: Number(document.getElementById('valor').value),
@@ -110,8 +143,8 @@
         tipo: TIPO
       };
 
-      if (!dados.titulo || !dados.data_aplicacao || !dados.descricao) {
-        alert('Preencha o nome, a data e a descrição.');
+      if (!dados.titulo || !dados.turma_id || !dados.data_aplicacao || !dados.descricao) {
+        alert('Selecione uma turma e preencha o nome, a data e a descrição.');
         return;
       }
 
@@ -131,12 +164,18 @@
         alert('Sua ' + ROTULO + ' foi publicada e já aparece para os alunos da turma!');
         form.reset();
         document.getElementById('valor').value = 10;
+        if (params.get('turmaId')) {
+          seletorTurma.value = params.get('turmaId');
+          seletorTurma.dispatchEvent(new Event('change'));
+        }
       } catch (erro) {
         alert(erro.message);
       } finally {
         botao.disabled = false;
       }
     });
+
+    carregarTurmas();
   </script>
 </body>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turma — CONRAD</title>
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
+</head>
+<body class="css-painel css-turmas">
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link"><span class="user-avatar">👤</span><span>Minha conta</span></a>
+      <a href="../index.html" class="logout-link">Sair</a>
+    </div>
+  </header>
+
+  <main class="container turmas-layout">
+    <aside class="menu-lateral" data-menu="auto">
+      <h3>Conrad</h3>
+      <nav></nav>
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
+      </div>
+      <div class="menu-perfil"><strong>Minha conta</strong><span>Usuário</span></div>
+    </aside>
+
+    <section class="turmas-conteudo turma-detalhe" id="mainContent">
+      <a class="voltar-turmas" href="turmas.html">← Voltar para turmas</a>
+      <header class="turma-banner" id="turma-banner">
+        <div>
+          <span class="tag-dashboard">SALA DE APRENDIZAGEM</span>
+          <h1 id="turma-nome">Carregando turma...</h1>
+          <p id="turma-meta">Buscando informações da turma.</p>
+        </div>
+        <div class="turma-codigo" id="bloco-codigo" hidden>
+          <span>Código da turma</span>
+          <strong id="turma-codigo"></strong>
+          <button type="button" id="copiar-codigo">Copiar código</button>
+        </div>
+      </header>
+
+      <nav class="turma-abas" aria-label="Seções da turma">
+        <button type="button" class="ativa" data-aba="mural">Mural</button>
+        <button type="button" data-aba="atividade">Atividades</button>
+        <button type="button" data-aba="avaliacao">Avaliações</button>
+        <button type="button" data-aba="pessoas">Pessoas</button>
+        <button type="button" data-aba="video">Sala de vídeo</button>
+      </nav>
+
+      <section class="turma-painel" id="turma-painel" aria-live="polite">
+        <p class="turmas-vazio">Carregando conteúdo da turma...</p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
+
+  <script src="../JS/config.js"></script>
+  <script src="../JS/turma-detalhe.js"></script>
+  <script src="../JS/layout.js" defer></script>
+</body>
+</html>

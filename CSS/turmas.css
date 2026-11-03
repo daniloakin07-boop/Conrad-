@@ -1,0 +1,284 @@
+/* Área de turmas e salas no estilo de um ambiente de aprendizagem. */
+.css-turmas {
+  background: #f4f6fa;
+}
+
+.css-turmas .turmas-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  min-height: 68vh;
+  padding-top: 26px;
+  padding-bottom: 34px;
+}
+
+.css-turmas .menu-lateral {
+  position: sticky;
+  top: 18px;
+}
+
+.turmas-conteudo {
+  flex: 1;
+  min-width: 0;
+}
+
+.turmas-cabecalho,
+.turmas-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.turmas-cabecalho {
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 16px;
+  padding: 26px 28px;
+  margin-bottom: 18px;
+}
+
+.turmas-cabecalho h1,
+.turma-banner h1 {
+  margin: 8px 0 4px;
+  color: #0a1f44;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: .5px;
+  font-size: 34px;
+}
+
+.turmas-cabecalho p,
+.turma-banner p {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.turmas-acoes-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-turma {
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  padding: 11px 16px;
+  font: 800 13px 'Nunito', sans-serif;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.btn-turma:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(10,31,68,.12); }
+.btn-turma:disabled { opacity: .65; cursor: wait; transform: none; }
+.btn-turma.btn-primary { background: #f5821f; color: #fff; }
+.btn-turma.btn-outline { background: #fff; color: #163b74; border: 1px solid #cbd5e1; }
+
+.turmas-toolbar {
+  margin: 20px 3px 14px;
+}
+
+.turmas-busca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #dfe5ed;
+  border-radius: 10px;
+  padding: 0 14px;
+  width: min(430px, 100%);
+  height: 44px;
+  color: #64748b;
+}
+
+.turmas-busca .icone-busca { color: #64748b; font-size: 23px; line-height: 1; }
+.turmas-busca input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #0a1f44;
+  font: 13px 'Nunito', sans-serif;
+}
+
+.turmas-contador { color: #64748b; font-size: 12px; font-weight: 700; }
+
+.turmas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  align-content: start;
+}
+
+.turma-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e0e6ee;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(10,31,68,.045);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.turma-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(10,31,68,.11); }
+.turma-card-capa {
+  min-height: 112px;
+  padding: 18px 18px 14px;
+  color: #fff;
+  background: linear-gradient(120deg, #0a1f44, #1f4e79);
+  position: relative;
+}
+.turma-card:nth-child(3n + 2) .turma-card-capa { background: linear-gradient(120deg, #163b74, #356a9d); }
+.turma-card:nth-child(3n) .turma-card-capa { background: linear-gradient(120deg, #98450d, #f5821f); }
+.turma-card-capa h2 { max-width: 90%; font: 22px 'Bebas Neue', sans-serif; letter-spacing: .45px; line-height: 1.15; }
+.turma-card-capa p { margin-top: 5px; font-size: 11px; color: rgba(255,255,255,.86); }
+.turma-card-iniciais {
+  position: absolute;
+  right: 17px;
+  bottom: -22px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  background: #f5821f;
+  font-weight: 900;
+  font-size: 13px;
+}
+.turma-card-corpo { flex: 1; padding: 21px 18px 13px; }
+.turma-card-corpo p { margin: 2px 0; color: #64748b; font-size: 12px; }
+.turma-card-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-top: 1px solid #edf0f4;
+  color: #64748b;
+  font-size: 11px;
+}
+.turma-card-abrir { color: #1f4e79; font-weight: 900; }
+.turmas-vazio {
+  grid-column: 1 / -1;
+  background: #fff;
+  padding: 28px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 13px;
+  color: #64748b;
+  text-align: center;
+  font-size: 13px;
+}
+
+.modal-turma { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; padding: 18px; }
+.modal-turma.aberta { display: flex; }
+.modal-turma-fundo { position: absolute; inset: 0; background: rgba(4,15,35,.62); }
+.modal-turma-card {
+  position: relative;
+  z-index: 1;
+  width: min(480px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.modal-turma-card h2 { color: #0a1f44; font: 28px 'Bebas Neue', sans-serif; }
+.modal-turma-card > p { margin: 5px 0 20px; color: #64748b; font-size: 12px; }
+.modal-fechar { position: absolute; top: 12px; right: 15px; border: 0; background: transparent; color: #64748b; font-size: 27px; cursor: pointer; }
+.form-turma { display: flex; flex-direction: column; gap: 8px; }
+.form-turma[hidden] { display: none; }
+.form-turma label { margin-top: 6px; color: #163b74; font-size: 12px; font-weight: 900; }
+.form-turma label span { color: #94a3b8; font-weight: 500; }
+.form-turma input,
+.form-turma textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 11px 12px;
+  color: #0f172a;
+  background: #fff;
+  font: 13px 'Nunito', sans-serif;
+  outline: 0;
+}
+.form-turma input:focus,
+.form-turma textarea:focus { border-color: #1f4e79; box-shadow: 0 0 0 3px rgba(31,78,121,.12); }
+.form-turma textarea { resize: vertical; }
+.form-turma .btn-turma { margin-top: 8px; }
+.form-turma-ajuda { color: #64748b; font-size: 11px; }
+.form-turma-msg { min-height: 17px; margin: 2px 0; font-size: 12px; }
+.form-turma-msg.erro { color: #b91c1c; }
+.form-turma-msg.ok { color: #15803d; }
+
+/* Página interna de cada turma */
+.turma-detalhe { min-width: 0; }
+.voltar-turmas { display: inline-block; margin: 0 0 14px 3px; color: #1f4e79; font-size: 12px; font-weight: 900; text-decoration: none; }
+.turma-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+  min-height: 160px;
+  padding: 25px 28px;
+  border-radius: 15px;
+  background: linear-gradient(115deg, #0a1f44 0%, #1f4e79 70%, #2f6595 100%);
+  color: #fff;
+}
+.turma-banner .tag-dashboard { color: #ffbd83; }
+.turma-banner h1 { color: #fff; font-size: 38px; }
+.turma-banner p { color: rgba(255,255,255,.83); }
+.turma-codigo { min-width: 155px; display: flex; flex-direction: column; gap: 5px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 10px; background: rgba(255,255,255,.1); }
+.turma-codigo span { color: rgba(255,255,255,.8); font-size: 10px; }
+.turma-codigo strong { color: #fff; font-size: 19px; letter-spacing: 2px; }
+.turma-codigo button { align-self: flex-start; border: 0; padding: 0; color: #ffd0a6; background: transparent; cursor: pointer; font-size: 11px; font-weight: 900; }
+.turma-abas { display: flex; gap: 6px; overflow-x: auto; margin: 17px 0; padding: 5px; border: 1px solid #e4e9f0; border-radius: 11px; background: #fff; }
+.turma-abas button { white-space: nowrap; padding: 10px 15px; border: 0; border-radius: 8px; color: #64748b; background: transparent; cursor: pointer; font: 800 12px 'Nunito', sans-serif; }
+.turma-abas button:hover { color: #163b74; background: #f1f5f9; }
+.turma-abas button.ativa { color: #fff; background: #163b74; }
+.turma-painel { min-height: 240px; }
+.turma-painel-card { background: #fff; padding: 20px 22px; border: 1px solid #e3e8ef; border-radius: 13px; margin-bottom: 14px; }
+.turma-painel-card h2 { margin: 0 0 8px; color: #0a1f44; font: 23px 'Bebas Neue', sans-serif; letter-spacing: .4px; }
+.turma-painel-card p { color: #64748b; font-size: 12px; line-height: 1.65; }
+.turma-resumo-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.turma-resumo-item { padding: 16px; border: 1px solid #e5eaf1; border-radius: 10px; background: #fff; }
+.turma-resumo-item strong { display: block; color: #0a1f44; font-size: 24px; }
+.turma-resumo-item span { color: #64748b; font-size: 11px; }
+.turma-atalhos { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 13px; }
+.turma-lista-item { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #edf0f4; }
+.turma-lista-item:last-child { border-bottom: 0; }
+.turma-lista-item strong { display: block; color: #163b74; font-size: 13px; }
+.turma-lista-item small { color: #64748b; font-size: 11px; }
+.turma-lista-item a { color: #f5821f; font-size: 11px; font-weight: 900; text-decoration: none; white-space: nowrap; }
+.turma-pessoa { display: flex; align-items: center; gap: 11px; padding: 12px 0; border-bottom: 1px solid #edf0f4; }
+.turma-pessoa:last-child { border-bottom: 0; }
+.turma-pessoa-avatar { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e8eef6; color: #163b74; font-weight: 900; }
+.turma-pessoa strong { display: block; color: #163b74; font-size: 12px; }
+.turma-pessoa small { color: #64748b; font-size: 10px; }
+.turma-video-box { overflow: hidden; border-radius: 12px; background: #0a1f44; }
+.turma-video-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; color: #fff; }
+.turma-video-topo strong { font-size: 13px; }
+.turma-video-topo a { color: #ffd0a6; font-size: 11px; font-weight: 900; }
+.turma-video-frame { width: 100%; height: min(65vh, 620px); min-height: 360px; border: 0; display: block; background: #07152d; }
+.turma-aviso-externo { padding: 10px 14px; color: #64748b; background: #fff; border: 1px solid #e5eaf1; border-top: 0; border-radius: 0 0 10px 10px; font-size: 10px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .css-turmas .turmas-layout { flex-direction: column; }
+  .css-turmas .menu-lateral { position: static; width: 100%; }
+  .turmas-cabecalho { align-items: flex-start; flex-direction: column; }
+  .turma-banner { align-items: flex-start; flex-direction: column; }
+  .turma-resumo-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .turmas-cabecalho { padding: 20px; }
+  .turmas-acoes-topo { width: 100%; }
+  .turmas-acoes-topo .btn-turma { flex: 1; }
+  .turmas-toolbar { align-items: flex-start; flex-direction: column; }
+  .turma-banner { padding: 21px; }
+  .turma-banner h1 { font-size: 30px; }
+  .modal-turma-card { padding: 24px 20px; }
+  .turma-video-frame { min-height: 280px; height: 52vh; }
+}

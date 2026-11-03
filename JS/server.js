@@ -23,7 +23,7 @@ const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
 const mediasRoutes = require("./medias.js");
-const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "perfil-aluno.html", "boletim.html"];
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "turmas.html", "turma.html", "atividades.html", "avaliacoes.html", "aluno-atividades.html", "professor-correcao.html", "nova-atividade.html", "nova-avaliacao.html", "perfil-aluno.html", "perfil-educador.html", "boletim.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
@@ -116,6 +116,10 @@ if (fs.existsSync(path.join(__dirname, "medias.js"))) {
 const atividadesRoutes = require("./atividades.js");
 app.use("/api", atividadesRoutes);
 
+// Turmas, códigos de convite, matrículas e acesso às salas de vídeo.
+const turmasRoutes = require("./turmas.js");
+app.use("/api", turmasRoutes);
+
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
 const io = new Server(httpServer, {
@@ -187,6 +191,7 @@ const arquivosBloqueados = [
     "/js/db.js",
     "/js/medias.js",
     "/js/atividades.js",
+    "/js/turmas.js",
     "/js/ca.pem",
     "/package.json",
     "/package-lock.json"

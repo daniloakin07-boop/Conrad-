@@ -38,12 +38,14 @@
 <!-- ============================================================================================================================ -->
       <nav>
         <a href="aluno.html" class="menu-item ativo">Painel</a>
+        <a href="turmas.html" class="menu-item">Turmas</a>
         <a href="#calendario" class="menu-item">Calendário</a>
         <a href="#frequencia" class="menu-item">Frequência das aulas</a>
         <a href="#desempenho" class="menu-item">Desempenho do aluno</a>
-        <a href="aluno-atividades.html" class="menu-item">Atividades</a>
+        <a href="atividades.html" class="menu-item">Atividades</a>
+        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
         <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-        <a href="salas.html" class="menu-item">Salas virtuais</a>
+        <a href="salas.html" class="menu-item">Salas de vídeo</a>
         <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
       </nav>
 
@@ -72,7 +74,7 @@
         <div class="header-right">
           <div class="quick-actions">
             <a href="aluno-atividades.html" class="btn-primario">Ver atividades</a>
-            <a href="sala-virtual.html" class="btn-secundario">Entrar na sala virtual</a>
+            <a href="salas.html" class="btn-secundario">Entrar na sala de vídeo</a>
           </div>
 
           <div class="header-profile">
@@ -85,7 +87,7 @@
 
             <div id="profileDropdown" class="profile-dropdown" style="display:none;">
               <a href="perfil-aluno.html">Editar</a>
-              <a href="index.html" data-sair>Sair</a>
+              <a href="../index.html" data-sair>Sair</a>
             </div>
           </div>
         </div>
@@ -352,7 +354,7 @@
     document.querySelectorAll('[data-sair]').forEach((link) => {
       link.addEventListener('click', (evento) => {
         evento.preventDefault();
-        conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = 'index.html'; });
+        conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
       });
     });
 

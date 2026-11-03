@@ -15,7 +15,7 @@
     <nav class="menu">
       <a href="aluno.html">Painel</a>
       <a href="aluno-atividades.html" class="ativo">Atividades</a>
-      <a href="salas.html">Salas</a>
+      <a href="turmas.html">Turmas</a>
     </nav>
     <div class="acoes-topo">
       <span class="user-link" id="nome-usuario">👤</span>
@@ -25,20 +25,9 @@
 <!-- ============================================================================================================================ -->
   <main class="container">
     <div class="pagina">
-      <h1>Minhas atividades e provas</h1>
-      <p class="subtitulo">Envie suas respostas e acompanhe notas e feedback do professor.</p>
-
-      <div class="barra-turma">
-        <label for="turma">Minha turma:</label>
-        <select id="turma">
-          <option value="">Selecione…</option>
-          <option>1º ano B</option>
-          <option>2º ano A</option>
-          <option>3º ano C</option>
-        </select>
-        <button type="button" class="btn" id="salvar-turma">Salvar turma</button>
-        <span class="msg" id="msg-turma"></span>
-      </div>
+      <h1 id="titulo-conteudo">Minhas atividades e avaliações</h1>
+      <p class="subtitulo" id="subtitulo-conteudo">Envie suas respostas e acompanhe notas e feedback do professor.</p>
+      <div id="turma-contexto" class="barra-turma"></div>
 
       <div class="resumo">
         <div><strong id="n-pendentes">0</strong><span>Pendentes</span></div>
@@ -57,6 +46,21 @@
   <script src="../JS/config.js"></script>
   <script>
     const $ = (seletor) => document.querySelector(seletor);
+    const params = new URLSearchParams(location.search);
+    const turmaId = params.get('turmaId');
+    const tipoFiltro = params.get('tipo');
+    const query = new URLSearchParams();
+    if (turmaId) query.set('turmaId', turmaId);
+    if (tipoFiltro === 'atividade' || tipoFiltro === 'avaliacao') query.set('tipo', tipoFiltro);
+    const filtro = query.toString() ? '?' + query.toString() : '';
+
+    if (tipoFiltro === 'avaliacao') {
+      $('#titulo-conteudo').textContent = 'Minhas avaliações';
+      $('#subtitulo-conteudo').textContent = 'Consulte as avaliações, envie suas respostas e acompanhe suas notas.';
+    } else if (tipoFiltro === 'atividade') {
+      $('#titulo-conteudo').textContent = 'Minhas atividades';
+      $('#subtitulo-conteudo').textContent = 'Consulte as tarefas, envie suas respostas e acompanhe suas entregas.';
+    }
 
     // Cria um elemento com texto seguro (textContent evita injeção de HTML)
     function h(tag, classe, texto) {
@@ -142,8 +146,28 @@
     }
 
     async function carregar() {
-      const dados = await conradFetch('/api/aluno/atividades');
-      $('#turma').value = dados.turma || '';
+      const dados = await conradFetch('/api/aluno/atividades' + filtro);
+      const contexto = $('#turma-contexto');
+      contexto.replaceChildren();
+      if (turmaId) {
+        const nomeTurma = document.createElement('strong');
+        nomeTurma.textContent = `Turma: ${dados.turma || 'Selecionada'}`;
+        const voltar = document.createElement('a');
+        voltar.href = `turma.html?id=${encodeURIComponent(turmaId)}`;
+        voltar.className = 'btn-sec';
+        voltar.textContent = 'Voltar para turma';
+        contexto.append(nomeTurma, voltar);
+      } else {
+        const turmas = await conradFetch('/api/turmas');
+        contexto.append(h('strong', null, 'Escolha uma turma para filtrar o conteúdo:'));
+        (turmas.turmas || []).forEach((turma) => {
+          const linkTurma = document.createElement('a');
+          linkTurma.href = `aluno-atividades.html?turmaId=${encodeURIComponent(turma.id)}${tipoFiltro ? '&tipo=' + encodeURIComponent(tipoFiltro) : ''}`;
+          linkTurma.className = 'btn-sec';
+          linkTurma.textContent = turma.nome;
+          contexto.append(linkTurma);
+        });
+      }
 
       const lista = $('#lista');
       lista.replaceChildren();
@@ -160,31 +184,16 @@
       $('#n-enviadas').textContent = enviadas;
       $('#n-corrigidas').textContent = corrigidas;
 
-      if (!dados.turma) {
-        lista.append(h('p', 'vazio', 'Selecione e salve sua turma para ver as atividades disponíveis.'));
+      if (!turmaId && !(dados.atividades || []).length && !(turmasFallbackCount())) {
+        lista.append(h('p', 'vazio', 'Entre em uma turma para visualizar as atividades e avaliações.'));
       } else if (dados.atividades.length === 0) {
-        lista.append(h('p', 'vazio', 'Nenhuma atividade publicada para a sua turma ainda.'));
+        lista.append(h('p', 'vazio', 'Nenhum conteúdo publicado nesta turma ainda.'));
       }
     }
 
-    $('#salvar-turma').addEventListener('click', async () => {
-      const msg = $('#msg-turma');
-      const turma = $('#turma').value;
-      if (!turma) {
-        msg.className = 'msg erro';
-        msg.textContent = 'Escolha uma turma.';
-        return;
-      }
-      try {
-        await conradFetch('/api/aluno/turma', { method: 'PUT', body: JSON.stringify({ turma }) });
-        msg.className = 'msg ok';
-        msg.textContent = 'Turma salva!';
-        await carregar();
-      } catch (erro) {
-        msg.className = 'msg erro';
-        msg.textContent = erro.message;
-      }
-    });
+    function turmasFallbackCount() {
+      return document.querySelectorAll('#turma-contexto a').length;
+    }
 
     $('#sair').addEventListener('click', (evento) => {
       evento.preventDefault();

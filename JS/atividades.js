@@ -18,7 +18,7 @@ const router = express.Router();
 
 // O cadastro pode gravar "aluno" ou "estudante"; aceitamos os dois.
 const ehEducador = (u) => u?.tipo === "educador";
-const ehAluno = (u) => u?.tipo === "aluno" || u?.tipo === "estudante";
+const ehAluno = (u) => u?.tipo === "aluno" || u?.tipo === "estudante" || !u?.tipo;
 
 // Middleware: exige login e um tipo de usuário específico
 function exigir(verificador, mensagem) {
@@ -34,7 +34,7 @@ const soEducador = exigir(ehEducador, "Apenas educadores podem fazer isso");
 const soAluno = exigir(ehAluno, "Apenas alunos podem fazer isso");
 
 // Colunas de atividade devolvidas ao front (data já formatada como YYYY-MM-DD)
-const COLUNAS_ATIVIDADE = `a.id, a.titulo, a.turma, a.disciplina,
+const COLUNAS_ATIVIDADE = `a.id, a.titulo, a.turma, a.turma_id, a.disciplina,
     DATE_FORMAT(a.data_aplicacao, '%Y-%m-%d') AS data_aplicacao,
     a.valor_maximo, a.descricao, a.tipo`;
 
@@ -47,7 +47,7 @@ PROFESSOR
 // Criar atividade ou avaliação
 router.post("/atividades", soEducador, async (req, res) => {
     try {
-        const { titulo, turma, disciplina, data_aplicacao, valor_maximo, descricao, tipo } = req.body;
+        const { titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo } = req.body;
 
         if (!titulo || !turma || !disciplina) {
             return res.status(400).json({ erro: "Preencha título, turma e disciplina" });
@@ -58,15 +58,34 @@ router.post("/atividades", soEducador, async (req, res) => {
             return res.status(400).json({ erro: "Valor máximo inválido" });
         }
 
+        let turmaFinal = String(turma || "").trim();
+        let turmaIdFinal = null;
+
+        if (turma_id !== undefined && turma_id !== null && turma_id !== "") {
+            turmaIdFinal = Number(turma_id);
+            if (!Number.isInteger(turmaIdFinal) || turmaIdFinal <= 0) {
+                return res.status(400).json({ erro: "Selecione uma turma válida" });
+            }
+            const [turmas] = await pool.execute(
+                "SELECT id, nome FROM tb_turmas WHERE id = ? AND professor_id = ?",
+                [turmaIdFinal, req.session.usuario.id]
+            );
+            if (!turmas.length) return res.status(403).json({ erro: "Você não pode publicar nesta turma" });
+            turmaFinal = turmas[0].nome;
+        }
+
+        if (!turmaFinal) return res.status(400).json({ erro: "Selecione uma turma" });
+
         const tipoFinal = tipo === "avaliacao" ? "avaliacao" : "atividade";
 
         const [resultado] = await pool.execute(
             `INSERT INTO tb_atividades
-                (titulo, turma, disciplina, data_aplicacao, valor_maximo, descricao, tipo, criado_por)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                (titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo, criado_por)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 String(titulo).trim(),
-                turma,
+                turmaFinal,
+                turmaIdFinal,
                 disciplina,
                 data_aplicacao || null,
                 valor,
@@ -86,15 +105,37 @@ router.post("/atividades", soEducador, async (req, res) => {
 // Listar as atividades do professor logado, com contagem de entregas
 router.get("/atividades", soEducador, async (req, res) => {
     try {
+        const parametros = [req.session.usuario.id];
+        let filtro = "a.criado_por = ?";
+
+        if (req.query.turmaId) {
+            const turmaId = Number(req.query.turmaId);
+            if (!Number.isInteger(turmaId) || turmaId <= 0) {
+                return res.status(400).json({ erro: "Turma inválida" });
+            }
+            const [turmas] = await pool.execute(
+                "SELECT id FROM tb_turmas WHERE id = ? AND professor_id = ?",
+                [turmaId, req.session.usuario.id]
+            );
+            if (!turmas.length) return res.status(403).json({ erro: "Você não tem acesso a esta turma" });
+            filtro += " AND a.turma_id = ?";
+            parametros.push(turmaId);
+        }
+
+        if (["atividade", "avaliacao"].includes(req.query.tipo)) {
+            filtro += " AND a.tipo = ?";
+            parametros.push(req.query.tipo);
+        }
+
         const [linhas] = await pool.execute(
             `SELECT ${COLUNAS_ATIVIDADE},
                 (SELECT COUNT(*) FROM tb_entregas e WHERE e.atividade_id = a.id) AS total_entregas,
                 (SELECT COUNT(*) FROM tb_entregas e
                     WHERE e.atividade_id = a.id AND e.corrigida_em IS NOT NULL) AS corrigidas
              FROM tb_atividades a
-             WHERE a.criado_por = ?
+             WHERE ${filtro}
              ORDER BY a.criada_em DESC`,
-            [req.session.usuario.id]
+            parametros
         );
         res.json(linhas);
     } catch (error) {
@@ -202,20 +243,43 @@ router.put("/aluno/turma", soAluno, async (req, res) => {
     }
 });
 
-// Listar atividades/provas da turma do aluno, com a entrega, nota e feedback dele
-// (se o aluno ainda não escolheu a turma, mostra todas)
+// Listar somente atividades das turmas em que o aluno está matriculado, com entrega, nota e feedback.
 router.get("/aluno/atividades", soAluno, async (req, res) => {
     try {
         const alunoId = req.session.usuario.id;
-
-        const [usuarios] = await pool.execute("SELECT turma FROM tb_usuarios WHERE id = ?", [alunoId]);
-        const turma = usuarios[0]?.turma || null;
-
         const parametros = [alunoId, alunoId];
         let filtro = "";
-        if (turma) {
-            filtro = "WHERE a.turma = ?";
-            parametros.push(turma);
+        let turmaNome = null;
+
+        if (req.query.turmaId) {
+            const turmaId = Number(req.query.turmaId);
+            if (!Number.isInteger(turmaId) || turmaId <= 0) {
+                return res.status(400).json({ erro: "Turma inválida" });
+            }
+            const [matriculas] = await pool.execute(
+                `SELECT t.id, t.nome FROM tb_turma_alunos ta
+                 JOIN tb_turmas t ON t.id = ta.turma_id
+                 WHERE ta.turma_id = ? AND ta.aluno_id = ?`,
+                [turmaId, alunoId]
+            );
+            if (!matriculas.length) return res.status(403).json({ erro: "Você não está matriculado nesta turma" });
+            turmaNome = matriculas[0].nome;
+            filtro = "WHERE a.turma_id = ?";
+            parametros.push(turmaId);
+        } else {
+            const [usuarios] = await pool.execute("SELECT turma FROM tb_usuarios WHERE id = ?", [alunoId]);
+            const turmaAntiga = usuarios[0]?.turma || null;
+            filtro = `WHERE (
+                a.turma_id IN (SELECT ta.turma_id FROM tb_turma_alunos ta WHERE ta.aluno_id = ?)
+                OR (a.turma_id IS NULL AND (? IS NOT NULL AND a.turma = ?))
+            )`;
+            parametros.push(alunoId, turmaAntiga, turmaAntiga);
+            turmaNome = turmaAntiga;
+        }
+
+        if (["atividade", "avaliacao"].includes(req.query.tipo)) {
+            filtro += " AND a.tipo = ?";
+            parametros.push(req.query.tipo);
         }
 
         const [atividades] = await pool.execute(
@@ -229,7 +293,7 @@ router.get("/aluno/atividades", soAluno, async (req, res) => {
             parametros
         );
 
-        res.json({ turma, atividades });
+        res.json({ turma: turmaNome, turma_id: req.query.turmaId ? Number(req.query.turmaId) : null, atividades });
     } catch (error) {
         console.error(error);
         res.status(500).json({ erro: "Erro ao listar atividades" });
@@ -247,10 +311,17 @@ router.post("/atividades/:id/entrega", soAluno, async (req, res) => {
             return res.status(400).json({ erro: "A resposta deve ter entre 1 e 5000 caracteres" });
         }
 
-        const [atividades] = await pool.execute("SELECT id FROM tb_atividades WHERE id = ?", [id]);
+        const [atividades] = await pool.execute("SELECT id, turma_id FROM tb_atividades WHERE id = ?", [id]);
         if (atividades.length === 0) return res.status(404).json({ erro: "Atividade não encontrada" });
 
         const alunoId = req.session.usuario.id;
+        if (atividades[0].turma_id) {
+            const [matriculas] = await pool.execute(
+                "SELECT id FROM tb_turma_alunos WHERE turma_id = ? AND aluno_id = ?",
+                [atividades[0].turma_id, alunoId]
+            );
+            if (!matriculas.length) return res.status(403).json({ erro: "Você não está matriculado na turma desta atividade" });
+        }
 
         // Depois de corrigida, a entrega não pode mais ser alterada
         const [existentes] = await pool.execute(

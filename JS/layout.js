@@ -30,12 +30,12 @@
             rotulo: "Educador",
             itens: [
                 ["Painel", "educador.html"],
-                ["Minhas turmas", "educador.html#turmas"],
-                ["Avaliações", "avaliação.html"],
+                ["Turmas", "turmas.html"],
+                ["Avaliações", "avaliacoes.html"],
                 ["Atividades", "atividades.html"],
                 ["Agenda", "agenda-professor.html"],
                 ["Bate-Papo", "bate-papo.html"],
-                ["Salas virtuais", "salas.html"],
+                ["Salas de vídeo", "salas.html"],
                 ["Meu perfil", "perfil-educador.html"]
             ]
         },
@@ -44,13 +44,15 @@
             rotulo: "Aluno",
             itens: [
                 ["Painel", "aluno.html"],
+                ["Turmas", "turmas.html"],
                 ["Horário das aulas", "dashboard.html"],
                 ["Calendário", "aluno.html#calendario"],
                 ["Frequência das aulas", "aluno.html#frequencia"],
                 ["Desempenho do aluno", "aluno.html#desempenho"],
-                ["Atividades", "avaliação.html"],
+                ["Atividades", "atividades.html"],
+                ["Avaliações", "avaliacoes.html"],
                 ["Bate-Papo", "bate-papo.html"],
-                ["Salas virtuais", "salas.html"],
+                ["Salas de vídeo", "salas.html"],
                 ["Meu perfil", "perfil-aluno.html"]
             ]
         }
@@ -125,7 +127,13 @@
     function itemAtivo(itens) {
         const arquivo = decodeURIComponent(window.location.pathname.split("/").pop()).normalize("NFC");
         const ancora = window.location.hash;
-        const doArquivo = itens.filter((i) => i[1].split("#")[0].normalize("NFC") === arquivo);
+        const tipoConteudo = new URLSearchParams(window.location.search).get("tipo");
+        let destinoAtual = arquivo;
+        if (arquivo === "turma.html") destinoAtual = "turmas.html";
+        if (arquivo === "professor-correcao.html" || arquivo === "aluno-atividades.html") {
+            destinoAtual = tipoConteudo === "avaliacao" ? "avaliacoes.html" : "atividades.html";
+        }
+        const doArquivo = itens.filter((i) => i[1].split("#")[0].normalize("NFC") === destinoAtual);
         const comAncora = doArquivo.find((i) => i[1].includes("#") && "#" + i[1].split("#")[1] === ancora);
         return comAncora || doArquivo.find((i) => !i[1].includes("#")) || doArquivo[0];
     }

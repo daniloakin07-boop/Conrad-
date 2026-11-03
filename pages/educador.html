@@ -30,8 +30,10 @@
 
       <nav>
         <a href="educador.html" class="menu-item ativo">Painel</a>
-        <a href="#turmas" class="menu-item">Minhas turmas</a>
-        <a href="professor-correcao.html" class="menu-item">Atividades e correção</a>
+        <a href="turmas.html" class="menu-item">Turmas</a>
+        <a href="atividades.html" class="menu-item">Atividades</a>
+        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
+        <a href="salas.html" class="menu-item">Salas de vídeo</a>
         <a href="agenda-professor.html" class="menu-item">Agenda</a>
         <a href="#mensagens" class="menu-item">Mensagens</a>
       </nav>
@@ -112,38 +114,11 @@
           <article class="card-avaliacoes">
             <div class="titulo-card">
               <h2 id="turmas">Minhas turmas</h2>
-              <a href="#" class="btn-secundario">Ver todas</a>
+              <a href="turmas.html" class="btn-secundario">Ver todas</a>
             </div>
 
-            <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
-
-              <div class="aluno">
-                <div>
-                  <strong>3º ano C</strong>
-                  <small>Matemática · 32 alunos</small>
-                </div>
-                <strong>32</strong>
-                <div><a class="btn-secundario" href="#">Acessar</a></div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>2º ano A</strong>
-                  <small>Português · 40 alunos</small>
-                </div>
-                <strong>40</strong>
-                <div><a class="btn-secundario" href="#">Acessar</a></div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>1º ano B</strong>
-                  <small>História · 40 alunos</small>
-                </div>
-                <strong>40</strong>
-                <div><a class="btn-secundario" href="#">Acessar</a></div>
-              </div>
-
+            <div id="lista-turmas-dashboard" style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+              <p>Carregando suas turmas...</p>
             </div>
 
           </article>
@@ -220,7 +195,6 @@
   </footer>
 <!-- =================================================================================================================== -->
   <script src="../JS/educador.js"></script>
-</script>
 
   <!-- Modal global simples -->
   <div id="appModal" class="modal" aria-hidden="true">
@@ -277,7 +251,36 @@
       if (eu.usuario.tipo !== 'educador') { location.href = 'aluno.html'; return; }
       preencherNome(eu.usuario.nome);
 
-      const atividades = await conradFetch('/api/atividades');
+      const [atividades, dadosTurmas] = await Promise.all([
+        conradFetch('/api/atividades'),
+        conradFetch('/api/turmas')
+      ]);
+
+      const minhasTurmas = dadosTurmas.turmas || [];
+      const listaTurmas = document.getElementById('lista-turmas-dashboard');
+      listaTurmas.replaceChildren();
+      const totalAlunos = minhasTurmas.reduce((total, turma) => total + Number(turma.quantidade_alunos || 0), 0);
+      const cartoesTurmas = document.querySelectorAll('.cards-resumo .card-resumo');
+      if (cartoesTurmas[0]) cartoesTurmas[0].querySelector('h2').textContent = minhasTurmas.length;
+      if (cartoesTurmas[1]) cartoesTurmas[1].querySelector('h2').textContent = totalAlunos;
+
+      if (!minhasTurmas.length) {
+        const vazio = h('p', null, 'Você ainda não criou turmas. Use o botão abaixo para começar.');
+        listaTurmas.append(vazio);
+      } else {
+        minhasTurmas.slice(0, 4).forEach((turma) => {
+          const item = h('div', 'aluno');
+          const info = document.createElement('div');
+          info.append(h('strong', null, turma.nome), h('small', null, `${turma.disciplina} · ${turma.quantidade_alunos} alunos`));
+          const total = h('strong', null, String(turma.quantidade_alunos || 0));
+          const acao = document.createElement('div');
+          const abrir = h('a', 'btn-secundario', 'Acessar');
+          abrir.href = `turma.html?id=${encodeURIComponent(turma.id)}`;
+          acao.append(abrir);
+          item.append(info, total, acao);
+          listaTurmas.append(item);
+        });
+      }
 
       // Quarto cartão: entregas aguardando correção
       const aCorrigir = atividades.reduce(
@@ -302,7 +305,7 @@
         comEntregas.forEach((a) => {
           const item = h('div', 'pendencia');
           item.style.cursor = 'pointer';
-          item.addEventListener('click', () => { location.href = 'professor-correcao.html'; });
+          item.addEventListener('click', () => { location.href = a.turma_id ? `professor-correcao.html?turmaId=${a.turma_id}&tipo=${a.tipo}` : 'professor-correcao.html'; });
           item.append(
             h('h4', null, a.titulo),
             h('p', null, 'Turma: ' + a.turma + ' · ' + a.total_entregas + ' entrega(s) · ' + a.corrigidas + ' corrigida(s)')

@@ -132,7 +132,7 @@ function preencherBoletim(dados) {
 
     if (!dados.vinculoSalaDetectado) {
         adicionarAviso(
-            "O cadastro atual não possui um vínculo explícito com uma sala virtual no banco de dados. Neste caso, o boletim lista somente as atividades avaliativas que já têm uma nota associada ao seu usuário; atividades sem nota podem não aparecer.",
+            "O cadastro atual não possui um vínculo direto com uma turma no banco de dados. Neste caso, o boletim lista somente as atividades avaliativas que já têm uma nota associada ao seu usuário; atividades sem nota podem não aparecer.",
             "info"
         );
     }

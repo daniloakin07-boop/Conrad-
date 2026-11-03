@@ -1,103 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CONRAD - Atividades</title>
-  <link rel="stylesheet" href="../CSS/geral.css" />
-  <link rel="stylesheet" href="../CSS/usuarios.css" />
-  <link rel="stylesheet" href="../CSS/atividades.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividades — CONRAD</title>
   <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
 </head>
-<!-- ============================================================================================================================ -->
-<body class="css-atividades" data-page="atividades">
-  <header class="topo">
-    <a href="#" class="logo">CONRAD</a>
-
-    <nav class="menu">
-      <a href="dashboard.html" class="ativo">Dashboard</a>
-      <a href="#">Turmas</a>
-      <a href="#">Conteúdos</a>
-    </nav>
-
-    <div class="acoes-topo">
-      <a href="perfil-educador.html" class="user-link" aria-label="Perfil do professor">
-        <span class="user-avatar">👤</span>
-        <span>Prof. Jordan</span>
-      </a>
-      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
-    </div>
-  </header>
-<!-- ============================================================================================================================ -->
-  <main class="container">
-    <div class="dashboard-professor pagina-atividades">
-      <aside class="menu-lateral">
-        <h3>Conrad</h3>
-<!-- ============================================================================================================================ -->
-        <a href="dashboard.html" class="menu-item">
-          <span>Dashboard</span>
-        </a>
-        <a href="#" class="menu-item">
-          <span>Minhas Turmas</span>
-        </a>
-        <a href="#" class="menu-item">
-          <span>Conteúdos</span>
-        </a>
-        <a href="atividades.html" class="menu-item ativo">
-          <span>Atividades</span>
-        </a>
-        <a href="#" class="menu-item">
-          <span>Bate-Papo</span>
-        </a>
-<!-- ============================================================================================================================ -->
-        <div class="menu-ajuda">
-          <strong>Precisa de ajuda?</strong>
-          <p>Acesse o suporte da plataforma.</p>
-          <button class="btn-secundario">Suporte</button>
-        </div>
-      </aside>
-
-      <section class="conteudo-atividades">
-        <div class="topo-atividades">
-          <div>
-            <span class="tag-dashboard">ATIVIDADES</span>
-            <h1>Gerenciamento de atividades</h1>
-            <p>Organize tarefas, prazos e entregas da turma.</p>
-          </div>
-          <a href="avaliação.html" class="btn-secundario">Voltar para avaliação</a>
-        </div>
-
-        <div id="statsRapidas" class="stats-rapidas"></div>
-
-        <div class="quick-actions">
-          <a href="#pendentes" class="btn-primario">Pendentes</a>
-          <a href="#cronograma" class="btn-secundario">Cronograma</a>
-          <a href="#tarefas" class="btn-link">Tarefas da turma</a>
-          <a href="avaliação.html" class="btn-secundario">Abrir avaliação</a>
-        </div>
-
-        <div id="pendentes" class="lista-atividades" aria-live="polite">
-          <div id="atividadesList"></div>
-        </div>
-
-        <div id="tarefas" class="bloco-secao">
-          <h2>Tarefas da turma</h2>
-          <div id="tarefasList" class="lista-mini"></div>
-        </div>
-
-        <div id="cronograma" class="bloco-secao">
-          <h2>Cronograma</h2>
-          <div id="cronogramaList" class="lista-mini"></div>
-        </div>
-      </section>
-    </div>
-  </main>
-<!-- ============================================================================================================================ -->
-  <footer class="rodape">
-    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
-    <p><a href="#">Entre em contato</a></p>
-  </footer>
-
-  <script src="../JS/dashboard.js"></script>
+<body class="css-painel css-turmas" data-tipo="atividade">
+  <main class="container"><p class="turmas-vazio">Abrindo atividades...</p></main>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/conteudo-redirect.js"></script>
 </body>
 </html>
+  

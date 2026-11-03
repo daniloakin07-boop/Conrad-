@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turmas — CONRAD</title>
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
+</head>
+<body class="css-painel css-turmas">
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="acoes-topo">
+      <a href="perfil-aluno.html" class="user-link"><span class="user-avatar">👤</span><span>Minha conta</span></a>
+      <a href="../index.html" class="logout-link">Sair</a>
+    </div>
+  </header>
+
+  <main class="container turmas-layout">
+    <aside class="menu-lateral" data-menu="auto">
+      <h3>Conrad</h3>
+      <nav></nav>
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">Suporte</a>
+      </div>
+      <div class="menu-perfil"><strong>Minha conta</strong><span>Usuário</span></div>
+    </aside>
+
+    <section class="turmas-conteudo" id="mainContent">
+      <div class="turmas-cabecalho">
+        <div>
+          <span class="tag-dashboard">AMBIENTE DE APRENDIZAGEM</span>
+          <h1>Turmas</h1>
+          <p>Organize suas aulas e acesse tudo o que acontece em cada turma.</p>
+        </div>
+        <div class="turmas-acoes-topo">
+          <button type="button" class="btn-turma btn-outline" id="abrir-entrar">Entrar em uma turma</button>
+          <button type="button" class="btn-turma btn-primary" id="abrir-criar">+ Criar turma</button>
+        </div>
+      </div>
+
+      <div class="turmas-toolbar">
+        <div class="turmas-busca">
+          <span class="icone-busca" aria-hidden="true">⌕</span>
+          <input id="busca-turmas" type="search" placeholder="Buscar por nome ou disciplina" aria-label="Buscar turmas">
+        </div>
+        <span id="contador-turmas" class="turmas-contador">Carregando turmas...</span>
+      </div>
+
+      <div id="lista-turmas" class="turmas-grid" aria-live="polite">
+        <p class="turmas-vazio">Carregando suas turmas...</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-turma" id="modal-turma" aria-hidden="true">
+    <div class="modal-turma-fundo" data-fechar-modal></div>
+    <section class="modal-turma-card" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <button class="modal-fechar" type="button" aria-label="Fechar" data-fechar-modal>×</button>
+      <h2 id="modal-titulo">Criar turma</h2>
+      <p id="modal-descricao">Preencha as informações para montar seu espaço de aprendizagem.</p>
+
+      <form id="form-criar-turma" class="form-turma" hidden>
+        <label for="nome-turma">Nome da turma</label>
+        <input id="nome-turma" maxlength="120" required placeholder="Ex.: Desenvolvimento de Sistemas — 2º D">
+        <label for="disciplina-turma">Disciplina</label>
+        <input id="disciplina-turma" maxlength="120" required placeholder="Ex.: Desenvolvimento de Sistemas">
+        <label for="secao-turma">Turma / seção <span>(opcional)</span></label>
+        <input id="secao-turma" maxlength="80" placeholder="Ex.: 2º ano D">
+        <label for="descricao-turma">Descrição <span>(opcional)</span></label>
+        <textarea id="descricao-turma" maxlength="1000" rows="3" placeholder="Informações para os alunos... "></textarea>
+        <p class="form-turma-msg" id="msg-criar-turma" aria-live="polite"></p>
+        <button type="submit" class="btn-turma btn-primary">Criar turma</button>
+      </form>
+
+      <form id="form-entrar-turma" class="form-turma" hidden>
+        <label for="codigo-turma">Código da turma</label>
+        <input id="codigo-turma" maxlength="8" minlength="8" required autocomplete="off" placeholder="Ex.: A1B2C3D4">
+        <p class="form-turma-ajuda">Peça o código ao professor para entrar na turma.</p>
+        <p class="form-turma-msg" id="msg-entrar-turma" aria-live="polite"></p>
+        <button type="submit" class="btn-turma btn-primary">Entrar na turma</button>
+      </form>
+    </section>
+  </div>
+
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
+
+  <script src="../JS/config.js"></script>
+  <script src="../JS/turmas-page.js"></script>
+  <script src="../JS/layout.js" defer></script>
+</body>
+</html>
