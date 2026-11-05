@@ -3,16 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atividades — CONRAD</title>
+  <title>Atividades | Conrad Virtual School</title>
   <link rel="icon" type="image/png" href="../img/Emblema.png">
   <link rel="stylesheet" href="../CSS/geral.css">
-  <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="stylesheet" href="../CSS/turmas.css">
 </head>
-<body class="css-painel css-turmas" data-tipo="atividade">
-  <main class="container"><p class="turmas-vazio">Abrindo atividades...</p></main>
+<body>
+  <!-- Página antiga, substituída por aluno-atividades.html (aluno) e professor-correcao.html (educador).
+       Este arquivo só existe para os links e favoritos antigos continuarem funcionando. -->
+  <main style="max-width:520px;margin:80px auto;padding:0 20px;text-align:center;font-family:system-ui,sans-serif;">
+    <p>Levando você para a página de atividades…</p>
+    <p><a href="aluno-atividades.html">Sou aluno</a> · <a href="professor-correcao.html">Sou educador</a></p>
+  </main>
   <script src="../JS/config.js"></script>
-  <script src="../JS/conteudo-redirect.js"></script>
+  <script>
+    (async function () {
+      let destino = 'login.html';
+      try {
+        const eu = await conradFetch('/me');
+        destino = eu.usuario.tipo === 'educador' ? 'professor-correcao.html' : 'aluno-atividades.html';
+      } catch (erro) {
+        // sem sessão (ou sem servidor): o login resolve
+      }
+      location.replace(destino);
+    })();
+  </script>
 </body>
 </html>
-  
