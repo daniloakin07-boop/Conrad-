@@ -220,3 +220,108 @@ router.delete("/turmas/:id/alunos/:alunoId", soEducador, async (req, res) => {
 });
 
 module.exports = router;
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const campoTurma = document.getElementById("turma");
+    const botaoNova = document.getElementById("btnNovaTurma");
+    const areaNova = document.getElementById("areaNovaTurma");
+    const campoNome = document.getElementById("nomeNovaTurma");
+    const botaoSalvar = document.getElementById("salvarTurma");
+    const botaoCancelar = document.getElementById("cancelarTurma");
+    const mensagem = document.getElementById("mensagemTurma");
+
+    // Carregar as turmas existentes
+    async function carregarTurmas(idSelecionado = "") {
+        try {
+            campoTurma.replaceChildren(
+                new Option("Carregando turmas...", "")
+            );
+
+            const turmas = await conradFetch("/api/turmas");
+
+            if (!Array.isArray(turmas)) {
+                throw new Error("Resposta inválida ao carregar turmas.");
+            }
+
+            campoTurma.replaceChildren(
+                new Option("Selecione uma turma", "")
+            );
+
+            turmas.forEach(turma => {
+                const opcao = new Option(
+                    turma.nome,
+                    String(turma.id)
+                );
+
+                campoTurma.add(opcao);
+            });
+
+            // Selecionar automaticamente a turma recém-criada
+            if (idSelecionado) {
+                campoTurma.value = String(idSelecionado);
+            }
+
+        } catch (erro) {
+            console.error("Erro ao carregar turmas:", erro);
+
+            campoTurma.replaceChildren(
+                new Option("Erro ao carregar turmas", "")
+            );
+
+            mensagem.textContent = erro.message;
+        }
+    }
+
+    // Abrir área de criação
+    botaoNova.addEventListener("click", () => {
+        areaNova.hidden = false;
+        campoNome.focus();
+    });
+
+    // Cancelar criação
+    botaoCancelar.addEventListener("click", () => {
+        areaNova.hidden = true;
+        campoNome.value = "";
+        mensagem.textContent = "";
+    });
+
+    // Criar uma nova turma
+    botaoSalvar.addEventListener("click", async () => {
+        const nome = campoNome.value.trim();
+
+        if (!nome) {
+            mensagem.textContent = "Informe o nome da turma.";
+            campoNome.focus();
+            return;
+        }
+
+        botaoSalvar.disabled = true;
+        mensagem.textContent = "Criando turma...";
+
+        try {
+            const novaTurma = await conradFetch("/api/turmas", {
+                method: "POST",
+                body: JSON.stringify({ nome })
+            });
+
+            // Atualizar lista e selecionar a turma criada
+            await carregarTurmas(novaTurma.id);
+
+            mensagem.textContent =
+                "Turma criada com sucesso! ID: " + novaTurma.id;
+
+            campoNome.value = "";
+            areaNova.hidden = true;
+
+        } catch (erro) {
+            mensagem.textContent =
+                erro.message || "Não foi possível criar a turma.";
+        } finally {
+            botaoSalvar.disabled = false;
+        }
+    });
+
+    // Inicializar lista
+    carregarTurmas();
+});

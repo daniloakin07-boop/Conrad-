@@ -30,23 +30,21 @@
             </div>
 
             <div class="field">
-              <label for="turma">Turma</label>
-              <select id="turma">
-                <option>3º ano C</option>
-                <option>2º ano A</option>
-                <option>1º ano B</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="disciplina">Disciplina</label>
-              <select id="disciplina">
-                <option>Matemática</option>
-                <option>Português</option>
-                <option>História</option>
-              </select>
-            </div>
-
+                  <label for="turma">Turma</label>
+                  <select id="turma" name="turma_id" required><option value="">Carregando turmas...</option></select>
+                  <button type="button" id="btnNovaTurma"> + Criar turma </button>
+                  <div id="areaNovaTurma" hidden>
+                      <label for="nomeNovaTurma">Nome da nova turma</label>
+                      <input
+                          type="text"
+                          id="nomeNovaTurma"
+                          placeholder="Ex: 3º ano C"
+                          maxlength="100">
+                      <button type="button" id="salvarTurma">Salvar turma</button>
+                      <button type="button" id="cancelarTurma">  Cancelar</button>
+                  </div>
+                  <p id="mensagemTurma"></p>
+              </div>
             <div class="field">
               <label for="data">Data de entrega</label>
               <input id="data" type="date" />

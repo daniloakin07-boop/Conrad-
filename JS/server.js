@@ -396,5 +396,77 @@ if (require.main === module) {
     });
 }
 
+
+
+
+
+/*
+===============================================
+Criar turmas no banco de dados SQLite
+===============================================
+*/
 // Exporta a instância `app` para testes ou uso por outros módulos
 module.exports = app;
+
+// Criar a tabela caso ainda não exista
+db.exec(`
+    CREATE TABLE IF NOT EXISTS turmas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL COLLATE NOCASE UNIQUE
+    )
+`);
+
+// Buscar todas as turmas
+app.get("/api/turmas", (req, res) => {
+    try {
+        const turmas = db.prepare(`
+            SELECT id, nome
+            FROM turmas
+            ORDER BY nome
+        `).all();
+
+        res.json(turmas);
+
+    } catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao buscar turmas."
+        });
+    }
+});
+
+// Criar uma nova turma
+app.post("/api/turmas", (req, res) => {
+    try {
+        const nome = String(req.body.nome || "").trim();
+
+        if (!nome) {
+            return res.status(400).json({
+                erro: "Informe o nome da turma."
+            });
+        }
+
+        const resultado = db.prepare(`
+            INSERT INTO turmas (nome)
+            VALUES (?)
+        `).run(nome);
+
+        const turma = db.prepare(`
+            SELECT id, nome
+            FROM turmas
+            WHERE id = ?
+        `).get(resultado.lastInsertRowid);
+
+        res.status(201).json(turma);
+
+    } catch (erro) {
+        if (erro.code === "SQLITE_CONSTRAINT_UNIQUE") {
+            return res.status(409).json({
+                erro: "Essa turma já está cadastrada."
+            });
+        }
+
+        res.status(500).json({
+            erro: "Erro ao criar turma."
+        });
+    }
+});
