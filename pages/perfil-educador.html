@@ -6,6 +6,7 @@
   <title>Conrad | Editar perfil do educador</title>
   <link rel="stylesheet" href="../CSS/geral.css" />
   <link rel="stylesheet" href="../CSS/usuarios.css" />
+  <link rel="stylesheet" href="../CSS/chat-privado.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
 <!-- =================================================================================================================== -->
 </head>
@@ -110,6 +111,10 @@
         </div>
       </aside>
     </section>
+
+    <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
+      <p class="chat-vazio">Carregando seus alunos...</p>
+    </section>
   </main>
 
   <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
@@ -145,5 +150,7 @@
       alert('Perfil atualizado com sucesso!');
     });
   </script>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/perfil-chat.js" defer></script>
 </body>
 </html>

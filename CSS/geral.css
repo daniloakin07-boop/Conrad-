@@ -140,7 +140,7 @@ body {
 /* Espaço principal do conteúdo, ocupando o restante da tela. */
 .container {
   flex: 1;
-  padding: 0 20px 0;
+  padding: 30px 20px ;
 }
 /* -----------------------------------------------------------------------------------------*/
 /* Rodapé com fundo escuro e texto simples. */

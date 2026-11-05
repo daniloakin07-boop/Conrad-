@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat - Conrad Virtual School</title>
+  <title>Bate-papo | Conrad Virtual School</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/chat-privado.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
 </head>
 <body class="css-painel css-chat">
-<!-- ============================================================================================================================ -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -18,104 +18,103 @@
       <a href="sobre.html">Sobre</a>
       <a href="contato.html">Contato</a>
     </nav>
-
     <div class="acoes-topo">
-      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
-        <span class="user-avatar">👤</span>
-        <span>Minha conta</span>
+      <a href="perfil-aluno.html" class="user-link" aria-label="Meu perfil">
+        <span class="user-avatar">👤</span><span>Minha conta</span>
       </a>
-      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+      <a href="../index.html" class="logout-link" data-sair>Sair</a>
     </div>
   </header>
-<!-- ============================================================================================================================ -->
-  <main class="container">
+
+  <main class="container chat-privado-container">
     <div class="dashboard-professor">
-
-    <aside class="menu-lateral" data-menu="auto">
-      <h3>Conrad Aluno</h3>
-<!-- ============================================================================================================================ -->
-      <nav>
-        <a href="aluno.html" class="menu-item">Painel</a>
-        <a href="aluno.html#calendario" class="menu-item">Calendário</a>
-        <a href="aluno.html#frequencia" class="menu-item">Frequência das aulas</a>
-        <a href="aluno.html#desempenho" class="menu-item">Desempenho do aluno</a>
-        <a href="dashboard.html" class="menu-item">Horário das aulas</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="atividades.html" class="menu-item">Atividades</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="bate-papo.html" class="menu-item ativo">Bate-Papo</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
-      </nav>
-<!-- ============================================================================================================================ -->
-      <div class="menu-ajuda">
-        <strong>Precisa de ajuda?</strong>
-        <p>Acesse o suporte da plataforma.</p>
-        <a href="contato.html" class="btn-secundario">Suporte</a>
-      </div>
-
-      <div class="menu-perfil">
-        <strong>Minha conta</strong>
-        <span>Aluno</span>
-      </div>
-    </aside>
+      <aside class="menu-lateral" data-menu="auto">
+        <h3>Conrad</h3>
+        <nav>
+          <a href="bate-papo.html" class="menu-item ativo">Bate-papo</a>
+        </nav>
+        <div class="menu-ajuda">
+          <strong>Conversa privada</strong>
+          <p>Somente você e o contato selecionado podem participar.</p>
+          <a href="contato.html" class="btn-secundario">Suporte</a>
+        </div>
+        <div class="menu-perfil">
+          <strong>Minha conta</strong><span>Usuário</span>
+        </div>
+      </aside>
 
       <section class="conteudo-dashboard" id="mainContent">
-
         <header class="titulo-dashboard">
           <div>
             <h1>Bate-papo</h1>
-            <p>Converse em tempo real com a sua turma.</p>
+            <p>Comunicação individual entre educadores e alunos da mesma turma.</p>
           </div>
         </header>
 
-        <div class="chat-card">
-
-          <div class="chat-topo">
-            <div class="usuario">
-              <i class="fa-solid fa-user"></i>
+        <div class="chat-privado-layout">
+          <aside class="chat-contatos painel-chat">
+            <div class="chat-contatos-topo">
               <div>
-                <h2>Chat da turma</h2>
-                <small id="status-chat">Conectando...</small>
+                <h2>Conversas</h2>
+                <p>Seus contatos por turma</p>
+              </div>
+              <i class="fa-regular fa-comments" aria-hidden="true"></i>
+            </div>
+            <div id="chat-contact-list" class="chat-contact-list" aria-live="polite">
+              <p class="chat-vazio">Carregando contatos...</p>
+            </div>
+          </aside>
+
+          <section class="chat-conversa painel-chat" aria-label="Conversa privada">
+            <header class="chat-conversa-topo">
+              <div class="chat-avatar" id="chat-avatar">CV</div>
+              <div class="chat-destinatario">
+                <h2 id="chat-nome">Selecione uma conversa</h2>
+                <p id="chat-turma">O nome do contato e a turma aparecerão aqui.</p>
+                <span id="chat-status" class="chat-status">Aguardando seleção</span>
+              </div>
+              <span class="chat-privacidade"><i class="fa-solid fa-lock"></i> Privado</span>
+            </header>
+
+            <div id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Mensagens da conversa">
+              <div class="chat-boas-vindas">
+                <i class="fa-regular fa-message"></i>
+                <strong>Seu espaço de conversa</strong>
+                <span>Escolha um aluno ou educador na lista ao lado para começar.</span>
               </div>
             </div>
 
-            <div class="acoes">
-              <i class="fa-solid fa-phone"></i>
-              <i class="fa-solid fa-video"></i>
-              <i class="fa-solid fa-circle-info"></i>
-            </div>
-          </div>
-
-          <!-- As mensagens são inseridas aqui pelo JS/script.js -->
-          <div class="mensagens" id="mensagens" aria-live="polite"></div>
-
-          <div class="enviarr">
-            <i class="fa-solid fa-link"></i>
-            <input
-              type="text"
-              id="texto"
-              maxlength="500"
-              autocomplete="off"
-              placeholder="Digite uma mensagem">
-
-            <span id="contador-online" aria-live="polite">0 pessoas online</span>
-
-            <!-- O clique do botão é ligado no JS/script.js -->
-            <button type="button">Enviar</button>
-          </div>
+            <div id="chat-feedback" class="chat-feedback" role="status" aria-live="polite"></div>
+            <form id="chat-form" class="chat-composer">
+              <div class="chat-anexos">
+                <button type="button" id="chat-image-button" class="chat-icon-button" aria-label="Anexar imagem" title="Anexar imagem" disabled>
+                  <i class="fa-regular fa-image"></i>
+                </button>
+                <input type="file" id="chat-image-input" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                <button type="button" id="chat-record-button" class="chat-icon-button" aria-label="Gravar mensagem de voz" title="Gravar mensagem de voz" disabled>
+                  <i class="fa-solid fa-microphone"></i>
+                </button>
+              </div>
+              <label class="visually-hidden" for="chat-text">Digite sua mensagem</label>
+              <textarea id="chat-text" rows="1" maxlength="2000" placeholder="Digite uma mensagem..." disabled></textarea>
+              <button type="submit" id="chat-send-button" class="chat-send-button" aria-label="Enviar mensagem" disabled>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+            <p class="chat-limite">Imagens e áudios de até 3 MB. Mensagens de texto de até 2.000 caracteres.</p>
+          </section>
         </div>
       </section>
     </div>
   </main>
-<!-- ============================================================================================================================ -->
+
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="../JS/script.js"></script>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/chat-privado.js" defer></script>
   <script src="../JS/layout.js" defer></script>
 </body>
 </html>

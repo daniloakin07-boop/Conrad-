@@ -23,7 +23,8 @@ const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
 const mediasRoutes = require("./medias.js");
-const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "turmas.html", "turma.html", "atividades.html", "avaliacoes.html", "aluno-atividades.html", "professor-correcao.html", "nova-atividade.html", "nova-avaliacao.html", "perfil-aluno.html", "perfil-educador.html", "boletim.html"];
+const chat = require("./chat.js");
+const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "turmas.html", "turma.html", "atividades.html", "avaliacoes.html", "aluno-atividades.html", "professor-correcao.html", "nova-atividade.html", "nova-avaliacao.html", "perfil-aluno.html", "perfil-educador.html", "boletim.html", "bate-papo.html"];
 
 // Cria a instância principal do servidor Express
 const app = express();
@@ -102,6 +103,9 @@ if (process.env.NODE_ENV == "production") {
 const sessionMiddleware = session(sessionConfig);
 app.use(sessionMiddleware);
 
+// Rotas do bate-papo privado (a sessão identifica quem está acessando).
+app.use("/api/chat", chat.router);
+
 // Rotas de médias e boletim: ficam depois da sessão para validar o estudante autenticado.
 app.use("/api", mediasRoutes);
 
@@ -126,52 +130,17 @@ const io = new Server(httpServer, {
     cors: {
         origin: listOrigins,
         credentials: true
-    }
+    },
+    // Imagens/áudios de até 3 MB chegam codificados em Base64.
+    maxHttpBufferSize: 5 * 1024 * 1024
 });
 
 // Permite que os eventos do chat conheçam o usuário autenticado na sessão.
 // O middleware do Engine.IO roda antes de o Socket.IO criar o socket.
 io.engine.use(sessionMiddleware);
 
-const historicoChat = [];
-const limiteHistorico = 100;
-
-io.on("connection", (socket) => {
-    const usuario = socket.request.session?.usuario;
-
-    // Envia as últimas mensagens para quem acabou de entrar.
-    socket.emit("chat:historico", historicoChat);
-    io.emit("chat:online", { quantidade: io.engine.clientsCount });
-
-    socket.on("chat:enviar", (texto, callback) => {
-        const mensagemTexto = typeof texto === "string" ? texto.trim() : "";
-
-        if (!mensagemTexto || mensagemTexto.length > 500) {
-            return callback?.({
-                ok: false,
-                erro: "A mensagem deve ter entre 1 e 500 caracteres."
-            });
-        }
-
-        const mensagem = {
-            id: `${Date.now()}-${socket.id}`,
-            autor: usuario?.nome || "Aluno Anônimo",
-            usuarioId: usuario?.id || null,
-            texto: mensagemTexto,
-            data: new Date().toISOString()
-        };
-
-        historicoChat.push(mensagem);
-        if (historicoChat.length > limiteHistorico) historicoChat.shift();
-
-        io.emit("chat:mensagem", mensagem);
-        callback?.({ ok: true });
-    });
-
-    socket.on("disconnect", () => {
-        io.emit("chat:online", { quantidade: io.engine.clientsCount });
-    });
-});
+// Registra as salas privadas e os eventos do bate-papo individual.
+chat.configurarSocket(io);
 
 // 8) Rotas que exigem sessão (ex.: páginas internas)
 // Middleware para checar acesso às páginas estáticas protegidas
@@ -194,14 +163,17 @@ const arquivosBloqueados = [
     "/js/turmas.js",
     "/js/ca.pem",
     "/package.json",
-    "/package-lock.json"
+    "/package-lock.json",
+    "/js/chat.js",
 ];
 
 app.use((req, res, next) => {
-    if (arquivosBloqueados.includes(req.path.toLowerCase())) {
+    if (
+        arquivosBloqueados.includes(req.path.toLowerCase()) ||
+        req.path.toLowerCase().startsWith("/js/migrations/")
+    ){
         return res.status(404).send("Not found");
     }
-    next();
 });
 
 // 10) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
