@@ -182,15 +182,8 @@ const arquivosBloqueados = [
 ];
 
 app.use((req, res, next) => {
-<<<<<<< HEAD
-    if (
-        arquivosBloqueados.includes(req.path.toLowerCase()) ||
-        req.path.toLowerCase().startsWith("/js/migrations/")
-    ){
-=======
     const caminhoMinusculo = req.path.toLowerCase();
     if (arquivosBloqueados.includes(caminhoMinusculo) || caminhoMinusculo.startsWith("/js/migrations")) {
->>>>>>> d7af59a3cbfabc9464e296ac85d1dfa0dc4d7a37
         return res.status(404).send("Not found");
     }
 });
@@ -363,7 +356,7 @@ app.get("/health", (req, res) => {
 */
 
 // Porta do servidor (padrão 3000) — o Render define a PORT automaticamente
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 // Se este arquivo foi executado diretamente (e não importado), inicia o servidor
 if (require.main === module) {
