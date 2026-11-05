@@ -127,7 +127,8 @@
 
     $("#form-criar-turma").addEventListener("submit", async (evento) => {
         evento.preventDefault();
-        const botao = evento.currentTarget.querySelector('[type="submit"]');
+        const formulario = evento.currentTarget;
+        const botao = formulario.querySelector('[type="submit"]');
         const mensagem = $("#msg-criar-turma");
         botao.disabled = true;
         mensagem.className = "form-turma-msg";
@@ -142,7 +143,7 @@
                     descricao: $("#descricao-turma").value.trim()
                 })
             });
-            evento.currentTarget.reset();
+            formulario.reset();
             fecharModal();
             await carregarTurmas();
             alert(`Turma criada! Código de entrada: ${dados.codigo}`);

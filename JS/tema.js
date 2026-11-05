@@ -8,7 +8,7 @@
         console.error("Botão de tema não encontrado!");
         return;
     }
-
+//==========================================================================================================
     // Recupera o tema salvo
     function lerSalvo() {
         try {
@@ -21,7 +21,7 @@
             return "normal";
         }
     }
-
+//==========================================================================================================
     // Salva a preferência
     function salvar(tema) {
         try {
@@ -30,11 +30,9 @@
             console.error("Não foi possível salvar o tema.");
         }
     }
-
     // Aplica o tema escolhido
     function aplicar(tema) {
         raiz.setAttribute("data-tema", tema);
-
         const icones = {
             normal: "◉",
             claro: "☀",
@@ -51,7 +49,7 @@
         botao.setAttribute("aria-label", nomes[tema]);
         botao.title = nomes[tema];
     }
-
+//==========================================================================================================
     // Carrega o tema inicial
     let temaAtual = lerSalvo();
     aplicar(temaAtual);

@@ -55,9 +55,10 @@ Conrad-
    - `JS/migrations/003-create-atividades-notas.sql`
    - `JS/migrations/002-atividades-entregas.sql`
    - `JS/migrations/004-turmas-e-salas.sql`
+   - `JS/migrations/006-atividades-colunas-avaliativas.sql`
    - `JS/migrations/005-atividades-contam-no-boletim.sql`
 
-   As migrações preparam os tipos de usuário, atividades, notas, entregas, turmas, códigos de entrada e salas de vídeo. Execute-as no banco `defaultdb` configurado no `.env`, usando um cliente MySQL, e confirme que cada uma terminou sem erros antes de iniciar o servidor. Elas não removem dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a migração `002` para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente. A migração `001` deve ser aplicada apenas uma vez.
+   As migrações preparam os tipos de usuário, atividades, notas, entregas, turmas, códigos de entrada e salas de vídeo. Execute-as no banco `defaultdb` configurado no `.env`, usando um cliente MySQL, e confirme que cada uma terminou sem erros antes de iniciar o servidor. Elas não removem dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a migração `002` para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente. As migrações `001` e `003` devem ser aplicadas apenas uma vez; as migrações `004` e `006` são seguras para reaplicar.
 
 4. Inicie o servidor:
    ```bash
