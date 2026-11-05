@@ -3,147 +3,299 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conrad | Editar perfil do educador</title>
+  <title>Conrad | Entregas e correções</title>
   <link rel="stylesheet" href="../CSS/geral.css" />
-  <link rel="stylesheet" href="../CSS/usuarios.css" />
+  <link rel="stylesheet" href="../CSS/atividades.css" />
   <link rel="icon" type="image/png" href="../img/Emblema.png">
-<!-- =================================================================================================================== -->
 </head>
-<body class="css-perfil-educador">
-  <main class="perfil-page">
-    <header class="perfil-topbar">
-      <h1>Editar perfil</h1>
-      <div class="topbar-actions">
-        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
-      </div>
-    </header>
-<!-- =================================================================================================================== -->
-    <section class="perfil-layout">
-      <div class="perfil-card">
-        <div class="perfil-header">
-          <div class="perfil-foto-wrap">
-            <img id="profilePreview" class="perfil-foto" src="../img/conradcad.png" alt="Foto do professor" />
-            <button type="button" class="perfil-foto-btn" aria-label="Trocar foto">＋</button>
-          </div>
-
-          <div class="perfil-header-info">
-            <h2>Rickson Jordan</h2>
-            <p>Professor de Matemática e História</p>
-            <span class="status-badge">Disponível para aulas</span>
-          </div>
+<!-- ============================================================================================================================ -->
+<body class="css-correcao">
+  <header class="topo">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="educador.html">Painel</a>
+      <a href="turmas.html">Turmas</a>
+      <a href="professor-correcao.html" class="ativo">Entregas</a>
+    </nav>
+    <div class="acoes-topo">
+      <span class="user-link" id="nome-usuario">👤</span>
+      <a href="#" class="logout-link" id="sair">Sair</a>
+    </div>
+  </header>
+<!-- ============================================================================================================================ -->
+  <main class="container">
+    <div class="pagina">
+      <div class="cabecalho">
+        <div>
+          <h1 id="titulo-conteudo">Entregas e correções</h1>
+          <p class="subtitulo" id="subtitulo-conteudo">Veja o que cada turma entregou, dê a nota e escreva o feedback.</p>
         </div>
-
-        <form id="profileForm">
-          <div class="form-grid">
-            <div class="field">
-              <label for="nome">Nome completo</label>
-              <input id="nome" type="text" value="Rickson Jordan" />
-            </div>
-
-            <div class="field">
-              <label for="cargo">Cargo</label>
-              <input id="cargo" type="text" value="Professor" />
-            </div>
-
-            <div class="field full">
-              <label for="email">E-mail</label>
-              <input id="email" type="email" value="rickson.jordan@conrad.com" />
-            </div>
-
-            <div class="field">
-              <label for="telefone">Telefone</label>
-              <input id="telefone" type="tel" value="(11) 98888-1234" />
-            </div>
-
-            <div class="field">
-              <label for="disciplina">Disciplina</label>
-              <input id="disciplina" type="text" value="Matemática e História" />
-            </div>
-
-            <div class="field full">
-              <label for="bio">Sobre o professor</label>
-              <textarea id="bio">Professor com foco em metodologias ativas, acompanhamento individualizado e uso de tecnologia em sala de aula.</textarea>
-            </div>
-
-            <div class="field">
-              <label for="especializacao">Especialização</label>
-              <input id="especializacao" type="text" value="Ensino Fundamental II" />
-            </div>
-
-            <div class="field">
-              <label for="experiencia">Experiência</label>
-              <input id="experiencia" type="text" value="8 anos" />
-            </div>
-          </div>
-
-          <div class="actions-row">
-            <button type="button" class="btn-secundario">Cancelar</button>
-            <button type="submit" class="btn-primario">Salvar perfil</button>
-          </div>
-        </form>
+        <div class="botoes" id="botoes-topo"></div>
       </div>
 
-      <aside class="sala-card">
-        <div class="sala-header">
-          <h3>Salas de vídeo</h3>
-          <a href="salas.html" class="btn-secundario">Entrar</a>
+      <div class="card" id="filtros">
+        <div class="corrigir" style="grid-template-columns: 1fr 1fr; align-items: end;">
+          <label>Turma
+            <select id="filtro-turma" style="width:100%;padding:10px 12px;border:1px solid #d8dce1;border-radius:8px;font:inherit;">
+              <option value="">Todas as turmas</option>
+            </select>
+          </label>
+          <label>Tipo
+            <select id="filtro-tipo" style="width:100%;padding:10px 12px;border:1px solid #d8dce1;border-radius:8px;font:inherit;">
+              <option value="">Atividades e avaliações</option>
+              <option value="atividade">Só atividades</option>
+              <option value="avaliacao">Só avaliações</option>
+            </select>
+          </label>
         </div>
+      </div>
 
-        <div class="sala-list">
-          <div class="sala-item">
-            <strong>3º ano C - Matemática</strong>
-            <span>Próxima aula · Hoje às 08:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-
-          <div class="sala-item">
-            <strong>2º ano A - Português</strong>
-            <span>Próxima aula · Hoje às 10:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-
-          <div class="sala-item">
-            <strong>1º ano B - História</strong>
-            <span>Próxima aula · Hoje às 14:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-        </div>
-      </aside>
-    </section>
+      <div id="lista"><p class="vazio">Carregando...</p></div>
+    </div>
   </main>
-
-  <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
-
+<!-- ============================================================================================================================ -->
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+  </footer>
+<!-- ============================================================================================================================ -->
+  <script src="../JS/config.js"></script>
   <script>
-    const photoInput = document.getElementById('photoInput');
-    const profilePreview = document.getElementById('profilePreview');
-    const photoButton = document.querySelector('.perfil-foto-btn');
+    const $ = (seletor) => document.querySelector(seletor);
+    const params = new URLSearchParams(location.search);
+    const seletorTurma = $('#filtro-turma');
+    const seletorTipo = $('#filtro-tipo');
 
-    photoButton.addEventListener('click', () => photoInput.click());
+    seletorTipo.value = ['atividade', 'avaliacao'].includes(params.get('tipo')) ? params.get('tipo') : '';
 
-    photoInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
+    // Cria um elemento com texto seguro (textContent evita injeção de HTML)
+    function h(tag, classe, texto) {
+      const el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (texto != null) el.textContent = texto;
+      return el;
+    }
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        profilePreview.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+    function dataBR(iso) {
+      if (!iso) return 'sem prazo';
+      const [a, m, d] = String(iso).slice(0, 10).split('-');
+      return d + '/' + m + '/' + a;
+    }
 
-    document.getElementById('profileForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
+    function dataHoraBR(valor) {
+      const data = new Date(valor);
+      return isNaN(data) ? '' : data.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+    }
 
-      if (!nome || !email) {
-        alert('Nome e e-mail são obrigatórios.');
-        return;
+    function numero(valor) {
+      return Number(valor).toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+    }
+
+    // ---------------------------------------------------------------- Filtros / topo
+    function atualizarTopo() {
+      const tipo = seletorTipo.value;
+      const turmaId = seletorTurma.value;
+      $('#titulo-conteudo').textContent =
+        tipo === 'avaliacao' ? 'Avaliações' : tipo === 'atividade' ? 'Atividades' : 'Atividades e avaliações';
+
+      const botoes = $('#botoes-topo');
+      botoes.replaceChildren();
+      const sufixo = turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '';
+
+      const novaAtividade = h('a', 'btn', '+ Nova atividade');
+      novaAtividade.href = 'nova-atividade.html' + sufixo;
+      const novaAvaliacao = h('a', 'btn-sec', '+ Nova avaliação');
+      novaAvaliacao.href = 'nova-avaliacao.html' + sufixo;
+      botoes.append(novaAtividade, novaAvaliacao);
+
+      if (turmaId) {
+        const voltar = h('a', 'btn-sec', 'Abrir turma');
+        voltar.href = 'turma.html?id=' + encodeURIComponent(turmaId);
+        botoes.append(voltar);
       }
 
-      alert('Perfil atualizado com sucesso!');
+      // Mantém os filtros na URL para poder recarregar/compartilhar o link
+      const url = new URL(location.href);
+      turmaId ? url.searchParams.set('turmaId', turmaId) : url.searchParams.delete('turmaId');
+      tipo ? url.searchParams.set('tipo', tipo) : url.searchParams.delete('tipo');
+      history.replaceState(null, '', url);
+    }
+
+    // ---------------------------------------------------------------- Entregas de uma atividade
+    function textoContagem(total, corrigidas) {
+      return total + ' entrega(s) · ' + corrigidas + ' corrigida(s)';
+    }
+
+    function criarEntrega(entrega, valorMaximo, aoCorrigir) {
+      const bloco = h('div', 'entrega');
+      const topo = h('div', 'entrega-topo');
+      const status = h('span', null, entrega.corrigida_em ? 'Corrigida' : 'Aguardando correção');
+      topo.append(h('strong', null, entrega.aluno), h('span', null, 'Enviada em ' + dataHoraBR(entrega.enviada_em)), status);
+
+      const resposta = h('div', 'resposta', entrega.resposta);
+
+      const corrigir = h('div', 'corrigir');
+      const nota = h('input');
+      nota.type = 'number';
+      nota.min = '0';
+      nota.max = String(valorMaximo);
+      nota.step = 'any';
+      nota.placeholder = 'Nota (0–' + numero(valorMaximo) + ')';
+      nota.setAttribute('aria-label', 'Nota de ' + entrega.aluno);
+      if (entrega.nota != null) nota.value = Number(entrega.nota);
+
+      const feedback = h('textarea');
+      feedback.placeholder = 'Feedback para o aluno (opcional)';
+      feedback.value = entrega.feedback || '';
+      corrigir.append(nota, feedback);
+
+      const botao = h('button', 'btn', entrega.corrigida_em ? 'Atualizar correção' : 'Salvar correção');
+      botao.type = 'button';
+      const msg = h('span', 'msg');
+      const acoes = h('div', 'acoes');
+      acoes.append(botao, msg);
+
+      botao.addEventListener('click', async () => {
+        const valor = nota.value.trim();
+        if (valor === '' || !Number.isFinite(Number(valor)) || Number(valor) < 0 || Number(valor) > Number(valorMaximo)) {
+          msg.className = 'msg erro';
+          msg.textContent = 'A nota deve ficar entre 0 e ' + numero(valorMaximo) + '.';
+          return;
+        }
+        botao.disabled = true;
+        msg.className = 'msg';
+        msg.textContent = 'Salvando...';
+        try {
+          await conradFetch('/api/entregas/' + entrega.id + '/correcao', {
+            method: 'PUT',
+            body: JSON.stringify({ nota: Number(valor), feedback: feedback.value.trim() })
+          });
+          const eraCorrigida = Boolean(entrega.corrigida_em);
+          entrega.corrigida_em = new Date().toISOString();
+          status.textContent = 'Corrigida';
+          botao.textContent = 'Atualizar correção';
+          msg.className = 'msg ok';
+          msg.textContent = 'Correção salva.';
+          if (!eraCorrigida) aoCorrigir();
+        } catch (erro) {
+          msg.className = 'msg erro';
+          msg.textContent = erro.message;
+        } finally {
+          botao.disabled = false;
+        }
+      });
+
+      bloco.append(topo, resposta, corrigir, acoes);
+      return bloco;
+    }
+
+    // ---------------------------------------------------------------- Cartão de cada atividade
+    function criarCard(atividade) {
+      const card = h('article', 'card');
+      let total = Number(atividade.total_entregas || 0);
+      let corrigidas = Number(atividade.corrigidas || 0);
+
+      const topo = h('div', 'card-topo');
+      const contagem = h('span', 'contagem', textoContagem(total, corrigidas));
+      topo.append(h('span', 'tag ' + atividade.tipo, atividade.tipo === 'avaliacao' ? 'Avaliação' : 'Atividade'), contagem);
+
+      const meta = h('p', 'meta',
+        atividade.disciplina + ' • ' + atividade.turma + ' • Prazo: ' + dataBR(atividade.data_aplicacao) +
+        ' • Valor: ' + numero(atividade.valor_maximo) + ' pts');
+
+      const botao = h('button', 'btn-sec', total ? 'Ver entregas' : 'Nenhuma entrega ainda');
+      botao.type = 'button';
+      botao.disabled = total === 0;
+      botao.style.marginTop = '10px';
+
+      const area = h('div', 'entregas');
+      area.style.display = 'none';
+      let carregada = false;
+
+      botao.addEventListener('click', async () => {
+        if (area.style.display !== 'none') {
+          area.style.display = 'none';
+          botao.textContent = 'Ver entregas';
+          return;
+        }
+        area.style.display = '';
+        botao.textContent = 'Ocultar entregas';
+        if (carregada) return;
+
+        area.replaceChildren(h('p', 'vazio', 'Carregando entregas...'));
+        try {
+          const dados = await conradFetch('/api/atividades/' + atividade.id + '/entregas');
+          area.replaceChildren();
+          dados.entregas.forEach((entrega) => {
+            area.append(criarEntrega(entrega, dados.valor_maximo, () => {
+              corrigidas++;
+              contagem.textContent = textoContagem(total, corrigidas);
+            }));
+          });
+          if (!dados.entregas.length) area.append(h('p', 'vazio', 'Nenhuma entrega recebida.'));
+          carregada = true;
+        } catch (erro) {
+          area.replaceChildren(h('p', 'msg erro', erro.message));
+        }
+      });
+
+      card.append(topo, h('h3', null, atividade.titulo), meta);
+      if (atividade.descricao) card.append(h('p', 'meta', atividade.descricao));
+      card.append(botao, area);
+      return card;
+    }
+
+    async function carregar() {
+      atualizarTopo();
+      const lista = $('#lista');
+      lista.replaceChildren(h('p', 'vazio', 'Carregando...'));
+
+      const consulta = new URLSearchParams();
+      if (seletorTurma.value) consulta.set('turmaId', seletorTurma.value);
+      if (seletorTipo.value) consulta.set('tipo', seletorTipo.value);
+
+      try {
+        const atividades = await conradFetch('/api/atividades' + (consulta.toString() ? '?' + consulta : ''));
+        lista.replaceChildren();
+        atividades.forEach((atividade) => lista.append(criarCard(atividade)));
+        if (!atividades.length) {
+          lista.append(h('p', 'vazio', 'Nada publicado por aqui ainda. Use “+ Nova atividade” ou “+ Nova avaliação” e escolha a turma.'));
+        }
+      } catch (erro) {
+        lista.replaceChildren(h('p', 'msg erro', 'Não foi possível carregar: ' + erro.message));
+      }
+    }
+
+    seletorTurma.addEventListener('change', carregar);
+    seletorTipo.addEventListener('change', carregar);
+
+    $('#sair').addEventListener('click', (evento) => {
+      evento.preventDefault();
+      conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
     });
+
+    (async function iniciar() {
+      try {
+        const eu = await conradFetch('/me');
+        if (eu.usuario.tipo !== 'educador') {
+          location.href = 'aluno-atividades.html';
+          return;
+        }
+        $('#nome-usuario').textContent = '👤 ' + eu.usuario.nome;
+
+        const dados = await conradFetch('/api/turmas');
+        (dados.turmas || []).forEach((turma) => {
+          seletorTurma.add(new Option(turma.nome + ' — ' + turma.disciplina, String(turma.id)));
+        });
+        const turmaInicial = params.get('turmaId');
+        if (turmaInicial && [...seletorTurma.options].some((opcao) => opcao.value === turmaInicial)) {
+          seletorTurma.value = turmaInicial;
+        }
+        await carregar();
+      } catch (erro) {
+        if (erro.status === 401) location.href = 'login.html';
+        else $('#lista').replaceChildren(h('p', 'msg erro', 'Não foi possível carregar: ' + erro.message));
+      }
+    })();
   </script>
 </body>
 </html>
