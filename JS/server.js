@@ -183,9 +183,16 @@ const arquivosBloqueados = [
 
 app.use((req, res, next) => {
     const caminhoMinusculo = req.path.toLowerCase();
-    if (arquivosBloqueados.includes(caminhoMinusculo) || caminhoMinusculo.startsWith("/js/migrations")) {
+
+    if (
+        arquivosBloqueados.includes(caminhoMinusculo) ||
+        caminhoMinusculo.startsWith("/js/migrations")
+    ) {
         return res.status(404).send("Not found");
     }
+
+    // Permite que o restante do servidor continue funcionando.
+    next();
 });
 
 // 10) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
