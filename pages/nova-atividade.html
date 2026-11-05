@@ -30,21 +30,19 @@
             </div>
 
             <div class="field">
-                  <label for="turma">Turma</label>
-                  <select id="turma" name="turma_id" required><option value="">Carregando turmas...</option></select>
-                  <button type="button" id="btnNovaTurma"> + Criar turma </button>
-                  <div id="areaNovaTurma" hidden>
-                      <label for="nomeNovaTurma">Nome da nova turma</label>
-                      <input
-                          type="text"
-                          id="nomeNovaTurma"
-                          placeholder="Ex: 3º ano C"
-                          maxlength="100">
-                      <button type="button" id="salvarTurma">Salvar turma</button>
-                      <button type="button" id="cancelarTurma">  Cancelar</button>
-                  </div>
-                  <p id="mensagemTurma"></p>
+              <label for="turma">Turma</label>
+              <select id="turma" name="turma_id"><option value="">Carregando turmas...</option></select>
+              <button type="button" id="btnNovaTurma"> + Criar turma </button>
+              <div id="areaNovaTurma" hidden>
+                <label for="nomeNovaTurma">Nome da nova turma</label>
+                <input type="text" id="nomeNovaTurma" placeholder="Ex: 3º ano C" maxlength="120" />
+                <label for="disciplinaNovaTurma">Disciplina</label>
+                <input type="text" id="disciplinaNovaTurma" placeholder="Ex: Matemática" maxlength="120" />
+                <button type="button" id="salvarTurma">Salvar turma</button>
+                <button type="button" id="cancelarTurma">Cancelar</button>
               </div>
+              <p id="mensagemTurma" role="status"></p>
+            </div>
             <div class="field">
               <label for="data">Data de entrega</label>
               <input id="data" type="date" />
@@ -98,6 +96,7 @@
   </main>
 
   <script src="../JS/config.js"></script>
+  <script src="../JS/seletor-turma.js"></script>
   <script>
     window.ATIVIDADE_TIPO = "atividade";
     window.ATIVIDADE_ROTULO = "atividade";
