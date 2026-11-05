@@ -47,10 +47,10 @@ PROFESSOR
 // Criar atividade ou avaliação
 router.post("/atividades", soEducador, async (req, res) => {
     try {
-        const { titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo } = req.body;
+        const { titulo, turma_id, data_aplicacao, valor_maximo, descricao, tipo } = req.body;
 
-        if (!titulo || !disciplina) {
-            return res.status(400).json({ erro: "Preencha título e disciplina" });
+        if (!titulo || !String(titulo).trim()) {
+            return res.status(400).json({ erro: "Preencha o título" });
         }
         if (turma_id === undefined || turma_id === null || turma_id === "") {
             return res.status(400).json({ erro: "Selecione a turma em que o conteúdo será publicado" });
@@ -65,13 +65,14 @@ router.post("/atividades", soEducador, async (req, res) => {
         if (!Number.isInteger(turmaIdFinal) || turmaIdFinal <= 0) {
             return res.status(400).json({ erro: "Selecione uma turma válida" });
         }
-        // O professor só publica em turmas que ele mesmo criou; o nome vem do banco, não do navegador.
+        // O professor só publica em turmas que ele mesmo criou; nome e disciplina vêm do banco, não do navegador.
         const [turmas] = await pool.execute(
-            "SELECT id, nome FROM tb_turmas WHERE id = ? AND professor_id = ?",
+            "SELECT id, nome, disciplina FROM tb_turmas WHERE id = ? AND professor_id = ?",
             [turmaIdFinal, req.session.usuario.id]
         );
         if (!turmas.length) return res.status(403).json({ erro: "Você não pode publicar nesta turma" });
         const turmaFinal = turmas[0].nome;
+        const disciplinaFinal = turmas[0].disciplina;
 
         const tipoFinal = tipo === "avaliacao" ? "avaliacao" : "atividade";
 
@@ -84,7 +85,7 @@ router.post("/atividades", soEducador, async (req, res) => {
                 String(titulo).trim(),
                 turmaFinal,
                 turmaIdFinal,
-                String(disciplina).trim(),
+                disciplinaFinal,
                 data_aplicacao || null,
                 valor,
                 descricao ? String(descricao).trim() : null,

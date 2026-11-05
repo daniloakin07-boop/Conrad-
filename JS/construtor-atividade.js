@@ -541,8 +541,15 @@ As regras abaixo espelham as do servidor (JS/questoes.js). O servidor confere tu
         mensagem("");
 
         const titulo = document.getElementById("titulo");
+        const turma = document.getElementById("turma");
         const data = document.getElementById("data");
         const descricao = document.getElementById("descricao");
+
+        if (!turma || !turma.value) {
+            mensagem("Selecione a turma em que o conteúdo será publicado.", "erro");
+            if (turma) turma.focus();
+            return;
+        }
 
         const faltando = [titulo, data, descricao].find((campo) => !campo.value.trim());
         if (faltando) {
@@ -571,8 +578,7 @@ As regras abaixo espelham as do servidor (JS/questoes.js). O servidor confere tu
 
         const dados = {
             titulo: titulo.value.trim(),
-            turma: document.getElementById("turma").value,
-            disciplina: document.getElementById("disciplina").value,
+            turma_id: turma.value,
             data_aplicacao: data.value,
             valor_maximo: temQuestoes ? somar() : Number(campoValor.value),
             descricao: descricao.value.trim(),
@@ -598,7 +604,9 @@ As regras abaixo espelham as do servidor (JS/questoes.js). O servidor confere tu
             mensagem("Sua " + ROTULO + detalhe + " foi publicada e já aparece para os alunos da turma!", "ok",
                 { texto: "Ver atividades e entregas", href: "professor-correcao.html" });
 
+            const turmaPublicada = turma.value;
             form.reset();
+            turma.value = turmaPublicada; // continua na mesma turma para a próxima publicação
             questoes.length = 0;
             manual = false;
             totalBase = 10;

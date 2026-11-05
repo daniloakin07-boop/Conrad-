@@ -356,7 +356,7 @@ app.get("/health", (req, res) => {
 */
 
 // Porta do servidor (padrão 3000) — o Render define a PORT automaticamente
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 // Se este arquivo foi executado diretamente (e não importado), inicia o servidor
 if (require.main === module) {
