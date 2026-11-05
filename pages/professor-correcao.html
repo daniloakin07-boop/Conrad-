@@ -146,7 +146,6 @@
       feedback.placeholder = 'Feedback para o aluno (opcional)';
       feedback.value = entrega.feedback || '';
       corrigir.append(nota, feedback);
-
       const botao = h('button', 'btn', entrega.corrigida_em ? 'Atualizar correção' : 'Salvar correção');
       botao.type = 'button';
       const msg = h('span', 'msg');
