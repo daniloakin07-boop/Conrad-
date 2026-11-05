@@ -169,6 +169,7 @@ app.get("/pages/:pagina", async function (req, res, next) {
 // 9) Bloqueia arquivos internos que não devem ser baixados pelo navegador
 // Como o `express.static` serve a pasta-pai inteira, sem isso o código do
 // servidor e o package.json ficariam acessíveis por URL.
+// Bloqueia arquivos internos que não devem ser acessados pelo navegador
 const arquivosBloqueados = [
     "/js/server.js",
     "/js/db.js",
@@ -191,9 +192,10 @@ app.use((req, res, next) => {
         return res.status(404).send("Not found");
     }
 
-    // Permite que o restante do servidor continue funcionando.
+    // ESSENCIAL: permite que a requisição continue para as próximas rotas
     next();
 });
+
 
 // 10) Servir arquivos estáticos (HTML, CSS, imagens, JS do front-end)
 // `express.static` mapeia a pasta-pai do projeto para requisições HTTP
