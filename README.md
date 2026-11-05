@@ -10,6 +10,8 @@ Projeto simples de uma plataforma web com páginas de cadastro, login e contato.
 - Envia mensagens pelo formulário de contato
 - Usa um servidor Node.js com Express
 - Oferece bate-papo em tempo real com Socket.IO
+- Permite que educadores criem turmas com código de entrada
+- Organiza atividades, avaliações, entregas e sala de vídeo por turma
 
 ## Tecnologias usadas
 
@@ -48,11 +50,14 @@ Conrad-
    npm install
    ```
 
-3. Atualize o esquema do MySQL, no banco configurado no `.env`, executando nesta ordem:
+3. Atualize o esquema do MySQL, no banco configurado no `.env`, executando as migrações nesta ordem:
    - `JS/migrations/001-add-tipo-to-tb-usuarios.sql`
+   - `JS/migrations/003-create-atividades-notas.sql`
    - `JS/migrations/002-atividades-entregas.sql`
+   - `JS/migrations/004-turmas-e-salas.sql`
+   - `JS/migrations/005-atividades-contam-no-boletim.sql`
 
-   A primeira migração adiciona o tipo de usuário. A segunda prepara as colunas e tabelas usadas por atividades, entregas e correções. Ela não remove dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a segunda migração para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente.
+   As migrações preparam os tipos de usuário, atividades, notas, entregas, turmas, códigos de entrada e salas de vídeo. Execute-as no banco `defaultdb` configurado no `.env`, usando um cliente MySQL, e confirme que cada uma terminou sem erros antes de iniciar o servidor. Elas não removem dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a migração `002` para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente. A migração `001` deve ser aplicada apenas uma vez.
 
 4. Inicie o servidor:
    ```bash
@@ -63,6 +68,13 @@ Conrad-
    ```text
    http://localhost:3000
    ```
+
+## Fluxo das salas virtuais
+
+- Após cadastro ou login, o aluno acessa `Turmas`, informa o código do professor e entra na turma.
+- O aluno é direcionado ao painel da turma ingressada; os cartões de turmas já ingressadas abrem a sala virtual com mural, atividades, avaliações, pessoas e vídeo.
+- O educador cria uma turma em `Turmas` e compartilha o código exibido com seus alunos.
+- Atividades e avaliações são publicadas dentro da turma escolhida e ficam disponíveis somente aos alunos matriculados nela.
 
 ## Principais rotas
 

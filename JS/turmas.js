@@ -44,7 +44,7 @@ router.get("/turmas", logado, async (req, res) => {
 
         if (ehEducador(usuario)) {
             [linhas] = await pool.execute(
-                `SELECT t.id, t.nome, t.disciplina, t.secao, t.descricao,
+                `SELECT t.id, t.nome, t.disciplina, t.secao, t.descricao, t.codigo,
                         t.video_room, t.criada_em, u.nome AS professor,
                         (SELECT COUNT(*) FROM tb_turma_alunos ta WHERE ta.turma_id = t.id) AS quantidade_alunos,
                         'educador' AS papel

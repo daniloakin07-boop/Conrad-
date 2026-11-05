@@ -367,12 +367,32 @@
       return d + '/' + m + '/' + a;
     }
 
+    // ?turmaId=N: o aluno entrou nesta turma (pelo código do professor ou pela lista de turmas)
+    const turmaId = new URLSearchParams(location.search).get('turmaId');
+    const filtroTurma = turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '';
+
+    function ajustarParaTurma(nomeTurma) {
+      const id = encodeURIComponent(turmaId);
+      const verAtividades = document.querySelector('.quick-actions a[href^="aluno-atividades"]');
+      const salaVideo = document.querySelector('.quick-actions a[href^="salas"]');
+      if (verAtividades) verAtividades.href = 'aluno-atividades.html?turmaId=' + id;
+      if (salaVideo) salaVideo.href = 'turma.html?id=' + id + '&aba=video';
+
+      const mural = h('a', 'btn-secundario', 'Abrir turma');
+      mural.href = 'turma.html?id=' + id;
+      document.querySelector('.quick-actions')?.append(mural);
+
+      const subtitulo = document.querySelector('.titulo-dashboard p');
+      if (subtitulo) subtitulo.textContent = 'Turma: ' + (nomeTurma || 'selecionada') + ' — resumo das suas notas e pendências';
+    }
+
     try {
       const eu = await conradFetch('/me');
       if (eu.usuario.tipo === 'educador') { location.href = 'educador.html'; return; }
       preencherNome(eu.usuario.nome);
 
-      const dados = await conradFetch('/api/aluno/atividades');
+      const dados = await conradFetch('/api/aluno/atividades' + filtroTurma);
+      if (turmaId) ajustarParaTurma(dados.turma);
       const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
 
       // Média geral: notas corrigidas convertidas para a escala de 0 a 10
@@ -407,7 +427,9 @@
       pendentes.forEach((a) => {
         const item = h('li');
         item.style.cursor = 'pointer';
-        item.addEventListener('click', () => { location.href = 'aluno-atividades.html'; });
+        item.addEventListener('click', () => {
+          location.href = 'aluno-atividades.html' + (turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '');
+        });
 
         const urgente = a.data_aplicacao && a.data_aplicacao <= amanha;
         const caixa = h('div');
@@ -422,6 +444,7 @@
       });
     } catch (erro) {
       if (erro.status === 401) location.href = 'login.html';
+      else if (erro.status === 403 && turmaId) location.href = 'turmas.html';
       else console.error(erro);
     }
   })();

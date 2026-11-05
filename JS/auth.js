@@ -46,7 +46,9 @@ if (formLogin) {
 
             if (resposta.ok) {
                 mostrarMensagem(mensagem, "Login realizado com sucesso!", "sucesso");
-                const pagina = dados.usuario?.tipo === "educador" ? "educador.html" : "aluno.html";
+                // Educador vai para o painel; aluno cai direto nas salas virtuais (turmas),
+                // onde entra em uma turma com o código do professor.
+                const pagina = dados.usuario?.tipo === "educador" ? "educador.html" : "turmas.html";
                 window.location.href = `${API_URL}/pages/${pagina}`;
             } else {
                 mostrarMensagem(mensagem, dados.erro || "E-mail ou senha incorretos.", "erro");
@@ -102,8 +104,11 @@ if (formCadastro) {
             const dados = await resposta.json();
 
             if (resposta.ok) {
-                mostrarMensagem(mensagem, "Cadastro realizado com sucesso!", "sucesso");
+                // O servidor já abre a sessão no cadastro: segue direto para a área do usuário.
+                const pagina = dados.usuario?.tipo === "educador" ? "educador.html" : "turmas.html";
+                mostrarMensagem(mensagem, "Cadastro realizado com sucesso! Redirecionando...", "sucesso");
                 formCadastro.reset();
+                setTimeout(() => { window.location.href = `${API_URL}/pages/${pagina}`; }, 900);
             } else {
                 mostrarMensagem(mensagem, dados.erro || "Erro ao realizar cadastro.", "erro");
             }

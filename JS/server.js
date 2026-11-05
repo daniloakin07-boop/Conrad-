@@ -16,7 +16,6 @@ require("dotenv").config();
 // - bcryptjs: utilitário para hashear e comparar senhas com segurança
 const express = require("express");
 const path = require("path");
-const fs = require("fs");
 const http = require("http");
 const cors = require("cors");
 const session = require("express-session");
@@ -109,13 +108,6 @@ app.use("/api/chat", chat.router);
 // Rotas de médias e boletim: ficam depois da sessão para validar o estudante autenticado.
 app.use("/api", mediasRoutes);
 
-// Rotas de mídia (opcionais): só são carregadas se o arquivo medias.js existir
-if (fs.existsSync(path.join(__dirname, "medias.js"))) {
-    app.use("/api", require("./medias.js"));
-} else {
-    console.warn("medias.js não encontrado: rotas de mídia desativadas.");
-}
-
 // Atividades, provas, entregas e notas (professor <-> aluno)
 const atividadesRoutes = require("./atividades.js");
 app.use("/api", atividadesRoutes);
@@ -144,11 +136,33 @@ chat.configurarSocket(io);
 
 // 8) Rotas que exigem sessão (ex.: páginas internas)
 // Middleware para checar acesso às páginas estáticas protegidas
-app.get("/pages/:pagina", function (req, res, next) {
-    if (paginasProtegidas.includes(req.params.pagina) && !req.session.usuario) {
+app.get("/pages/:pagina", async function (req, res, next) {
+    const usuario = req.session.usuario;
+    if (paginasProtegidas.includes(req.params.pagina) && !usuario) {
         // Se não estiver logado, redireciona para login
         return res.redirect("/pages/login.html");
     }
+
+    if (req.params.pagina === "aluno.html" && usuario?.tipo !== "educador") {
+        const turmaId = req.query.turmaId ? Number(req.query.turmaId) : null;
+        if (turmaId !== null && (!Number.isInteger(turmaId) || turmaId <= 0)) {
+            return res.redirect("/pages/turmas.html");
+        }
+
+        try {
+            const [matriculas] = await pool.execute(
+                turmaId
+                    ? "SELECT id FROM tb_turma_alunos WHERE aluno_id = ? AND turma_id = ? LIMIT 1"
+                    : "SELECT id FROM tb_turma_alunos WHERE aluno_id = ? LIMIT 1",
+                turmaId ? [usuario.id, turmaId] : [usuario.id]
+            );
+            if (!matriculas.length) return res.redirect("/pages/turmas.html");
+        } catch (erro) {
+            console.error("Erro ao validar acesso ao painel do aluno:", erro);
+            return res.status(503).send("Não foi possível validar sua matrícula. Tente novamente.");
+        }
+    }
+
     next();
 });
 
@@ -168,10 +182,15 @@ const arquivosBloqueados = [
 ];
 
 app.use((req, res, next) => {
+<<<<<<< HEAD
     if (
         arquivosBloqueados.includes(req.path.toLowerCase()) ||
         req.path.toLowerCase().startsWith("/js/migrations/")
     ){
+=======
+    const caminhoMinusculo = req.path.toLowerCase();
+    if (arquivosBloqueados.includes(caminhoMinusculo) || caminhoMinusculo.startsWith("/js/migrations")) {
+>>>>>>> d7af59a3cbfabc9464e296ac85d1dfa0dc4d7a37
         return res.status(404).send("Not found");
     }
 });
