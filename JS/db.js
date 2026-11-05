@@ -33,9 +33,12 @@ const pool = mysql.createPool({
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "conrad",
-    ssl: certificadoCA
-        ? { ca: certificadoCA }             // Usa certificado CA se existir
-        : { rejectUnauthorized: false },    // Sem certificado: não valida o SSL
+    // DB_SSL=false desliga o SSL (útil para um MySQL local); o Aiven exige SSL, então o padrão é ligado.
+    ssl: process.env.DB_SSL === "false"
+        ? undefined
+        : certificadoCA
+            ? { ca: certificadoCA }             // Usa certificado CA se existir
+            : { rejectUnauthorized: false },    // Sem certificado: não valida o SSL
     waitForConnections: true, // Aguarda conexão livre quando o pool está cheio
     connectionLimit: 10,      // Máximo de conexões simultâneas no pool
     queueLimit: 0             // 0 = fila de espera ilimitada para conexões

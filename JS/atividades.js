@@ -49,8 +49,11 @@ router.post("/atividades", soEducador, async (req, res) => {
     try {
         const { titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo } = req.body;
 
-        if (!titulo || !turma || !disciplina) {
-            return res.status(400).json({ erro: "Preencha título, turma e disciplina" });
+        if (!titulo || !disciplina) {
+            return res.status(400).json({ erro: "Preencha título e disciplina" });
+        }
+        if (turma_id === undefined || turma_id === null || turma_id === "") {
+            return res.status(400).json({ erro: "Selecione a turma em que o conteúdo será publicado" });
         }
 
         const valor = Number(valor_maximo ?? 10);
@@ -58,35 +61,30 @@ router.post("/atividades", soEducador, async (req, res) => {
             return res.status(400).json({ erro: "Valor máximo inválido" });
         }
 
-        let turmaFinal = String(turma || "").trim();
-        let turmaIdFinal = null;
-
-        if (turma_id !== undefined && turma_id !== null && turma_id !== "") {
-            turmaIdFinal = Number(turma_id);
-            if (!Number.isInteger(turmaIdFinal) || turmaIdFinal <= 0) {
-                return res.status(400).json({ erro: "Selecione uma turma válida" });
-            }
-            const [turmas] = await pool.execute(
-                "SELECT id, nome FROM tb_turmas WHERE id = ? AND professor_id = ?",
-                [turmaIdFinal, req.session.usuario.id]
-            );
-            if (!turmas.length) return res.status(403).json({ erro: "Você não pode publicar nesta turma" });
-            turmaFinal = turmas[0].nome;
+        const turmaIdFinal = Number(turma_id);
+        if (!Number.isInteger(turmaIdFinal) || turmaIdFinal <= 0) {
+            return res.status(400).json({ erro: "Selecione uma turma válida" });
         }
-
-        if (!turmaFinal) return res.status(400).json({ erro: "Selecione uma turma" });
+        // O professor só publica em turmas que ele mesmo criou; o nome vem do banco, não do navegador.
+        const [turmas] = await pool.execute(
+            "SELECT id, nome FROM tb_turmas WHERE id = ? AND professor_id = ?",
+            [turmaIdFinal, req.session.usuario.id]
+        );
+        if (!turmas.length) return res.status(403).json({ erro: "Você não pode publicar nesta turma" });
+        const turmaFinal = turmas[0].nome;
 
         const tipoFinal = tipo === "avaliacao" ? "avaliacao" : "atividade";
 
+        // avaliativa/aplicada = 1: a nota lançada entra no boletim e nas médias (medias.js só lê esses registros).
         const [resultado] = await pool.execute(
             `INSERT INTO tb_atividades
-                (titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo, criado_por)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                (titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo, avaliativa, aplicada, criado_por)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?)`,
             [
                 String(titulo).trim(),
                 turmaFinal,
                 turmaIdFinal,
-                disciplina,
+                String(disciplina).trim(),
                 data_aplicacao || null,
                 valor,
                 descricao ? String(descricao).trim() : null,
@@ -193,7 +191,8 @@ router.put("/entregas/:id/correcao", soEducador, async (req, res) => {
         const { atividade_id, aluno_id, valor_maximo } = entregas[0];
 
         const nota = Number(req.body.nota);
-        if (req.body.nota === "" || !Number.isFinite(nota) || nota < 0 || nota > Number(valor_maximo)) {
+        if (req.body.nota === "" || req.body.nota === null || req.body.nota === undefined
+            || !Number.isFinite(nota) || nota < 0 || nota > Number(valor_maximo)) {
             return res.status(400).json({ erro: `A nota deve ficar entre 0 e ${Number(valor_maximo)}` });
         }
 
@@ -311,7 +310,7 @@ router.post("/atividades/:id/entrega", soAluno, async (req, res) => {
             return res.status(400).json({ erro: "A resposta deve ter entre 1 e 5000 caracteres" });
         }
 
-        const [atividades] = await pool.execute("SELECT id, turma_id FROM tb_atividades WHERE id = ?", [id]);
+        const [atividades] = await pool.execute("SELECT id, turma, turma_id FROM tb_atividades WHERE id = ?", [id]);
         if (atividades.length === 0) return res.status(404).json({ erro: "Atividade não encontrada" });
 
         const alunoId = req.session.usuario.id;
@@ -321,6 +320,12 @@ router.post("/atividades/:id/entrega", soAluno, async (req, res) => {
                 [atividades[0].turma_id, alunoId]
             );
             if (!matriculas.length) return res.status(403).json({ erro: "Você não está matriculado na turma desta atividade" });
+        } else {
+            // Atividade antiga, de antes das turmas com código: vale só para a turma que o aluno tinha salva.
+            const [usuarios] = await pool.execute("SELECT turma FROM tb_usuarios WHERE id = ?", [alunoId]);
+            if (!usuarios[0]?.turma || usuarios[0].turma !== atividades[0].turma) {
+                return res.status(403).json({ erro: "Você não está matriculado na turma desta atividade" });
+            }
         }
 
         // Depois de corrigida, a entrega não pode mais ser alterada

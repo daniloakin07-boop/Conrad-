@@ -14,7 +14,11 @@
     <header class="form-topbar">
       <h1>Nova atividade</h1>
       <div class="topbar-actions">
+<<<<<<< HEAD
         <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+=======
+        <a href="turmas.html" class="btn-secundario" id="voltar">Voltar às turmas</a>
+>>>>>>> e527774af03c1b0cba5a30f368d5f4eef00a7bec
       </div>
     </header>
 
@@ -64,7 +68,7 @@
           </div>
 
           <div class="actions">
-            <button type="button" class="btn-secundario">Cancelar</button>
+            <button type="button" class="btn-secundario" id="cancelar">Cancelar</button>
             <button type="submit" class="btn-primario">Publicar atividade</button>
           </div>
         </form>
@@ -101,8 +105,107 @@
 
   <script src="../JS/config.js"></script>
   <script>
+<<<<<<< HEAD
     window.ATIVIDADE_TIPO = "atividade";
     window.ATIVIDADE_ROTULO = "atividade";
+=======
+    const TIPO = "atividade";
+    const ROTULO = "atividade";
+
+    const form = document.querySelector('form');
+    const seletorTurma = document.getElementById('turma');
+    const params = new URLSearchParams(location.search);
+    let turmasDisponiveis = [];
+
+    // De onde o professor veio: a aba da turma (se abriu pela turma) ou a lista de turmas.
+    const paginaDeOrigem = params.get('turmaId')
+      ? `turma.html?id=${encodeURIComponent(params.get('turmaId'))}&aba=${TIPO}`
+      : 'turmas.html';
+    document.getElementById('voltar').href = paginaDeOrigem;
+    document.getElementById('voltar').textContent = params.get('turmaId') ? 'Voltar à turma' : 'Voltar às turmas';
+    document.getElementById('cancelar').addEventListener('click', () => { location.href = paginaDeOrigem; });
+
+    async function carregarTurmas() {
+      try {
+        const sessao = await conradFetch('/me');
+        if (sessao.usuario?.tipo !== 'educador') {
+          location.href = 'turmas.html';
+          return;
+        }
+        const dados = await conradFetch('/api/turmas');
+        turmasDisponiveis = (dados.turmas || []).filter((turma) => turma.papel === 'educador');
+        seletorTurma.replaceChildren(new Option('Selecione uma turma...', ''));
+        turmasDisponiveis.forEach((turma) => {
+          seletorTurma.add(new Option(`${turma.nome} — ${turma.disciplina}`, String(turma.id)));
+        });
+        const turmaPreselecionada = params.get('turmaId');
+        if (turmaPreselecionada && [...seletorTurma.options].some((opcao) => opcao.value === turmaPreselecionada)) {
+          seletorTurma.value = turmaPreselecionada;
+          seletorTurma.disabled = true;
+          const escolhida = turmasDisponiveis.find((turma) => String(turma.id) === turmaPreselecionada);
+          if (escolhida) document.getElementById('disciplina').value = escolhida.disciplina;
+        }
+        if (seletorTurma.options.length <= 1) {
+          const ajuda = document.getElementById('ajuda-turma');
+          ajuda.textContent = 'Você ainda não tem turmas. Crie uma turma antes de publicar.';
+          ajuda.innerHTML += ' <a href="turmas.html">Criar turma</a>';
+        }
+      } catch (erro) {
+        seletorTurma.replaceChildren(new Option('Não foi possível carregar as turmas', ''));
+        document.getElementById('ajuda-turma').textContent = erro.message;
+      }
+    }
+
+    seletorTurma.addEventListener('change', () => {
+      const escolhida = turmasDisponiveis.find((turma) => String(turma.id) === seletorTurma.value);
+      if (escolhida) document.getElementById('disciplina').value = escolhida.disciplina;
+    });
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const dados = {
+        titulo: document.getElementById('titulo').value.trim(),
+        turma_id: document.getElementById('turma').value,
+        turma: document.getElementById('turma').selectedOptions[0]?.textContent || '',
+        disciplina: document.getElementById('disciplina').value,
+        data_aplicacao: document.getElementById('data').value,
+        valor_maximo: Number(document.getElementById('valor').value),
+        descricao: document.getElementById('descricao').value.trim(),
+        tipo: TIPO
+      };
+
+      if (!dados.titulo || !dados.turma_id || !dados.data_aplicacao || !dados.descricao) {
+        alert('Selecione uma turma e preencha o nome, a data e a descrição.');
+        return;
+      }
+
+      if (!dados.valor_maximo || dados.valor_maximo <= 0) {
+        alert('Informe um valor/pontuação maior que zero.');
+        return;
+      }
+
+      const botao = form.querySelector('[type="submit"]');
+      botao.disabled = true;
+
+      try {
+        await conradFetch('/api/atividades', {
+          method: 'POST',
+          body: JSON.stringify(dados)
+        });
+        alert('Sua ' + ROTULO + ' foi publicada e já aparece para os alunos da turma!');
+        // Veio da turma: volta para ela. Veio de fora: segue para a aba da turma escolhida.
+        const turmaPublicada = params.get('turmaId') || dados.turma_id;
+        location.href = `turma.html?id=${encodeURIComponent(turmaPublicada)}&aba=${TIPO}`;
+      } catch (erro) {
+        alert(erro.message);
+      } finally {
+        botao.disabled = false;
+      }
+    });
+
+    carregarTurmas();
+>>>>>>> e527774af03c1b0cba5a30f368d5f4eef00a7bec
   </script>
   <script src="../JS/construtor-atividade.js"></script>
 </body>

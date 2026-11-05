@@ -142,7 +142,7 @@ router.get("/medias", exigirEducador, async (req, res) => {
                    AND a.aplicada = 1
                    AND a.valor_maximo > 0
             ) ON n.aluno_id = u.id
-            WHERE u.tipo = 'estudante'
+            WHERE u.tipo IN ('aluno', 'estudante')
             GROUP BY u.id, u.nome
             ORDER BY u.nome
         `);
@@ -206,7 +206,26 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
             ? `n.\`${campoDataRealizada}\` AS dataRealizada`
             : "NULL AS dataRealizada";
 
-        const vinculoSala = detectarVinculoSala(aluno, nomesColunasAtividade);
+        // Preferência: matrículas reais (turmas em que o aluno entrou com o código do professor).
+        // Só se não houver nenhuma cai no vínculo antigo por texto/ID da tabela de usuários.
+        let vinculoSala = null;
+        if (nomesColunasAtividade.includes("turma_id")) {
+            const [matriculas] = await pool.execute(
+                `SELECT t.id, t.nome FROM tb_turma_alunos ta
+                 JOIN tb_turmas t ON t.id = ta.turma_id
+                 WHERE ta.aluno_id = ? ORDER BY t.nome`,
+                [alunoId]
+            );
+            if (matriculas.length) {
+                vinculoSala = {
+                    campoAtividade: "turma_id",
+                    valores: matriculas.map(m => m.id),
+                    salaOriginal: matriculas.map(m => m.nome).join(", "),
+                    tipo: "matricula"
+                };
+            }
+        }
+        if (!vinculoSala) vinculoSala = detectarVinculoSala(aluno, nomesColunasAtividade);
         const camposComuns = `
             SELECT
                 n.id AS notaId,
@@ -232,6 +251,10 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
                 const marcadores = vinculoSala.valores.map(() => "?").join(", ");
                 condicaoSala = `LOWER(TRIM(${campoSala})) IN (${marcadores})`;
                 parametros = [alunoId, ...vinculoSala.valores.map(valor => String(valor).toLowerCase())];
+            } else if (vinculoSala.tipo === "matricula") {
+                const marcadores = vinculoSala.valores.map(() => "?").join(", ");
+                condicaoSala = `${campoSala} IN (${marcadores})`;
+                parametros = [alunoId, ...vinculoSala.valores];
             } else {
                 condicaoSala = `${campoSala} = ?`;
                 parametros = [alunoId, vinculoSala.valores[0]];

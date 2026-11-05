@@ -125,7 +125,7 @@
                     if (dadosTurma.papel === "educador") {
                         linha.append(info, criar("small", "", `${item.total_entregas || 0} entrega(s)`));
                     } else {
-                        const status = item.corrigida_em ? `Nota: ${item.nota ?? "—"}` : item.enviada_em ? "Enviada" : "Pendente";
+                        const status = item.corrigida_em ? `Nota: ${Number(item.nota)} / ${Number(item.valor_maximo)}` : item.enviada_em ? "Enviada" : "Pendente";
                         linha.append(info, criar("small", "", status));
                     }
                     card.append(linha);

@@ -15,6 +15,12 @@
         return elemento;
     }
 
+    // Cada cartão abre a sala virtual. O envio do código leva o aluno ao painel da turma.
+    function destinoDaTurma(turma) {
+        const id = encodeURIComponent(turma.id);
+        return `turma.html?id=${id}`;
+    }
+
     function iniciais(nome) {
         return String(nome || "T")
             .split(/\s+/)
@@ -76,6 +82,7 @@
                 criar("p", "", `Professor(a): ${turma.professor || "Equipe Conrad"}`),
                 criar("p", "", turma.secao ? `Seção: ${turma.secao}` : "Ambiente de aprendizagem Conrad")
             );
+            if (turma.codigo) corpo.append(criar("p", "", `Código para os alunos: ${turma.codigo}`));
 
             const rodape = criar("div", "turma-card-rodape");
             rodape.append(
@@ -84,12 +91,12 @@
             );
             card.append(capa, corpo, rodape);
             card.addEventListener("click", () => {
-                location.href = `turma.html?id=${encodeURIComponent(turma.id)}`;
+                location.href = destinoDaTurma(turma);
             });
             card.addEventListener("keydown", (evento) => {
                 if (evento.key === "Enter" || evento.key === " ") {
                     evento.preventDefault();
-                    location.href = `turma.html?id=${encodeURIComponent(turma.id)}`;
+                    location.href = destinoDaTurma(turma);
                 }
             });
             grid.append(card);
@@ -120,7 +127,8 @@
 
     $("#form-criar-turma").addEventListener("submit", async (evento) => {
         evento.preventDefault();
-        const botao = evento.currentTarget.querySelector('[type="submit"]');
+        const formulario = evento.currentTarget;
+        const botao = formulario.querySelector('[type="submit"]');
         const mensagem = $("#msg-criar-turma");
         botao.disabled = true;
         mensagem.className = "form-turma-msg";
@@ -135,7 +143,7 @@
                     descricao: $("#descricao-turma").value.trim()
                 })
             });
-            evento.currentTarget.reset();
+            formulario.reset();
             fecharModal();
             await carregarTurmas();
             alert(`Turma criada! Código de entrada: ${dados.codigo}`);
@@ -160,7 +168,7 @@
                 body: JSON.stringify({ codigo: $("#codigo-turma").value })
             });
             fecharModal();
-            location.href = `turma.html?id=${encodeURIComponent(dados.turma.id)}`;
+            location.href = `aluno.html?turmaId=${encodeURIComponent(dados.turma.id)}`;
         } catch (erro) {
             mensagem.className = "form-turma-msg erro";
             mensagem.textContent = erro.message;
