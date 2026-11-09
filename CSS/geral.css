@@ -1053,6 +1053,263 @@ header{
   }
 }
 
+/* ===== SOBRE A CONRAD ===== */
+:where(.css-auth) .pagina-sobre {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 24px 56px;
+}
+
+:where(.css-auth) .sobre-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  align-items: center;
+  gap: clamp(36px, 7vw, 88px);
+  padding: 24px 0 76px;
+}
+
+:where(.css-auth) .sobre-etiqueta {
+  display: inline-block;
+  color: #d96a0b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+:where(.css-auth) .sobre-intro h1 {
+  margin: 14px 0 16px;
+  color: #0A1F44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  line-height: 0.98;
+}
+
+:where(.css-auth) .sobre-intro h1 span {
+  color: #e87516;
+}
+
+:where(.css-auth) .sobre-intro > p {
+  max-width: 610px;
+  color: #596579;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+:where(.css-auth) .sobre-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 48px;
+  margin-top: 26px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #F5821F;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+:where(.css-auth) .sobre-cta:hover {
+  background: #df6e12;
+  transform: translateY(-2px);
+}
+
+:where(.css-auth) .sobre-cta span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+:where(.css-auth) .sobre-destaque {
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+  padding: 38px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #102d5c, #071632);
+  box-shadow: 0 24px 60px rgba(10, 31, 68, 0.18);
+  color: #fff;
+}
+
+:where(.css-auth) .sobre-destaque::after {
+  position: absolute;
+  right: -72px;
+  bottom: -132px;
+  width: 270px;
+  height: 270px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  box-shadow: 0 0 0 28px rgba(255, 255, 255, 0.04), 0 0 0 58px rgba(255, 255, 255, 0.035);
+  content: "";
+  pointer-events: none;
+}
+
+:where(.css-auth) .sobre-destaque-marca {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  color: #ff9a42;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+}
+
+:where(.css-auth) .sobre-destaque-legenda {
+  margin-top: 42px;
+  color: #ffb36c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+:where(.css-auth) .sobre-destaque h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 360px;
+  margin-top: 10px;
+  font-size: clamp(23px, 3vw, 30px);
+  line-height: 1.35;
+}
+
+:where(.css-auth) .sobre-pilares {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+:where(.css-auth) .sobre-pilares span {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: #e8edf6;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+:where(.css-auth) .sobre-essencia {
+  padding: 54px 0 62px;
+  border-top: 1px solid #e3e7ed;
+}
+
+:where(.css-auth) .sobre-secao-cabecalho {
+  max-width: 620px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+:where(.css-auth) .sobre-secao-cabecalho h2,
+:where(.css-auth) .sobre-convite h2 {
+  margin-top: 8px;
+  color: #0A1F44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+:where(.css-auth) .sobre-secao-cabecalho > p {
+  margin-top: 10px;
+  color: #667085;
+  font-size: 14px;
+}
+
+:where(.css-auth) .sobre-valores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+:where(.css-auth) .sobre-valor {
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid #e3e7ed;
+  border-radius: 16px;
+  background: #fff;
+}
+
+:where(.css-auth) .sobre-valor-numero {
+  color: #e87516;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 25px;
+}
+
+:where(.css-auth) .sobre-valor h3 {
+  margin-top: 16px;
+  color: #0A1F44;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+:where(.css-auth) .sobre-valor p {
+  margin-top: 8px;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+:where(.css-auth) .sobre-convite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px 36px;
+  border-radius: 18px;
+  background: #eef3fa;
+}
+
+:where(.css-auth) .sobre-convite h2 {
+  max-width: 600px;
+  font-size: clamp(25px, 3.5vw, 34px);
+}
+
+:where(.css-auth) .sobre-convite .sobre-cta {
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  :where(.css-auth) .pagina-sobre {
+    padding: 32px 18px 40px;
+  }
+
+  :where(.css-auth) .sobre-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 12px 0 48px;
+  }
+
+  :where(.css-auth) .sobre-destaque {
+    min-height: 300px;
+  }
+
+  :where(.css-auth) .sobre-valores {
+    grid-template-columns: 1fr;
+  }
+
+  :where(.css-auth) .sobre-valor {
+    min-height: 0;
+  }
+
+  :where(.css-auth) .sobre-convite {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 26px;
+  }
+}
+
 /* ==========================================================
    SISTEMA DE 3 TEMAS - CONRAD
    NORMAL | CLARO | ESCURO
@@ -1260,11 +1517,33 @@ header{
 :root[data-tema="escuro"] .contato-form-bloco .bloco-auth,
 :root[data-tema="escuro"] .canal-item,
 :root[data-tema="escuro"] .faq-item,
+:root[data-tema="escuro"] .sobre-valor,
 :root[data-tema="escuro"] .outro,
 :root[data-tema="escuro"] .enviarr {
     background: var(--card);
     color: var(--texto);
     border-color: var(--borda);
+}
+
+:root[data-tema="escuro"] .sobre-essencia {
+    border-top-color: var(--borda);
+}
+
+:root[data-tema="escuro"] .sobre-convite {
+    background: var(--painel);
+}
+
+:root[data-tema="escuro"] .sobre-intro h1,
+:root[data-tema="escuro"] .sobre-secao-cabecalho h2,
+:root[data-tema="escuro"] .sobre-convite h2,
+:root[data-tema="escuro"] .sobre-valor h3 {
+    color: var(--texto);
+}
+
+:root[data-tema="escuro"] .sobre-intro > p,
+:root[data-tema="escuro"] .sobre-secao-cabecalho > p,
+:root[data-tema="escuro"] .sobre-valor p {
+    color: var(--texto-secundario);
 }
 
 /* Menu lateral */
