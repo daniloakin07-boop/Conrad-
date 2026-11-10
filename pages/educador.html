@@ -7,6 +7,108 @@
     <link rel="stylesheet" href="../CSS/geral.css">
     <link rel="stylesheet" href="../CSS/usuarios.css">
     <link rel="icon" type="image/png" href="../img/Emblema.png">
+    <style>
+      @media (max-width: 900px) {
+        body.css-modal-educador .dashboard-professor {
+          width: 100%;
+          min-width: 0;
+          padding: 20px 16px;
+        }
+
+        body.css-modal-educador .menu-lateral nav {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px;
+        }
+
+        body.css-modal-educador .menu-item {
+          min-width: 0;
+          margin: 0;
+        }
+
+        body.css-modal-educador .conteudo-dashboard {
+          width: 100%;
+          min-width: 0;
+        }
+
+        body.css-modal-educador .titulo-dashboard {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        body.css-modal-educador .titulo-dashboard > div:first-child,
+        body.css-modal-educador .header-right {
+          width: 100%;
+          min-width: 0;
+        }
+
+        body.css-modal-educador .header-right {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        body.css-modal-educador .quick-actions {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+
+        body.css-modal-educador .header-profile {
+          padding-top: 12px;
+          border-top: 1px solid #e3e7eb;
+        }
+      }
+
+      @media (max-width: 650px) {
+        body.css-modal-educador .titulo-dashboard {
+          align-items: stretch;
+          gap: 14px;
+        }
+
+        body.css-modal-educador .titulo-dashboard > div:first-child,
+        body.css-modal-educador .header-right {
+          width: 100%;
+          min-width: 0;
+        }
+
+        body.css-modal-educador .header-right {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        body.css-modal-educador .quick-actions {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 8px;
+        }
+
+        body.css-modal-educador .quick-actions a {
+          width: 100%;
+          min-width: 0;
+        }
+
+        body.css-modal-educador .header-profile {
+          width: 100%;
+          min-width: 0;
+          padding-top: 12px;
+          border-top: 1px solid #e3e7eb;
+        }
+
+        body.css-modal-educador .profile-name {
+          min-width: 0;
+          overflow-wrap: anywhere;
+        }
+
+        body.css-modal-educador .cards-resumo {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 360px) {
+        body.css-modal-educador .cards-resumo {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
 </head>
 <!-- =================================================================================================================== -->
 <body class="css-modal-educador">
