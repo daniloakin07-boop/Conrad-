@@ -6,6 +6,38 @@
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
   <title>CONRAD Virtual School - Cadastro</title>
+  <style>
+    @media (max-width: 760px) {
+      body.css-auth .topo {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 12px 14px;
+        padding: 14px 18px;
+      }
+
+      body.css-auth .topo .logo {
+        margin-right: auto;
+      }
+
+      body.css-auth .topo .menu {
+        order: 3;
+        flex: 0 0 100%;
+        justify-content: flex-start;
+        gap: 22px;
+        padding-top: 4px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body.css-auth .pagina-auth {
+        padding: 24px 16px;
+      }
+
+      body.css-auth .bloco-auth {
+        padding: clamp(22px, 6vw, 32px);
+      }
+    }
+  </style>
 </head>
 <body class="css-auth">
 <!-- ============================================================================================================================ -->
