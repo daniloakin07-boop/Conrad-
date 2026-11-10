@@ -1443,6 +1443,35 @@ header{
 }
 
 @media (max-width: 760px) {
+  :where(.pagina-sobre-page) .topo {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 12px 14px;
+    padding: 14px 18px;
+  }
+
+  :where(.pagina-sobre-page) .topo .logo {
+    margin-right: auto;
+  }
+
+  :where(.pagina-sobre-page) .topo-acoes {
+    display: flex;
+    gap: 8px;
+  }
+
+  :where(.pagina-sobre-page) .topo-acoes .btn-link,
+  :where(.pagina-sobre-page) .topo-acoes .btn-primario {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  :where(.pagina-sobre-page) .topo .menu {
+    order: 3;
+    flex: 0 0 100%;
+    gap: 22px;
+    padding-top: 4px;
+  }
+
   :where(.css-auth) .pagina-sobre {
     padding: 32px 18px 40px;
   }
