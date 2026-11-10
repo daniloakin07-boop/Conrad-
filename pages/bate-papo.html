@@ -9,6 +9,65 @@
   <link rel="stylesheet" href="../CSS/chat-privado.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <style>
+    @media (max-width: 1000px) {
+      body.css-chat .chat-privado-container .dashboard-professor {
+        width: 100%;
+        min-width: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        padding: 20px 0;
+      }
+
+      body.css-chat .chat-privado-container .menu-lateral,
+      body.css-chat .chat-privado-container .conteudo-dashboard {
+        width: 100%;
+        min-width: 0;
+      }
+
+      body.css-chat .chat-privado-container .titulo-dashboard {
+        height: auto;
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body.css-chat .chat-privado-container .menu-lateral {
+        padding: 16px 14px;
+      }
+
+      body.css-chat .chat-privado-container .menu-lateral h3 {
+        margin-bottom: 10px;
+      }
+
+      body.css-chat .chat-privado-container .menu-ajuda {
+        margin-top: 12px;
+        padding: 12px;
+      }
+
+      body.css-chat .chat-privado-container .menu-perfil {
+        margin-top: 12px;
+        padding-top: 10px;
+      }
+
+      body.css-chat .chat-privado-layout {
+        min-width: 0;
+        gap: 14px;
+      }
+
+      body.css-chat .chat-conversa-topo {
+        min-width: 0;
+        gap: 10px;
+        padding: 14px 12px;
+      }
+
+      body.css-chat .chat-destinatario h2,
+      body.css-chat .chat-destinatario p {
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
 </head>
 <body class="css-painel css-chat">
   <!-- =================================================================================================================== -->
