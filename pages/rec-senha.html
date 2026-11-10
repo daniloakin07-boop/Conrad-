@@ -1,41 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../CSS/geral.css">
-        <link rel="icon" type="image/png" href="../img/Emblema.png">
-        <title>CONRAD Virtual School - Cadastro</title>
-<!-- =================================================================================================================== -->
-        <header class="topo">
-            <a href="../index.html" class="logo">CONRAD</a>
-            <nav class="menu">
-            <a href="../index.html">Início</a>
-            <a href="sobre.html">Sobre</a>
-            <a href="contato.html">Contato</a>
-            </nav>
-        </header>
-<!-- =================================================================================================================== -->
-            <main class="pagina-auth">
-                <section class="bloco-auth">
-                    <h1> Recuperação de senha </h1>
-                    <p>Informe seu e-mail e enviaremos um link de recuperação de senha </p>
-                    <form class="form-auth" id="formLogin">
-                        <label for="emailLogin">Email</label>
-                        <input 
-                            type="email"
-                            id="emailLogin"
-                            placeholder="Digite seu e-mail"
-                            required>
-                        <button type="submit" class="button">Enviar</button>
-                    </form>
-                </section>
-            </main>
-<!-- =================================================================================================================== -->
-            <footer class="rodape">
-            <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
-            <p><a href="contato.html">Entre em contato</a></p>
-        </footer>
-    </head>
-<body>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <title>Recuperação de senha | CONRAD Virtual School</title>
+  <style>
+    @media (max-width: 760px) {
+      body.css-auth .topo {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 12px 14px;
+        padding: 14px 18px;
+      }
 
+      body.css-auth .topo .logo {
+        margin-right: auto;
+      }
+
+      body.css-auth .topo .menu {
+        order: 3;
+        flex: 0 0 100%;
+        justify-content: flex-start;
+        gap: 22px;
+        padding-top: 4px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body.css-auth .pagina-auth {
+        padding: 24px 16px;
+      }
+
+      body.css-auth .bloco-auth {
+        padding: clamp(22px, 6vw, 32px);
+      }
+    }
+  </style>
+</head>
+<body class="css-auth">
+  <header class="topo">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main class="container pagina-auth">
+    <section class="bloco-auth">
+      <h1>Recuperação de senha</h1>
+      <p class="texto-auth">Informe seu e-mail e enviaremos um link de recuperação de senha.</p>
+
+      <form class="form-auth" id="formLogin">
+        <label for="emailLogin">E-mail</label>
+        <input
+          type="email"
+          id="emailLogin"
+          placeholder="Digite seu e-mail"
+          required>
+        <button type="submit" class="btn-primario">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
+</body>
+</html>
