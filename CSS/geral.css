@@ -424,8 +424,39 @@ body {
 
 @media (max-width: 760px) {
   .topo.topo-home {
-    justify-content: center;
-    text-align: center;
+    height: auto;
+    justify-content: space-between;
+    gap: 12px 14px;
+    padding: 14px 18px;
+  }
+
+  .topo.topo-home .logo {
+    margin-right: auto;
+  }
+
+  .topo.topo-home .topo-acoes {
+    display: flex;
+    order: 2;
+    gap: 8px;
+  }
+
+  .topo.topo-home .topo-acoes .btn-link,
+  .topo.topo-home .topo-acoes .btn-primario {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .topo.topo-home .menu {
+    order: 3;
+    flex: 0 0 100%;
+    gap: 22px;
+    padding-top: 4px;
+  }
+
+  .topo.topo-home .menu #theme {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
   }
 
   .hero-simples-conteudo {
@@ -449,13 +480,19 @@ body {
   .hero-simples-imagem {
     position: static;
     justify-content: center;
-    height: 200px;
+    height: clamp(150px, 40vw, 200px);
     margin-top: 24px;
   }
 
   .hero-simples-imagem img {
-    height: 200px;
-    margin-left: -20px;
+    display: none;
+  }
+
+  .hero-simples-imagem img:nth-child(2) {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    margin-left: 0;
   }
 }
 
