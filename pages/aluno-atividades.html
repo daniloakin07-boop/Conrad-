@@ -7,6 +7,57 @@
   <link rel="stylesheet" href="../CSS/geral.css" />
   <link rel="stylesheet" href="../CSS/atividades.css" />
   <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <style>
+    @media (max-width: 600px) {
+      body.css-aluno-atividades .barra-turma:empty {
+        display: none;
+      }
+
+      body.css-aluno-atividades .resumo {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      body.css-aluno-atividades .resumo div {
+        min-width: 0;
+        padding: 12px 8px;
+      }
+
+      body.css-aluno-atividades .resumo strong {
+        font-size: 22px;
+      }
+
+      body.css-aluno-atividades .resumo span {
+        font-size: 10px;
+        letter-spacing: 0.02em;
+        overflow-wrap: anywhere;
+      }
+
+      body.css-aluno-atividades .card {
+        min-width: 0;
+        padding: 16px;
+      }
+
+      body.css-aluno-atividades .meta {
+        overflow-wrap: anywhere;
+      }
+
+      body.css-aluno-atividades .acoes {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      body.css-aluno-atividades .acoes .btn {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      body.css-aluno-atividades .msg {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
 </head>
 <!-- ============================================================================================================================ -->
 <body class="css-aluno-atividades">
