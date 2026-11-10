@@ -1132,6 +1132,36 @@ header{
   }
 }
 
+@media (max-width: 760px) {
+  :where(.pagina-contato-page) .topo {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 12px 14px;
+    padding: 14px 18px;
+  }
+
+  :where(.pagina-contato-page) .topo .logo {
+    margin-right: auto;
+  }
+
+  :where(.pagina-contato-page) .topo-acoes {
+    gap: 8px;
+  }
+
+  :where(.pagina-contato-page) .topo-acoes .btn-link,
+  :where(.pagina-contato-page) .topo-acoes .btn-primario {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  :where(.pagina-contato-page) .topo .menu {
+    order: 3;
+    flex: 0 0 100%;
+    gap: 22px;
+    padding-top: 4px;
+  }
+}
+
 @media (max-width: 600px) {
   :where(.css-auth) .pagina-contato {
     padding: 8px 0 32px;
