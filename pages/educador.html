@@ -1,120 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conrad Virtual School | Educador</title>
-    <link rel="stylesheet" href="../CSS/geral.css">
-    <link rel="stylesheet" href="../CSS/usuarios.css">
-    <link rel="icon" type="image/png" href="../img/Emblema.png">
-    <style>
-      @media (max-width: 900px) {
-        body.css-modal-educador .dashboard-professor {
-          width: 100%;
-          min-width: 0;
-          padding: 20px 16px;
-        }
-
-        body.css-modal-educador .menu-lateral nav {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 6px;
-        }
-
-        body.css-modal-educador .menu-item {
-          min-width: 0;
-          margin: 0;
-        }
-
-        body.css-modal-educador .conteudo-dashboard {
-          width: 100%;
-          min-width: 0;
-        }
-
-        body.css-modal-educador .titulo-dashboard {
-          flex-direction: column;
-          align-items: stretch;
-          height: auto;
-          min-height: 0;
-          flex-shrink: 0;
-        }
-
-        body.css-modal-educador .titulo-dashboard > div:first-child,
-        body.css-modal-educador .header-right {
-          width: 100%;
-          min-width: 0;
-        }
-
-        body.css-modal-educador .header-right {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        body.css-modal-educador .quick-actions {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        }
-
-        body.css-modal-educador .header-profile {
-          padding-top: 12px;
-          border-top: 1px solid #e3e7eb;
-        }
-      }
-
-      @media (max-width: 650px) {
-        body.css-modal-educador .titulo-dashboard {
-          align-items: stretch;
-          gap: 14px;
-        }
-
-        body.css-modal-educador .titulo-dashboard > div:first-child,
-        body.css-modal-educador .header-right {
-          width: 100%;
-          min-width: 0;
-        }
-
-        body.css-modal-educador .header-right {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        body.css-modal-educador .quick-actions {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr);
-          gap: 8px;
-        }
-
-        body.css-modal-educador .quick-actions a {
-          width: 100%;
-          min-width: 0;
-        }
-
-        body.css-modal-educador .header-profile {
-          width: 100%;
-          min-width: 0;
-          padding-top: 12px;
-          border-top: 1px solid #e3e7eb;
-        }
-
-        body.css-modal-educador .profile-name {
-          min-width: 0;
-          overflow-wrap: anywhere;
-        }
-
-        body.css-modal-educador .cards-resumo {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 360px) {
-        body.css-modal-educador .cards-resumo {
-          grid-template-columns: minmax(0, 1fr);
-        }
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conrad Virtual School | Educador</title>
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <link rel="stylesheet" href="../CSS/educador.css">
 </head>
 <!-- =================================================================================================================== -->
-<body class="css-modal-educador">
+
+<body class="css-modal-educador css-painel">
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -127,27 +26,35 @@
   <a href="#mainContent" class="skip-link">Ir para o conteúdo</a>
 
   <main class="dashboard-professor">
-<!-- =================================================================================================================== -->
-    <!-- MENU LATERAL -->
-    <aside class="menu-lateral">
+    <!-- =================================================================================================================== -->
+
+
+    <!-- MENU LATERAL PADRONIZADO -->
+    <aside class="menu-lateral" data-menu="auto">
 
       <h3>Conrad Educador</h3>
 
-      <nav>
-        <a href="educador.html" class="menu-item ativo">Painel</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="atividades.html" class="menu-item">Atividades</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="agenda-professor.html" class="menu-item">Agenda</a>
-        <a href="#mensagens" class="menu-item">Mensagens</a>
-      </nav>
-      <div style="margin-top:18px;">
-        <strong>Rickson Jordan</strong>
-        <div style="font-size:12px;color:#cbd5e1;">Educador</div>
+      <!-- Os links serão inseridos automaticamente pelo layout.js -->
+      <nav aria-label="Menu principal"></nav>
+
+      <!-- Suporte -->
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">
+          Suporte
+        </a>
       </div>
+
+      <!-- Perfil do educador -->
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Educador</span>
+      </div>
+
     </aside>
-<!-- =================================================================================================================== -->
+
+    <!-- =================================================================================================================== -->
     <!-- CONTEÚDO PRINCIPAL -->
     <section class="conteudo-dashboard" id="mainContent">
 
@@ -179,7 +86,7 @@
           </div>
         </div>
       </header>
-<!-- =================================================================================================================== -->
+      <!-- =================================================================================================================== -->
       <!-- CARDS DE RESUMO -->
       <section class="cards-resumo">
 
@@ -208,13 +115,13 @@
         </div>
 
       </section>
-<!-- =================================================================================================================== -->
+      <!-- =================================================================================================================== -->
 
       <!-- PAINEL PRINCIPAL -->
       <div class="painel-dashboard">
 
         <div>
-<!-- =================================================================================================================== -->
+          <!-- =================================================================================================================== -->
           <!-- MINHAS TURMAS -->
           <article class="card-avaliacoes">
             <div class="titulo-card">
@@ -227,7 +134,7 @@
             </div>
 
           </article>
-<!-- =================================================================================================================== -->
+          <!-- =================================================================================================================== -->
           <!-- PRÓXIMAS AULAS -->
           <article class="card-avaliacoes" style="margin-top:14px;">
             <div class="titulo-card">
@@ -250,7 +157,7 @@
           </article>
 
         </div>
-<!-- =================================================================================================================== -->
+        <!-- =================================================================================================================== -->
         <!-- COLUNA DIREITA: Mensagens -->
         <aside class="painel-lateral">
 
@@ -293,12 +200,12 @@
       </div>
     </section>
   </main>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <script src="../JS/educador.js"></script>
 
   <!-- Modal global simples -->
@@ -315,114 +222,117 @@
       </div>
     </div>
   </div>
-<script src="../JS/config.js"></script>
+  <script src="../JS/config.js"></script>
   <script>
-  (async function () {
-    const h = (tag, classe, texto) => {
-      const el = document.createElement(tag);
-      if (classe) el.className = classe;
-      if (texto != null) el.textContent = texto;
-      return el;
-    };
+    (async function () {
+      const h = (tag, classe, texto) => {
+        const el = document.createElement(tag);
+        if (classe) el.className = classe;
+        if (texto != null) el.textContent = texto;
+        return el;
+      };
 
-    function saudacao() {
-      const hora = new Date().getHours();
-      return hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
-    }
+      function saudacao() {
+        const hora = new Date().getHours();
+        return hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
+      }
 
-    function iniciais(nome) {
-      const p = nome.trim().split(/\s+/);
-      return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase();
-    }
+      function iniciais(nome) {
+        const p = nome.trim().split(/\s+/);
+        return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase();
+      }
 
-    function preencherNome(nome) {
-      const titulo = document.querySelector('.titulo-dashboard h1');
-      if (titulo) titulo.textContent = saudacao() + ', ' + nome;
-      document.querySelectorAll('.menu-lateral > div > strong, .profile-name strong')
-        .forEach((el) => { el.textContent = nome; });
-      const avatar = document.querySelector('.header-profile .avatar');
-      if (avatar) avatar.textContent = iniciais(nome);
-    }
+      function preencherNome(nome) {
+        const titulo = document.querySelector('.titulo-dashboard h1');
+        if (titulo) titulo.textContent = saudacao() + ', ' + nome;
+        document.querySelectorAll('.menu-lateral > div > strong, .profile-name strong')
+          .forEach((el) => { el.textContent = nome; });
+        const avatar = document.querySelector('.header-profile .avatar');
+        if (avatar) avatar.textContent = iniciais(nome);
+      }
 
-    document.querySelectorAll('[data-sair]').forEach((link) => {
-      link.addEventListener('click', (evento) => {
-        evento.preventDefault();
-        conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
-      });
-    });
-
-    try {
-      const eu = await conradFetch('/me');
-      if (eu.usuario.tipo !== 'educador') { location.href = 'aluno.html'; return; }
-      preencherNome(eu.usuario.nome);
-
-      const [atividades, dadosTurmas] = await Promise.all([
-        conradFetch('/api/atividades'),
-        conradFetch('/api/turmas')
-      ]);
-
-      const minhasTurmas = dadosTurmas.turmas || [];
-      const listaTurmas = document.getElementById('lista-turmas-dashboard');
-      listaTurmas.replaceChildren();
-      const totalAlunos = minhasTurmas.reduce((total, turma) => total + Number(turma.quantidade_alunos || 0), 0);
-      const cartoesTurmas = document.querySelectorAll('.cards-resumo .card-resumo');
-      if (cartoesTurmas[0]) cartoesTurmas[0].querySelector('h2').textContent = minhasTurmas.length;
-      if (cartoesTurmas[1]) cartoesTurmas[1].querySelector('h2').textContent = totalAlunos;
-
-      if (!minhasTurmas.length) {
-        const vazio = h('p', null, 'Você ainda não criou turmas. Use o botão abaixo para começar.');
-        listaTurmas.append(vazio);
-      } else {
-        minhasTurmas.slice(0, 4).forEach((turma) => {
-          const item = h('div', 'aluno');
-          const info = document.createElement('div');
-          info.append(h('strong', null, turma.nome), h('small', null, `${turma.disciplina} · ${turma.quantidade_alunos} alunos`));
-          const total = h('strong', null, String(turma.quantidade_alunos || 0));
-          const acao = document.createElement('div');
-          const abrir = h('a', 'btn-secundario', 'Acessar');
-          abrir.href = `turma.html?id=${encodeURIComponent(turma.id)}`;
-          acao.append(abrir);
-          item.append(info, total, acao);
-          listaTurmas.append(item);
+      document.querySelectorAll('[data-sair]').forEach((link) => {
+        link.addEventListener('click', (evento) => {
+          evento.preventDefault();
+          conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
         });
-      }
+      });
 
-      // Quarto cartão: entregas aguardando correção
-      const aCorrigir = atividades.reduce(
-        (soma, a) => soma + (Number(a.total_entregas) - Number(a.corrigidas)), 0);
-      const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
-      if (cartoes[3]) {
-        cartoes[3].querySelector('h2').textContent = aCorrigir;
-        cartoes[3].querySelector('h3').textContent = 'Para corrigir';
-        cartoes[3].querySelector('span').textContent = 'Entregas aguardando correção';
-      }
+      try {
+        const eu = await conradFetch('/me');
+        if (eu.usuario.tipo !== 'educador') { location.href = 'aluno.html'; return; }
+        preencherNome(eu.usuario.nome);
 
-      // Submissões recentes: atividades que já têm entregas
-      const cartao = document.querySelector('.submissions-card');
-      if (cartao) {
-        cartao.querySelectorAll('.pendencia').forEach((el) => el.remove());
-        const comEntregas = atividades.filter((a) => Number(a.total_entregas) > 0).slice(0, 5);
+        const [atividades, dadosTurmas] = await Promise.all([
+          conradFetch('/api/atividades'),
+          conradFetch('/api/turmas')
+        ]);
 
-        if (comEntregas.length === 0) {
-          cartao.append(h('p', null, 'Nenhuma entrega recebida ainda.'));
+        const minhasTurmas = dadosTurmas.turmas || [];
+        const listaTurmas = document.getElementById('lista-turmas-dashboard');
+        listaTurmas.replaceChildren();
+        const totalAlunos = minhasTurmas.reduce((total, turma) => total + Number(turma.quantidade_alunos || 0), 0);
+        const cartoesTurmas = document.querySelectorAll('.cards-resumo .card-resumo');
+        if (cartoesTurmas[0]) cartoesTurmas[0].querySelector('h2').textContent = minhasTurmas.length;
+        if (cartoesTurmas[1]) cartoesTurmas[1].querySelector('h2').textContent = totalAlunos;
+
+        if (!minhasTurmas.length) {
+          const vazio = h('p', null, 'Você ainda não criou turmas. Use o botão abaixo para começar.');
+          listaTurmas.append(vazio);
+        } else {
+          minhasTurmas.slice(0, 4).forEach((turma) => {
+            const item = h('div', 'aluno');
+            const info = document.createElement('div');
+            info.append(h('strong', null, turma.nome), h('small', null, `${turma.disciplina} · ${turma.quantidade_alunos} alunos`));
+            const total = h('strong', null, String(turma.quantidade_alunos || 0));
+            const acao = document.createElement('div');
+            const abrir = h('a', 'btn-secundario', 'Acessar');
+            abrir.href = `turma.html?id=${encodeURIComponent(turma.id)}`;
+            acao.append(abrir);
+            item.append(info, total, acao);
+            listaTurmas.append(item);
+          });
         }
 
-        comEntregas.forEach((a) => {
-          const item = h('div', 'pendencia');
-          item.style.cursor = 'pointer';
-          item.addEventListener('click', () => { location.href = a.turma_id ? `professor-correcao.html?turmaId=${a.turma_id}&tipo=${a.tipo}` : 'professor-correcao.html'; });
-          item.append(
-            h('h4', null, a.titulo),
-            h('p', null, 'Turma: ' + a.turma + ' · ' + a.total_entregas + ' entrega(s) · ' + a.corrigidas + ' corrigida(s)')
-          );
-          cartao.append(item);
-        });
+        // Quarto cartão: entregas aguardando correção
+        const aCorrigir = atividades.reduce(
+          (soma, a) => soma + (Number(a.total_entregas) - Number(a.corrigidas)), 0);
+        const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
+        if (cartoes[3]) {
+          cartoes[3].querySelector('h2').textContent = aCorrigir;
+          cartoes[3].querySelector('h3').textContent = 'Para corrigir';
+          cartoes[3].querySelector('span').textContent = 'Entregas aguardando correção';
+        }
+
+        // Submissões recentes: atividades que já têm entregas
+        const cartao = document.querySelector('.submissions-card');
+        if (cartao) {
+          cartao.querySelectorAll('.pendencia').forEach((el) => el.remove());
+          const comEntregas = atividades.filter((a) => Number(a.total_entregas) > 0).slice(0, 5);
+
+          if (comEntregas.length === 0) {
+            cartao.append(h('p', null, 'Nenhuma entrega recebida ainda.'));
+          }
+
+          comEntregas.forEach((a) => {
+            const item = h('div', 'pendencia');
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', () => { location.href = a.turma_id ? `professor-correcao.html?turmaId=${a.turma_id}&tipo=${a.tipo}` : 'professor-correcao.html'; });
+            item.append(
+              h('h4', null, a.titulo),
+              h('p', null, 'Turma: ' + a.turma + ' · ' + a.total_entregas + ' entrega(s) · ' + a.corrigidas + ' corrigida(s)')
+            );
+            cartao.append(item);
+          });
+        }
+      } catch (erro) {
+        if (erro.status === 401) location.href = 'login.html';
+        else console.error(erro);
       }
-    } catch (erro) {
-      if (erro.status === 401) location.href = 'login.html';
-      else console.error(erro);
-    }
-  })();
+    })();
   </script>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/layout.js" defer></script>
 </body>
+
 </html>

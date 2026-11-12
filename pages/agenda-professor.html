@@ -1,193 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Conrad Virtual School | Agenda do Professor</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
+  <link rel="stylesheet" href="../CSS/agenda-professor.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
-  <style>
-    .css-agenda .modal-card {
-      width: 420px;
-      max-width: 100%;
-      max-height: calc(100vh - 24px);
-      overflow-y: auto;
-      padding: 20px;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 18px 50px rgba(10, 18, 34, 0.3);
-    }
-
-    .css-agenda .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .css-agenda .modal-header h3 {
-      color: #0a1f44;
-      font-size: 22px;
-    }
-
-    .css-agenda .close-modal {
-      flex-shrink: 0;
-      border: 0;
-      background: transparent;
-      color: #666;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .css-agenda .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .css-agenda .form-field label {
-      color: #0a1f44;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .css-agenda .form-field input,
-    .css-agenda .form-field select {
-      width: 100%;
-      min-width: 0;
-      padding: 10px 12px;
-      border: 1px solid #d8dce1;
-      border-radius: 6px;
-      color: #0a1f44;
-      font-size: 16px;
-    }
-
-    .css-agenda .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    @media (max-width: 850px) {
-      .css-agenda .dashboard-professor {
-        gap: 20px;
-        padding: 24px;
-      }
-
-      .css-agenda .menu-lateral nav {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 6px;
-      }
-
-      .css-agenda .menu-item {
-        display: block;
-        margin: 0;
-      }
-
-      .css-agenda .agenda-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .css-agenda .painel-dashboard {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .css-agenda .dashboard-professor {
-        gap: 16px;
-        padding: 16px 12px;
-      }
-
-      .css-agenda .titulo-dashboard,
-      .css-agenda .calendar-card {
-        padding: 16px;
-      }
-
-      .css-agenda .titulo-dashboard {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        height: auto;
-        min-height: 0;
-      }
-
-      .css-agenda .titulo-dashboard > div:first-child,
-      .css-agenda .titulo-dashboard .header-right {
-        width: 100%;
-        min-width: 0;
-      }
-
-      .css-agenda .titulo-dashboard .header-right {
-        position: static;
-        justify-content: flex-start;
-        margin: 0;
-        padding-top: 12px;
-        border-top: 1px solid #e3e7eb;
-      }
-
-      .css-agenda .header-profile {
-        position: static;
-        min-width: 0;
-      }
-
-      .css-agenda .profile-name {
-        min-width: 0;
-        overflow-wrap: anywhere;
-      }
-
-      .css-agenda .titulo-dashboard h1 {
-        font-size: 24px;
-      }
-
-      .css-agenda .titulo-card {
-        align-items: stretch;
-        gap: 12px;
-      }
-
-      .css-agenda .titulo-card .btn-secundario,
-      .css-agenda #openNew {
-        width: 100%;
-        min-width: 0;
-        white-space: normal;
-      }
-
-      .css-agenda .agenda-day {
-        min-width: 0;
-        min-height: 100px;
-        padding: 8px;
-        overflow-wrap: anywhere;
-      }
-
-      .css-agenda .agenda-evento {
-        overflow-wrap: anywhere;
-      }
-
-      .css-agenda .modal-card {
-        width: 100%;
-        max-height: calc(100vh - 24px);
-        padding: 16px;
-        border-radius: 12px;
-      }
-
-      .css-agenda .modal-actions {
-        flex-direction: column-reverse;
-      }
-
-      .css-agenda .modal-actions button {
-        width: 100%;
-        min-height: 44px;
-      }
-    }
-  </style>
 </head>
 <!-- ============================================================================================================================ -->
-<body class="css-agenda">
+
+<body class="css-agenda css-painel">
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -196,31 +22,42 @@
       <a href="contato.html">contato</a>
     </nav>
   </header>
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <main class="dashboard-professor">
-    <aside class="menu-lateral">
-      <h3>Conrad Educador</h3>
-      <nav>
-        <a href="educador.html" class="menu-item">Painel</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="agenda-professor.html" class="menu-item ativo">Agenda</a>
-        <a href="#mensagens" class="menu-item">Mensagens</a>
-      </nav>
-      <div style="margin-top:18px;">
-        <strong>Rickson Jordan</strong>
-        <div style="font-size:12px;color:#cbd5e1;">Educador</div>
+
+    <!-- MENU LATERAL PADRONIZADO -->
+    <aside class="menu-lateral" data-menu="auto">
+
+      <!-- O JavaScript atualiza o título -->
+      <h3>Conrad</h3>
+
+      <!-- O layout.js cria os links automaticamente -->
+      <nav aria-label="Menu principal"></nav>
+
+      <!-- Área de suporte -->
+      <div class="menu-ajuda">
+        <strong>Precisa de ajuda?</strong>
+        <p>Acesse o suporte da plataforma.</p>
+        <a href="contato.html" class="btn-secundario">
+          Suporte
+        </a>
       </div>
+
+      <!-- Informações do usuário -->
+      <div class="menu-perfil">
+        <strong>Minha conta</strong>
+        <span>Usuário</span>
+      </div>
+
     </aside>
-<!-- ============================================================================================================================ -->
-    <section class="conteudo-dashboard">
+    <!-- ============================================================================================================================ -->
+    <section class="conteudo-dashboard css-painel">
       <header class="titulo-dashboard">
         <div>
           <h1>Agenda do professor</h1>
           <p>Visão semanal rápida das suas turmas e compromissos</p>
         </div>
-<!-- ============================================================================================================================ -->
+        <!-- ============================================================================================================================ -->
         <div class="header-right">
           <div class="header-profile">
             <div class="avatar avatar-purple">RJ</div>
@@ -231,7 +68,7 @@
           </div>
         </div>
       </header>
-<!-- ============================================================================================================================ -->
+      <!-- ============================================================================================================================ -->
       <div class="painel-dashboard">
 
         <div>
@@ -244,23 +81,49 @@
             <div style="margin-top:12px;">
               <button class="btn-primario" id="openNew">+ Novo evento</button>
             </div>
-<!-- ============================================================================================================================ -->
+            <!-- ============================================================================================================================ -->
             <div class="agenda-grid" id="agendaGrid" style="margin-top:14px;">
-              <div class="agenda-day" data-day="Seg"><h4>Seg</h4><div class="agenda-evento">8:00 · 3º ano C</div></div>
-              <div class="agenda-day" data-day="Ter"><h4>Ter</h4><div class="agenda-evento">9:00 · Reunião</div></div>
-              <div class="agenda-day" data-day="Qua"><h4>Qua</h4><div class="agenda-evento">14:00 · 1º ano B</div></div>
-              <div class="agenda-day" data-day="Qui"><h4>Qui</h4><div class="agenda-evento">11:00 · Correção</div></div>
-              <div class="agenda-day" data-day="Sex"><h4>Sex</h4><div class="agenda-evento">8:00 · 3º ano C</div></div>
-              <div class="agenda-day" data-day="Sáb"><h4>Sáb</h4><div class="agenda-evento">9:00 · Planejamento</div></div>
-              <div class="agenda-day" data-day="Dom"><h4>Dom</h4><div class="agenda-evento">Livre</div></div>
+              <div class="agenda-day" data-day="Seg">
+                <h4>Seg</h4>
+                <div class="agenda-evento">8:00 · 3º ano C</div>
+              </div>
+              <div class="agenda-day" data-day="Ter">
+                <h4>Ter</h4>
+                <div class="agenda-evento">9:00 · Reunião</div>
+              </div>
+              <div class="agenda-day" data-day="Qua">
+                <h4>Qua</h4>
+                <div class="agenda-evento">14:00 · 1º ano B</div>
+              </div>
+              <div class="agenda-day" data-day="Qui">
+                <h4>Qui</h4>
+                <div class="agenda-evento">11:00 · Correção</div>
+              </div>
+              <div class="agenda-day" data-day="Sex">
+                <h4>Sex</h4>
+                <div class="agenda-evento">8:00 · 3º ano C</div>
+              </div>
+              <div class="agenda-day" data-day="Sáb">
+                <h4>Sáb</h4>
+                <div class="agenda-evento">9:00 · Planejamento</div>
+              </div>
+              <div class="agenda-day" data-day="Dom">
+                <h4>Dom</h4>
+                <div class="agenda-evento">Livre</div>
+              </div>
             </div>
           </article>
         </div>
-<!-- ============================================================================================================================ -->
+        <!-- ============================================================================================================================ -->
         <aside class="painel-lateral">
           <article class="submissions-card">
-            <div class="titulo-card"><h2>Resumo</h2></div>
-            <div class="pendencia"><h4>Turmas</h4><p>4</p></div>
+            <div class="titulo-card">
+              <h2>Resumo</h2>
+            </div>
+            <div class="pendencia">
+              <h4>Turmas</h4>
+              <p>4</p>
+            </div>
           </article>
         </aside>
 
@@ -268,7 +131,7 @@
 
     </section>
   </main>
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <!-- Modal simples -->
   <div class="modal-overlay" id="agendaModal" style="display:none;">
     <div class="modal-card">
@@ -278,19 +141,28 @@
       </div>
       <form id="eventForm">
         <div class="form-field"><label>Dia</label>
-          <select id="eventDay"><option value="Seg">Seg</option><option value="Ter">Ter</option><option value="Qua">Qua</option><option value="Qui">Qui</option><option value="Sex">Sex</option><option value="Sáb">Sáb</option><option value="Dom">Dom</option></select>
+          <select id="eventDay">
+            <option value="Seg">Seg</option>
+            <option value="Ter">Ter</option>
+            <option value="Qua">Qua</option>
+            <option value="Qui">Qui</option>
+            <option value="Sex">Sex</option>
+            <option value="Sáb">Sáb</option>
+            <option value="Dom">Dom</option>
+          </select>
         </div>
         <div class="form-field"><label>Horário</label><input id="eventTime" type="text" placeholder="Ex: 08:30"></div>
         <div class="form-field"><label>Título</label><input id="eventTitle" type="text" placeholder="Ex: Aula"></div>
-        <div class="modal-actions"><button type="button" class="btn-secundario" id="cancelEventBtn">Cancelar</button><button type="submit" class="btn-primario">Salvar</button></div>
+        <div class="modal-actions"><button type="button" class="btn-secundario"
+            id="cancelEventBtn">Cancelar</button><button type="submit" class="btn-primario">Salvar</button></div>
       </form>
     </div>
   </div>
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <footer class="rodape">
     <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
   </footer>
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <script>
     // simples modal + adicionar evento no DOM (sem persistência)
     const modal = document.getElementById('agendaModal');
@@ -299,24 +171,27 @@
     const cancelBtn = document.getElementById('cancelEventBtn');
     const form = document.getElementById('eventForm');
 
-    function showModal(){ modal.style.display='flex'; }
-    function hideModal(){ modal.style.display='none'; form.reset(); }
+    function showModal() { modal.style.display = 'flex'; }
+    function hideModal() { modal.style.display = 'none'; form.reset(); }
 
     openNew.addEventListener('click', showModal);
     closeBtn.addEventListener('click', hideModal);
     cancelBtn.addEventListener('click', hideModal);
 
-    form.addEventListener('submit', function(e){
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       const day = document.getElementById('eventDay').value;
       const time = document.getElementById('eventTime').value.trim();
       const title = document.getElementById('eventTitle').value.trim();
-      if(!time||!title){ alert('Preencha horário e título'); return; }
-      const col = document.querySelector('.agenda-day[data-day="'+day+'"]');
-      if(col){ const d = document.createElement('div'); d.className='agenda-evento'; d.textContent = time+' · '+title; col.appendChild(d); }
+      if (!time || !title) { alert('Preencha horário e título'); return; }
+      const col = document.querySelector('.agenda-day[data-day="' + day + '"]');
+      if (col) { const d = document.createElement('div'); d.className = 'agenda-evento'; d.textContent = time + ' · ' + title; col.appendChild(d); }
       hideModal();
     });
   </script>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/layout.js" defer></script>
 
 </body>
+
 </html>

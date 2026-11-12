@@ -11,8 +11,9 @@
         DASHBOARD DO PROFESSOR
    ================================================== */
 
-:root{
-  --accent-color: #ff6a00; /* laranja mais forte */
+:root {
+  --accent-color: #ff6a00;
+  /* laranja mais forte */
   --brand-dark: #163B74;
 }
 
@@ -44,7 +45,7 @@
   letter-spacing: 0.5px;
   margin-bottom: 18px;
   padding: 0 8px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .menu-item {
@@ -60,7 +61,7 @@
 }
 
 .menu-item:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .menu-item.ativo {
@@ -149,7 +150,7 @@
 }
 
 .card-resumo:hover {
-  box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.06);
 }
 
 .card-resumo h2 {
@@ -468,8 +469,15 @@
   position: relative;
 }
 
-.profile-name strong { display:block; font-size:13px; }
-.profile-name small { color:#666; font-size:12px; }
+.profile-name strong {
+  display: block;
+  font-size: 13px;
+}
+
+.profile-name small {
+  color: #666;
+  font-size: 12px;
+}
 
 .profile-dropdown {
   position: absolute;
@@ -478,7 +486,7 @@
   background: #fff;
   border: 1px solid #e3e7eb;
   border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   padding: 8px 0;
   min-width: 140px;
   z-index: 40;
@@ -492,7 +500,9 @@
   font-size: 13px;
 }
 
-.profile-dropdown a:hover { background: #f6f9fc; }
+.profile-dropdown a:hover {
+  background: #f6f9fc;
+}
 
 /* Submissões recentes */
 .submissions-card {
@@ -503,24 +513,32 @@
   margin-bottom: 12px;
 }
 
- .submissions-card .pendencia { padding: 8px 0; border-bottom: 1px solid #f1f3f5; }
- .submissions-card .pendencia:last-child { border-bottom: none; }
+.submissions-card .pendencia {
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f3f5;
+}
 
- /* Ajuste de tipografia para submissões recentes (educador) */
- .submissions-card .pendencia h4 {
+.submissions-card .pendencia:last-child {
+  border-bottom: none;
+}
+
+/* Ajuste de tipografia para submissões recentes (educador) */
+.submissions-card .pendencia h4 {
   font-size: 14px;
   color: #0A1F44;
   margin-bottom: 4px;
- }
+}
 
- .submissions-card .pendencia p {
+.submissions-card .pendencia p {
   font-size: 13px;
   color: #556;
   line-height: 1.4;
   margin: 0;
- }
+}
 
- .submissions-card .pendencia { font-size: 13px; }
+.submissions-card .pendencia {
+  font-size: 13px;
+}
 
 /* ==================================================
         PERFIL DOCENTE
@@ -750,7 +768,7 @@
 .pagina-educador .educator-layout {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(180deg,#f4f6fa 0%, #eef1f6 100%);
+  background: linear-gradient(180deg, #f4f6fa 0%, #eef1f6 100%);
   color: #1a2433;
 }
 
@@ -763,7 +781,7 @@
   width: 200px;
   min-height: 100vh;
   background: #ffffff;
-  box-shadow: 0 6px 18px rgba(16,43,88,0.08);
+  box-shadow: 0 6px 18px rgba(16, 43, 88, 0.08);
   border-right: 0;
   display: flex;
   flex-direction: column;
@@ -775,7 +793,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90deg,#102b58 0%, #163b74 100%);
+  background: linear-gradient(90deg, #102b58 0%, #163b74 100%);
   padding: 8px 0;
 }
 
@@ -786,13 +804,15 @@
   display: block;
 }
 
-.pagina-educador .educator-nav-list{
+.pagina-educador .educator-nav-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.pagina-educador .educator-nav-list{ margin-top: 6px }
+.pagina-educador .educator-nav-list {
+  margin-top: 6px
+}
 
 .pagina-educador .educator-nav-item {
   display: flex;
@@ -800,7 +820,7 @@
   gap: 12px;
   padding: 0 16px;
   height: 56px;
-  border-bottom: 1px solid rgba(16,43,88,0.06);
+  border-bottom: 1px solid rgba(16, 43, 88, 0.06);
   background: transparent;
   color: #163B74;
   font-size: 15px;
@@ -809,37 +829,165 @@
   transition: background 200ms ease, color 200ms ease;
 }
 
-.pagina-educador .sidebar-bottom{ padding: 12px; margin-top: 8px; background: transparent; }
-.pagina-educador .sidebar-bottom .sidebar-tip{ display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:8px; background: linear-gradient(90deg, rgba(255,106,0,0.06), rgba(255,255,255,0)); border-left: 4px solid rgba(255,106,0,0.18) }
-.pagina-educador .sidebar-bottom .sidebar-tip span{ color: var(--accent-color); font-size:18px; margin-top:2px }
-.pagina-educador .sidebar-bottom .sidebar-tip strong{ display:block; color:var(--brand-dark); font-size:13px }
-.pagina-educador .sidebar-bottom .sidebar-tip small{ display:block; color:#556; font-size:12px }
-.pagina-educador .sidebar-bottom .user-profile{ width:100%; margin-top:10px; border-radius:8px; padding:8px; background:#fff; box-shadow:0 6px 14px rgba(16,43,88,0.04); display:flex; gap:10px; align-items:center; border:1px solid rgba(16,43,88,0.06) }
-.pagina-educador .sidebar-bottom .user-profile .avatar{ width:40px; height:40px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-weight:700 }
-.pagina-educador .sidebar-bottom .user-profile strong{ font-size:13px }
-.pagina-educador .sidebar-bottom .user-profile small{ display:block; font-size:12px; color:#667 }
-
-/* Modal styles */
-.modal-overlay{ position:fixed; inset:0; background:rgba(10,18,34,0.45); display:flex; align-items:center; justify-content:center; z-index:1200; padding:20px }
-.modal-overlay[hidden]{ display:none }
-.modal{ width:420px; max-width:100%; background:#fff; border-radius:12px; box-shadow:0 18px 50px rgba(10,18,34,0.3); padding:18px; position:relative }
-.modal h3{ margin:0 0 8px 0; font-size:18px; color:#163B74 }
-.modal .modal-body{ color:#333; font-size:14px; margin-bottom:12px }
-.modal .modal-actions{ display:flex; gap:8px; justify-content:flex-end }
-.modal .modal-close{ position:absolute; right:10px; top:8px; background:transparent; border:0; font-size:22px; line-height:1; color:#666; cursor:pointer }
-.modal .btn-primario{ background:#163B74; color:#fff; border:0; padding:8px 12px; border-radius:8px }
-.modal .btn-secundario{ background:transparent; color:#163B74; border:1px solid rgba(22,59,116,0.12); padding:8px 12px; border-radius:8px }
-
-@media (max-width: 520px){
-  .modal{ width:100%; height:auto; max-height:86vh; overflow:auto; border-radius:10px }
-  .modal-overlay{ align-items:flex-end; padding:12px }
+.pagina-educador .sidebar-bottom {
+  padding: 12px;
+  margin-top: 8px;
+  background: transparent;
 }
 
-.pagina-educador .educator-nav-item .nav-icon{
+.pagina-educador .sidebar-bottom .sidebar-tip {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(255, 106, 0, 0.06), rgba(255, 255, 255, 0));
+  border-left: 4px solid rgba(255, 106, 0, 0.18)
+}
+
+.pagina-educador .sidebar-bottom .sidebar-tip span {
+  color: var(--accent-color);
+  font-size: 18px;
+  margin-top: 2px
+}
+
+.pagina-educador .sidebar-bottom .sidebar-tip strong {
+  display: block;
+  color: var(--brand-dark);
+  font-size: 13px
+}
+
+.pagina-educador .sidebar-bottom .sidebar-tip small {
+  display: block;
+  color: #556;
+  font-size: 12px
+}
+
+.pagina-educador .sidebar-bottom .user-profile {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(16, 43, 88, 0.04);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(16, 43, 88, 0.06)
+}
+
+.pagina-educador .sidebar-bottom .user-profile .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700
+}
+
+.pagina-educador .sidebar-bottom .user-profile strong {
+  font-size: 13px
+}
+
+.pagina-educador .sidebar-bottom .user-profile small {
+  display: block;
+  font-size: 12px;
+  color: #667
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 34, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px
+}
+
+.modal-overlay[hidden] {
+  display: none
+}
+
+.modal {
+  width: 420px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(10, 18, 34, 0.3);
+  padding: 18px;
+  position: relative
+}
+
+.modal h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #163B74
+}
+
+.modal .modal-body {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 12px
+}
+
+.modal .modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end
+}
+
+.modal .modal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer
+}
+
+.modal .btn-primario {
+  background: #163B74;
+  color: #fff;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 8px
+}
+
+.modal .btn-secundario {
+  background: transparent;
+  color: #163B74;
+  border: 1px solid rgba(22, 59, 116, 0.12);
+  padding: 8px 12px;
+  border-radius: 8px
+}
+
+@media (max-width: 520px) {
+  .modal {
+    width: 100%;
+    height: auto;
+    max-height: 86vh;
+    overflow: auto;
+    border-radius: 10px
+  }
+
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 12px
+  }
+}
+
+.pagina-educador .educator-nav-item .nav-icon {
   width: 24px;
-  display:inline-flex;
-  justify-content:center;
-  color:#163B74;
+  display: inline-flex;
+  justify-content: center;
+  color: #163B74;
 }
 
 .pagina-educador .educator-nav-item:hover,
@@ -849,8 +997,8 @@
   color: #fff;
 }
 
-.pagina-educador .educator-nav-item:focus-visible{
-  outline: 3px solid rgba(245,130,31,0.25);
+.pagina-educador .educator-nav-item:focus-visible {
+  outline: 3px solid rgba(245, 130, 31, 0.25);
   outline-offset: 2px;
 }
 
@@ -908,7 +1056,7 @@
   padding: 12px 16px;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(16,43,88,0.06);
+  box-shadow: 0 6px 18px rgba(16, 43, 88, 0.06);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -919,10 +1067,22 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
 }
-.pagina-educador .metric-card.violet { border-left: 4px solid #786be7 }
-.pagina-educador .metric-card.cyan { border-left: 4px solid #2fb6c9 }
-.pagina-educador .metric-card.amber { border-left: 4px solid var(--accent-color) }
-.pagina-educador .metric-card.rose  { border-left: 4px solid #e26a9e }
+
+.pagina-educador .metric-card.violet {
+  border-left: 4px solid #786be7
+}
+
+.pagina-educador .metric-card.cyan {
+  border-left: 4px solid #2fb6c9
+}
+
+.pagina-educador .metric-card.amber {
+  border-left: 4px solid var(--accent-color)
+}
+
+.pagina-educador .metric-card.rose {
+  border-left: 4px solid #e26a9e
+}
 
 
 /* =========================================
@@ -942,7 +1102,7 @@
   padding: 14px 16px;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 8px 22px rgba(16,43,88,0.06);
+  box-shadow: 0 8px 22px rgba(16, 43, 88, 0.06);
 }
 
 .pagina-educador .classes-card {
@@ -978,13 +1138,16 @@
   width: 100%;
   padding: 10px 6px;
   border: 0;
-  border-top: 1px solid rgba(16,43,88,0.06);
+  border-top: 1px solid rgba(16, 43, 88, 0.06);
   background: transparent;
   text-align: left;
   transition: background 160ms ease;
 }
+
 .pagina-educador .class-line:hover,
-.pagina-educador .agenda-line:hover { background: rgba(16,43,88,0.03); }
+.pagina-educador .agenda-line:hover {
+  background: rgba(16, 43, 88, 0.03);
+}
 
 .pagina-educador .class-line span,
 .pagina-educador .agenda-line span {
@@ -1021,7 +1184,11 @@
   padding: 8px 12px;
   z-index: 1000;
 }
-.skip-link:focus { left: 12px; outline: 3px solid rgba(245,130,31,0.4); }
+
+.skip-link:focus {
+  left: 12px;
+  outline: 3px solid rgba(245, 130, 31, 0.4);
+}
 
 /* Toast */
 .educator-toast {
@@ -1032,20 +1199,46 @@
   color: #fff;
   padding: 10px 14px;
   border-radius: 8px;
-  box-shadow: 0 8px 22px rgba(16,43,88,0.12);
+  box-shadow: 0 8px 22px rgba(16, 43, 88, 0.12);
   transform: translateY(14px);
   opacity: 0;
   transition: transform 220ms ease, opacity 220ms ease;
   pointer-events: none;
 }
-.educator-toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+.educator-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* Avatars */
-.avatar { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; font-weight:700; color:#fff; }
-.avatar-purple { background: linear-gradient(90deg,#786be7,#6659d9); }
-.avatar-violet { background:#786be7 }
-.avatar-cyan { background:#2fb6c9 }
-.avatar-amber { background:#f5a623 }
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.avatar-purple {
+  background: linear-gradient(90deg, #786be7, #6659d9);
+}
+
+.avatar-violet {
+  background: #786be7
+}
+
+.avatar-cyan {
+  background: #2fb6c9
+}
+
+.avatar-amber {
+  background: #f5a623
+}
 
 @media (max-width: 850px) {
   .pagina-educador .dashboard-grid {
@@ -1368,7 +1561,7 @@ main.container {
   margin-bottom: 4px;
 }
 
-:where(.css-painel) .titulo-dashboard > div:first-child {
+:where(.css-painel) .titulo-dashboard>div:first-child {
   min-width: 0;
 }
 
@@ -1523,7 +1716,7 @@ main.container {
   margin-top: 8px;
 }
 
-:where(.css-painel) .card-avaliacoes + .card-avaliacoes {
+:where(.css-painel) .card-avaliacoes+.card-avaliacoes {
   margin-top: 14px;
 }
 
@@ -1591,7 +1784,7 @@ main.container {
 }
 
 :where(.css-painel) .lista-atividades,
-:where(.css-painel) .lista-atividades > div {
+:where(.css-painel) .lista-atividades>div {
   display: grid;
   gap: 16px;
 }
@@ -1659,9 +1852,20 @@ main.container {
   letter-spacing: 0.04em;
 }
 
-:where(.css-painel) .status-badge.pendente { background: #fdecec; color: #b33a32; }
-:where(.css-painel) .status-badge.ativo    { background: #e8f6ed; color: #287a45; }
-:where(.css-painel) .status-badge.nova     { background: #eef4ff; color: #2958a8; }
+:where(.css-painel) .status-badge.pendente {
+  background: #fdecec;
+  color: #b33a32;
+}
+
+:where(.css-painel) .status-badge.ativo {
+  background: #e8f6ed;
+  color: #287a45;
+}
+
+:where(.css-painel) .status-badge.nova {
+  background: #eef4ff;
+  color: #2958a8;
+}
 
 :where(.css-painel) .bloco-secao {
   margin-top: 20px;
@@ -2112,9 +2316,20 @@ main.container {
   font-weight: 700;
 }
 
-:where(.css-aluno) .al-tag-aviso { background: #fde4e1; color: #c0392b; }
-:where(.css-aluno) .al-tag-evento { background: #dff2e8; color: #2e7d5b; }
-:where(.css-aluno) .al-tag-comunicado { background: #e3e6fb; color: #4f55c9; }
+:where(.css-aluno) .al-tag-aviso {
+  background: #fde4e1;
+  color: #c0392b;
+}
+
+:where(.css-aluno) .al-tag-evento {
+  background: #dff2e8;
+  color: #2e7d5b;
+}
+
+:where(.css-aluno) .al-tag-comunicado {
+  background: #e3e6fb;
+  color: #4f55c9;
+}
 
 :where(.css-aluno) .al-texto {
   flex: 1;
@@ -2509,7 +2724,7 @@ main.container {
 }
 
 :where(.css-salas) .sidebar li {
-  color: rgba(255,255,255,0.75);
+  color: rgba(255, 255, 255, 0.75);
   border-bottom: none;
   padding: 14px 24px;
   font-family: 'Nunito', sans-serif;
@@ -2520,7 +2735,7 @@ main.container {
 }
 
 :where(.css-salas) .sidebar li:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
 }
 
@@ -2573,15 +2788,17 @@ main.container {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   padding: 10px 18px;
   min-width: 270px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-:where(.css-salas) .salas-busca i { color: rgba(255,255,255,0.7); }
+:where(.css-salas) .salas-busca i {
+  color: rgba(255, 255, 255, 0.7);
+}
 
 :where(.css-salas) .salas-busca input {
   border: none;
@@ -2593,7 +2810,9 @@ main.container {
   font-size: 14px;
 }
 
-:where(.css-salas) .salas-busca input::placeholder { color: rgba(255,255,255,0.6); }
+:where(.css-salas) .salas-busca input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
 
 /* Grid de cards, igual espírito dos .card-simples da home */
 
@@ -2649,9 +2868,20 @@ main.container {
   letter-spacing: 0.3px;
 }
 
-:where(.css-salas) .status-pill.vivo { background: #ffe4d6; color: #c8500f; }
-:where(.css-salas) .status-pill.breve { background: #dbeafe; color: #1d4ed8; }
-:where(.css-salas) .status-pill.livre { background: #dcfce7; color: #15803d; }
+:where(.css-salas) .status-pill.vivo {
+  background: #ffe4d6;
+  color: #c8500f;
+}
+
+:where(.css-salas) .status-pill.breve {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+:where(.css-salas) .status-pill.livre {
+  background: #dcfce7;
+  color: #15803d;
+}
 
 :where(.css-salas) .sala-card h3 {
   font-family: 'Bebas Neue', sans-serif;
@@ -2679,9 +2909,19 @@ main.container {
 
 /* Tela da sala com vídeo */
 
-:where(.css-salas) .sala-video-view { display: none; flex: 1; flex-direction: column; }
-:where(.css-salas) .sala-video-view.ativa { display: flex; }
-:where(.css-salas) .salas-grid.oculto { display: none; }
+:where(.css-salas) .sala-video-view {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+}
+
+:where(.css-salas) .sala-video-view.ativa {
+  display: flex;
+}
+
+:where(.css-salas) .salas-grid.oculto {
+  display: none;
+}
 
 :where(.css-salas) .sala-video-topo {
   display: flex;
@@ -2692,8 +2932,8 @@ main.container {
 }
 
 :where(.css-salas) .sala-video-topo button {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
   font-weight: 700;
   cursor: pointer;
@@ -2733,14 +2973,16 @@ main.container {
   height: 48px;
   border-radius: 50%;
   border: none;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-size: 18px;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
-:where(.css-salas) .sala-video-controles button:hover { background: rgba(255,255,255,0.2); }
+:where(.css-salas) .sala-video-controles button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 :where(.css-salas) .sala-video-controles button.desligado,
 :where(.css-salas) .sala-video-controles button.sair {
@@ -2757,7 +2999,7 @@ main.container {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1000;
 }
 
@@ -2766,19 +3008,23 @@ main.container {
   border-radius: 10px;
   width: 92%;
   max-width: 520px;
-  box-shadow: 0 12px 30px rgba(2,6,23,0.2);
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.2);
   overflow: hidden;
 }
 
 :where(.css-modal-educador) .modal-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px 16px;
   border-bottom: 1px solid #eef2f6;
 }
 
-:where(.css-modal-educador) .modal-title { font-size: 16px; color: #0A1F44; }
+:where(.css-modal-educador) .modal-title {
+  font-size: 16px;
+  color: #0A1F44;
+}
+
 :where(.css-modal-educador) .modal-close {
   background: transparent;
   border: none;
@@ -2795,8 +3041,8 @@ main.container {
 }
 
 :where(.css-modal-educador) .modal-footer {
-  display:flex;
-  gap:8px;
+  display: flex;
+  gap: 8px;
   padding: 12px 16px;
   justify-content: flex-end;
   border-top: 1px solid #eef2f6;
@@ -2820,19 +3066,47 @@ main.container {
   cursor: pointer;
 }
 
-@media (max-width:480px){
-  :where(.css-modal-educador) .modal-dialog{ max-width: 92%; }
+@media (max-width:480px) {
+  :where(.css-modal-educador) .modal-dialog {
+    max-width: 92%;
+  }
 }
 
 /* ---------- Agenda do professor  (agenda-professor.css original) ---------- */
 /* Só vale em páginas com <body class="css-agenda">. */
 
 /* pequenas adaptações visuais específicas para o calendário */
-:where(.css-agenda) .calendar-card { padding:18px; }
-:where(.css-agenda) .agenda-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
-:where(.css-agenda) .agenda-day { min-height:120px; padding:10px; background:#f8fafc; border-radius:10px; }
-:where(.css-agenda) .agenda-evento { background:#eef4ff; padding:6px 8px; border-left:3px solid #3b82f6; border-radius:6px; margin-bottom:8px; cursor:pointer; }
-@media(max-width:900px){ :where(.css-agenda) .agenda-grid{grid-template-columns:repeat(2,1fr);} }
+:where(.css-agenda) .calendar-card {
+  padding: 18px;
+}
+
+:where(.css-agenda) .agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+:where(.css-agenda) .agenda-day {
+  min-height: 120px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+:where(.css-agenda) .agenda-evento {
+  background: #eef4ff;
+  padding: 6px 8px;
+  border-left: 3px solid #3b82f6;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+@media(max-width:900px) {
+  :where(.css-agenda) .agenda-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 /* ---------- Perfil do educador  (perfil-educador.css original) ---------- */
 /* Só vale em páginas com <body class="css-perfil-educador">. */
@@ -2889,7 +3163,7 @@ body:where(.css-perfil-educador) {
   border: 1px solid #edf1f5;
   border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+  box-shadow: 0 6px 16px rgba(16, 43, 88, 0.04);
 }
 
 :where(.css-perfil-educador) .perfil-header {
@@ -2915,7 +3189,7 @@ body:where(.css-perfil-educador) {
   object-fit: cover;
   background: linear-gradient(135deg, #163b74, #f5821f);
   border: 3px solid #fff;
-  box-shadow: 0 8px 18px rgba(22,59,116,0.15);
+  box-shadow: 0 8px 18px rgba(22, 59, 116, 0.15);
   display: block;
 }
 
@@ -2931,7 +3205,7 @@ body:where(.css-perfil-educador) {
   height: 36px;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(245,130,31,0.3);
+  box-shadow: 0 4px 10px rgba(245, 130, 31, 0.3);
 }
 
 :where(.css-perfil-educador) .perfil-header-info h2 {
@@ -3127,4 +3401,71 @@ body:where(.css-perfil-educador) {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+
+/* =====================================================
+   PERFIL DO EDUCADOR COM MENU LATERAL
+   ===================================================== */
+
+/* Organiza o menu e o conteúdo lado a lado */
+:where(.css-perfil-educador) .perfil-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+
+  width: 100%;
+  max-width: 1600px;
+  margin: 28px auto;
+  padding: 0 24px;
+
+  box-sizing: border-box;
+}
+
+/* Menu lateral */
+:where(.css-perfil-educador) .perfil-shell>.menu-lateral {
+  flex: 0 0 230px;
+  width: 230px;
+  margin: 0;
+
+  position: sticky;
+  top: 18px;
+}
+
+/* Conteúdo principal */
+:where(.css-perfil-educador) .perfil-shell>.perfil-page {
+  flex: 1 1 0;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+
+  margin: 0;
+  padding: 0 0 40px;
+
+  box-sizing: border-box;
+}
+
+/* Mantém a organização do formulário e das salas */
+:where(.css-perfil-educador) .perfil-layout {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+
+  :where(.css-perfil-educador) .perfil-shell {
+    flex-direction: column;
+  }
+
+  :where(.css-perfil-educador) .perfil-shell>.menu-lateral {
+    position: static;
+    flex: none;
+    width: 100%;
+  }
+
+  :where(.css-perfil-educador) .perfil-shell>.perfil-page {
+    width: 100%;
+  }
+
 }

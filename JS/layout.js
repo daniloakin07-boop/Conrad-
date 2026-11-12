@@ -127,6 +127,8 @@
         const tipoConteudo = new URLSearchParams(window.location.search).get("tipo");
         let destinoAtual = arquivo;
         if (arquivo === "turma.html") destinoAtual = "turmas.html";
+        if (arquivo === "nova-atividade.html") destinoAtual = "atividades.html";
+        if (arquivo === "nova-avaliacao.html") destinoAtual = "avaliacoes.html";
         if (arquivo === "professor-correcao.html" || arquivo === "aluno-atividades.html") {
             destinoAtual = tipoConteudo === "avaliacao" ? "avaliacoes.html" : "atividades.html";
         }

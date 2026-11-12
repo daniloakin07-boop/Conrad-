@@ -302,7 +302,8 @@ body:where(.css-formulario) {
 }
 
 :where(.css-formulario) .form-topbar {
-  height: auto; /* geral.css fixa todo <header> em 80px e cortava o botão quando o título e o botão quebram de linha no celular */
+  height: auto;
+  /* geral.css fixa todo <header> em 80px e cortava o botão quando o título e o botão quebram de linha no celular */
   min-height: 80px;
   background: #0A1F44;
   color: #fff;
@@ -338,7 +339,7 @@ body:where(.css-formulario) {
   border: 1px solid #edf1f5;
   border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 6px 16px rgba(16,43,88,0.04);
+  box-shadow: 0 6px 16px rgba(16, 43, 88, 0.04);
 }
 
 :where(.css-formulario) .form-card h2,
@@ -444,299 +445,1459 @@ body:where(.css-formulario) {
 /* ---------- Correção de atividades  (professor-correcao.css original) ---------- */
 /* Só vale em páginas com <body class="css-correcao">. */
 
-:where(.css-correcao) .pagina { max-width: 960px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
-:where(.css-correcao) .cabecalho { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-:where(.css-correcao) .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
-:where(.css-correcao) .subtitulo { color: #667085; font-size: 14px; margin-top: 4px; }
-:where(.css-correcao) .botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+:where(.css-correcao) .pagina {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 0 40px;
+  width: 100%;
+}
 
-:where(.css-correcao) .btn, :where(.css-correcao) .btn-sec { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;
-  padding: 11px 16px; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: none; border: 1px solid transparent; }
-:where(.css-correcao) .btn { background: #F5821F; color: #fff; }
-:where(.css-correcao) .btn:hover { background: #de7110; }
-:where(.css-correcao) .btn:disabled { opacity: 0.6; cursor: default; }
-:where(.css-correcao) .btn-sec { background: #fff; color: #0A1F44; border-color: #d8dce1; }
-:where(.css-correcao) .btn-sec:hover { background: #f4f7fb; }
+:where(.css-correcao) .cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
 
-:where(.css-correcao) .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
-  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
-:where(.css-correcao) .card-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-:where(.css-correcao) .card h3 { font-size: 19px; color: #0A1F44; margin: 6px 0 4px; }
-:where(.css-correcao) .meta { font-size: 13px; color: #667085; }
-:where(.css-correcao) .tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; }
-:where(.css-correcao) .tag.atividade { background: #eef4ff; color: #2958a8; }
-:where(.css-correcao) .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
-:where(.css-correcao) .contagem { font-size: 13px; font-weight: 700; color: #0A1F44; }
+:where(.css-correcao) .pagina h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  color: #0A1F44;
+  letter-spacing: 0.5px;
+}
 
-:where(.css-correcao) .entregas { margin-top: 14px; border-top: 1px dashed #d8dce1; padding-top: 14px; display: grid; gap: 12px; }
-:where(.css-correcao) .entrega { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 14px; }
-:where(.css-correcao) .entrega-topo { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-:where(.css-correcao) .entrega-topo strong { color: #0A1F44; }
-:where(.css-correcao) .entrega-topo span { font-size: 12px; color: #667085; }
-:where(.css-correcao) .resposta { background: #fff; border: 1px solid #e3e7eb; border-radius: 8px; padding: 10px 12px; font-size: 14px;
-  white-space: pre-wrap; margin-bottom: 10px; color: #344054; }
-:where(.css-correcao) .corrigir { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: start; }
-:where(.css-correcao) .corrigir input, :where(.css-correcao) .corrigir textarea { width: 100%; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
-:where(.css-correcao) .corrigir textarea { min-height: 70px; resize: vertical; }
-:where(.css-correcao) .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-:where(.css-correcao) .msg { font-size: 13px; }
-:where(.css-correcao) .msg.ok { color: #287a45; }
-:where(.css-correcao) .msg.erro { color: #c0392b; }
-:where(.css-correcao) .vazio { text-align: center; color: #667085; padding: 40px 0; }
-@media (max-width: 600px) { :where(.css-correcao) .corrigir { grid-template-columns: 1fr; } }
+:where(.css-correcao) .subtitulo {
+  color: #667085;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+:where(.css-correcao) .botoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+:where(.css-correcao) .btn,
+:where(.css-correcao) .btn-sec {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+:where(.css-correcao) .btn {
+  background: #F5821F;
+  color: #fff;
+}
+
+:where(.css-correcao) .btn:hover {
+  background: #de7110;
+}
+
+:where(.css-correcao) .btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+:where(.css-correcao) .btn-sec {
+  background: #fff;
+  color: #0A1F44;
+  border-color: #d8dce1;
+}
+
+:where(.css-correcao) .btn-sec:hover {
+  background: #f4f7fb;
+}
+
+:where(.css-correcao) .card {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04);
+}
+
+:where(.css-correcao) .card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+:where(.css-correcao) .card h3 {
+  font-size: 19px;
+  color: #0A1F44;
+  margin: 6px 0 4px;
+}
+
+:where(.css-correcao) .meta {
+  font-size: 13px;
+  color: #667085;
+}
+
+:where(.css-correcao) .tag {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
+:where(.css-correcao) .tag.atividade {
+  background: #eef4ff;
+  color: #2958a8;
+}
+
+:where(.css-correcao) .tag.avaliacao {
+  background: #ffe9d6;
+  color: #c8500f;
+}
+
+:where(.css-correcao) .contagem {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-correcao) .entregas {
+  margin-top: 14px;
+  border-top: 1px dashed #d8dce1;
+  padding-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+:where(.css-correcao) .entrega {
+  background: #f8fafc;
+  border: 1px solid #edf1f5;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+:where(.css-correcao) .entrega-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+:where(.css-correcao) .entrega-topo strong {
+  color: #0A1F44;
+}
+
+:where(.css-correcao) .entrega-topo span {
+  font-size: 12px;
+  color: #667085;
+}
+
+:where(.css-correcao) .resposta {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+  color: #344054;
+}
+
+:where(.css-correcao) .corrigir {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+:where(.css-correcao) .corrigir input,
+:where(.css-correcao) .corrigir textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+:where(.css-correcao) .corrigir textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+:where(.css-correcao) .acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+:where(.css-correcao) .msg {
+  font-size: 13px;
+}
+
+:where(.css-correcao) .msg.ok {
+  color: #287a45;
+}
+
+:where(.css-correcao) .msg.erro {
+  color: #c0392b;
+}
+
+:where(.css-correcao) .vazio {
+  text-align: center;
+  color: #667085;
+  padding: 40px 0;
+}
+
+@media (max-width: 600px) {
+  :where(.css-correcao) .corrigir {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ---------- Atividades do aluno  (aluno-atividades.css original) ---------- */
 /* Só vale em páginas com <body class="css-aluno-atividades">. */
 
-:where(.css-aluno-atividades) .pagina { max-width: 900px; margin: 0 auto; padding: 28px 0 40px; width: 100%; }
-:where(.css-aluno-atividades) .pagina h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #0A1F44; letter-spacing: 0.5px; }
-:where(.css-aluno-atividades) .subtitulo { color: #667085; font-size: 14px; margin: 4px 0 18px; }
+:where(.css-aluno-atividades) .pagina {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 0 40px;
+  width: 100%;
+}
 
-:where(.css-aluno-atividades) .barra-turma { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
-:where(.css-aluno-atividades) .barra-turma label { font-weight: 700; font-size: 14px; }
-:where(.css-aluno-atividades) .barra-turma select { padding: 9px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+:where(.css-aluno-atividades) .pagina h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  color: #0A1F44;
+  letter-spacing: 0.5px;
+}
 
-:where(.css-aluno-atividades) .resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
-:where(.css-aluno-atividades) .resumo div { background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 14px 16px; }
-:where(.css-aluno-atividades) .resumo strong { display: block; font-size: 26px; color: #0A1F44; }
-:where(.css-aluno-atividades) .resumo span { font-size: 12px; color: #667085; text-transform: uppercase; letter-spacing: 0.05em; }
+:where(.css-aluno-atividades) .subtitulo {
+  color: #667085;
+  font-size: 14px;
+  margin: 4px 0 18px;
+}
 
-:where(.css-aluno-atividades) .card { background: #fff; border: 1px solid #e3e7eb; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
-  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04); }
-:where(.css-aluno-atividades) .card-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-:where(.css-aluno-atividades) .card h3 { font-size: 19px; color: #0A1F44; margin-bottom: 4px; }
-:where(.css-aluno-atividades) .meta { font-size: 13px; color: #667085; margin-bottom: 8px; }
-:where(.css-aluno-atividades) .desc { font-size: 14px; color: #344054; margin-bottom: 12px; white-space: pre-wrap; }
+:where(.css-aluno-atividades) .barra-turma {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
 
-:where(.css-aluno-atividades) .tag, :where(.css-aluno-atividades) .status { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
-  padding: 5px 11px; border-radius: 999px; }
-:where(.css-aluno-atividades) .tag.atividade { background: #eef4ff; color: #2958a8; }
-:where(.css-aluno-atividades) .tag.avaliacao { background: #ffe9d6; color: #c8500f; }
-:where(.css-aluno-atividades) .status.pendente { background: #fdecec; color: #b33a32; }
-:where(.css-aluno-atividades) .status.enviada { background: #fff4d6; color: #9a6b00; }
-:where(.css-aluno-atividades) .status.corrigida { background: #e8f6ed; color: #287a45; }
+:where(.css-aluno-atividades) .barra-turma label {
+  font-weight: 700;
+  font-size: 14px;
+}
 
-:where(.css-aluno-atividades) textarea { width: 100%; min-height: 110px; padding: 12px 14px; border: 1px solid #d8dce1; border-radius: 10px;
-  font: inherit; resize: vertical; color: #0A1F44; }
-:where(.css-aluno-atividades) .acoes { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-:where(.css-aluno-atividades) .btn { background: #F5821F; color: #fff; border: none; border-radius: 10px; padding: 11px 18px;
-  font-weight: 800; font-size: 13px; cursor: pointer; }
-:where(.css-aluno-atividades) .btn:hover { background: #de7110; }
-:where(.css-aluno-atividades) .btn:disabled { opacity: 0.6; cursor: default; }
-:where(.css-aluno-atividades) .msg { font-size: 13px; }
-:where(.css-aluno-atividades) .msg.ok { color: #287a45; }
-:where(.css-aluno-atividades) .msg.erro { color: #c0392b; }
+:where(.css-aluno-atividades) .barra-turma select {
+  padding: 9px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  font: inherit;
+}
 
-:where(.css-aluno-atividades) .nota-box { background: #f0f9f3; border: 1px solid #cfe9d8; border-radius: 10px; padding: 12px 14px; margin-top: 8px; }
-:where(.css-aluno-atividades) .nota-box strong { font-size: 18px; color: #287a45; }
-:where(.css-aluno-atividades) .nota-box p { margin-top: 6px; font-size: 14px; color: #344054; white-space: pre-wrap; }
-:where(.css-aluno-atividades) .resposta-enviada { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; padding: 10px 12px;
-  margin-top: 10px; font-size: 13px; color: #475467; white-space: pre-wrap; }
-:where(.css-aluno-atividades) .vazio { text-align: center; color: #667085; padding: 40px 0; }
-@media (max-width: 600px) { :where(.css-aluno-atividades) .resumo { grid-template-columns: 1fr; } }
+:where(.css-aluno-atividades) .resumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+:where(.css-aluno-atividades) .resumo div {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+:where(.css-aluno-atividades) .resumo strong {
+  display: block;
+  font-size: 26px;
+  color: #0A1F44;
+}
+
+:where(.css-aluno-atividades) .resumo span {
+  font-size: 12px;
+  color: #667085;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+:where(.css-aluno-atividades) .card {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(10, 31, 68, 0.04);
+}
+
+:where(.css-aluno-atividades) .card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+:where(.css-aluno-atividades) .card h3 {
+  font-size: 19px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-aluno-atividades) .meta {
+  font-size: 13px;
+  color: #667085;
+  margin-bottom: 8px;
+}
+
+:where(.css-aluno-atividades) .desc {
+  font-size: 14px;
+  color: #344054;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
+:where(.css-aluno-atividades) .tag,
+:where(.css-aluno-atividades) .status {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
+:where(.css-aluno-atividades) .tag.atividade {
+  background: #eef4ff;
+  color: #2958a8;
+}
+
+:where(.css-aluno-atividades) .tag.avaliacao {
+  background: #ffe9d6;
+  color: #c8500f;
+}
+
+:where(.css-aluno-atividades) .status.pendente {
+  background: #fdecec;
+  color: #b33a32;
+}
+
+:where(.css-aluno-atividades) .status.enviada {
+  background: #fff4d6;
+  color: #9a6b00;
+}
+
+:where(.css-aluno-atividades) .status.corrigida {
+  background: #e8f6ed;
+  color: #287a45;
+}
+
+:where(.css-aluno-atividades) textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid #d8dce1;
+  border-radius: 10px;
+  font: inherit;
+  resize: vertical;
+  color: #0A1F44;
+}
+
+:where(.css-aluno-atividades) .acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+:where(.css-aluno-atividades) .btn {
+  background: #F5821F;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+:where(.css-aluno-atividades) .btn:hover {
+  background: #de7110;
+}
+
+:where(.css-aluno-atividades) .btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+:where(.css-aluno-atividades) .msg {
+  font-size: 13px;
+}
+
+:where(.css-aluno-atividades) .msg.ok {
+  color: #287a45;
+}
+
+:where(.css-aluno-atividades) .msg.erro {
+  color: #c0392b;
+}
+
+:where(.css-aluno-atividades) .nota-box {
+  background: #f0f9f3;
+  border: 1px solid #cfe9d8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 8px;
+}
+
+:where(.css-aluno-atividades) .nota-box strong {
+  font-size: 18px;
+  color: #287a45;
+}
+
+:where(.css-aluno-atividades) .nota-box p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #344054;
+  white-space: pre-wrap;
+}
+
+:where(.css-aluno-atividades) .resposta-enviada {
+  background: #f8fafc;
+  border: 1px solid #edf1f5;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #475467;
+  white-space: pre-wrap;
+}
+
+:where(.css-aluno-atividades) .vazio {
+  text-align: center;
+  color: #667085;
+  padding: 40px 0;
+}
+
+@media (max-width: 600px) {
+  :where(.css-aluno-atividades) .resumo {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ---------- Construtor de questões  (JS/construtor-atividade.js) ---------- */
 /* Só vale em páginas com <body class="css-formulario">. Classes começam com "qb-". */
 
-:where(.css-formulario) [hidden] { display: none !important; }
+:where(.css-formulario) [hidden] {
+  display: none !important;
+}
 
-:where(.css-formulario) .qb { margin-top: 24px; padding-top: 20px; border-top: 1px dashed #d8dce1; }
-:where(.css-formulario) .qb-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.5px; color: #0A1F44; margin-bottom: 4px; }
-:where(.css-formulario) .qb-ajuda { font-size: 13px; color: #667085; line-height: 1.5; margin: 4px 0 12px; }
+:where(.css-formulario) .qb {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed #d8dce1;
+}
+
+:where(.css-formulario) .qb-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  color: #0A1F44;
+  margin-bottom: 4px;
+}
+
+:where(.css-formulario) .qb-ajuda {
+  font-size: 13px;
+  color: #667085;
+  line-height: 1.5;
+  margin: 4px 0 12px;
+}
 
 :where(.css-formulario) .qb input[type="number"],
 :where(.css-formulario) .qb input[type="text"],
 :where(.css-formulario) .qb select,
-:where(.css-formulario) .qb textarea { border: 1px solid #dfe4ea; border-radius: 10px; padding: 10px 12px; font: inherit; color: #0A1F44; background: #fff; }
-:where(.css-formulario) .qb textarea { width: 100%; resize: vertical; }
-:where(.css-formulario) .qb :focus-visible { outline: 3px solid rgba(245, 130, 31, 0.55); outline-offset: 1px; }
+:where(.css-formulario) .qb textarea {
+  border: 1px solid #dfe4ea;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  color: #0A1F44;
+  background: #fff;
+}
 
-:where(.css-formulario) .qb-tempo { background: #f9fafb; border: 1px solid #ebeff5; border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; }
-:where(.css-formulario) .qb-check { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: #0A1F44; cursor: pointer; }
-:where(.css-formulario) .qb-check input { width: 18px; height: 18px; accent-color: #F5821F; }
-:where(.css-formulario) .qb-tempo-valor { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #344054; font-size: 14px; }
-:where(.css-formulario) .qb-tempo-valor input { width: 96px; }
-:where(.css-formulario) .qb-tempo .qb-ajuda { margin-bottom: 0; }
+:where(.css-formulario) .qb textarea {
+  width: 100%;
+  resize: vertical;
+}
 
-:where(.css-formulario) .qb-adicionar { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 16px; }
-:where(.css-formulario) .qb-grupo { display: flex; flex-direction: column; gap: 6px; }
-:where(.css-formulario) .qb-grupo label { font-size: 13px; font-weight: 700; color: #0A1F44; }
-:where(.css-formulario) .qb-adicionar input[type="number"] { width: 96px; }
-:where(.css-formulario) .qb-adicionar-botao { background: #F5821F; color: #fff; border: none; border-radius: 10px; padding: 0 20px; min-height: 44px;
-  font-weight: 800; font-size: 13px; cursor: pointer; }
-:where(.css-formulario) .qb-adicionar-botao:hover { background: #de7110; }
+:where(.css-formulario) .qb :focus-visible {
+  outline: 3px solid rgba(245, 130, 31, 0.55);
+  outline-offset: 1px;
+}
 
-:where(.css-formulario) .qb-vazio { text-align: center; color: #667085; padding: 18px; border: 1px dashed #d8dce1; border-radius: 12px; font-size: 14px; }
-:where(.css-formulario) .qb-lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+:where(.css-formulario) .qb-tempo {
+  background: #f9fafb;
+  border: 1px solid #ebeff5;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
 
-:where(.css-formulario) .qb-questao { min-width: 0; border: 1px solid #e3e7eb; border-left: 4px solid #0A1F44; border-radius: 12px; padding: 14px 16px; background: #fff; }
-:where(.css-formulario) .qb-questao.qb-invalida { border-color: #c0392b; border-left-color: #c0392b; background: #fff8f7; }
-:where(.css-formulario) .qb-questao-topo { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 12px; }
-:where(.css-formulario) .qb-num { font-size: 16px; color: #0A1F44; align-self: center; min-width: 84px; }
-:where(.css-formulario) .qb-grupo-pontos input { width: 104px; }
-:where(.css-formulario) .qb-acoes { display: flex; gap: 6px; margin-left: auto; }
-:where(.css-formulario) .qb-enunciado label { font-size: 13px; font-weight: 700; color: #0A1F44; }
+:where(.css-formulario) .qb-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #0A1F44;
+  cursor: pointer;
+}
 
-:where(.css-formulario) .qb-icone { background: #fff; color: #0A1F44; border: 1px solid #d8dce1; border-radius: 8px; min-width: 38px; min-height: 38px;
-  padding: 0 10px; font-weight: 800; font-size: 14px; cursor: pointer; }
-:where(.css-formulario) .qb-icone:hover:not(:disabled) { background: #f4f7fb; }
-:where(.css-formulario) .qb-icone:disabled { opacity: 0.4; cursor: default; }
-:where(.css-formulario) .qb-remover { color: #b33a32; border-color: #f0c9c6; font-size: 13px; }
+:where(.css-formulario) .qb-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #F5821F;
+}
 
-:where(.css-formulario) .qb-alternativas { margin-top: 14px; }
-:where(.css-formulario) .qb-alt { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-:where(.css-formulario) .qb-alt input[type="radio"] { width: 20px; height: 20px; accent-color: #287a45; flex-shrink: 0; }
-:where(.css-formulario) .qb-letra { font-weight: 800; color: #0A1F44; width: 22px; flex-shrink: 0; }
-:where(.css-formulario) .qb-alt input[type="text"] { flex: 1; min-width: 0; }
-:where(.css-formulario) .qb-link { background: none; border: none; color: #2958a8; font-weight: 700; font-size: 13px; cursor: pointer; padding: 6px 0; text-decoration: underline; }
-:where(.css-formulario) .qb-link:disabled { color: #98a2b3; cursor: default; text-decoration: none; }
+:where(.css-formulario) .qb-tempo-valor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #344054;
+  font-size: 14px;
+}
 
-:where(.css-formulario) .qb-resumo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 14px;
-  padding: 12px 14px; background: #f0f4fa; border-radius: 10px; font-weight: 700; color: #0A1F44; font-size: 14px; }
+:where(.css-formulario) .qb-tempo-valor input {
+  width: 96px;
+}
 
-:where(.css-formulario) .qb-msg { margin-top: 16px; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; }
-:where(.css-formulario) .qb-msg.erro { background: #fdecec; color: #8f2a22; border: 1px solid #f3c4c0; }
-:where(.css-formulario) .qb-msg.ok { background: #e8f6ed; color: #1d6137; border: 1px solid #bfe3cc; }
-:where(.css-formulario) .qb-msg a { color: inherit; text-decoration: underline; }
+:where(.css-formulario) .qb-tempo .qb-ajuda {
+  margin-bottom: 0;
+}
+
+:where(.css-formulario) .qb-adicionar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+:where(.css-formulario) .qb-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+:where(.css-formulario) .qb-grupo label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-formulario) .qb-adicionar input[type="number"] {
+  width: 96px;
+}
+
+:where(.css-formulario) .qb-adicionar-botao {
+  background: #F5821F;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0 20px;
+  min-height: 44px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+:where(.css-formulario) .qb-adicionar-botao:hover {
+  background: #de7110;
+}
+
+:where(.css-formulario) .qb-vazio {
+  text-align: center;
+  color: #667085;
+  padding: 18px;
+  border: 1px dashed #d8dce1;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+:where(.css-formulario) .qb-lista {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+:where(.css-formulario) .qb-questao {
+  min-width: 0;
+  border: 1px solid #e3e7eb;
+  border-left: 4px solid #0A1F44;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+}
+
+:where(.css-formulario) .qb-questao.qb-invalida {
+  border-color: #c0392b;
+  border-left-color: #c0392b;
+  background: #fff8f7;
+}
+
+:where(.css-formulario) .qb-questao-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+:where(.css-formulario) .qb-num {
+  font-size: 16px;
+  color: #0A1F44;
+  align-self: center;
+  min-width: 84px;
+}
+
+:where(.css-formulario) .qb-grupo-pontos input {
+  width: 104px;
+}
+
+:where(.css-formulario) .qb-acoes {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+:where(.css-formulario) .qb-enunciado label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A1F44;
+}
+
+:where(.css-formulario) .qb-icone {
+  background: #fff;
+  color: #0A1F44;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0 10px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+:where(.css-formulario) .qb-icone:hover:not(:disabled) {
+  background: #f4f7fb;
+}
+
+:where(.css-formulario) .qb-icone:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+:where(.css-formulario) .qb-remover {
+  color: #b33a32;
+  border-color: #f0c9c6;
+  font-size: 13px;
+}
+
+:where(.css-formulario) .qb-alternativas {
+  margin-top: 14px;
+}
+
+:where(.css-formulario) .qb-alt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+:where(.css-formulario) .qb-alt input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #287a45;
+  flex-shrink: 0;
+}
+
+:where(.css-formulario) .qb-letra {
+  font-weight: 800;
+  color: #0A1F44;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+:where(.css-formulario) .qb-alt input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+:where(.css-formulario) .qb-link {
+  background: none;
+  border: none;
+  color: #2958a8;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 0;
+  text-decoration: underline;
+}
+
+:where(.css-formulario) .qb-link:disabled {
+  color: #98a2b3;
+  cursor: default;
+  text-decoration: none;
+}
+
+:where(.css-formulario) .qb-resumo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #f0f4fa;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #0A1F44;
+  font-size: 14px;
+}
+
+:where(.css-formulario) .qb-msg {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+:where(.css-formulario) .qb-msg.erro {
+  background: #fdecec;
+  color: #8f2a22;
+  border: 1px solid #f3c4c0;
+}
+
+:where(.css-formulario) .qb-msg.ok {
+  background: #e8f6ed;
+  color: #1d6137;
+  border: 1px solid #bfe3cc;
+}
+
+:where(.css-formulario) .qb-msg a {
+  color: inherit;
+  text-decoration: underline;
+}
 
 @media (max-width: 640px) {
-  :where(.css-formulario) .qb-acoes { margin-left: 0; width: 100%; }
-  :where(.css-formulario) .qb-grupo { flex: 1 1 100%; }
-  :where(.css-formulario) .qb-adicionar-botao { width: 100%; }
+  :where(.css-formulario) .qb-acoes {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  :where(.css-formulario) .qb-grupo {
+    flex: 1 1 100%;
+  }
+
+  :where(.css-formulario) .qb-adicionar-botao {
+    width: 100%;
+  }
 }
 
 /* ---------- Questões no lado do aluno  (JS/aluno-questoes.js) ---------- */
 /* Só vale em páginas com <body class="css-aluno-atividades">. Classes começam com "aq-". */
 
-:where(.css-aluno-atividades) [hidden] { display: none !important; }
+:where(.css-aluno-atividades) [hidden] {
+  display: none !important;
+}
 
-:where(.css-aluno-atividades) .status.andamento { background: #eef4ff; color: #2958a8; }
-:where(.css-aluno-atividades) .status.esgotada { background: #fdecec; color: #8f2a22; }
+:where(.css-aluno-atividades) .status.andamento {
+  background: #eef4ff;
+  color: #2958a8;
+}
 
-:where(.css-aluno-atividades) .aq-painel { margin-top: 12px; border-top: 1px dashed #d8dce1; padding-top: 14px; }
-:where(.css-aluno-atividades) .aq-carregando { color: #667085; font-size: 14px; }
-:where(.css-aluno-atividades) .aq-aviso { padding: 10px 14px; border-radius: 10px; font-size: 14px; margin: 0 0 12px; background: #f4f7fb; color: #344054; }
-:where(.css-aluno-atividades) .aq-aviso.ok { background: #e8f6ed; color: #1d6137; }
-:where(.css-aluno-atividades) .aq-aviso.erro { background: #fdecec; color: #8f2a22; }
+:where(.css-aluno-atividades) .status.esgotada {
+  background: #fdecec;
+  color: #8f2a22;
+}
 
-:where(.css-aluno-atividades) .aq-inicio { background: #fffaf4; border: 1px solid #ffd9b3; border-radius: 12px; padding: 14px 18px; }
-:where(.css-aluno-atividades) .aq-inicio h4 { color: #0A1F44; font-size: 16px; margin-bottom: 8px; }
-:where(.css-aluno-atividades) .aq-inicio ul { padding-left: 20px; color: #344054; font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+:where(.css-aluno-atividades) .aq-painel {
+  margin-top: 12px;
+  border-top: 1px dashed #d8dce1;
+  padding-top: 14px;
+}
 
-:where(.css-aluno-atividades) .aq-relogio { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center;
-  background: #0A1F44; color: #fff; border-radius: 10px; padding: 10px 16px; margin-bottom: 14px; font-size: 14px; }
-:where(.css-aluno-atividades) .aq-relogio strong { font-size: 26px; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
-:where(.css-aluno-atividades) .aq-relogio.atencao { background: #8a5200; }
-:where(.css-aluno-atividades) .aq-relogio.urgente { background: #b3261e; }
-:where(.css-aluno-atividades) .aq-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+:where(.css-aluno-atividades) .aq-carregando {
+  color: #667085;
+  font-size: 14px;
+}
+
+:where(.css-aluno-atividades) .aq-aviso {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 0 0 12px;
+  background: #f4f7fb;
+  color: #344054;
+}
+
+:where(.css-aluno-atividades) .aq-aviso.ok {
+  background: #e8f6ed;
+  color: #1d6137;
+}
+
+:where(.css-aluno-atividades) .aq-aviso.erro {
+  background: #fdecec;
+  color: #8f2a22;
+}
+
+:where(.css-aluno-atividades) .aq-inicio {
+  background: #fffaf4;
+  border: 1px solid #ffd9b3;
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+:where(.css-aluno-atividades) .aq-inicio h4 {
+  color: #0A1F44;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+:where(.css-aluno-atividades) .aq-inicio ul {
+  padding-left: 20px;
+  color: #344054;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+:where(.css-aluno-atividades) .aq-relogio {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0A1F44;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+:where(.css-aluno-atividades) .aq-relogio strong {
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+:where(.css-aluno-atividades) .aq-relogio.atencao {
+  background: #8a5200;
+}
+
+:where(.css-aluno-atividades) .aq-relogio.urgente {
+  background: #b3261e;
+}
+
+:where(.css-aluno-atividades) .aq-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  margin: 0;
+}
 
 :where(.css-aluno-atividades) .aq-questao,
-:where(.css-aluno-atividades) .aq-questao-res { border: 1px solid #e3e7eb; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; background: #fff; }
-:where(.css-aluno-atividades) .aq-questao-topo { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; font-size: 13px; }
-:where(.css-aluno-atividades) .aq-questao-topo strong { color: #0A1F44; font-size: 15px; }
-:where(.css-aluno-atividades) .aq-tipo { background: #eef4ff; color: #2958a8; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; }
-:where(.css-aluno-atividades) .aq-pts { margin-left: auto; color: #667085; font-weight: 700; }
-:where(.css-aluno-atividades) .aq-texto { white-space: pre-wrap; color: #1d2939; font-size: 15px; margin-bottom: 10px; line-height: 1.5; }
+:where(.css-aluno-atividades) .aq-questao-res {
+  border: 1px solid #e3e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background: #fff;
+}
 
-:where(.css-aluno-atividades) .aq-opcoes { display: grid; gap: 8px; }
-:where(.css-aluno-atividades) .aq-opcao { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 10px; cursor: pointer; background: #fff; }
-:where(.css-aluno-atividades) .aq-opcao:hover { background: #f8fafc; }
-:where(.css-aluno-atividades) .aq-opcao:has(input:checked) { border-color: #F5821F; background: #fff7ef; }
-:where(.css-aluno-atividades) .aq-opcao input { margin-top: 3px; width: 18px; height: 18px; accent-color: #F5821F; flex-shrink: 0; }
-:where(.css-aluno-atividades) .aq-letra { font-weight: 800; color: #0A1F44; }
-:where(.css-aluno-atividades) .aq-alt-texto { flex: 1; min-width: 40%; }
+:where(.css-aluno-atividades) .aq-questao-topo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
 
-:where(.css-aluno-atividades) .aq-alts { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
-:where(.css-aluno-atividades) .aq-alt-res { display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; padding: 9px 12px; border: 1px solid #e3e7eb; border-radius: 10px; background: #fff; font-size: 14px; }
-:where(.css-aluno-atividades) .aq-alt-res.marcada { border-width: 2px; border-color: #2958a8; background: #f2f6fd; }
-:where(.css-aluno-atividades) .aq-alt-res.certa { border-color: #287a45; background: #f0f9f3; }
-:where(.css-aluno-atividades) .aq-alt-res.errada { border-color: #c0392b; background: #fdf2f1; }
-:where(.css-aluno-atividades) .aq-etiqueta { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; background: #e0e7f5; color: #1d3f7a; }
-:where(.css-aluno-atividades) .aq-etiqueta.certa { background: #d3efdc; color: #1d6137; }
-:where(.css-aluno-atividades) .aq-branco { color: #667085; font-style: italic; font-size: 14px; margin-top: 6px; }
-:where(.css-aluno-atividades) .aq-comentario { margin-top: 10px; font-size: 14px; background: #fff8e6; border: 1px solid #f1deae; padding: 9px 12px; border-radius: 10px; color: #5c4300; white-space: pre-wrap; }
-:where(.css-aluno-atividades) .aq-resultado .nota-box { margin-bottom: 14px; }
-:where(.css-aluno-atividades) .aq-resultado .resposta-enviada { margin-top: 0; }
+:where(.css-aluno-atividades) .aq-questao-topo strong {
+  color: #0A1F44;
+  font-size: 15px;
+}
+
+:where(.css-aluno-atividades) .aq-tipo {
+  background: #eef4ff;
+  color: #2958a8;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+:where(.css-aluno-atividades) .aq-pts {
+  margin-left: auto;
+  color: #667085;
+  font-weight: 700;
+}
+
+:where(.css-aluno-atividades) .aq-texto {
+  white-space: pre-wrap;
+  color: #1d2939;
+  font-size: 15px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+:where(.css-aluno-atividades) .aq-opcoes {
+  display: grid;
+  gap: 8px;
+}
+
+:where(.css-aluno-atividades) .aq-opcao {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fff;
+}
+
+:where(.css-aluno-atividades) .aq-opcao:hover {
+  background: #f8fafc;
+}
+
+:where(.css-aluno-atividades) .aq-opcao:has(input:checked) {
+  border-color: #F5821F;
+  background: #fff7ef;
+}
+
+:where(.css-aluno-atividades) .aq-opcao input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: #F5821F;
+  flex-shrink: 0;
+}
+
+:where(.css-aluno-atividades) .aq-letra {
+  font-weight: 800;
+  color: #0A1F44;
+}
+
+:where(.css-aluno-atividades) .aq-alt-texto {
+  flex: 1;
+  min-width: 40%;
+}
+
+:where(.css-aluno-atividades) .aq-alts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+:where(.css-aluno-atividades) .aq-alt-res {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding: 9px 12px;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+}
+
+:where(.css-aluno-atividades) .aq-alt-res.marcada {
+  border-width: 2px;
+  border-color: #2958a8;
+  background: #f2f6fd;
+}
+
+:where(.css-aluno-atividades) .aq-alt-res.certa {
+  border-color: #287a45;
+  background: #f0f9f3;
+}
+
+:where(.css-aluno-atividades) .aq-alt-res.errada {
+  border-color: #c0392b;
+  background: #fdf2f1;
+}
+
+:where(.css-aluno-atividades) .aq-etiqueta {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #e0e7f5;
+  color: #1d3f7a;
+}
+
+:where(.css-aluno-atividades) .aq-etiqueta.certa {
+  background: #d3efdc;
+  color: #1d6137;
+}
+
+:where(.css-aluno-atividades) .aq-branco {
+  color: #667085;
+  font-style: italic;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+:where(.css-aluno-atividades) .aq-comentario {
+  margin-top: 10px;
+  font-size: 14px;
+  background: #fff8e6;
+  border: 1px solid #f1deae;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: #5c4300;
+  white-space: pre-wrap;
+}
+
+:where(.css-aluno-atividades) .aq-resultado .nota-box {
+  margin-bottom: 14px;
+}
+
+:where(.css-aluno-atividades) .aq-resultado .resposta-enviada {
+  margin-top: 0;
+}
 
 /* ---------- Correção por questão  (JS/correcao-questoes.js) ---------- */
 /* Só vale em páginas com <body class="css-correcao">. Classes começam com "cq-". */
 
-:where(.css-correcao) [hidden] { display: none !important; }
+:where(.css-correcao) [hidden] {
+  display: none !important;
+}
 
-:where(.css-correcao) .cq-entrega { background: #f8fafc; border: 1px solid #edf1f5; border-radius: 10px; }
-:where(.css-correcao) .cq-resumo { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 14px; cursor: pointer; list-style: none; }
-:where(.css-correcao) .cq-resumo::-webkit-details-marker { display: none; }
-:where(.css-correcao) .cq-resumo::before { content: "▸"; color: #667085; }
-:where(.css-correcao) .cq-entrega[open] > .cq-resumo::before { content: "▾"; }
-:where(.css-correcao) .cq-resumo strong { color: #0A1F44; }
-:where(.css-correcao) .cq-data { font-size: 12px; color: #667085; }
-:where(.css-correcao) .cq-selo { margin-left: auto; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 10px; border-radius: 999px; }
-:where(.css-correcao) .cq-selo.aguardando { background: #fff4d6; color: #7a5400; }
-:where(.css-correcao) .cq-selo.corrigida { background: #e8f6ed; color: #1d6137; }
+:where(.css-correcao) .cq-entrega {
+  background: #f8fafc;
+  border: 1px solid #edf1f5;
+  border-radius: 10px;
+}
 
-:where(.css-correcao) .cq-corpo { padding: 0 14px 14px; display: grid; gap: 12px; }
-:where(.css-correcao) .cq-questao { background: #fff; border: 1px solid #e3e7eb; border-radius: 10px; padding: 12px 14px; }
-:where(.css-correcao) .cq-questao.cq-invalida { border-color: #c0392b; background: #fff8f7; }
-:where(.css-correcao) .cq-questao-topo { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 6px; font-size: 13px; }
-:where(.css-correcao) .cq-questao-topo strong { color: #0A1F44; font-size: 15px; }
-:where(.css-correcao) .cq-tipo { background: #eef4ff; color: #2958a8; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; }
-:where(.css-correcao) .cq-valor { margin-left: auto; color: #667085; font-weight: 700; }
-:where(.css-correcao) .cq-enunciado { white-space: pre-wrap; color: #1d2939; margin-bottom: 10px; font-size: 14px; line-height: 1.5; }
+:where(.css-correcao) .cq-resumo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+}
 
-:where(.css-correcao) .cq-alts { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 6px; }
-:where(.css-correcao) .cq-alt { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; padding: 8px 12px; border: 1px solid #e3e7eb; border-radius: 8px; font-size: 14px; }
-:where(.css-correcao) .cq-alt.certa { border-color: #287a45; background: #f0f9f3; }
-:where(.css-correcao) .cq-alt.errada { border-color: #c0392b; background: #fdf2f1; }
-:where(.css-correcao) .cq-letra { font-weight: 800; color: #0A1F44; }
-:where(.css-correcao) .cq-alt-texto { flex: 1; min-width: 40%; }
-:where(.css-correcao) .cq-etiqueta { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; background: #e0e7f5; color: #1d3f7a; }
-:where(.css-correcao) .cq-etiqueta.certa { background: #d3efdc; color: #1d6137; }
-:where(.css-correcao) .cq-branco { color: #667085; font-style: italic; font-size: 14px; margin-bottom: 10px; }
+:where(.css-correcao) .cq-resumo::-webkit-details-marker {
+  display: none;
+}
 
-:where(.css-correcao) .cq-linha-nota { display: grid; grid-template-columns: 180px 1fr; gap: 12px; align-items: start; }
+:where(.css-correcao) .cq-resumo::before {
+  content: "▸";
+  color: #667085;
+}
+
+:where(.css-correcao) .cq-entrega[open]>.cq-resumo::before {
+  content: "▾";
+}
+
+:where(.css-correcao) .cq-resumo strong {
+  color: #0A1F44;
+}
+
+:where(.css-correcao) .cq-data {
+  font-size: 12px;
+  color: #667085;
+}
+
+:where(.css-correcao) .cq-selo {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+:where(.css-correcao) .cq-selo.aguardando {
+  background: #fff4d6;
+  color: #7a5400;
+}
+
+:where(.css-correcao) .cq-selo.corrigida {
+  background: #e8f6ed;
+  color: #1d6137;
+}
+
+:where(.css-correcao) .cq-corpo {
+  padding: 0 14px 14px;
+  display: grid;
+  gap: 12px;
+}
+
+:where(.css-correcao) .cq-questao {
+  background: #fff;
+  border: 1px solid #e3e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+:where(.css-correcao) .cq-questao.cq-invalida {
+  border-color: #c0392b;
+  background: #fff8f7;
+}
+
+:where(.css-correcao) .cq-questao-topo {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+:where(.css-correcao) .cq-questao-topo strong {
+  color: #0A1F44;
+  font-size: 15px;
+}
+
+:where(.css-correcao) .cq-tipo {
+  background: #eef4ff;
+  color: #2958a8;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+:where(.css-correcao) .cq-valor {
+  margin-left: auto;
+  color: #667085;
+  font-weight: 700;
+}
+
+:where(.css-correcao) .cq-enunciado {
+  white-space: pre-wrap;
+  color: #1d2939;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+:where(.css-correcao) .cq-alts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+  display: grid;
+  gap: 6px;
+}
+
+:where(.css-correcao) .cq-alt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 12px;
+  border: 1px solid #e3e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+:where(.css-correcao) .cq-alt.certa {
+  border-color: #287a45;
+  background: #f0f9f3;
+}
+
+:where(.css-correcao) .cq-alt.errada {
+  border-color: #c0392b;
+  background: #fdf2f1;
+}
+
+:where(.css-correcao) .cq-letra {
+  font-weight: 800;
+  color: #0A1F44;
+}
+
+:where(.css-correcao) .cq-alt-texto {
+  flex: 1;
+  min-width: 40%;
+}
+
+:where(.css-correcao) .cq-etiqueta {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #e0e7f5;
+  color: #1d3f7a;
+}
+
+:where(.css-correcao) .cq-etiqueta.certa {
+  background: #d3efdc;
+  color: #1d6137;
+}
+
+:where(.css-correcao) .cq-branco {
+  color: #667085;
+  font-style: italic;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+:where(.css-correcao) .cq-linha-nota {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
 :where(.css-correcao) .cq-nota,
 :where(.css-correcao) .cq-comentario,
-:where(.css-correcao) .cq-feedback { display: flex; flex-direction: column; gap: 6px; }
+:where(.css-correcao) .cq-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 :where(.css-correcao) .cq-nota label,
 :where(.css-correcao) .cq-comentario label,
-:where(.css-correcao) .cq-feedback label { font-size: 12px; font-weight: 700; color: #344054; }
-:where(.css-correcao) .cq-nota input { width: 130px; padding: 9px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; }
+:where(.css-correcao) .cq-feedback label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #344054;
+}
+
+:where(.css-correcao) .cq-nota input {
+  width: 130px;
+  padding: 9px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  font: inherit;
+}
+
 :where(.css-correcao) .cq-comentario textarea,
-:where(.css-correcao) .cq-feedback textarea { width: 100%; padding: 10px 12px; border: 1px solid #d8dce1; border-radius: 8px; font: inherit; resize: vertical; }
-:where(.css-correcao) .cq-rapidos { display: flex; gap: 6px; }
-:where(.css-correcao) .cq-rapido { background: #fff; border: 1px solid #d8dce1; border-radius: 8px; padding: 5px 10px; font-size: 12px; font-weight: 700; cursor: pointer; color: #0A1F44; }
-:where(.css-correcao) .cq-rapido:hover { background: #f4f7fb; }
-:where(.css-correcao) .cq-total { font-size: 16px; color: #0A1F44; margin: 0; }
-:where(.css-correcao) .cq-falta { font-size: 13px; color: #8a5200; font-weight: 700; }
-@media (max-width: 600px) { :where(.css-correcao) .cq-linha-nota { grid-template-columns: 1fr; } }
+:where(.css-correcao) .cq-feedback textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+:where(.css-correcao) .cq-rapidos {
+  display: flex;
+  gap: 6px;
+}
+
+:where(.css-correcao) .cq-rapido {
+  background: #fff;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #0A1F44;
+}
+
+:where(.css-correcao) .cq-rapido:hover {
+  background: #f4f7fb;
+}
+
+:where(.css-correcao) .cq-total {
+  font-size: 16px;
+  color: #0A1F44;
+  margin: 0;
+}
+
+:where(.css-correcao) .cq-falta {
+  font-size: 13px;
+  color: #8a5200;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  :where(.css-correcao) .cq-linha-nota {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ---------- Botões do formulário de atividade/avaliação ---------- */
 /* Os botões Cancelar, Publicar/Salvar e "Voltar ao painel" ficavam sem estilo (os estilos de
    .btn-primario/.btn-secundario acima só valem em páginas com a classe css-atividades). */
 :where(.css-formulario) .btn-primario,
 :where(.css-formulario) .btn-secundario {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 10px 18px; border-radius: 10px;
-  text-decoration: none; font: inherit; font-weight: 800; font-size: 13px; cursor: pointer; border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
 }
-:where(.css-formulario) .btn-primario { background: #F5821F; color: #fff; }
-:where(.css-formulario) .btn-primario:hover { background: #de7110; }
-:where(.css-formulario) .btn-primario:disabled { opacity: 0.6; cursor: default; }
-:where(.css-formulario) .actions .btn-secundario { background: #fff; color: #0A1F44; border-color: #d8dce1; }
-:where(.css-formulario) .actions .btn-secundario:hover { background: #f4f7fb; }
-:where(.css-formulario) .topbar-actions .btn-secundario { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.35); }
-:where(.css-formulario) .topbar-actions .btn-secundario:hover { background: rgba(255, 255, 255, 0.2); }
+
+:where(.css-formulario) .btn-primario {
+  background: #F5821F;
+  color: #fff;
+}
+
+:where(.css-formulario) .btn-primario:hover {
+  background: #de7110;
+}
+
+:where(.css-formulario) .btn-primario:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+:where(.css-formulario) .actions .btn-secundario {
+  background: #fff;
+  color: #0A1F44;
+  border-color: #d8dce1;
+}
+
+:where(.css-formulario) .actions .btn-secundario:hover {
+  background: #f4f7fb;
+}
+
+:where(.css-formulario) .topbar-actions .btn-secundario {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+:where(.css-formulario) .topbar-actions .btn-secundario:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 /* ---------- Ajustes de celular ---------- */
 /* Os blocos da grade do formulário não podem ficar mais largos que a tela por causa do conteúdo. */
 :where(.css-formulario) .form-card,
-:where(.css-formulario) .sidebar-card { min-width: 0; }
+:where(.css-formulario) .sidebar-card {
+  min-width: 0;
+}
 
 /* Cabeçalho (menu + nome + Sair) das páginas de atividades quebra em duas linhas em vez de vazar da tela.
    Só vale nestas duas páginas; o .topo das outras páginas continua como estava. */
 @media (max-width: 700px) {
-  :where(.css-aluno-atividades, .css-correcao) .topo { height: auto; flex-wrap: wrap; padding: 10px 16px; gap: 8px 12px; }
-  :where(.css-aluno-atividades, .css-correcao) .topo .menu { order: 3; flex: 1 1 100%; justify-content: flex-start; gap: 20px; }
-  :where(.css-aluno-atividades, .css-correcao) .topo .acoes-topo { flex-shrink: 1; min-width: 0; }
-  :where(.css-aluno-atividades, .css-correcao) .topo .user-link { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  :where(.css-aluno-atividades, .css-correcao) .topo {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    gap: 8px 12px;
+  }
+
+  :where(.css-aluno-atividades, .css-correcao) .topo .menu {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  :where(.css-aluno-atividades, .css-correcao) .topo .acoes-topo {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  :where(.css-aluno-atividades, .css-correcao) .topo .user-link {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
+/* =====================================================
+   LAYOUT DA PÁGINA DE CORREÇÃO DO PROFESSOR
+   Menu lateral e conteúdo na mesma linha
+   ===================================================== */
+
+:where(.css-correcao) main.container.layout-correcao {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Menu lateral */
+:where(.css-correcao) main.container.layout-correcao>.menu-lateral {
+  flex: 0 0 230px;
+  width: 230px;
+  margin: 0;
+}
+
+/* Conteúdo principal */
+:where(.css-correcao) main.container.layout-correcao>.pagina {
+  flex: 1 1 0;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 40px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  :where(.css-correcao) main.container.layout-correcao {
+    flex-direction: column;
+  }
+
+  :where(.css-correcao) main.container.layout-correcao>.menu-lateral {
+    flex: none;
+    width: 100%;
+  }
+
+  :where(.css-correcao) main.container.layout-correcao>.pagina {
+    width: 100%;
+  }
 }

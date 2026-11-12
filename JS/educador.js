@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Ativar item do menu lateral
-  document.querySelectorAll('.menu-item').forEach(item => {
+  document.querySelectorAll('.menu-lateral .menu-perfil strong, .profile-name strong').forEach((el) => {
+    el.textContent = nome;
     item.addEventListener('click', function (e) {
       document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('ativo'));
       this.classList.add('ativo');

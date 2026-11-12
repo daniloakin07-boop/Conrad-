@@ -1,156 +1,194 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Editar perfil do educador</title>
   <link rel="stylesheet" href="../CSS/geral.css" />
   <link rel="stylesheet" href="../CSS/usuarios.css" />
+  <link rel="stylesheet" href="../CSS/turmas.css" />
   <link rel="stylesheet" href="../CSS/chat-privado.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
 </head>
-<body class="css-perfil-educador">
-  <main class="perfil-page">
-    <header class="perfil-topbar">
-      <h1>Editar perfil</h1>
-      <div class="topbar-actions">
-        <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
-      </div>
-    </header>
-<!-- =================================================================================================================== -->
-    <section class="perfil-layout">
-      <div class="perfil-card">
-        <div class="perfil-header">
-          <div class="perfil-foto-wrap">
-            <img id="profilePreview" class="perfil-foto" src="../img/conradcad.png" alt="Foto do professor" />
-            <button type="button" class="perfil-foto-btn" aria-label="Trocar foto">＋</button>
-          </div>
 
-          <div class="perfil-header-info">
-            <h2>Rickson Jordan</h2>
-            <p>Professor de Matemática e História</p>
-            <span class="status-badge">Disponível para aulas</span>
-          </div>
+<body class="css-perfil-educador css-painel">
+
+  <body class="css-perfil-educador css-painel">
+
+    <!-- CONTÊINER DO MENU E DO PERFIL -->
+    <div class="perfil-shell">
+
+      <!-- MENU LATERAL -->
+      <aside class="menu-lateral" data-menu="auto">
+
+        <h3>Conrad Educador</h3>
+
+        <nav aria-label="Menu principal"></nav>
+
+        <div class="menu-ajuda">
+          <strong>Precisa de ajuda?</strong>
+          <p>Acesse o suporte da plataforma.</p>
+          <a href="contato.html" class="btn-secundario">
+            Suporte
+          </a>
         </div>
 
-        <form id="profileForm">
-          <div class="form-grid">
-            <div class="field">
-              <label for="nome">Nome completo</label>
-              <input id="nome" type="text" value="Rickson Jordan" />
-            </div>
-
-            <div class="field">
-              <label for="cargo">Cargo</label>
-              <input id="cargo" type="text" value="Professor" />
-            </div>
-
-            <div class="field full">
-              <label for="email">E-mail</label>
-              <input id="email" type="email" value="rickson.jordan@conrad.com" />
-            </div>
-
-            <div class="field">
-              <label for="telefone">Telefone</label>
-              <input id="telefone" type="tel" value="(11) 98888-1234" />
-            </div>
-
-            <div class="field">
-              <label for="disciplina">Disciplina</label>
-              <input id="disciplina" type="text" value="Matemática e História" />
-            </div>
-
-            <div class="field full">
-              <label for="bio">Sobre o professor</label>
-              <textarea id="bio">Professor com foco em metodologias ativas, acompanhamento individualizado e uso de tecnologia em sala de aula.</textarea>
-            </div>
-
-            <div class="field">
-              <label for="especializacao">Especialização</label>
-              <input id="especializacao" type="text" value="Ensino Fundamental II" />
-            </div>
-
-            <div class="field">
-              <label for="experiencia">Experiência</label>
-              <input id="experiencia" type="text" value="8 anos" />
-            </div>
-          </div>
-
-          <div class="actions-row">
-            <button type="button" class="btn-secundario">Cancelar</button>
-            <button type="submit" class="btn-primario">Salvar perfil</button>
-          </div>
-        </form>
-      </div>
-
-      <aside class="sala-card">
-        <div class="sala-header">
-          <h3>Salas de vídeo</h3>
-          <a href="salas.html" class="btn-secundario">Entrar</a>
+        <div class="menu-perfil">
+          <strong>Minha conta</strong>
+          <span>Educador</span>
         </div>
 
-        <div class="sala-list">
-          <div class="sala-item">
-            <strong>3º ano C - Matemática</strong>
-            <span>Próxima aula · Hoje às 08:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-
-          <div class="sala-item">
-            <strong>2º ano A - Português</strong>
-            <span>Próxima aula · Hoje às 10:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-
-          <div class="sala-item">
-            <strong>1º ano B - História</strong>
-            <span>Próxima aula · Hoje às 14:00</span>
-            <span class="sala-status">Online</span>
-          </div>
-        </div>
       </aside>
-    </section>
 
-    <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
-      <p class="chat-vazio">Carregando seus alunos...</p>
-    </section>
-  </main>
+      <main class="perfil-page">
 
-  <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
+        <header class="perfil-topbar">
+          <h1>Editar perfil</h1>
+          <div class="topbar-actions">
+            <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
+          </div>
+        </header>
+        <!-- =================================================================================================================== -->
+        <section class="perfil-layout">
+          <div class="perfil-card">
+            <div class="perfil-header">
+              <div class="perfil-foto-wrap">
+                <img id="profilePreview" class="perfil-foto" src="../img/conradcad.png" alt="Foto do professor" />
+                <button type="button" class="perfil-foto-btn" aria-label="Trocar foto">＋</button>
+              </div>
 
-  <script>
-    const photoInput = document.getElementById('photoInput');
-    const profilePreview = document.getElementById('profilePreview');
-    const photoButton = document.querySelector('.perfil-foto-btn');
+              <div class="perfil-header-info">
+                <h2>Rickson Jordan</h2>
+                <p>Professor de Matemática e História</p>
+                <span class="status-badge">Disponível para aulas</span>
+              </div>
+            </div>
 
-    photoButton.addEventListener('click', () => photoInput.click());
+            <form id="profileForm">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="nome">Nome completo</label>
+                  <input id="nome" type="text" value="Rickson Jordan" />
+                </div>
 
-    photoInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
+                <div class="field">
+                  <label for="cargo">Cargo</label>
+                  <input id="cargo" type="text" value="Professor" />
+                </div>
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        profilePreview.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+                <div class="field full">
+                  <label for="email">E-mail</label>
+                  <input id="email" type="email" value="rickson.jordan@conrad.com" />
+                </div>
 
-    document.getElementById('profileForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
+                <div class="field">
+                  <label for="telefone">Telefone</label>
+                  <input id="telefone" type="tel" value="(11) 98888-1234" />
+                </div>
 
-      if (!nome || !email) {
-        alert('Nome e e-mail são obrigatórios.');
-        return;
-      }
+                <div class="field">
+                  <label for="disciplina">Disciplina</label>
+                  <input id="disciplina" type="text" value="Matemática e História" />
+                </div>
 
-      alert('Perfil atualizado com sucesso!');
-    });
-  </script>
-  <script src="../JS/config.js"></script>
-  <script src="../JS/perfil-chat.js" defer></script>
-</body>
+                <div class="field full">
+                  <label for="bio">Sobre o professor</label>
+                  <textarea
+                    id="bio">Professor com foco em metodologias ativas, acompanhamento individualizado e uso de tecnologia em sala de aula.</textarea>
+                </div>
+
+                <div class="field">
+                  <label for="especializacao">Especialização</label>
+                  <input id="especializacao" type="text" value="Ensino Fundamental II" />
+                </div>
+
+                <div class="field">
+                  <label for="experiencia">Experiência</label>
+                  <input id="experiencia" type="text" value="8 anos" />
+                </div>
+              </div>
+
+              <div class="actions-row">
+                <button type="button" class="btn-secundario">Cancelar</button>
+                <button type="submit" class="btn-primario">Salvar perfil</button>
+              </div>
+            </form>
+          </div>
+
+          <aside class="sala-card">
+            <div class="sala-header">
+              <h3>Salas de vídeo</h3>
+              <a href="salas.html" class="btn-secundario">Entrar</a>
+            </div>
+
+            <div class="sala-list">
+              <div class="sala-item">
+                <strong>3º ano C - Matemática</strong>
+                <span>Próxima aula · Hoje às 08:00</span>
+                <span class="sala-status">Online</span>
+              </div>
+
+              <div class="sala-item">
+                <strong>2º ano A - Português</strong>
+                <span>Próxima aula · Hoje às 10:00</span>
+                <span class="sala-status">Online</span>
+              </div>
+
+              <div class="sala-item">
+                <strong>1º ano B - História</strong>
+                <span>Próxima aula · Hoje às 14:00</span>
+                <span class="sala-status">Online</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
+          <p class="chat-vazio">Carregando seus alunos...</p>
+        </section>
+      </main>
+
+    </div>
+    <!-- Fim do perfil-shell -->
+
+    <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
+
+    <script>
+      const photoInput = document.getElementById('photoInput');
+      const profilePreview = document.getElementById('profilePreview');
+      const photoButton = document.querySelector('.perfil-foto-btn');
+
+      photoButton.addEventListener('click', () => photoInput.click());
+
+      photoInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          profilePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('profileForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        if (!nome || !email) {
+          alert('Nome e e-mail são obrigatórios.');
+          return;
+        }
+
+        alert('Perfil atualizado com sucesso!');
+      });
+    </script>
+    <script src="../JS/config.js"></script>
+    <script src="../JS/layout.js" defer></script>
+    <script src="../JS/perfil-chat.js" defer></script>
+  </body>
+
 </html>
