@@ -1,160 +1,266 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CONRAD Virtual School - Perfil</title>
+  <meta name="theme-color" content="#0A1F44">
+  <title>Conrad | Meu perfil</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="stylesheet" href="../CSS/turmas.css">
   <link rel="stylesheet" href="../CSS/chat-privado.css">
-  <link rel="icon" type="image/png" href="../img/Emblema.png">  
+  <link rel="stylesheet" href="../CSS/perfil-aluno.css">
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
 </head>
-
-<body class="css-painel">
-  <!-- =================================================================================================================== -->
+<body class="css-painel css-perfil-aluno">
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
-    <nav class="menu">
+    <nav class="menu" aria-label="Navegação principal">
       <a href="../index.html">Início</a>
       <a href="sobre.html">Sobre</a>
       <a href="contato.html">Contato</a>
     </nav>
-
     <div class="acoes-topo">
-      <a href="perfil-aluno.html" class="user-link" aria-label="Perfil do aluno">
+      <a href="perfil-aluno.html" class="user-link" aria-label="Meu perfil">
         <span class="user-avatar">👤</span>
         <span>Minha conta</span>
       </a>
       <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
   </header>
-  <!-- =================================================================================================================== -->
-  <main class="container">
-    <div class="dashboard-professor">
 
-      <!-- MENU LATERAL PADRONIZADO -->
-      <aside class="menu-lateral" data-menu="auto">
+  <main class="container perfil-aluno-container">
+    <div class="dashboard-professor perfil-aluno-layout">
+      <aside class="menu-lateral">
+        <h3>Conrad Aluno</h3>
+        <nav aria-label="Menu do estudante">
+          <a href="aluno.html" class="menu-item">Painel</a>
+          <a href="dashboard.html" class="menu-item">Horário das aulas</a>
+          <a href="turmas.html" class="menu-item">Turmas</a>
+          <a href="atividades.html" class="menu-item">Atividades</a>
+          <a href="avaliacoes.html" class="menu-item">Avaliações</a>
+          <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
+          <a href="salas.html" class="menu-item">Salas de vídeo</a>
+          <a href="perfil-aluno.html" class="menu-item ativo">Meu perfil</a>
+        </nav>
 
-        <!-- O JavaScript atualiza o título -->
-        <h3>Conrad</h3>
-
-        <!-- O layout.js cria os links automaticamente -->
-        <nav aria-label="Menu principal"></nav>
-
-        <!-- Área de suporte -->
         <div class="menu-ajuda">
           <strong>Precisa de ajuda?</strong>
           <p>Acesse o suporte da plataforma.</p>
-          <a href="contato.html" class="btn-secundario">
-            Suporte
-          </a>
+          <a href="contato.html" class="btn-secundario">Suporte</a>
         </div>
 
-        <!-- Informações do usuário -->
         <div class="menu-perfil">
           <strong>Minha conta</strong>
-          <span>Usuário</span>
+          <span>Aluno</span>
         </div>
-
       </aside>
 
-      <section class="conteudo-dashboard" id="mainContent">
-
-        <header class="titulo-dashboard">
+      <section class="conteudo-dashboard perfil-aluno-conteudo" id="mainContent">
+        <header class="perfil-pagina-cabecalho">
           <div>
-            <h1>Painel principal de ensino e acompanhamento</h1>
-            <p>Uma experiência centralizada para publicar atividades, acompanhar desempenho e acessar salas de vídeo.
-            </p>
-
-            <a class="atalho-boletim" href="boletim.html">Consultar meu boletim e salvar em PDF</a>
+            <span class="perfil-sobretitulo">ESPAÇO DO ESTUDANTE</span>
+            <h1>Meu perfil</h1>
+            <p>Apresente quem você é, compartilhe seus interesses e acompanhe sua trajetória no Conrad.</p>
           </div>
-
-          <div class="quick-actions">
-            <button type="button" class="btn-primario">Criar atividade</button>
-            <a href="salas.html" class="btn-secundario">Entrar ao vivo</a>
-          </div>
+          <button type="button" class="btn-primario" id="abrirEdicaoPerfil">
+            <span aria-hidden="true">✎</span> Editar perfil
+          </button>
         </header>
 
-        <section class="cards-resumo tres">
-          <div class="card-resumo">
-            <h2>12</h2>
-            <h3>Atividades</h3>
-            <span>Atividades cadastradas</span>
-          </div>
-
-          <div class="card-resumo">
-            <h2>03</h2>
-            <h3>Salas</h3>
-            <span>Salas de vídeo disponíveis</span>
-          </div>
-
-          <div class="card-resumo">
-            <h2>05</h2>
-            <h3>Alertas</h3>
-            <span>Alertas para acompanhar</span>
+        <section class="perfil-destaque" aria-label="Apresentação do estudante">
+          <div class="perfil-destaque-fundo" aria-hidden="true"></div>
+          <div class="perfil-destaque-conteudo">
+            <div class="perfil-avatar-grande" id="avatarContainer">
+              <span id="profileInitials">A</span>
+              <img id="profileAvatar" alt="Foto de perfil do estudante" hidden>
+            </div>
+            <div class="perfil-identificacao">
+              <span class="perfil-etiqueta">PERFIL DO ESTUDANTE</span>
+              <h2 id="profileName">Carregando perfil...</h2>
+              <p id="profileEmail">Carregando e-mail...</p>
+              <div class="perfil-destaque-tags">
+                <span class="perfil-role">Estudante Conrad</span>
+                <span class="perfil-turmas-resumo" id="profileClassSummary">Consultando turmas...</span>
+              </div>
+            </div>
+            <a class="perfil-link-painel" href="aluno.html">Ir para meu painel <span aria-hidden="true">→</span></a>
           </div>
         </section>
 
-        <div class="painel-dashboard">
-
-          <article class="card-avaliacoes">
-            <div class="titulo-card">
-              <h2>Atividades recentes</h2>
-            </div>
-
-            <div class="lista-simples">
-              <div class="mini-item">
+        <div class="perfil-conteudo-grid">
+          <div class="perfil-coluna-principal">
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
                 <div>
-                  <strong>Atividade de Programação</strong>
-                  <span>Entrega até 15/07</span>
+                  <span class="perfil-numero-secao">01</span>
+                  <h3>Sobre mim</h3>
                 </div>
-                <span class="status pendente">Pendente</span>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
               </div>
+              <p class="perfil-bio" id="profileBio">Adicione uma apresentação para que seus colegas e educadores conheçam um pouco mais sobre você.</p>
+            </article>
+
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">02</span>
+                  <h3>Meus interesses</h3>
+                </div>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
+              </div>
+              <p class="perfil-ajuda-vazio" id="interessesVazio">Conte quais assuntos despertam sua curiosidade.</p>
+              <div class="perfil-lista-tags" id="profileInterests"></div>
+            </article>
+
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">03</span>
+                  <h3>Minhas habilidades</h3>
+                </div>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
+              </div>
+              <p class="perfil-ajuda-vazio" id="habilidadesVazio">Adicione conhecimentos e habilidades que está desenvolvendo.</p>
+              <div class="perfil-lista-tags" id="profileSkills"></div>
+            </article>
+
+            <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
+              <p class="chat-vazio">Carregando seus educadores...</p>
+            </section>
+          </div>
+
+          <aside class="perfil-coluna-lateral">
+            <article class="perfil-bloco perfil-informacoes">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">CONTA</span>
+                  <h3>Informações</h3>
+                </div>
+              </div>
+              <dl class="perfil-dados-lista">
+                <div>
+                  <dt>Nome completo</dt>
+                  <dd id="infoName">—</dd>
+                </div>
+                <div>
+                  <dt>E-mail</dt>
+                  <dd id="infoEmail">—</dd>
+                </div>
+                <div>
+                  <dt>Tipo de conta</dt>
+                  <dd>Estudante</dd>
+                </div>
+                <div>
+                  <dt>Minhas turmas</dt>
+                  <dd id="infoClasses">Carregando...</dd>
+                </div>
+              </dl>
+              <button type="button" class="perfil-botao-contorno" data-editar-perfil>Atualizar informações</button>
+            </article>
+
+            <article class="perfil-bloco perfil-trajetoria">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">CONRAD</span>
+                  <h3>Minha trajetória</h3>
+                </div>
+              </div>
+              <p>Acesse suas atividades e acompanhe seu desenvolvimento na plataforma.</p>
+              <a href="turmas.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">▦</span>
+                <span><strong>Minhas turmas</strong><small>Consulte suas turmas e educadores</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+              <a href="atividades.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">✓</span>
+                <span><strong>Atividades</strong><small>Veja tarefas e entregas</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+              <a href="boletim.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">▤</span>
+                <span><strong>Meu boletim</strong><small>Consulte suas notas</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+            </article>
+
+            <div class="perfil-dica">
+              <span class="perfil-dica-icone" aria-hidden="true">i</span>
+              <p>Mantenha seu perfil atualizado para facilitar a comunicação com colegas e educadores.</p>
             </div>
-          </article>
-
-          <aside class="painel-lateral">
-
-            <article class="card-media">
-              <h3>Desempenho</h3>
-              <div class="barra-progresso">
-                <div class="progresso" style="width:70%;"></div>
-              </div>
-              <div class="barra-progresso">
-                <div class="progresso" style="width:90%;"></div>
-              </div>
-            </article>
-
-            <article class="card-pendencias">
-              <div class="titulo-card">
-                <h3>Próximos eventos</h3>
-              </div>
-              <div class="agenda-line">Mentoria - 14:00</div>
-              <div class="agenda-line">Correção - 14:00</div>
-            </article>
-
           </aside>
-
         </div>
-
-        <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
-          <p class="chat-vazio">Carregando seus educadores...</p>
-        </section>
-
       </section>
-
     </div>
   </main>
-  <!-- =================================================================================================================== -->
+
+  <div class="perfil-modal" id="modalEdicaoPerfil" hidden>
+    <div class="perfil-modal-fundo" data-fechar-modal></div>
+    <section class="perfil-modal-conteudo" role="dialog" aria-modal="true" aria-labelledby="tituloModalPerfil">
+      <header class="perfil-modal-cabecalho">
+        <div>
+          <span class="perfil-sobretitulo">PERSONALIZE SEU ESPAÇO</span>
+          <h2 id="tituloModalPerfil">Editar perfil</h2>
+          <p>Atualize suas informações e conte um pouco sobre você.</p>
+        </div>
+        <button type="button" class="perfil-modal-fechar" aria-label="Fechar" data-fechar-modal>×</button>
+      </header>
+
+      <form id="formPerfilAluno" class="perfil-formulario">
+        <div class="perfil-foto-edicao">
+          <div class="perfil-avatar-pequeno" id="avatarPreviewContainer">
+            <span id="previewInitials">A</span>
+            <img id="profilePreview" alt="Prévia da foto de perfil" hidden>
+          </div>
+          <div>
+            <label for="photoInput" class="perfil-upload-label">Alterar foto</label>
+            <input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+            <small>JPG, PNG ou WebP. A imagem será ajustada automaticamente.</small>
+          </div>
+        </div>
+
+        <div class="perfil-form-grid">
+          <div class="perfil-campo">
+            <label for="perfilNome">Nome completo</label>
+            <input id="perfilNome" name="nome" type="text" maxlength="100" autocomplete="name" required>
+          </div>
+          <div class="perfil-campo">
+            <label for="perfilEmail">E-mail</label>
+            <input id="perfilEmail" name="email" type="email" maxlength="150" autocomplete="email" required>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilBio">Sobre mim</label>
+            <textarea id="perfilBio" name="sobre_mim" rows="4" maxlength="800" placeholder="Escreva uma breve apresentação sobre você..."></textarea>
+            <small>Máximo de 800 caracteres.</small>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilInteresses">Meus interesses</label>
+            <input id="perfilInteresses" name="interesses" type="text" maxlength="300" placeholder="Ex.: tecnologia, música, leitura, esportes">
+            <small>Separe os interesses por vírgula.</small>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilHabilidades">Minhas habilidades</label>
+            <input id="perfilHabilidades" name="habilidades" type="text" maxlength="300" placeholder="Ex.: HTML, comunicação, trabalho em equipe">
+            <small>Separe as habilidades por vírgula.</small>
+          </div>
+        </div>
+
+        <p class="perfil-form-status" id="perfilFormStatus" role="status" aria-live="polite"></p>
+        <div class="perfil-form-acoes">
+          <button type="button" class="btn-secundario" data-fechar-modal>Cancelar</button>
+          <button type="submit" class="btn-primario" id="salvarPerfilBtn">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
-  <script src="../JS/layout.js" defer></script>
+
   <script src="../JS/config.js"></script>
+  <script src="../JS/layout.js" defer></script>
+  <script src="../JS/perfil-aluno.js" defer></script>
   <script src="../JS/perfil-chat.js" defer></script>
 </body>
-
 </html>

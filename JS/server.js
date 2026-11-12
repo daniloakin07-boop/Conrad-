@@ -61,7 +61,7 @@ app.use(cors({
 
 // 5) Middleware para interpretar JSON no corpo das requisições
 // Sem isso, `req.body` ficaria undefined ao receber JSON do front-end.
-app.use(express.json());
+app.use(express.json({ limit: "2mb" }));
 
 // 6) Middleware simples de log para depuração
 // Exibe no terminal cada requisição recebida: método e caminho
@@ -321,6 +321,161 @@ app.get("/me", (req, res) => {
         logado: true,
         usuario: req.session.usuario
     });
+});
+
+// Dados complementares do perfil. A tabela é criada automaticamente na primeira utilização.
+// Não há chave estrangeira intencionalmente: o tipo de tb_usuarios.id varia entre instalações antigas.
+let tabelaPerfisPromise = null;
+async function garantirTabelaPerfis() {
+    if (!tabelaPerfisPromise) {
+        tabelaPerfisPromise = pool.execute(`
+            CREATE TABLE IF NOT EXISTS tb_perfis_alunos (
+                usuario_id BIGINT UNSIGNED NOT NULL,
+                sobre_mim VARCHAR(800) NULL,
+                interesses TEXT NULL,
+                habilidades TEXT NULL,
+                foto_perfil MEDIUMTEXT NULL,
+                atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                PRIMARY KEY (usuario_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        `).catch((erro) => {
+            tabelaPerfisPromise = null;
+            throw erro;
+        });
+    }
+    await tabelaPerfisPromise;
+}
+
+function lerListaPerfil(valor) {
+    if (!valor) return [];
+    try {
+        const lista = JSON.parse(valor);
+        return Array.isArray(lista) ? lista : [];
+    } catch {
+        return [];
+    }
+}
+
+function normalizarListaPerfil(valor) {
+    const itens = Array.isArray(valor) ? valor : typeof valor === "string" ? valor.split(/[,;\n]+/) : [];
+    return [...new Set(itens
+        .map((item) => String(item).trim().slice(0, 40))
+        .filter(Boolean))].slice(0, 12);
+}
+
+// Consulta os dados da conta e as informações de apresentação do estudante logado.
+app.get("/perfil", async (req, res) => {
+    if (!req.session.usuario) return res.status(401).json({ erro: "Faça login para continuar" });
+
+    try {
+        await garantirTabelaPerfis();
+        const usuarioId = req.session.usuario.id;
+        const [usuarios] = await pool.execute(
+            "SELECT id, nome, email, tipo FROM tb_usuarios WHERE id = ? LIMIT 1",
+            [usuarioId]
+        );
+        if (!usuarios.length) return res.status(404).json({ erro: "Conta não encontrada" });
+
+        const [perfis] = await pool.execute(
+            "SELECT sobre_mim, interesses, habilidades, foto_perfil FROM tb_perfis_alunos WHERE usuario_id = ? LIMIT 1",
+            [usuarioId]
+        );
+        const dados = perfis[0] || {};
+        res.json({
+            usuario: usuarios[0],
+            perfil: {
+                sobre_mim: dados.sobre_mim || "",
+                interesses: lerListaPerfil(dados.interesses),
+                habilidades: lerListaPerfil(dados.habilidades),
+                foto_perfil: dados.foto_perfil || ""
+            }
+        });
+    } catch (erro) {
+        console.error("Erro ao carregar perfil:", erro);
+        res.status(500).json({ erro: "Não foi possível carregar seu perfil" });
+    }
+});
+
+// Atualiza os dados da conta e as informações complementares do perfil.
+app.put("/perfil", async (req, res) => {
+    if (!req.session.usuario) return res.status(401).json({ erro: "Faça login para continuar" });
+
+    try {
+        const usuarioId = req.session.usuario.id;
+        const nome = String(req.body.nome || "").trim();
+        const email = String(req.body.email || "").trim().toLowerCase();
+        const sobreMim = String(req.body.sobre_mim || "").trim();
+        const interesses = normalizarListaPerfil(req.body.interesses);
+        const habilidades = normalizarListaPerfil(req.body.habilidades);
+        const foto = req.body.foto_perfil == null ? "" : String(req.body.foto_perfil);
+
+        if (!nome || nome.length > 100) {
+            return res.status(400).json({ erro: "Informe um nome com até 100 caracteres" });
+        }
+        if (!email || email.length > 150 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({ erro: "Informe um endereço de e-mail válido" });
+        }
+        if (sobreMim.length > 800) {
+            return res.status(400).json({ erro: "A apresentação deve ter no máximo 800 caracteres" });
+        }
+        if (foto && (!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(foto) || foto.length > 1500000)) {
+            return res.status(400).json({ erro: "A foto é inválida ou ultrapassa o tamanho permitido" });
+        }
+
+        await garantirTabelaPerfis();
+        const conexao = await pool.getConnection();
+        try {
+            await conexao.beginTransaction();
+            const [emails] = await conexao.execute(
+                "SELECT id FROM tb_usuarios WHERE email = ? AND id <> ? LIMIT 1",
+                [email, usuarioId]
+            );
+            if (emails.length) {
+                await conexao.rollback();
+                return res.status(409).json({ erro: "Esse e-mail já está sendo usado por outra conta" });
+            }
+
+            await conexao.execute(
+                "UPDATE tb_usuarios SET nome = ?, email = ? WHERE id = ?",
+                [nome, email, usuarioId]
+            );
+            await conexao.execute(
+                `INSERT INTO tb_perfis_alunos (usuario_id, sobre_mim, interesses, habilidades, foto_perfil)
+                 VALUES (?, ?, ?, ?, ?)
+                 ON DUPLICATE KEY UPDATE
+                    sobre_mim = VALUES(sobre_mim),
+                    interesses = VALUES(interesses),
+                    habilidades = VALUES(habilidades),
+                    foto_perfil = VALUES(foto_perfil)`,
+                [usuarioId, sobreMim || null, JSON.stringify(interesses), JSON.stringify(habilidades), foto || null]
+            );
+            await conexao.commit();
+        } catch (erroTransacao) {
+            await conexao.rollback().catch(() => {});
+            if (erroTransacao.code === "ER_DUP_ENTRY") {
+                return res.status(409).json({ erro: "Esse e-mail já está sendo usado por outra conta" });
+            }
+            throw erroTransacao;
+        } finally {
+            conexao.release();
+        }
+
+        req.session.usuario.nome = nome;
+        req.session.usuario.email = email;
+        res.json({
+            mensagem: "Perfil atualizado com sucesso",
+            usuario: { id: usuarioId, nome, email, tipo: req.session.usuario.tipo },
+            perfil: {
+                sobre_mim: sobreMim,
+                interesses,
+                habilidades,
+                foto_perfil: foto
+            }
+        });
+    } catch (erro) {
+        console.error("Erro ao atualizar perfil:", erro);
+        res.status(500).json({ erro: "Não foi possível salvar seu perfil" });
+    }
 });
 
 // Rota de logout: destrói a sessão e limpa o cookie no navegador
