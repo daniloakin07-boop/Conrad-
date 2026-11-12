@@ -1,103 +1,817 @@
-body.css-painel .titulo-dashboard {
-    height: auto;
-    min-height: 0;
+/* ==========================================================
+   PERFIL DO ALUNO — visual e componentes exclusivos da página
+   ========================================================== */
+
+body.css-perfil-aluno {
+  background: #e8edf5;
+}
+
+.css-perfil-aluno .perfil-aluno-container {
+  width: 100%;
+  padding: 34px 24px 42px;
+}
+
+.css-perfil-aluno .perfil-aluno-layout {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.css-perfil-aluno .menu-lateral {
+  position: sticky;
+  top: 22px;
+}
+
+.css-perfil-aluno .perfil-aluno-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.css-perfil-aluno .perfil-pagina-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 2px 2px;
+}
+
+.css-perfil-aluno .perfil-sobretitulo {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #f5821f;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.css-perfil-aluno .perfil-pagina-cabecalho h1,
+.css-perfil-aluno .perfil-modal-cabecalho h2 {
+  color: #0a1f44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  line-height: 1;
+}
+
+.css-perfil-aluno .perfil-pagina-cabecalho p {
+  max-width: 650px;
+  margin-top: 8px;
+  color: #65718a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.css-perfil-aluno .perfil-pagina-cabecalho .btn-primario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid #f5821f;
+  border-radius: 10px;
+  background: #f5821f;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(245, 130, 31, .16);
+  transition: transform .2s ease, background .2s ease;
+}
+
+.css-perfil-aluno .perfil-pagina-cabecalho .btn-primario:hover {
+  transform: translateY(-2px);
+  background: #e87516;
+}
+
+/* Apresentação do aluno */
+.css-perfil-aluno .perfil-destaque {
+  position: relative;
+  overflow: hidden;
+  min-height: 205px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  background: #0a1f44;
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(10, 31, 68, .10);
+}
+
+.css-perfil-aluno .perfil-destaque-fundo {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 87% 20%, rgba(245,130,31,.35), transparent 25%),
+    radial-gradient(circle at 70% 110%, rgba(77,125,190,.28), transparent 36%),
+    linear-gradient(112deg, #0a1f44 0%, #123365 72%, #183e70 100%);
+}
+
+.css-perfil-aluno .perfil-destaque-conteudo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 205px;
+  padding: 30px 32px;
+}
+
+.css-perfil-aluno .perfil-avatar-grande,
+.css-perfil-aluno .perfil-avatar-pequeno {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff, #dce7f8);
+  color: #0a1f44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 46px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+}
+
+.css-perfil-aluno .perfil-avatar-grande {
+  width: 112px;
+  height: 112px;
+  border: 4px solid rgba(255,255,255,.9);
+}
+
+.css-perfil-aluno .perfil-avatar-grande img,
+.css-perfil-aluno .perfil-avatar-pequeno img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.css-perfil-aluno .perfil-avatar-grande img[hidden],
+.css-perfil-aluno .perfil-avatar-pequeno img[hidden] {
+  display: none;
+}
+
+.css-perfil-aluno .perfil-identificacao {
+  min-width: 0;
+  flex: 1;
+}
+
+.css-perfil-aluno .perfil-etiqueta {
+  color: #ffc18b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+}
+
+.css-perfil-aluno .perfil-identificacao h2 {
+  overflow-wrap: anywhere;
+  margin: 5px 0 3px;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  line-height: 1.1;
+}
+
+.css-perfil-aluno .perfil-identificacao > p {
+  overflow-wrap: anywhere;
+  color: #d5deed;
+  font-size: 13px;
+}
+
+.css-perfil-aluno .perfil-destaque-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.css-perfil-aluno .perfil-role,
+.css-perfil-aluno .perfil-turmas-resumo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  color: #f4f7fc;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.css-perfil-aluno .perfil-role {
+  border-color: rgba(245,130,31,.5);
+  background: rgba(245,130,31,.18);
+  color: #ffd2ad;
+}
+
+.css-perfil-aluno .perfil-link-painel {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.css-perfil-aluno .perfil-link-painel:hover {
+  border-color: #f5821f;
+  background: rgba(255,255,255,.1);
+}
+
+.css-perfil-aluno .perfil-conteudo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(270px, .9fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.css-perfil-aluno .perfil-coluna-principal,
+.css-perfil-aluno .perfil-coluna-lateral {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.css-perfil-aluno .perfil-bloco {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #e5eaf1;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(16, 43, 88, .035);
+}
+
+.css-perfil-aluno .perfil-bloco-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.css-perfil-aluno .perfil-bloco-cabecalho > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.css-perfil-aluno .perfil-numero-secao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 25px;
+  padding: 0 7px;
+  border-radius: 7px;
+  background: #fff1e6;
+  color: #e87516;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .5px;
+}
+
+.css-perfil-aluno .perfil-bloco-cabecalho h3 {
+  color: #0a1f44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .4px;
+}
+
+.css-perfil-aluno .perfil-texto-botao {
+  padding: 5px 8px;
+  border: 0;
+  background: transparent;
+  color: #e87516;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.css-perfil-aluno .perfil-texto-botao:hover {
+  text-decoration: underline;
+}
+
+.css-perfil-aluno .perfil-bio,
+.css-perfil-aluno .perfil-trajetoria > p {
+  color: #5f6b80;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.css-perfil-aluno .perfil-ajuda-vazio {
+  color: #8993a4;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.css-perfil-aluno .perfil-lista-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.css-perfil-aluno .perfil-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 31px;
+  padding: 6px 12px;
+  border: 1px solid #e2e9f3;
+  border-radius: 999px;
+  background: #f4f7fb;
+  color: #18365f;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.css-perfil-aluno .perfil-dados-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.css-perfil-aluno .perfil-dados-lista > div {
+  min-width: 0;
+}
+
+.css-perfil-aluno .perfil-dados-lista dt {
+  margin-bottom: 3px;
+  color: #8993a4;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+.css-perfil-aluno .perfil-dados-lista dd {
+  overflow-wrap: anywhere;
+  color: #172b4d;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.css-perfil-aluno .perfil-botao-contorno {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 19px;
+  padding: 9px 12px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #0a1f44;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.css-perfil-aluno .perfil-botao-contorno:hover {
+  border-color: #f5821f;
+  background: #fff9f4;
+}
+
+.css-perfil-aluno .perfil-trajetoria .perfil-bloco-cabecalho {
+  margin-bottom: 12px;
+}
+
+.css-perfil-aluno .perfil-atalho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-top: 12px;
+  padding: 11px 10px;
+  border: 1px solid #edf0f5;
+  border-radius: 10px;
+  color: #0a1f44;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+}
+
+.css-perfil-aluno .perfil-atalho:hover {
+  transform: translateX(2px);
+  border-color: #f6c69f;
+  background: #fffaf6;
+}
+
+.css-perfil-aluno .perfil-atalho-icone {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 9px;
+  background: #fff1e6;
+  color: #e87516;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.css-perfil-aluno .perfil-atalho > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.css-perfil-aluno .perfil-atalho strong {
+  font-size: 12px;
+}
+
+.css-perfil-aluno .perfil-atalho small {
+  color: #7d8798;
+  font-size: 10px;
+}
+
+.css-perfil-aluno .perfil-atalho-seta {
+  color: #e87516;
+  font-size: 17px;
+}
+
+.css-perfil-aluno .perfil-dica {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #dce6f4;
+  border-radius: 11px;
+  background: #f3f7fc;
+}
+
+.css-perfil-aluno .perfil-dica-icone {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #dce8f8;
+  color: #163b74;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.css-perfil-aluno .perfil-dica p {
+  color: #536783;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Janela de edição */
+.css-perfil-aluno .perfil-modal[hidden] {
+  display: none;
+}
+
+.css-perfil-aluno .perfil-modal {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.css-perfil-aluno .perfil-modal-fundo {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 20, 44, .68);
+  backdrop-filter: blur(4px);
+}
+
+.css-perfil-aluno .perfil-modal-conteudo {
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  width: min(100%, 700px);
+  max-height: min(92vh, 900px);
+  padding: 27px;
+  border: 1px solid #e7ebf2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(0,0,0,.24);
+}
+
+.css-perfil-aluno .perfil-modal-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.css-perfil-aluno .perfil-modal-cabecalho h2 {
+  font-size: 30px;
+}
+
+.css-perfil-aluno .perfil-modal-cabecalho p {
+  margin-top: 6px;
+  color: #738097;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.css-perfil-aluno .perfil-modal-fechar {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e5e9ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #536078;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.css-perfil-aluno .perfil-foto-edicao {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 13px;
+  border: 1px solid #edf0f5;
+  border-radius: 11px;
+  background: #fafbfd;
+}
+
+.css-perfil-aluno .perfil-avatar-pequeno {
+  width: 66px;
+  height: 66px;
+  border: 2px solid #fff;
+  font-size: 28px;
+}
+
+.css-perfil-aluno .perfil-upload-label {
+  display: inline-flex;
+  margin-bottom: 4px;
+  color: #e87516;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.css-perfil-aluno .perfil-upload-label:hover {
+  text-decoration: underline;
+}
+
+.css-perfil-aluno .perfil-foto-edicao small,
+.css-perfil-aluno .perfil-campo small {
+  display: block;
+  margin-top: 4px;
+  color: #8a94a5;
+  font-size: 10px;
+}
+
+.css-perfil-aluno .perfil-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.css-perfil-aluno .perfil-campo {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.css-perfil-aluno .perfil-campo-completo {
+  grid-column: 1 / -1;
+}
+
+.css-perfil-aluno .perfil-campo label {
+  color: #172b4d;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.css-perfil-aluno .perfil-campo input,
+.css-perfil-aluno .perfil-campo textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #dce2eb;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #172b4d;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.css-perfil-aluno .perfil-campo textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.css-perfil-aluno .perfil-campo input:focus,
+.css-perfil-aluno .perfil-campo textarea:focus {
+  border-color: #f5821f;
+  box-shadow: 0 0 0 3px rgba(245,130,31,.12);
+}
+
+.css-perfil-aluno .perfil-form-status {
+  min-height: 18px;
+  margin-top: 12px;
+  color: #b54708;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.css-perfil-aluno .perfil-form-status.sucesso {
+  color: #247a45;
+}
+
+.css-perfil-aluno .perfil-form-status.erro {
+  color: #c13232;
+}
+
+.css-perfil-aluno .perfil-form-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #edf0f4;
+}
+
+.css-perfil-aluno .perfil-form-acoes button {
+  min-height: 41px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.css-perfil-aluno .perfil-form-acoes .btn-secundario {
+  border: 1px solid #dce2eb;
+  background: #fff;
+  color: #0a1f44;
+}
+
+.css-perfil-aluno .perfil-form-acoes .btn-primario {
+  border: 1px solid #f5821f;
+  background: #f5821f;
+  color: #fff;
+}
+
+.css-perfil-aluno .perfil-form-acoes button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.css-perfil-aluno .perfil-aluno-conteudo #atalhos-chat {
+  margin-top: 0;
+}
+
+@media (max-width: 1120px) {
+  .css-perfil-aluno .perfil-conteudo-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(250px, .9fr);
+  }
+
+  .css-perfil-aluno .perfil-destaque-conteudo {
+    padding: 26px;
+  }
 }
 
 @media (max-width: 900px) {
-    body.css-painel .dashboard-professor {
-        width: 100%;
-        min-width: 0;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 20px;
-        padding: 20px 0;
-    }
+  .css-perfil-aluno .perfil-aluno-layout {
+    flex-direction: column;
+  }
 
-    body.css-painel .menu-lateral,
-    body.css-painel .conteudo-dashboard {
-        width: 100%;
-        min-width: 0;
-    }
+  .css-perfil-aluno .menu-lateral,
+  .css-perfil-aluno .conteudo-dashboard {
+    position: static;
+    width: 100%;
+    min-width: 0;
+  }
 
-    body.css-painel .menu-lateral nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-    }
+  .css-perfil-aluno .menu-lateral nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
 
-    body.css-painel .menu-item {
-        min-width: 0;
-        margin: 0;
-    }
-
-    body.css-painel .titulo-dashboard {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
-    }
-
-    body.css-painel .titulo-dashboard>div:first-child,
-    body.css-painel .quick-actions {
-        width: 100%;
-        min-width: 0;
-    }
-
-    body.css-painel .quick-actions {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 8px;
-    }
-
-    body.css-painel .cards-resumo.tres {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    body.css-painel .painel-dashboard,
-    body.css-painel .painel-dashboard>*,
-    body.css-painel .painel-lateral {
-        min-width: 0;
-    }
-
-    body.css-painel .painel-dashboard {
-        grid-template-columns: minmax(0, 1fr);
-    }
+  .css-perfil-aluno .menu-item {
+    min-width: 0;
+    margin: 0;
+  }
 }
 
-@media (max-width: 650px) {
-    body.css-painel .quick-actions {
-        grid-template-columns: minmax(0, 1fr);
-    }
+@media (max-width: 760px) {
+  .css-perfil-aluno .perfil-conteudo-grid {
+    grid-template-columns: 1fr;
+  }
 
-    body.css-painel .quick-actions a,
-    body.css-painel .quick-actions button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-width: 0;
-        min-height: 44px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        font-size: 13px;
-        font-weight: 800;
-        text-decoration: none;
-    }
+  .css-perfil-aluno .perfil-coluna-lateral {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
 
-    body.css-painel .quick-actions button {
-        border: 1px solid #f5821f;
-        background: #f5821f;
-        color: #fff;
-    }
-
-    body.css-painel .quick-actions a {
-        border: 1px solid #dfe4ea;
-        background: #fff;
-        color: #0a1f44;
-    }
+  .css-perfil-aluno .perfil-dica {
+    grid-column: 1 / -1;
+  }
 }
 
-@media (max-width: 360px) {
-    body.css-painel .cards-resumo.tres {
-        grid-template-columns: minmax(0, 1fr);
-    }
+@media (max-width: 600px) {
+  .css-perfil-aluno .perfil-aluno-container {
+    padding: 22px 14px 30px;
+  }
+
+  .css-perfil-aluno .perfil-pagina-cabecalho {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .css-perfil-aluno .perfil-pagina-cabecalho .btn-primario {
+    width: 100%;
+  }
+
+  .css-perfil-aluno .perfil-destaque-conteudo {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 22px 18px;
+  }
+
+  .css-perfil-aluno .perfil-avatar-grande {
+    width: 82px;
+    height: 82px;
+    font-size: 35px;
+  }
+
+  .css-perfil-aluno .perfil-identificacao {
+    flex-basis: calc(100% - 100px);
+  }
+
+  .css-perfil-aluno .perfil-identificacao h2 {
+    font-size: 29px;
+  }
+
+  .css-perfil-aluno .perfil-link-painel {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .css-perfil-aluno .perfil-coluna-lateral {
+    display: flex;
+  }
+
+  .css-perfil-aluno .perfil-bloco {
+    padding: 18px;
+  }
+
+  .css-perfil-aluno .perfil-modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .css-perfil-aluno .perfil-modal-conteudo {
+    width: 100%;
+    max-height: 94vh;
+    padding: 21px 17px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .css-perfil-aluno .perfil-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .css-perfil-aluno .perfil-campo-completo {
+    grid-column: auto;
+  }
+
+  .css-perfil-aluno .perfil-form-acoes {
+    flex-direction: column-reverse;
+  }
+
+  .css-perfil-aluno .perfil-form-acoes button {
+    width: 100%;
+  }
 }
