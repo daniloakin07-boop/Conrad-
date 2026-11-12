@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conrad Virtual School | Aluno</title>
-    <link rel="stylesheet" href="../CSS/geral.css">
-    <link rel="stylesheet" href="../CSS/usuarios.css">
-    <link rel="icon" type="image/png" href="../img/Emblema.png">
-    <style>
-      
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conrad Virtual School | Aluno</title>
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
+  <link rel="icon" type="image/png" href="../img/Emblema.png">
 </head>
+
 <body class="css-painel css-aluno">
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -29,278 +29,271 @@
       <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
   </header>
-<!-- ============================================================================================================================ -->
+  <!-- ============================================================================================================================ -->
   <a href="#mainContent" class="skip-link">Ir para o conteúdo</a>
 
   <main class="container">
-  <div class="dashboard-aluno">
+    <div class="dashboard-aluno">
 
-    <!-- MENU LATERAL -->
-    <aside class="menu-lateral">
-      <h3>Conrad Aluno</h3>
-<!-- ============================================================================================================================ -->
-      <nav>
-        <a href="aluno.html" class="menu-item ativo">Painel</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="atividades.html" class="menu-item">Atividades</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
-      </nav>
+      <!-- MENU LATERAL PADRONIZADO -->
+      <aside class="menu-lateral" data-menu="auto">
 
-      <div class="menu-ajuda">
-        <strong>Precisa de ajuda?</strong>
-        <p>Acesse o suporte da plataforma.</p>
-        <a href="contato.html" class="btn-secundario">Suporte</a>
-      </div>
+        <!-- O JavaScript atualiza o título -->
+        <h3>Conrad</h3>
 
-      <div class="menu-perfil">
-        <strong>Minha conta</strong>
-        <span>Aluno</span>
-      </div>
-    </aside>
+        <!-- O layout.js cria os links automaticamente -->
+        <nav aria-label="Menu principal"></nav>
 
-<!-- ============================================================================================================================ -->
-    <!-- CONTEÚDO PRINCIPAL -->
-    <section class="conteudo-dashboard" id="mainContent">
-
-      <header class="titulo-dashboard">
-        <div>
-          <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
-          <p>Resumo rápido das suas notas, frequência e pendências</p>
+        <!-- Área de suporte -->
+        <div class="menu-ajuda">
+          <strong>Precisa de ajuda?</strong>
+          <p>Acesse o suporte da plataforma.</p>
+          <a href="contato.html" class="btn-secundario">
+            Suporte
+          </a>
         </div>
 
-        <div class="header-right">
-          <div class="quick-actions">
-            <a href="aluno-atividades.html" class="btn-primario">Ver atividades</a>
-            <a href="salas.html" class="btn-secundario">Entrar na sala de vídeo</a>
+        <!-- Informações do usuário -->
+        <div class="menu-perfil">
+          <strong>Minha conta</strong>
+          <span>Usuário</span>
+        </div>
+
+      </aside>
+
+      <!-- ============================================================================================================================ -->
+      <!-- CONTEÚDO PRINCIPAL -->
+      <section class="conteudo-dashboard" id="mainContent">
+
+        <header class="titulo-dashboard">
+          <div>
+            <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
+            <p>Resumo rápido das suas notas, frequência e pendências</p>
           </div>
 
-          <div class="header-profile">
-            <div class="avatar avatar-purple">RJ</div>
-            <div class="profile-name">
-              <strong>Rickson Jordan</strong>
-              <small>Aluno</small>
+          <div class="header-right">
+            <div class="quick-actions">
+              <a href="aluno-atividades.html" class="btn-primario">Ver atividades</a>
+              <a href="salas.html" class="btn-secundario">Entrar na sala de vídeo</a>
             </div>
-            <button id="profileToggle" class="btn-link">▾</button>
 
-            <div id="profileDropdown" class="profile-dropdown" style="display:none;">
-              <a href="perfil-aluno.html">Editar</a>
-              <a href="../index.html" data-sair>Sair</a>
+            <div class="header-profile">
+              <div class="avatar avatar-purple">RJ</div>
+              <div class="profile-name">
+                <strong>Rickson Jordan</strong>
+                <small>Aluno</small>
+              </div>
+              <button id="profileToggle" class="btn-link">▾</button>
+
+              <div id="profileDropdown" class="profile-dropdown" style="display:none;">
+                <a href="perfil-aluno.html">Editar</a>
+                <a href="../index.html" data-sair>Sair</a>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
+        <!-- CARDS DE RESUMO -->
+        <section class="cards-resumo">
 
-      <!-- CARDS DE RESUMO -->
-      <section class="cards-resumo">
+          <div class="card-resumo">
+            <h2>7,8</h2>
+            <h3>Média geral</h3>
+            <span>Média das notas no 3º bimestre</span>
+          </div>
 
-        <div class="card-resumo">
-          <h2>7,8</h2>
-          <h3>Média geral</h3>
-          <span>Média das notas no 3º bimestre</span>
-        </div>
+          <div class="card-resumo">
+            <h2>92%</h2>
+            <h3>Frequência</h3>
+            <span>Presença nas aulas do bimestre</span>
+          </div>
 
-        <div class="card-resumo">
-          <h2>92%</h2>
-          <h3>Frequência</h3>
-          <span>Presença nas aulas do bimestre</span>
-        </div>
+          <div class="card-resumo">
+            <h2>3</h2>
+            <h3>Tarefas</h3>
+            <span>Tarefas pendentes de entrega</span>
+          </div>
 
-        <div class="card-resumo">
-          <h2>3</h2>
-          <h3>Tarefas</h3>
-          <span>Tarefas pendentes de entrega</span>
-        </div>
+          <div class="card-resumo">
+            <h2>3</h2>
+            <h3>Avisos</h3>
+            <span>Avisos recentes da escola</span>
+          </div>
 
-        <div class="card-resumo">
-          <h2>3</h2>
-          <h3>Avisos</h3>
-          <span>Avisos recentes da escola</span>
+        </section>
+
+        <!-- PAINEL PRINCIPAL -->
+        <div class="painel-dashboard">
+
+          <div>
+            <!-- DESEMPENHO DO ALUNO -->
+            <article class="card-avaliacoes">
+              <div class="titulo-card">
+                <h2 id="desempenho">Desempenho do aluno</h2>
+                <a href="boletim.html" class="btn-secundario">Ver boletim</a>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+
+                <div class="aluno">
+                  <div>
+                    <strong>Matemática</strong>
+                    <small>1º bim. 8,5 · 2º bim. 7,0</small>
+                  </div>
+                  <strong>9,0</strong>
+                  <div class="status ativo">Aprovado</div>
+                </div>
+
+                <div class="aluno">
+                  <div>
+                    <strong>Português</strong>
+                    <small>1º bim. 7,5 · 2º bim. 8,0</small>
+                  </div>
+                  <strong>8,5</strong>
+                  <div class="status ativo">Aprovado</div>
+                </div>
+
+                <div class="aluno">
+                  <div>
+                    <strong>História</strong>
+                    <small>1º bim. 6,0 · 2º bim. 6,5</small>
+                  </div>
+                  <strong>7,0</strong>
+                  <div class="status ativo">Aprovado</div>
+                </div>
+
+                <div class="aluno">
+                  <div>
+                    <strong>Química</strong>
+                    <small>1º bim. 5,0 · 2º bim. 5,5</small>
+                  </div>
+                  <strong>6,0</strong>
+                  <div class="status pendente">Atenção</div>
+                </div>
+
+                <div class="aluno">
+                  <div>
+                    <strong>Biologia</strong>
+                    <small>1º bim. 9,0 · 2º bim. 8,5</small>
+                  </div>
+                  <strong>9,5</strong>
+                  <div class="status ativo">Aprovado</div>
+                </div>
+
+              </div>
+
+            </article>
+
+            <!-- CALENDÁRIO / PRÓXIMOS COMPROMISSOS -->
+            <article class="card-avaliacoes" style="margin-top:14px;">
+              <div class="titulo-card">
+                <h2 id="calendario">Calendário</h2>
+                <a href="#" class="btn-secundario">Ver completo</a>
+              </div>
+
+              <div class="agenda-line">
+                <span><strong>Hoje, 08:00</strong> • Matemática • Sala 12</span>
+              </div>
+
+              <div class="agenda-line">
+                <span><strong>Qui, 15/10</strong> • Feira de ciências</span>
+              </div>
+
+              <div class="agenda-line">
+                <span><strong>Sex, 25/10</strong> • Prova de Química • 1º horário</span>
+              </div>
+
+              <div class="agenda-line">
+                <span><strong>Qua, 30/10</strong> • Reunião de pais e mestres • 19h</span>
+              </div>
+
+            </article>
+
+          </div>
+
+          <!-- COLUNA DIREITA -->
+          <aside class="painel-lateral">
+
+            <!-- MURAL DE AVISOS -->
+            <article class="al-card">
+              <h2 class="al-titulo">Mural de Avisos</h2>
+
+              <div class="al-aviso">
+                <span class="al-tag al-tag-aviso">Aviso</span>
+                <p class="al-texto">Prova de Química remarcada para sexta-feira, dia 25, no 1º horário.</p>
+                <span class="al-quando">há 2 horas</span>
+              </div>
+
+              <div class="al-aviso">
+                <span class="al-tag al-tag-evento">Evento</span>
+                <p class="al-texto">Feira de ciências quinta-feira.</p>
+                <span class="al-quando">há 30 minutos</span>
+              </div>
+
+              <div class="al-aviso">
+                <span class="al-tag al-tag-comunicado">Comunicado</span>
+                <p class="al-texto">Reunião de pais e mestres marcada para o dia 30, às 19h no auditório.</p>
+                <span class="al-quando">há 6 horas</span>
+              </div>
+            </article>
+
+            <!-- FREQUÊNCIA -->
+            <article class="al-frequencia" id="frequencia">
+              <div class="al-freq-topo">
+                <h2>Frequência</h2>
+                <span>Bimestre</span>
+              </div>
+
+              <div class="al-freq-corpo">
+                <div class="al-anel" style="--valor: 92">
+                  <span>92%</span>
+                </div>
+
+                <div class="al-freq-info">
+                  <h3>3 faltas este bimestre</h3>
+                  <p>Limite permitido: <strong>15%</strong></p>
+                  <p>Você está <strong>dentro do limite</strong></p>
+                </div>
+              </div>
+            </article>
+
+            <!-- TAREFAS PENDENTES -->
+            <article class="al-card">
+              <h2 class="al-titulo">Tarefas pendentes</h2>
+              <span class="al-contador" id="contadorTarefas">3</span>
+
+              <ul class="al-tarefas" id="listaTarefas">
+                <li>
+                  <input type="checkbox" aria-label="Concluir tarefa">
+                  <div>
+                    <p class="al-tarefa-titulo">Lista de exercícios — Equações do 2º grau</p>
+                    <p class="al-tarefa-meta urgente">Matemática · Entrega hoje, 23h59</p>
+                  </div>
+                </li>
+
+                <li>
+                  <input type="checkbox" aria-label="Concluir tarefa">
+                  <div>
+                    <p class="al-tarefa-titulo">Resumo do capítulo 4</p>
+                    <p class="al-tarefa-meta">História · Entrega amanhã</p>
+                  </div>
+                </li>
+
+                <li>
+                  <input type="checkbox" aria-label="Concluir tarefa">
+                  <div>
+                    <p class="al-tarefa-titulo">Redação — tema livre</p>
+                    <p class="al-tarefa-meta">Português · Entrega quarta-feira</p>
+                  </div>
+                </li>
+              </ul>
+            </article>
+
+          </aside>
+
         </div>
 
       </section>
-
-
-      <!-- PAINEL PRINCIPAL -->
-      <div class="painel-dashboard">
-
-        <div>
-
-          <!-- DESEMPENHO DO ALUNO -->
-          <article class="card-avaliacoes">
-            <div class="titulo-card">
-              <h2 id="desempenho">Desempenho do aluno</h2>
-              <a href="boletim.html" class="btn-secundario">Ver boletim</a>
-            </div>
-
-            <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
-
-              <div class="aluno">
-                <div>
-                  <strong>Matemática</strong>
-                  <small>1º bim. 8,5 · 2º bim. 7,0</small>
-                </div>
-                <strong>9,0</strong>
-                <div class="status ativo">Aprovado</div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>Português</strong>
-                  <small>1º bim. 7,5 · 2º bim. 8,0</small>
-                </div>
-                <strong>8,5</strong>
-                <div class="status ativo">Aprovado</div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>História</strong>
-                  <small>1º bim. 6,0 · 2º bim. 6,5</small>
-                </div>
-                <strong>7,0</strong>
-                <div class="status ativo">Aprovado</div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>Química</strong>
-                  <small>1º bim. 5,0 · 2º bim. 5,5</small>
-                </div>
-                <strong>6,0</strong>
-                <div class="status pendente">Atenção</div>
-              </div>
-
-              <div class="aluno">
-                <div>
-                  <strong>Biologia</strong>
-                  <small>1º bim. 9,0 · 2º bim. 8,5</small>
-                </div>
-                <strong>9,5</strong>
-                <div class="status ativo">Aprovado</div>
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- CALENDÁRIO / PRÓXIMOS COMPROMISSOS -->
-          <article class="card-avaliacoes" style="margin-top:14px;">
-            <div class="titulo-card">
-              <h2 id="calendario">Calendário</h2>
-              <a href="#" class="btn-secundario">Ver completo</a>
-            </div>
-
-            <div class="agenda-line">
-              <span><strong>Hoje, 08:00</strong> • Matemática • Sala 12</span>
-            </div>
-
-            <div class="agenda-line">
-              <span><strong>Qui, 15/10</strong> • Feira de ciências</span>
-            </div>
-
-            <div class="agenda-line">
-              <span><strong>Sex, 25/10</strong> • Prova de Química • 1º horário</span>
-            </div>
-
-            <div class="agenda-line">
-              <span><strong>Qua, 30/10</strong> • Reunião de pais e mestres • 19h</span>
-            </div>
-
-          </article>
-
-        </div>
-
-
-                <!-- COLUNA DIREITA -->
-        <aside class="painel-lateral">
-
-          <!-- MURAL DE AVISOS -->
-          <article class="al-card">
-            <h2 class="al-titulo">Mural de Avisos</h2>
-
-            <div class="al-aviso">
-              <span class="al-tag al-tag-aviso">Aviso</span>
-              <p class="al-texto">Prova de Química remarcada para sexta-feira, dia 25, no 1º horário.</p>
-              <span class="al-quando">há 2 horas</span>
-            </div>
-
-            <div class="al-aviso">
-              <span class="al-tag al-tag-evento">Evento</span>
-              <p class="al-texto">Feira de ciências quinta-feira.</p>
-              <span class="al-quando">há 30 minutos</span>
-            </div>
-
-            <div class="al-aviso">
-              <span class="al-tag al-tag-comunicado">Comunicado</span>
-              <p class="al-texto">Reunião de pais e mestres marcada para o dia 30, às 19h no auditório.</p>
-              <span class="al-quando">há 6 horas</span>
-            </div>
-          </article>
-
-
-          <!-- FREQUÊNCIA -->
-          <article class="al-frequencia" id="frequencia">
-            <div class="al-freq-topo">
-              <h2>Frequência</h2>
-              <span>Bimestre</span>
-            </div>
-
-            <div class="al-freq-corpo">
-              <div class="al-anel" style="--valor: 92">
-                <span>92%</span>
-              </div>
-
-              <div class="al-freq-info">
-                <h3>3 faltas este bimestre</h3>
-                <p>Limite permitido: <strong>15%</strong></p>
-                <p>Você está <strong>dentro do limite</strong></p>
-              </div>
-            </div>
-          </article>
-
-
-          <!-- TAREFAS PENDENTES -->
-          <article class="al-card">
-            <h2 class="al-titulo">Tarefas pendentes</h2>
-            <span class="al-contador" id="contadorTarefas">3</span>
-
-            <ul class="al-tarefas" id="listaTarefas">
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Lista de exercícios — Equações do 2º grau</p>
-                  <p class="al-tarefa-meta urgente">Matemática · Entrega hoje, 23h59</p>
-                </div>
-              </li>
-
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Resumo do capítulo 4</p>
-                  <p class="al-tarefa-meta">História · Entrega amanhã</p>
-                </div>
-              </li>
-
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Redação — tema livre</p>
-                  <p class="al-tarefa-meta">Português · Entrega quarta-feira</p>
-                </div>
-              </li>
-            </ul>
-          </article>
-
-        </aside>
-
-      </div>
-
-    </section>
 
     </div>
   </main>
@@ -309,145 +302,9 @@
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
-
-  <script>
-    // Tarefas: marcar como concluída e atualizar o contador
-    const listaTarefas = document.getElementById('listaTarefas');
-    const contadorTarefas = document.getElementById('contadorTarefas');
-
-    listaTarefas.addEventListener('change', (event) => {
-      if (event.target.type !== 'checkbox') return;
-      event.target.closest('li').classList.toggle('feita', event.target.checked);
-      contadorTarefas.textContent =
-        listaTarefas.querySelectorAll('input:not(:checked)').length;
-    });
-  </script>
-<script src="../JS/config.js"></script>
-  <script>
-  (async function () {
-    const h = (tag, classe, texto) => {
-      const el = document.createElement(tag);
-      if (classe) el.className = classe;
-      if (texto != null) el.textContent = texto;
-      return el;
-    };
-
-    function saudacao() {
-      const hora = new Date().getHours();
-      return hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
-    }
-
-    function iniciais(nome) {
-      const p = nome.trim().split(/\s+/);
-      return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase();
-    }
-
-    function preencherNome(nome) {
-      const titulo = document.querySelector('.titulo-dashboard h1');
-      if (titulo) titulo.textContent = saudacao() + ', ' + nome;
-      document.querySelectorAll('.menu-lateral > div > strong, .profile-name strong')
-        .forEach((el) => { el.textContent = nome; });
-      const avatar = document.querySelector('.header-profile .avatar');
-      if (avatar) avatar.textContent = iniciais(nome);
-    }
-
-    document.querySelectorAll('[data-sair]').forEach((link) => {
-      link.addEventListener('click', (evento) => {
-        evento.preventDefault();
-        conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
-      });
-    });
-
-    function iso(data) {
-      return data.getFullYear() + '-' + String(data.getMonth() + 1).padStart(2, '0') + '-' + String(data.getDate()).padStart(2, '0');
-    }
-
-    function dataBR(valor) {
-      const [a, m, d] = valor.split('-');
-      return d + '/' + m + '/' + a;
-    }
-
-    // ?turmaId=N: o aluno entrou nesta turma (pelo código do professor ou pela lista de turmas)
-    const turmaId = new URLSearchParams(location.search).get('turmaId');
-    const filtroTurma = turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '';
-
-    function ajustarParaTurma(nomeTurma) {
-      const id = encodeURIComponent(turmaId);
-      const verAtividades = document.querySelector('.quick-actions a[href^="aluno-atividades"]');
-      const salaVideo = document.querySelector('.quick-actions a[href^="salas"]');
-      if (verAtividades) verAtividades.href = 'aluno-atividades.html?turmaId=' + id;
-      if (salaVideo) salaVideo.href = 'turma.html?id=' + id + '&aba=video';
-
-      const mural = h('a', 'btn-secundario', 'Abrir turma');
-      mural.href = 'turma.html?id=' + id;
-      document.querySelector('.quick-actions')?.append(mural);
-
-      const subtitulo = document.querySelector('.titulo-dashboard p');
-      if (subtitulo) subtitulo.textContent = 'Turma: ' + (nomeTurma || 'selecionada') + ' — resumo das suas notas e pendências';
-    }
-
-    try {
-      const eu = await conradFetch('/me');
-      if (eu.usuario.tipo === 'educador') { location.href = 'educador.html'; return; }
-      preencherNome(eu.usuario.nome);
-
-      const dados = await conradFetch('/api/aluno/atividades' + filtroTurma);
-      if (turmaId) ajustarParaTurma(dados.turma);
-      const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
-
-      // Média geral: notas corrigidas convertidas para a escala de 0 a 10
-      const notas = dados.atividades
-        .filter((a) => a.nota != null && Number(a.valor_maximo) > 0)
-        .map((a) => Number(a.nota) / Number(a.valor_maximo) * 10);
-
-      if (cartoes[0]) {
-        cartoes[0].querySelector('h2').textContent = notas.length
-          ? (notas.reduce((x, y) => x + y, 0) / notas.length).toFixed(1).replace('.', ',')
-          : '—';
-        cartoes[0].querySelector('span').textContent = notas.length
-          ? 'Média de ' + notas.length + ' atividade(s) corrigida(s)'
-          : 'Ainda sem notas lançadas';
-      }
-
-      // Tarefas pendentes = ainda sem resposta enviada
-      const pendentes = dados.atividades.filter((a) => !a.enviada_em);
-      if (cartoes[2]) cartoes[2].querySelector('h2').textContent = pendentes.length;
-      document.getElementById('contadorTarefas').textContent = pendentes.length;
-
-      const lista = document.getElementById('listaTarefas');
-      lista.replaceChildren();
-      const amanha = iso(new Date(Date.now() + 86400000));
-
-      if (pendentes.length === 0) {
-        const vazio = h('li');
-        vazio.append(h('p', 'al-tarefa-titulo', 'Nenhuma tarefa pendente 🎉'));
-        lista.append(vazio);
-      }
-
-      pendentes.forEach((a) => {
-        const item = h('li');
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', () => {
-          location.href = 'aluno-atividades.html' + (turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '');
-        });
-
-        const urgente = a.data_aplicacao && a.data_aplicacao <= amanha;
-        const caixa = h('div');
-        caixa.append(
-          h('p', 'al-tarefa-titulo', a.titulo),
-          h('p', 'al-tarefa-meta' + (urgente ? ' urgente' : ''),
-            a.disciplina + ' · ' + (a.tipo === 'avaliacao' ? 'Avaliação' : 'Atividade') +
-            (a.data_aplicacao ? ' · Prazo ' + dataBR(a.data_aplicacao) : ''))
-        );
-        item.append(caixa);
-        lista.append(item);
-      });
-    } catch (erro) {
-      if (erro.status === 401) location.href = 'login.html';
-      else if (erro.status === 403 && turmaId) location.href = 'turmas.html';
-      else console.error(erro);
-    }
-  })();
-  </script>
+  <script src="../JS/aluno.js"></script>
+  <script src="../JS/config.js"></script>
+  <script src="../JS/layout.js"></script>
 </body>
+
 </html>

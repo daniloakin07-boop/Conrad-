@@ -1,84 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conrad | Horário das aulas</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/dashboard.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
-  <style>
-    @media (max-width: 900px) {
-      body.css-painel .dashboard-professor {
-        width: 100%;
-        min-width: 0;
-        padding: 20px 0;
-        gap: 20px;
-        align-items: stretch;
-      }
-
-      body.css-painel .menu-lateral,
-      body.css-painel .conteudo-dashboard {
-        width: 100%;
-        min-width: 0;
-      }
-
-      body.css-painel .menu-lateral nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-      }
-
-      body.css-painel .menu-item {
-        min-width: 0;
-        margin: 0;
-      }
-
-      body.css-painel .titulo-dashboard {
-        height: auto;
-        min-height: 0;
-      }
-
-      body.css-painel .painel-dashboard,
-      body.css-painel .painel-dashboard > div,
-      body.css-painel .painel-lateral,
-      body.css-painel .card-avaliacoes {
-        min-width: 0;
-      }
-
-      body.css-painel .painel-dashboard {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      body.css-painel .titulo-dashboard {
-        padding: 16px;
-      }
-
-      body.css-painel .card-avaliacoes {
-        min-width: 0;
-        padding: 16px;
-      }
-
-      body.css-painel .tabs {
-        overflow-x: auto;
-      }
-
-      body.css-painel .tabs a {
-        flex: 0 0 auto;
-        padding: 9px 12px;
-      }
-
-      body.css-painel .lista-horarios li {
-        grid-template-columns: 48px 3px minmax(0, 1fr);
-        gap: 10px;
-      }
-    }
-  </style>
 </head>
+
 <body class="css-painel css-aluno">
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -95,150 +29,152 @@
       <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
   </header>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <main class="container">
     <div class="dashboard-professor">
 
-    <aside class="menu-lateral">
-      <h3>Conrad Aluno</h3>
-      <nav>
-        <a href="aluno.html" class="menu-item">Painel</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="dashboard.html" class="menu-item ativo">Horário das aulas</a>
-        <a href="atividades.html" class="menu-item">Atividades</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="perfil-aluno.html" class="menu-item">Meu perfil</a>
-      </nav>
-<!-- =================================================================================================================== -->
-      <div class="menu-ajuda">
-        <strong>Precisa de ajuda?</strong>
-        <p>Acesse o suporte da plataforma.</p>
-        <a href="contato.html" class="btn-secundario">Suporte</a>
-      </div>
-<!-- =================================================================================================================== -->
-      <div class="menu-perfil">
-        <strong>Minha conta</strong>
-        <span>Aluno</span>
-      </div>
-    </aside>
-      <section class="conteudo-dashboard" id="mainContent">
-<!-- =================================================================================================================== -->
-        <header class="titulo-dashboard">
-          <div>
-            <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
-            <p>Confira seus horários e avisos de hoje.</p>
-          </div>
-        </header>
-<!-- =================================================================================================================== -->
-        <div class="painel-dashboard">
-          <div>
-            <!-- HORÁRIO: a lista é preenchida pelo JS/horarios.js a partir de data/horarios.json -->
-            <article class="card-avaliacoes">
-              <div class="titulo-card">
-                <h2>Horário</h2>
-              </div>
+        <!-- MENU LATERAL PADRONIZADO -->
+        <aside class="menu-lateral" data-menu="auto">
 
-              <div class="tabs">
-                <a href="#" class="ativo" data-dia="seg">Seg</a>
-                <a href="#" data-dia="ter">Ter</a>
-                <a href="#" data-dia="qua">Qua</a>
-                <a href="#" data-dia="qui">Qui</a>
-                <a href="#" data-dia="sex">Sex</a>
-              </div>
+          <!-- O JavaScript atualiza o título -->
+          <h3>Conrad</h3>
 
-              <ul class="lista-horarios" id="lista-horarios"></ul>
-            </article>
+          <!-- O layout.js cria os links automaticamente -->
+          <nav aria-label="Menu principal"></nav>
+
+          <!-- Área de suporte -->
+          <div class="menu-ajuda">
+            <strong>Precisa de ajuda?</strong>
+            <p>Acesse o suporte da plataforma.</p>
+            <a href="contato.html" class="btn-secundario">
+              Suporte
+            </a>
           </div>
 
-          <aside class="painel-lateral">
-<!-- =================================================================================================================== -->
-          <!-- MURAL DE AVISOS -->
-          <article class="al-card">
-            <h2 class="al-titulo">Mural de Avisos</h2>
+          <!-- Informações do usuário -->
+          <div class="menu-perfil">
+            <strong>Minha conta</strong>
+            <span>Usuário</span>
+          </div>
 
-            <div class="al-aviso">
-              <span class="al-tag al-tag-aviso">Aviso</span>
-              <p class="al-texto">Prova de Química remarcada para sexta-feira, dia 25, no 1º horário.</p>
-              <span class="al-quando">há 2 horas</span>
-            </div>
-
-            <div class="al-aviso">
-              <span class="al-tag al-tag-evento">Evento</span>
-              <p class="al-texto">Feira de ciências quinta-feira.</p>
-              <span class="al-quando">há 30 minutos</span>
-            </div>
-
-            <div class="al-aviso">
-              <span class="al-tag al-tag-comunicado">Comunicado</span>
-              <p class="al-texto">Reunião de pais e mestres marcada para o dia 30, às 19h no auditório.</p>
-              <span class="al-quando">há 6 horas</span>
-            </div>
-          </article>
-<!-- =================================================================================================================== -->
-          <!-- FREQUÊNCIA -->
-          <article class="al-frequencia" id="frequencia">
-            <div class="al-freq-topo">
-              <h2>Frequência</h2>
-              <span>Bimestre</span>
-            </div>
-
-            <div class="al-freq-corpo">
-              <div class="al-anel" style="--valor: 92">
-                <span>92%</span>
-              </div>
-
-              <div class="al-freq-info">
-                <h3>3 faltas este bimestre</h3>
-                <p>Limite permitido: <strong>15%</strong></p>
-                <p>Você está <strong>dentro do limite</strong></p>
-              </div>
-            </div>
-          </article>
-<!-- =================================================================================================================== -->
-          <!-- TAREFAS PENDENTES -->
-          <article class="al-card">
-            <h2 class="al-titulo">Tarefas pendentes</h2>
-            <span class="al-contador" id="contadorTarefas">3</span>
-
-            <ul class="al-tarefas" id="listaTarefas">
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Lista de exercícios — Equações do 2º grau</p>
-                  <p class="al-tarefa-meta urgente">Matemática · Entrega hoje, 23h59</p>
-                </div>
-              </li>
-
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Resumo do capítulo 4</p>
-                  <p class="al-tarefa-meta">História · Entrega amanhã</p>
-                </div>
-              </li>
-
-              <li>
-                <input type="checkbox" aria-label="Concluir tarefa">
-                <div>
-                  <p class="al-tarefa-titulo">Redação — tema livre</p>
-                  <p class="al-tarefa-meta">Português · Entrega quarta-feira</p>
-                </div>
-              </li>
-            </ul>
-          </article>
         </aside>
-        </div>
-      </section>
+
+        <section class="conteudo-dashboard" id="mainContent">
+          <!-- =================================================================================================================== -->
+          <header class="titulo-dashboard">
+            <div>
+              <h1>Boa tarde, <span data-nome-usuario>Rickson Jordan</span></h1>
+              <p>Confira seus horários e avisos de hoje.</p>
+            </div>
+          </header>
+          <!-- =================================================================================================================== -->
+          <div class="painel-dashboard">
+            <div>
+              <!-- HORÁRIO: a lista é preenchida pelo JS/horarios.js a partir de data/horarios.json -->
+              <article class="card-avaliacoes">
+                <div class="titulo-card">
+                  <h2>Horário</h2>
+                </div>
+
+                <div class="tabs">
+                  <a href="#" class="ativo" data-dia="seg">Seg</a>
+                  <a href="#" data-dia="ter">Ter</a>
+                  <a href="#" data-dia="qua">Qua</a>
+                  <a href="#" data-dia="qui">Qui</a>
+                  <a href="#" data-dia="sex">Sex</a>
+                </div>
+
+                <ul class="lista-horarios" id="lista-horarios"></ul>
+              </article>
+            </div>
+
+            <aside class="painel-lateral">
+              <!-- =================================================================================================================== -->
+              <!-- MURAL DE AVISOS -->
+              <article class="al-card">
+                <h2 class="al-titulo">Mural de Avisos</h2>
+
+                <div class="al-aviso">
+                  <span class="al-tag al-tag-aviso">Aviso</span>
+                  <p class="al-texto">Prova de Química remarcada para sexta-feira, dia 25, no 1º horário.</p>
+                  <span class="al-quando">há 2 horas</span>
+                </div>
+
+                <div class="al-aviso">
+                  <span class="al-tag al-tag-evento">Evento</span>
+                  <p class="al-texto">Feira de ciências quinta-feira.</p>
+                  <span class="al-quando">há 30 minutos</span>
+                </div>
+
+                <div class="al-aviso">
+                  <span class="al-tag al-tag-comunicado">Comunicado</span>
+                  <p class="al-texto">Reunião de pais e mestres marcada para o dia 30, às 19h no auditório.</p>
+                  <span class="al-quando">há 6 horas</span>
+                </div>
+              </article>
+              <!-- =================================================================================================================== -->
+              <!-- FREQUÊNCIA -->
+              <article class="al-frequencia" id="frequencia">
+                <div class="al-freq-topo">
+                  <h2>Frequência</h2>
+                  <span>Bimestre</span>
+                </div>
+
+                <div class="al-freq-corpo">
+                  <div class="al-anel" style="--valor: 92">
+                    <span>92%</span>
+                  </div>
+
+                  <div class="al-freq-info">
+                    <h3>3 faltas este bimestre</h3>
+                    <p>Limite permitido: <strong>15%</strong></p>
+                    <p>Você está <strong>dentro do limite</strong></p>
+                  </div>
+                </div>
+              </article>
+              <!-- =================================================================================================================== -->
+              <!-- TAREFAS PENDENTES -->
+              <article class="al-card">
+                <h2 class="al-titulo">Tarefas pendentes</h2>
+                <span class="al-contador" id="contadorTarefas">3</span>
+
+                <ul class="al-tarefas" id="listaTarefas">
+                  <li>
+                    <input type="checkbox" aria-label="Concluir tarefa">
+                    <div>
+                      <p class="al-tarefa-titulo">Lista de exercícios — Equações do 2º grau</p>
+                      <p class="al-tarefa-meta urgente">Matemática · Entrega hoje, 23h59</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <input type="checkbox" aria-label="Concluir tarefa">
+                    <div>
+                      <p class="al-tarefa-titulo">Resumo do capítulo 4</p>
+                      <p class="al-tarefa-meta">História · Entrega amanhã</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <input type="checkbox" aria-label="Concluir tarefa">
+                    <div>
+                      <p class="al-tarefa-titulo">Redação — tema livre</p>
+                      <p class="al-tarefa-meta">Português · Entrega quarta-feira</p>
+                    </div>
+                  </li>
+                </ul>
+              </article>
+            </aside>
+          </div>
+        </section>
     </div>
   </main>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <script src="../JS/horarios.js"></script>
   <script>
     // Tarefas: marcar como concluída e atualizar o contador
@@ -253,5 +189,7 @@
     });
   </script>
   <script src="../JS/layout.js" defer></script>
+  <script src="../JS/config.js"></script>
 </body>
+
 </html>

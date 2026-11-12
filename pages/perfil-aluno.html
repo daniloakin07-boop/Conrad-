@@ -1,121 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CONRAD Virtual School - Perfil</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="stylesheet" href="../CSS/turmas.css">
   <link rel="stylesheet" href="../CSS/chat-privado.css">
-  <link rel="icon" type="image/png" href="../img/Emblema.png">
-  <style>
-    body.css-painel .titulo-dashboard {
-      height: auto;
-      min-height: 0;
-    }
-
-    @media (max-width: 900px) {
-      body.css-painel .dashboard-professor {
-        width: 100%;
-        min-width: 0;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 20px;
-        padding: 20px 0;
-      }
-
-      body.css-painel .menu-lateral,
-      body.css-painel .conteudo-dashboard {
-        width: 100%;
-        min-width: 0;
-      }
-
-      body.css-painel .menu-lateral nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-      }
-
-      body.css-painel .menu-item {
-        min-width: 0;
-        margin: 0;
-      }
-
-      body.css-painel .titulo-dashboard {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
-      }
-
-      body.css-painel .titulo-dashboard > div:first-child,
-      body.css-painel .quick-actions {
-        width: 100%;
-        min-width: 0;
-      }
-
-      body.css-painel .quick-actions {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 8px;
-      }
-
-      body.css-painel .cards-resumo.tres {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      body.css-painel .painel-dashboard,
-      body.css-painel .painel-dashboard > *,
-      body.css-painel .painel-lateral {
-        min-width: 0;
-      }
-
-      body.css-painel .painel-dashboard {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 650px) {
-      body.css-painel .quick-actions {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      body.css-painel .quick-actions a,
-      body.css-painel .quick-actions button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-width: 0;
-        min-height: 44px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        font-size: 13px;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      body.css-painel .quick-actions button {
-        border: 1px solid #f5821f;
-        background: #f5821f;
-        color: #fff;
-      }
-
-      body.css-painel .quick-actions a {
-        border: 1px solid #dfe4ea;
-        background: #fff;
-        color: #0a1f44;
-      }
-    }
-
-    @media (max-width: 360px) {
-      body.css-painel .cards-resumo.tres {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  </style>
+  <link rel="icon" type="image/png" href="../img/Emblema.png">  
 </head>
+
 <body class="css-painel">
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -132,43 +30,45 @@
       <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
     </div>
   </header>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <main class="container">
     <div class="dashboard-professor">
 
-    <aside class="menu-lateral">
-      <h3>Conrad Aluno</h3>
-      <nav>
-        <a href="aluno.html" class="menu-item">Painel</a>
-        <a href="dashboard.html" class="menu-item">Horário das aulas</a>
-        <a href="turmas.html" class="menu-item">Turmas</a>
-        <a href="atividades.html" class="menu-item">Atividades</a>
-        <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-        <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-        <a href="salas.html" class="menu-item">Salas de vídeo</a>
-        <a href="perfil-aluno.html" class="menu-item ativo">Meu perfil</a>
-      </nav>
-<!-- =================================================================================================================== -->
-      <div class="menu-ajuda">
-        <strong>Precisa de ajuda?</strong>
-        <p>Acesse o suporte da plataforma.</p>
-        <a href="contato.html" class="btn-secundario">Suporte</a>
-      </div>
+      <!-- MENU LATERAL PADRONIZADO -->
+      <aside class="menu-lateral" data-menu="auto">
 
-      <div class="menu-perfil">
-        <strong>Minha conta</strong>
-        <span>Aluno</span>
-      </div>
-    </aside>
+        <!-- O JavaScript atualiza o título -->
+        <h3>Conrad</h3>
+
+        <!-- O layout.js cria os links automaticamente -->
+        <nav aria-label="Menu principal"></nav>
+
+        <!-- Área de suporte -->
+        <div class="menu-ajuda">
+          <strong>Precisa de ajuda?</strong>
+          <p>Acesse o suporte da plataforma.</p>
+          <a href="contato.html" class="btn-secundario">
+            Suporte
+          </a>
+        </div>
+
+        <!-- Informações do usuário -->
+        <div class="menu-perfil">
+          <strong>Minha conta</strong>
+          <span>Usuário</span>
+        </div>
+
+      </aside>
 
       <section class="conteudo-dashboard" id="mainContent">
 
         <header class="titulo-dashboard">
           <div>
             <h1>Painel principal de ensino e acompanhamento</h1>
-            <p>Uma experiência centralizada para publicar atividades, acompanhar desempenho e acessar salas de vídeo.</p>
+            <p>Uma experiência centralizada para publicar atividades, acompanhar desempenho e acessar salas de vídeo.
+            </p>
 
-                <a class="atalho-boletim" href="boletim.html">Consultar meu boletim e salvar em PDF</a>
+            <a class="atalho-boletim" href="boletim.html">Consultar meu boletim e salvar em PDF</a>
           </div>
 
           <div class="quick-actions">
@@ -219,8 +119,12 @@
 
             <article class="card-media">
               <h3>Desempenho</h3>
-              <div class="barra-progresso"><div class="progresso" style="width:70%;"></div></div>
-              <div class="barra-progresso"><div class="progresso" style="width:90%;"></div></div>
+              <div class="barra-progresso">
+                <div class="progresso" style="width:70%;"></div>
+              </div>
+              <div class="barra-progresso">
+                <div class="progresso" style="width:90%;"></div>
+              </div>
             </article>
 
             <article class="card-pendencias">
@@ -243,7 +147,7 @@
 
     </div>
   </main>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
@@ -252,4 +156,5 @@
   <script src="../JS/config.js"></script>
   <script src="../JS/perfil-chat.js" defer></script>
 </body>
+
 </html>

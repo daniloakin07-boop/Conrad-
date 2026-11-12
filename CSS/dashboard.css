@@ -1,0 +1,67 @@
+@media (max-width: 900px) {
+    body.css-painel .dashboard-professor {
+        width: 100%;
+        min-width: 0;
+        padding: 20px 0;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    body.css-painel .menu-lateral,
+    body.css-painel .conteudo-dashboard {
+        width: 100%;
+        min-width: 0;
+    }
+
+    body.css-painel .menu-lateral nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    body.css-painel .menu-item {
+        min-width: 0;
+        margin: 0;
+    }
+
+    body.css-painel .titulo-dashboard {
+        height: auto;
+        min-height: 0;
+    }
+
+    body.css-painel .painel-dashboard,
+    body.css-painel .painel-dashboard>div,
+    body.css-painel .painel-lateral,
+    body.css-painel .card-avaliacoes {
+        min-width: 0;
+    }
+
+    body.css-painel .painel-dashboard {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    body.css-painel .titulo-dashboard {
+        padding: 16px;
+    }
+
+    body.css-painel .card-avaliacoes {
+        min-width: 0;
+        padding: 16px;
+    }
+
+    body.css-painel .tabs {
+        overflow-x: auto;
+    }
+
+    body.css-painel .tabs a {
+        flex: 0 0 auto;
+        padding: 9px 12px;
+    }
+
+    body.css-painel .lista-horarios li {
+        grid-template-columns: 48px 3px minmax(0, 1fr);
+        gap: 10px;
+    }
+}

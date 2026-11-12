@@ -1901,3 +1901,55 @@ body:where(.css-formulario) {
     width: 100%;
   }
 }
+
+
+/* =====================================================
+   LAYOUT DE ATIVIDADES DO ALUNO
+   Menu lateral e conteúdo na mesma linha
+   ===================================================== */
+
+:where(.css-aluno-atividades) main.container.layout-aluno-atividades {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Menu lateral */
+:where(.css-aluno-atividades) main.container.layout-aluno-atividades>.menu-lateral {
+  flex: 0 0 230px;
+  width: 230px;
+  margin: 0;
+}
+
+/* Conteúdo principal */
+:where(.css-aluno-atividades) main.container.layout-aluno-atividades>.pagina {
+  flex: 1 1 0;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+
+  margin: 0;
+  padding: 28px 0 40px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+
+  :where(.css-aluno-atividades) main.container.layout-aluno-atividades {
+    flex-direction: column;
+  }
+
+  :where(.css-aluno-atividades) main.container.layout-aluno-atividades>.menu-lateral {
+    flex: none;
+    width: 100%;
+  }
+
+  :where(.css-aluno-atividades) main.container.layout-aluno-atividades>.pagina {
+    width: 100%;
+  }
+
+}
