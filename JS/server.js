@@ -46,7 +46,8 @@ const listOrigins = [
     "http://127.0.0.1:3000",
     "https://conrad-1.onrender.com", // Servidor publicado no Render
     "https://conrad.onrender.com",
-    "https://daniloakin07-boop.github.io"
+    "https://daniloakin07-boop.github.io" ,
+    "https://conrad-phi.vercel.app"
 ];
 
 // 4) Configurar CORS
