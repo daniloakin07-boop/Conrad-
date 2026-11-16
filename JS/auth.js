@@ -4,11 +4,9 @@
 const emLiveServer = ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "3000";
 
 const API_URL = emLiveServer
-    ? "http://127.0.0.1:3000"
-    : location.hostname.endsWith("github.io")
-        ? "https://conrad.onrender.com"
-        : "";
-
+  ? "http://127.0.0.1:3000"
+  : "https://conrad.onrender.com";
+  
 // Função utilitária para exibir mensagens no HTML
 function mostrarMensagem(elemento, texto, tipo) {
     // `elemento` é um elemento DOM onde vamos colocar a mensagem
