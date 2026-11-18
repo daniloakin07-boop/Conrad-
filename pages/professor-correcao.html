@@ -5,29 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Entregas e correções</title>
-  <link rel="stylesheet" href="../CSS/geral.css" />
-  <link rel="stylesheet" href="../CSS/atividades.css" />
+  <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="stylesheet" href="../CSS/turmas.css">
+  <link rel="stylesheet" href="../CSS/atividades.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
-  <style>
-    #filtros .corrigir {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: end;
-    }
-
-    @media (max-width: 600px) {
-      #filtros .corrigir {
-        grid-template-columns: 1fr;
-      }
-
-      #filtros label,
-      #filtros select {
-        min-width: 0;
-      }
-    }
-  </style>
-</head>
+  </head>
 <!-- ============================================================================================================================ -->
 
 <body class="css-correcao css-painel">
@@ -85,13 +67,13 @@
         <div class="corrigir">
           <label>Turma
             <select id="filtro-turma"
-              style="width:100%;padding:10px 12px;border:1px solid #d8dce1;border-radius:8px;font:inherit;">
+              class="filtro-correcao-select">
               <option value="">Todas as turmas</option>
             </select>
           </label>
           <label>Tipo
             <select id="filtro-tipo"
-              style="width:100%;padding:10px 12px;border:1px solid #d8dce1;border-radius:8px;font:inherit;">
+              class="filtro-correcao-select">
               <option value="">Atividades e avaliações</option>
               <option value="atividade">Só atividades</option>
               <option value="avaliacao">Só avaliações</option>

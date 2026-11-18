@@ -195,13 +195,15 @@ body {
   flex: 1 1 auto;
   justify-content: center;
 }
-/*
-.topo-acoes {
-  display: flex;
-  gap: 12px;
-}
 
-/* Botões da home com estilo mais arredondado e visual de destaque. */
+/* Organização dos botões de acesso no cabeçalho */
+.topo.topo-home .topo-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
 
 .topo-acoes .btn-primario,
 .hero-simples .btn-primario {
@@ -496,258 +498,6 @@ body {
   }
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
-}
-
-body{
-    background:#dfe5ef;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-    font-family: 'Nunito', sans-serif;
-}
-
-.containers{
-    display:flex;
-    flex:1;
-    min-height:0;
-}
-/*-----------------------------------------------------------------------------------------------
-/* MENU */
-
-.sidebar{
-    width: 230px;
-    background:#0d2347;
-    border-right:none;
-    box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
-}
-
-.logos{
-    background:#0d2347;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding: 18px 12px;
-    min-height: 84px;
-}
-
-.logos img{
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-}
-
-.sidebar ul{
-    list-style:none;
-    padding: 6px 0;
-}
-
-.sidebar li{
-    padding: 18px 20px;
-    border-bottom:none;
-    cursor:pointer;
-    font-weight:700;
-    color:#eaf1ff;
-    font-size: 1.05rem;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.sidebar li i{
-    color:#163B74;
-    margin-right:10px;
-
-}
-
-.sidebar li:hover{
-    background: rgba(255,255,255,0.05);
-}
-
-.salas-main > header {
-    height: auto;
-    background: transparent;
-    border-bottom: none;
-    padding: 0;
-}
-
-/* CHAT */
-
-.chat{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-}
-
-header{
-    height:80px;
-    background:#edf1f6;
-    border-bottom:2px solid black;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:25px;
-}
-
-.usuario{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.usuario i{
-    font-size:32px;
-    color:#163B74;
-}
-
-.acoes i{
-
-    font-size:28px;
-    color:#163B74;
-    margin-left:25px;
-    cursor:pointer;
-}
-
-.mensagens{
-    flex:1;
-    padding:30px;
-    overflow:auto;
-
-}
-
-/* mensagens */
-
-.msg{
-    width:max-content;
-    max-width:400px;
-    padding:12px 18px;
-    margin-bottom:15px;
-    border-radius:15px;
-}
-
-.eu{
-    background:#1F4E79;
-    color:white;
-    margin-left:auto;
-}
-
-.outro{
-    background:white;
-}
-
-.enviarr{
-    display:flex;
-    align-items:center;
-    padding:15px;
-    background:white;
-    border-top:1px solid #ccc;
-}
-
-.enviarr i{
-    font-size:28px;
-    color:#163B74;
-    margin-right:15px;
-}
-
-.enviarr input{
-    flex:1;
-    padding:12px;
-    font-size:16px;
-}
-
-.enviarr button{
-    margin-left:15px;
-    background:#E58A24;
-    color:white;
-    border:none;
-    padding:12px 22px;
-    cursor:pointer;
-    border-radius:5px;
-    
-    
-
-}
-.imagenss{
-
-    width: 250px;
-    height: 80px;
-    align-items: center;
-    
-}
-
-/* Complementos do chat em tempo real */
-#status-chat {
-    display: block;
-    color: #7b8798;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-#status-chat.conectado {
-    color: #198754;
-}
-
-.msg {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-.msg strong {
-    font-size: 13px;
-}
-
-.msg span {
-    line-height: 1.4;
-}
-
-.msg small {
-    align-self: flex-end;
-    opacity: 0.7;
-    font-size: 10px;
-}
-
-#contador-online {
-    margin-left: 12px;
-    white-space: nowrap;
-    color: #6b7280;
-    font-size: 12px;
-}
-
-@media (max-width: 700px) {
-    .sidebar {
-        width: 72px;
-    }
-
-    .sidebar li {
-        padding: 18px 8px;
-        font-size: 0;
-        text-align: center;
-    }
-
-    .sidebar li i {
-        margin-right: 0;
-        font-size: 18px;
-    }
-
-    .enviarr {
-        flex-wrap: wrap;
-    }
-
-    .enviarr input {
-        min-width: 0;
-    }
-
-    #contador-online {
-        order: 3;
-        width: 100%;
-        margin: 6px 0 0;
-    }
-}
 
 /* ---------- Login, cadastro, contato, sobre e recuperação de senha  (auth.css original) ---------- */
 /* Só vale em páginas com <body class="css-auth">. */
@@ -1954,3 +1704,38 @@ button#theme:focus-visible {
     background: #F5821F;
     border-color: #F5821F;
 }
+
+/* ==========================================================
+   RESPONSIVIDADE DAS PÁGINAS DE AUTENTICAÇÃO
+   Estilos retirados de cadastro.html, link-rec.html e rec-senha.html.
+========================================================== */
+@media (max-width: 760px) {
+      body.css-auth .topo {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 12px 14px;
+        padding: 14px 18px;
+      }
+
+      body.css-auth .topo .logo {
+        margin-right: auto;
+      }
+
+      body.css-auth .topo .menu {
+        order: 3;
+        flex: 0 0 100%;
+        justify-content: flex-start;
+        gap: 22px;
+        padding-top: 4px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body.css-auth .pagina-auth {
+        padding: 24px 16px;
+      }
+
+      body.css-auth .bloco-auth {
+        padding: clamp(22px, 6vw, 32px);
+      }
+    }

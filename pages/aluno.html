@@ -7,7 +7,6 @@
   <title>Conrad Virtual School | Aluno</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="stylesheet" href="../CSS/turmas.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
 </head>
 
@@ -85,7 +84,7 @@
               </div>
               <button id="profileToggle" class="btn-link">▾</button>
 
-              <div id="profileDropdown" class="profile-dropdown" style="display:none;">
+              <div id="profileDropdown" class="profile-dropdown">
                 <a href="perfil-aluno.html">Editar</a>
                 <a href="../index.html" data-sair>Sair</a>
               </div>
@@ -133,7 +132,7 @@
                 <a href="boletim.html" class="btn-secundario">Ver boletim</a>
               </div>
 
-              <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+              <div class="lista-desempenho-aluno">
 
                 <div class="aluno">
                   <div>
@@ -185,7 +184,7 @@
             </article>
 
             <!-- CALENDÁRIO / PRÓXIMOS COMPROMISSOS -->
-            <article class="card-avaliacoes" style="margin-top:14px;">
+            <article class="card-avaliacoes card-calendario">
               <div class="titulo-card">
                 <h2 id="calendario">Calendário</h2>
                 <a href="#" class="btn-secundario">Ver completo</a>

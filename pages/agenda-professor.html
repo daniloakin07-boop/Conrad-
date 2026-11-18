@@ -7,8 +7,6 @@
   <title>Conrad Virtual School | Agenda do Professor</title>
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="stylesheet" href="../CSS/turmas.css">
-  <link rel="stylesheet" href="../CSS/agenda-professor.css">
   <link rel="icon" type="image/png" href="../img/Emblema.png">
 </head>
 <!-- ============================================================================================================================ -->
@@ -78,11 +76,11 @@
               <a href="educador.html" class="btn-secundario">← Voltar ao painel</a>
             </div>
 
-            <div style="margin-top:12px;">
+            <div class="agenda-add-event-wrapper">
               <button class="btn-primario" id="openNew">+ Novo evento</button>
             </div>
             <!-- ============================================================================================================================ -->
-            <div class="agenda-grid" id="agendaGrid" style="margin-top:14px;">
+            <div class="agenda-grid" id="agendaGrid">
               <div class="agenda-day" data-day="Seg">
                 <h4>Seg</h4>
                 <div class="agenda-evento">8:00 · 3º ano C</div>
@@ -133,7 +131,7 @@
   </main>
   <!-- ============================================================================================================================ -->
   <!-- Modal simples -->
-  <div class="modal-overlay" id="agendaModal" style="display:none;">
+  <div class="modal-overlay" id="agendaModal">
     <div class="modal-card">
       <div class="modal-header">
         <h3>Novo evento</h3>
