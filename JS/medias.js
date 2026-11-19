@@ -120,8 +120,8 @@ router.get("/medias", exigirEducador, async (req, res) => {
                 COUNT(n.id) AS quantidadeNotas
             FROM tb_atividades AS a
             LEFT JOIN tb_notas AS n ON n.atividade_id = a.id
-            WHERE a.avaliativa = 1
-              AND a.aplicada = 1
+            WHERE a.avaliativa = TRUE
+              AND a.aplicada = TRUE
               AND a.valor_maximo > 0
             GROUP BY a.id, a.titulo, a.turma, a.disciplina, a.data_aplicacao
             ORDER BY a.data_aplicacao, a.id
@@ -138,8 +138,8 @@ router.get("/medias", exigirEducador, async (req, res) => {
                 tb_notas AS n
                 INNER JOIN tb_atividades AS a
                     ON a.id = n.atividade_id
-                   AND a.avaliativa = 1
-                   AND a.aplicada = 1
+                   AND a.avaliativa = TRUE
+                   AND a.aplicada = TRUE
                    AND a.valor_maximo > 0
             ) ON n.aluno_id = u.id
             WHERE u.tipo IN ('aluno', 'estudante')
@@ -154,8 +154,8 @@ router.get("/medias", exigirEducador, async (req, res) => {
                 COUNT(DISTINCT a.id) AS quantidadeAtividades
             FROM tb_notas AS n
             INNER JOIN tb_atividades AS a ON a.id = n.atividade_id
-            WHERE a.avaliativa = 1
-              AND a.aplicada = 1
+            WHERE a.avaliativa = TRUE
+              AND a.aplicada = TRUE
               AND a.valor_maximo > 0
         `);
 
@@ -193,8 +193,18 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
 
         // Detecta nomes de colunas existentes sem depender de um único padrão
         // para a data de envio/resolução. Isso evita consultar uma coluna que não existe.
-        const [colunasNotas] = await pool.execute("SHOW COLUMNS FROM tb_notas");
-        const [colunasAtividades] = await pool.execute("SHOW COLUMNS FROM tb_atividades");
+        const [colunasNotas] = await pool.execute(
+            `SELECT column_name AS "Field" FROM information_schema.columns
+             WHERE table_schema = 'public' AND table_name = ?
+             ORDER BY ordinal_position`,
+            ["tb_notas"]
+        );
+        const [colunasAtividades] = await pool.execute(
+            `SELECT column_name AS "Field" FROM information_schema.columns
+             WHERE table_schema = 'public' AND table_name = ?
+             ORDER BY ordinal_position`,
+            ["tb_atividades"]
+        );
         const nomesColunasAtividade = colunasAtividades.map(coluna => coluna.Field);
         const campoDataRealizada = obterNomeCampo(colunasNotas, [
             "data_realizada", "data_feita", "data_entrega", "data_submissao",
@@ -203,7 +213,7 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
         ]);
 
         const campoDataSelect = campoDataRealizada
-            ? `n.\`${campoDataRealizada}\` AS dataRealizada`
+            ? `n."${campoDataRealizada.replace(/"/g, '""')}" AS dataRealizada`
             : "NULL AS dataRealizada";
 
         // Preferência: matrículas reais (turmas em que o aluno entrou com o código do professor).
@@ -245,7 +255,7 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
         if (vinculoSala) {
             // Com vínculo entre usuário e turma, o LEFT JOIN também lista
             // atividades da sala sem nota lançada para este estudante.
-            const campoSala = `a.\`${vinculoSala.campoAtividade}\``;
+            const campoSala = `a."${vinculoSala.campoAtividade.replace(/"/g, '""')}"`;
             let condicaoSala;
             if (vinculoSala.tipo === "texto") {
                 const marcadores = vinculoSala.valores.map(() => "?").join(", ");
@@ -265,8 +275,8 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
                 LEFT JOIN tb_notas AS n
                     ON n.atividade_id = a.id
                    AND n.aluno_id = ?
-                WHERE a.avaliativa = 1
-                  AND a.aplicada = 1
+                WHERE a.avaliativa = TRUE
+                  AND a.aplicada = TRUE
                   AND a.valor_maximo > 0
                   AND ${condicaoSala}
                 ORDER BY a.data_aplicacao, a.id
@@ -279,8 +289,8 @@ router.get("/boletim", exigirEstudante, async (req, res) => {
                 FROM tb_notas AS n
                 INNER JOIN tb_atividades AS a ON a.id = n.atividade_id
                 WHERE n.aluno_id = ?
-                  AND a.avaliativa = 1
-                  AND a.aplicada = 1
+                  AND a.avaliativa = TRUE
+                  AND a.aplicada = TRUE
                   AND a.valor_maximo > 0
                 ORDER BY a.data_aplicacao, a.id
             `;

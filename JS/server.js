@@ -29,8 +29,7 @@ const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "turmas.
 const app = express();
 const httpServer = http.createServer(app);
 
-// 2) Pool de conexão com o banco de dados
-// O arquivo `JS/db.js` exporta um pool mysql2 que o servidor usa para executar queries
+// 2) Pool de conexão com o banco de dados PostgreSQL/Supabase
 const pool = require("./db.js");
 
 // 3) Origens permitidas para CORS
@@ -224,6 +223,8 @@ app.post("/cadastro", async (req, res) => {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        const emailNormalizado = String(email).trim().toLowerCase();
+
         if (typeof senha !== "string" || senha.length < 6) {
             return res.status(400).json({ erro: "A senha deve ter no mínimo 6 caracteres." });
         }
@@ -236,7 +237,7 @@ app.post("/cadastro", async (req, res) => {
 
         // Verifica se o e-mail já existe na tabela `tb_usuarios`
         const [existentes] = await pool.execute(
-            "SELECT id FROM tb_usuarios WHERE email = ?", [email]
+            "SELECT id FROM tb_usuarios WHERE LOWER(email) = ?", [emailNormalizado]
         );
 
         if (existentes.length > 0) {
@@ -249,14 +250,14 @@ app.post("/cadastro", async (req, res) => {
         // Insere o usuário no banco e obtém o `insertId`
         const [resultado] = await pool.execute(
             "INSERT INTO tb_usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)",
-            [nome, email, senhaHash, tipoBanco]
+            [nome, emailNormalizado, senhaHash, tipoBanco]
         );
 
         // Salva apenas dados não sensíveis na sessão (não guardar senha)
         req.session.usuario = {
             id: resultado.insertId,
             nome: nome,
-            email: email,
+            email: emailNormalizado,
             tipo: tipoBanco
         };
 
@@ -278,9 +279,11 @@ app.post("/login", async (req, res) => {
             return res.status(400).json({ erro: "Preencha todos os campos" });
         }
 
+        const emailNormalizado = String(email).trim().toLowerCase();
+
         // Busca o usuário pelo e-mail
         const [linhas] = await pool.execute(
-            "SELECT id, nome, email, senha, tipo FROM tb_usuarios WHERE email = ?", [email]
+            "SELECT id, nome, email, senha, tipo FROM tb_usuarios WHERE LOWER(email) = ?", [emailNormalizado]
         );
 
         if (linhas.length === 0) {
@@ -325,20 +328,18 @@ app.get("/me", (req, res) => {
 });
 
 // Dados complementares do perfil. A tabela é criada automaticamente na primeira utilização.
-// Não há chave estrangeira intencionalmente: o tipo de tb_usuarios.id varia entre instalações antigas.
 let tabelaPerfisPromise = null;
 async function garantirTabelaPerfis() {
     if (!tabelaPerfisPromise) {
         tabelaPerfisPromise = pool.execute(`
             CREATE TABLE IF NOT EXISTS tb_perfis_alunos (
-                usuario_id BIGINT UNSIGNED NOT NULL,
+                usuario_id BIGINT PRIMARY KEY REFERENCES tb_usuarios(id) ON DELETE CASCADE,
                 sobre_mim VARCHAR(800) NULL,
                 interesses TEXT NULL,
                 habilidades TEXT NULL,
-                foto_perfil MEDIUMTEXT NULL,
-                atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                PRIMARY KEY (usuario_id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+                foto_perfil TEXT NULL,
+                atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
+            )
         `).catch((erro) => {
             tabelaPerfisPromise = null;
             throw erro;
@@ -428,7 +429,7 @@ app.put("/perfil", async (req, res) => {
         try {
             await conexao.beginTransaction();
             const [emails] = await conexao.execute(
-                "SELECT id FROM tb_usuarios WHERE email = ? AND id <> ? LIMIT 1",
+                "SELECT id FROM tb_usuarios WHERE LOWER(email) = LOWER(?) AND id <> ? LIMIT 1",
                 [email, usuarioId]
             );
             if (emails.length) {
@@ -443,17 +444,18 @@ app.put("/perfil", async (req, res) => {
             await conexao.execute(
                 `INSERT INTO tb_perfis_alunos (usuario_id, sobre_mim, interesses, habilidades, foto_perfil)
                  VALUES (?, ?, ?, ?, ?)
-                 ON DUPLICATE KEY UPDATE
-                    sobre_mim = VALUES(sobre_mim),
-                    interesses = VALUES(interesses),
-                    habilidades = VALUES(habilidades),
-                    foto_perfil = VALUES(foto_perfil)`,
+                 ON CONFLICT (usuario_id) DO UPDATE SET
+                    sobre_mim = EXCLUDED.sobre_mim,
+                    interesses = EXCLUDED.interesses,
+                    habilidades = EXCLUDED.habilidades,
+                    foto_perfil = EXCLUDED.foto_perfil,
+                    atualizado_em = NOW()`,
                 [usuarioId, sobreMim || null, JSON.stringify(interesses), JSON.stringify(habilidades), foto || null]
             );
             await conexao.commit();
         } catch (erroTransacao) {
             await conexao.rollback().catch(() => {});
-            if (erroTransacao.code === "ER_DUP_ENTRY") {
+            if (erroTransacao.code === "23505") {
                 return res.status(409).json({ erro: "Esse e-mail já está sendo usado por outra conta" });
             }
             throw erroTransacao;

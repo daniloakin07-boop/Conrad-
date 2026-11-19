@@ -25,6 +25,7 @@ Projeto simples de uma plataforma web com páginas de cadastro, login e contato.
 - express-session
 - bcryptjs
 - socket.io
+- PostgreSQL (Supabase) via `pg`
 
 ## Estrutura do projeto
 
@@ -50,22 +51,26 @@ Conrad-
    npm install
    ```
 
-3. Atualize o esquema do MySQL, no banco configurado no `.env`, executando as migrações nesta ordem:
-   - `JS/migrations/001-add-tipo-to-tb-usuarios.sql`
-   - `JS/migrations/003-create-atividades-notas.sql`
-   - `JS/migrations/002-atividades-entregas.sql`
-   - `JS/migrations/004-turmas-e-salas.sql`
-   - `JS/migrations/006-atividades-colunas-avaliativas.sql`
-   - `JS/migrations/005-atividades-contam-no-boletim.sql`
+3. Configure a conexão PostgreSQL no `.env`, usando os dados de **Project Settings > Database** no Supabase:
+   ```env
+   DB_HOST=db.seu-projeto.supabase.co
+   DB_PORT=5432
+   DB_NAME=postgres
+   DB_USER=postgres
+   DB_PASSWORD=sua-senha-do-banco
+   DB_SSL=true
+   SESSION_SECRET=uma-chave-aleatoria
+   ```
+   O app também reconhece as variáveis do seu `.env` atual (`host`, `port`, `database`, `user`); acrescente a senha do banco como `DB_PASSWORD`. Não publique nem compartilhe o `.env`. Se usar `DATABASE_URL`, codifique caracteres especiais da senha para URL.
 
-   As migrações preparam os tipos de usuário, atividades, notas, entregas, turmas, códigos de entrada e salas de vídeo. Execute-as no banco `defaultdb` configurado no `.env`, usando um cliente MySQL, e confirme que cada uma terminou sem erros antes de iniciar o servidor. Elas não removem dados. Se já existirem notas duplicadas para o mesmo aluno e atividade, a migração `002` para ao criar a restrição única; revise os registros duplicados antes de executá-la novamente. As migrações `001` e `003` devem ser aplicadas apenas uma vez; as migrações `004` e `006` são seguras para reaplicar.
+4. No Supabase, abra **SQL Editor**, cole e execute `JS/migrations/supabase-schema-corrigido.sql`.
 
-4. Inicie o servidor:
+5. Inicie o servidor:
    ```bash
    npm start
    ```
 
-5. Acesse no navegador:
+6. Acesse no navegador:
    ```text
    http://localhost:3000
    ```
@@ -95,4 +100,4 @@ O servidor deve ser iniciado pelo `JS/server.js`, pois o Socket.IO precisa compa
 
 ## Observação
 
-Os dados são armazenados em memória, então ao reiniciar o servidor eles são apagados. Para um projeto mais completo, seria possível guardar tudo em banco de dados.
+Os dados da aplicação e as sessões são armazenados no PostgreSQL do Supabase. O servidor usa `DATABASE_URL` quando definida; caso contrário, usa `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` e `DB_PASSWORD`.

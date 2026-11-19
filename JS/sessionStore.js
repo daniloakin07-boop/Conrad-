@@ -1,17 +1,17 @@
 /*
 ===============================================
-SESSÕES QUE SOBREVIVEM A REINÍCIOS (memória + MySQL)
+SESSÕES QUE SOBREVIVEM A REINÍCIOS (memória + PostgreSQL)
 ===============================================
 Por padrão o express-session guarda as sessões só na memória do servidor. Quando o
 servidor reinicia (deploy, ou o Render "dormindo" no plano gratuito) todo mundo é
 deslogado, e isso parece um bug "depois do login".
 
-Aqui cada sessão fica na memória (rápido) E na tabela tb_sessoes do MySQL. Depois de um
+Aqui cada sessão fica na memória (rápido) e na tabela tb_sessoes do PostgreSQL. Depois de um
 reinício, a sessão é recuperada do banco no primeiro pedido.
 
 Se o banco estiver fora do ar ou a tabela não puder ser criada, o servidor continua
 funcionando só com a memória (o mesmo comportamento de antes), e avisa no terminal.
-A tabela é criada automaticamente; o mesmo comando está em JS/migrations/004-sessoes-e-atividades.sql.
+A tabela é criada automaticamente; também está definida em JS/migrations/supabase-schema-corrigido.sql.
 */
 
 const TABELA = "tb_sessoes";
@@ -44,9 +44,11 @@ function criarSessionStore(session, pool) {
                     sid VARCHAR(128) NOT NULL,
                     dados TEXT NOT NULL,
                     expira_em BIGINT NOT NULL,
-                    PRIMARY KEY (sid),
-                    INDEX idx_sessoes_expira_em (expira_em)
+                    PRIMARY KEY (sid)
                 )`
+            );
+            await pool.execute(
+                `CREATE INDEX IF NOT EXISTS idx_sessoes_expira_em ON ${TABELA} (expira_em)`
             );
             pronto = true;
             console.log("Sessões persistentes ativadas (tabela tb_sessoes).");
@@ -87,8 +89,8 @@ function criarSessionStore(session, pool) {
             const expira = expiracaoDe(sess);
             await pool.execute(
                 `INSERT INTO ${TABELA} (sid, dados, expira_em) VALUES (?, ?, ?)
-                 ON DUPLICATE KEY UPDATE dados = ?, expira_em = ?`,
-                [sid, dados, expira, dados, expira]
+                 ON CONFLICT (sid) DO UPDATE SET dados = EXCLUDED.dados, expira_em = EXCLUDED.expira_em`,
+                [sid, dados, expira]
             );
         } catch (erro) {
             avisar("falha ao gravar a sessão", erro);
@@ -111,7 +113,7 @@ function criarSessionStore(session, pool) {
             .catch((erro) => console.error("[sessões] erro inesperado:", erro));
     }
 
-    class MySQLSessionStore extends session.Store {
+    class PostgresSessionStore extends session.Store {
         get(sid, callback) {
             memoria.get(sid, (erro, sess) => {
                 if (!erro && sess) return callback(null, sess);
@@ -164,7 +166,7 @@ function criarSessionStore(session, pool) {
     if (limpeza.unref) limpeza.unref();
 
     preparar();
-    return new MySQLSessionStore();
+    return new PostgresSessionStore();
 }
 
 module.exports = criarSessionStore;

@@ -35,7 +35,7 @@ const soAluno = exigir(ehAluno, "Apenas alunos podem fazer isso");
 
 // Colunas de atividade devolvidas ao front (data já formatada como YYYY-MM-DD)
 const COLUNAS_ATIVIDADE = `a.id, a.titulo, a.turma, a.turma_id, a.disciplina,
-    DATE_FORMAT(a.data_aplicacao, '%Y-%m-%d') AS data_aplicacao,
+    TO_CHAR(a.data_aplicacao, 'YYYY-MM-DD') AS data_aplicacao,
     a.valor_maximo, a.descricao, a.tipo`;
 
 /*
@@ -80,7 +80,7 @@ router.post("/atividades", soEducador, async (req, res) => {
         const [resultado] = await pool.execute(
             `INSERT INTO tb_atividades
                 (titulo, turma, turma_id, disciplina, data_aplicacao, valor_maximo, descricao, tipo, avaliativa, aplicada, criado_por)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?)`,
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, TRUE, TRUE, ?)`,
             [
                 String(titulo).trim(),
                 turmaFinal,
@@ -204,8 +204,9 @@ router.put("/entregas/:id/correcao", soEducador, async (req, res) => {
 
         await conexao.execute(
             `INSERT INTO tb_notas (atividade_id, aluno_id, nota) VALUES (?, ?, ?)
-             ON DUPLICATE KEY UPDATE nota = ?`,
-            [atividade_id, aluno_id, nota, nota]
+             ON CONFLICT (atividade_id, aluno_id)
+             DO UPDATE SET nota = EXCLUDED.nota, atualizada_em = NOW()`,
+            [atividade_id, aluno_id, nota]
         );
         await conexao.execute(
             "UPDATE tb_entregas SET feedback = ?, corrigida_em = NOW() WHERE id = ?",
@@ -271,9 +272,9 @@ router.get("/aluno/atividades", soAluno, async (req, res) => {
             const turmaAntiga = usuarios[0]?.turma || null;
             filtro = `WHERE (
                 a.turma_id IN (SELECT ta.turma_id FROM tb_turma_alunos ta WHERE ta.aluno_id = ?)
-                OR (a.turma_id IS NULL AND (? IS NOT NULL AND a.turma = ?))
+                OR (a.turma_id IS NULL AND a.turma = ?)
             )`;
-            parametros.push(alunoId, turmaAntiga, turmaAntiga);
+            parametros.push(alunoId, turmaAntiga);
             turmaNome = turmaAntiga;
         }
 
@@ -340,8 +341,9 @@ router.post("/atividades/:id/entrega", soAluno, async (req, res) => {
 
         await pool.execute(
             `INSERT INTO tb_entregas (atividade_id, aluno_id, resposta) VALUES (?, ?, ?)
-             ON DUPLICATE KEY UPDATE resposta = ?, enviada_em = CURRENT_TIMESTAMP`,
-            [id, alunoId, resposta, resposta]
+             ON CONFLICT (atividade_id, aluno_id)
+             DO UPDATE SET resposta = EXCLUDED.resposta, enviada_em = CURRENT_TIMESTAMP`,
+            [id, alunoId, resposta]
         );
 
         res.status(201).json({ mensagem: "Resposta enviada" });

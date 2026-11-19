@@ -1,58 +1,93 @@
-/*
-===============================================
-CONEXÃO COM O BANCO DE DADOS (MySQL)
-===============================================
-*/
-// Carrega variáveis de ambiente (.env) usadas para configurar a conexão
-// Ex.: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, DB_CA_PATH
 require("dotenv").config();
 
-// Este arquivo exporta um `pool` do mysql2/promise para que o servidor
-// possa executar consultas SQL usando async/await.
-// O pool facilita o reaproveitamento de conexões e melhora a performance.
+const { Pool, types } = require("pg");
 
-// 1. Importar o mysql2 no formato promise
-const mysql = require("mysql2/promise");
-
-// 1.1. Importar fs e path para ler arquivos locais, como o certificado SSL
-const fs = require("fs");
-const path = require("path");
-
-// 1.2. Localiza o certificado CA que o banco exige para conexões seguras
-// - No Render: use DB_CA_PATH=/etc/secrets/ca.pem (Secret File)
-// - Local: usa o arquivo `ca.pem` ao lado deste arquivo
-const caminhoCertificado = process.env.DB_CA_PATH || path.join(__dirname, "ca.pem");
-const certificadoCA = fs.existsSync(caminhoCertificado)
-    ? fs.readFileSync(caminhoCertificado)
-    : undefined;
-
-// 2. Cria o pool de conexões com o banco de dados
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 3306,
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
-    database: process.env.DB_NAME || "conrad",
-    // DB_SSL=false desliga o SSL (útil para um MySQL local); o Aiven exige SSL, então o padrão é ligado.
-    ssl: process.env.DB_SSL === "false"
-        ? undefined
-        : certificadoCA
-            ? { ca: certificadoCA }             // Usa certificado CA se existir
-            : { rejectUnauthorized: false },    // Sem certificado: não valida o SSL
-    waitForConnections: true, // Aguarda conexão livre quando o pool está cheio
-    connectionLimit: 10,      // Máximo de conexões simultâneas no pool
-    queueLimit: 0             // 0 = fila de espera ilimitada para conexões
+types.setTypeParser(20, (value) => {
+    const numero = Number(value);
+    return Number.isSafeInteger(numero) ? numero : value;
 });
 
-// 3. Testa a conexão ao iniciar o servidor para avisar se o banco está OK
-pool.getConnection()
+function converterConsulta(sql) {
+    let indice = 0;
+    let consulta = sql.replace(/\?/g, () => `$${++indice}`);
+    consulta = consulta.replace(
+        /\bAS\s+([a-z_][a-z0-9_]*[A-Z][A-Za-z0-9_]*)/g,
+        'AS "$1"'
+    );
+
+    if (/^\s*INSERT\b/i.test(consulta) && !/\bRETURNING\b/i.test(consulta)) {
+        consulta += " RETURNING *";
+    }
+
+    return consulta;
+}
+
+function criarExecutor(conexao) {
+    return {
+        async execute(sql, parametros = []) {
+            const resultado = await conexao.query(converterConsulta(sql), parametros);
+            if (/^\s*(SELECT|WITH)\b/i.test(sql)) {
+                return [resultado.rows, resultado];
+            }
+
+            return [{
+                insertId: resultado.rows[0]?.id,
+                affectedRows: resultado.rowCount
+            }, resultado];
+        },
+        async beginTransaction() {
+            await conexao.query("BEGIN");
+        },
+        async commit() {
+            await conexao.query("COMMIT");
+        },
+        async rollback() {
+            await conexao.query("ROLLBACK");
+        },
+        release() {
+            conexao.release();
+        }
+    };
+}
+
+const connectionString = process.env.DATABASE_URL;
+const ssl = process.env.DB_SSL === "false"
+    ? false
+    : { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false" };
+
+const config = connectionString
+    ? { connectionString, ssl }
+    : {
+        host: process.env.DB_HOST || process.env.PGHOST || process.env.host || "localhost",
+        port: Number(process.env.DB_PORT || process.env.PGPORT || process.env.port || 5432),
+        user: process.env.DB_USER || process.env.PGUSER || process.env.user || "postgres",
+        password: process.env.DB_PASSWORD || process.env.PGPASSWORD || process.env.password || "",
+        database: process.env.DB_NAME || process.env.PGDATABASE || process.env.database || "postgres",
+        ssl
+    };
+
+const poolPostgres = new Pool({
+    ...config,
+    max: 10,
+    connectionTimeoutMillis: 10000
+});
+
+const pool = {
+    execute(sql, parametros) {
+        return criarExecutor(poolPostgres).execute(sql, parametros);
+    },
+    async getConnection() {
+        return criarExecutor(await poolPostgres.connect());
+    }
+};
+
+poolPostgres.connect()
     .then((conexao) => {
-        console.log("Conectado ao banco de dados MySQL!");
-        conexao.release(); // devolve a conexão ao pool para uso posterior
+        console.log("Conectado ao banco de dados PostgreSQL/Supabase.");
+        conexao.release();
     })
     .catch((error) => {
-        console.error("Erro ao conectar no banco de dados:", error.message);
+        console.error("Erro ao conectar no banco de dados PostgreSQL:", error.message);
     });
 
-// 4. Exporta o pool para ser usado em outras partes da aplicação
 module.exports = pool;

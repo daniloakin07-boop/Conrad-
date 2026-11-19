@@ -108,7 +108,7 @@ router.post("/turmas", soEducador, async (req, res) => {
                 );
                 break;
             } catch (erro) {
-                if (erro.code !== "ER_DUP_ENTRY" || tentativas >= 4) throw erro;
+                if (erro.code !== "23505" || tentativas >= 4) throw erro;
                 tentativas++;
             }
         } while (tentativas <= 4);
@@ -135,7 +135,7 @@ router.post("/turmas/entrar", soAluno, async (req, res) => {
         if (!turmas.length) return res.status(404).json({ erro: "Nenhuma turma foi encontrada com esse código" });
 
         await pool.execute(
-            "INSERT IGNORE INTO tb_turma_alunos (turma_id, aluno_id) VALUES (?, ?)",
+            "INSERT INTO tb_turma_alunos (turma_id, aluno_id) VALUES (?, ?) ON CONFLICT DO NOTHING",
             [turmas[0].id, req.session.usuario.id]
         );
 
