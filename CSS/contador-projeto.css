@@ -1,0 +1,191 @@
+/* Contador do Projeto Integrador — Conrad Virtual School (Web)
+   Todos os seletores usam o prefixo pi-web para evitar conflitos com o CSS existente. */
+
+.pi-web-contador {
+  width: min(1120px, calc(100% - 40px));
+  margin: 34px auto 42px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.pi-web-contador__painel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: center;
+  gap: 34px;
+  overflow: hidden;
+  padding: 34px;
+  color: #ffffff;
+  background: linear-gradient(120deg, #0A1F44 0%, #142e5b 100%);
+  border: 1px solid rgba(10, 31, 68, 0.12);
+  border-left: 5px solid #F5821F;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(10, 31, 68, 0.14);
+}
+
+.pi-web-contador__painel::after {
+  position: absolute;
+  top: -105px;
+  right: -65px;
+  width: 250px;
+  height: 250px;
+  content: '';
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  box-shadow: 0 0 0 24px rgba(255, 255, 255, 0.025),
+              0 0 0 50px rgba(255, 255, 255, 0.02);
+}
+
+.pi-web-contador__texto,
+.pi-web-contador__temporizador {
+  position: relative;
+  z-index: 1;
+}
+
+.pi-web-contador__etiqueta {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 13px;
+  padding: 6px 12px;
+  color: #ffd6b3;
+  background: rgba(245, 130, 31, 0.16);
+  border: 1px solid rgba(245, 130, 31, 0.42);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.pi-web-contador__titulo {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 4vw, 43px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.pi-web-contador__titulo span {
+  color: #F5821F;
+}
+
+.pi-web-contador__descricao {
+  max-width: 620px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.pi-web-contador__detalhe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pi-web-contador__detalhe span::before {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 8px 1px 0;
+  content: '';
+  background: #F5821F;
+  border-radius: 50%;
+}
+
+.pi-web-contador__legenda {
+  margin: 0 0 13px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pi-web-contador__unidades {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.pi-web-contador__unidade {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 7px 12px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+.pi-web-contador__valor {
+  color: #F5821F;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 4vw, 43px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pi-web-contador__rotulo {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.pi-web-contador__status {
+  min-height: 18px;
+  margin: 12px 0 0;
+  color: #ffd6b3;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .pi-web-contador {
+    width: calc(100% - 28px);
+    margin: 26px auto 32px;
+  }
+
+  .pi-web-contador__painel {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 25px 20px;
+  }
+
+  .pi-web-contador__titulo {
+    font-size: 36px;
+  }
+
+  .pi-web-contador__descricao {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .pi-web-contador__unidades {
+    gap: 5px;
+  }
+
+  .pi-web-contador__unidade {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .pi-web-contador__rotulo {
+    font-size: 9px;
+  }
+}

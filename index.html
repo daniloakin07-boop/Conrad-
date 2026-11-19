@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conrad Virtual School</title>
   <link rel="stylesheet" href="CSS/geral.css">
   <link rel="icon" type="image/png" href="img/Emblema.png">
-   <script src="JS/tema.js" defer></script>
+  <link rel="stylesheet" href="CSS/geral.css">
+  <link rel="stylesheet" href="CSS/contador-projeto.css">
+  <script src="JS/tema.js" defer></script>
+  <script src="JS/contador-projeto.js" defer></script>
 </head>
+
 <body>
- <!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <header class="topo topo-home">
     <a href="index.html" class="logo">CONRAD</a>
-        <nav class="menu">
-          <a href="index.html">Início</a>
-          <a href="pages/sobre.html">Sobre</a> <!-- eu adicionei o "pages/" para que o link funcione corretamente -->
-          <a href="pages/contato.html">Contato</a>
-          <button id="theme" type="button" aria-label="Ativar tema claro"> ◉ </button>
-      </nav>
-  <!--------------- BOTÕES ------------------------>
-      <div class="topo-acoes">
-        <a href="pages/login.html" class="btn-link">Entrar</a>
-        <a href="pages/cadastro.html" class="btn-primario">Criar conta</a>
-      </div>
+    <nav class="menu">
+      <a href="index.html">Início</a>
+      <a href="pages/sobre.html">Sobre</a> <!-- eu adicionei o "pages/" para que o link funcione corretamente -->
+      <a href="pages/contato.html">Contato</a>
+      <button id="theme" type="button" aria-label="Ativar tema claro"> ◉ </button>
+    </nav>
+    <!--------------- BOTÕES ------------------------>
+    <div class="topo-acoes">
+      <a href="pages/login.html" class="btn-link">Entrar</a>
+      <a href="pages/cadastro.html" class="btn-primario">Criar conta</a>
+    </div>
   </header>
-<!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
   <section class="hero-simples">
     <div class="hero-simples-conteudo">
       <div class="hero-simples-texto">
         <h1>A plataforma completa para transformar a educação digital</span></h1>
-        <p>Conecte alunos, professores e coordenação em um único ambiente moderno, intuitivo e seguro. Gerencie aulas, atividades, avaliações, comunicação e desempenho escolar em tempo real.</p>
+        <p>Conecte alunos, professores e coordenação em um único ambiente moderno, intuitivo e seguro. Gerencie aulas,
+          atividades, avaliações, comunicação e desempenho escolar em tempo real.</p>
 
         <div class="hero-botoes">
           <a href="pages/cadastro.html" class="btn-primario">Criar conta</a>
@@ -37,27 +43,62 @@
         </div>
       </div>
     </div>
- <!-- =================================================================================================================== -->
+    <!-- =================================================================================================================== -->
 
     <div class="hero-simples-imagem">
-      <img
-        src="img/mulher-feliz1.webp"
-        alt="Estudante concentrado em uma atividade escolar"
-        fetchpriority="high"
+      <img src="img/mulher-feliz1.webp" alt="Estudante concentrado em uma atividade escolar" fetchpriority="high"
         decoding="async">
-      <img
-        src="img/mulher-feliz2.webp"
-        alt="Aluno interagindo com conteúdo digital"
-        fetchpriority="low"
+      <img src="img/mulher-feliz2.webp" alt="Aluno interagindo com conteúdo digital" fetchpriority="low"
         decoding="async">
-      <img
-        src="img/carafeliz.webp"
-        alt="Ambiente escolar com materiais de estudo"
-        fetchpriority="low"
-        decoding="async">
+      <img src="img/carafeliz.webp" alt="Ambiente escolar com materiais de estudo" fetchpriority="low" decoding="async">
     </div>
   </section>
- <!-- =================================================================================================================== -->
+  <!-- =================================================================================================================== -->
+  <section class="pi-web-contador" aria-labelledby="pi-web-titulo">
+    <div class="pi-web-contador__painel">
+      <div class="pi-web-contador__texto">
+        <span class="pi-web-contador__etiqueta">Apresentação • 24.11.2026</span>
+        <h2 class="pi-web-contador__titulo" id="pi-web-titulo">
+          Projeto Integrador <span>— Conrad Virtual School</span>
+        </h2>
+        <p class="pi-web-contador__descricao">
+          Plataforma web de ensino que conecta alunos e educadores em um só ambiente.
+          Organize turmas com códigos de acesso, atividades, avaliações, entregas,
+          salas virtuais e comunicação em tempo real.
+        </p>
+        <div class="pi-web-contador__detalhe">
+          <span>Plataforma Web</span>
+          <span>Gestão educacional</span>
+          <span>Comunicação em tempo real</span>
+        </div>
+      </div>
+
+      <div class="pi-web-contador__temporizador">
+        <p class="pi-web-contador__legenda">Contagem regressiva</p>
+        <div class="pi-web-contador__unidades" role="timer" aria-label="Tempo restante para a apresentação">
+          <div class="pi-web-contador__unidade">
+            <strong class="pi-web-contador__valor" id="pi-web-dias">00</strong>
+            <span class="pi-web-contador__rotulo">Dias</span>
+          </div>
+          <div class="pi-web-contador__unidade">
+            <strong class="pi-web-contador__valor" id="pi-web-horas">00</strong>
+            <span class="pi-web-contador__rotulo">Horas</span>
+          </div>
+          <div class="pi-web-contador__unidade">
+            <strong class="pi-web-contador__valor" id="pi-web-minutos">00</strong>
+            <span class="pi-web-contador__rotulo">Minutos</span>
+          </div>
+          <div class="pi-web-contador__unidade">
+            <strong class="pi-web-contador__valor" id="pi-web-segundos">00</strong>
+            <span class="pi-web-contador__rotulo">Segundos</span>
+          </div>
+        </div>
+        <p class="pi-web-contador__status" id="pi-web-status" role="status" aria-live="polite">
+          Tempo restante para a apresentação
+        </p>
+      </div>
+    </div>
+  </section>
 
   <section class="recursos-simples">
     <h2>Recursos</h2>
@@ -65,7 +106,8 @@
     <div class="recursos-simples-grid">
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
             <circle cx="9" cy="7" r="4"></circle>
             <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -78,7 +120,8 @@
 
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2"></rect>
             <path d="M3 10h18"></path>
             <path d="M8 2v4"></path>
@@ -91,7 +134,8 @@
 
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M3 3v18h18"></path>
             <path d="M7 14l3-3 2 2 4-5"></path>
             <path d="M18 8h-4"></path>
@@ -103,7 +147,8 @@
 
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2"></rect>
             <path d="M16 2v4"></path>
             <path d="M8 2v4"></path>
@@ -116,7 +161,8 @@
 
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
             <path d="M9.5 12.5l1.8 1.8 3.2-3.8"></path>
           </svg>
@@ -127,7 +173,8 @@
 
       <div class="card-simples">
         <div class="icone-simples" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             <path d="M8 9h8"></path>
             <path d="M8 13h6"></path>
@@ -138,13 +185,14 @@
       </div>
     </div>
   </section>
-<!-- Seção de recursos com cards --> 
- <!-- =================================================================================================================== -->
-    <footer class="rodape">
-      <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
-      <p><a href="pages/contato.html">Entre em contato</a></p>
-    </footer>
+  <!-- Seção de recursos com cards -->
+  <!-- =================================================================================================================== -->
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="pages/contato.html">Entre em contato</a></p>
+  </footer>
 
-    <script src="JS/layout.js" defer></script>
+  <script src="JS/layout.js" defer></script>
 </body>
+
 </html>
