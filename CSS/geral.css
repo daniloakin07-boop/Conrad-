@@ -274,11 +274,16 @@ body {
   margin: 0 auto;
   padding: 0 28px;
   padding-right: 420px;
+  /* A caixa do texto ocupa a largura toda (inclusive os 420px reservados às
+     imagens) e fica por cima delas (z-index 2 > 1). Sem isto ela "engolia" o
+     mouse e as imagens nunca recebiam :hover. Só o texto volta a ser clicável. */
+  pointer-events: none;
 }
 
 .hero-simples-texto {
   flex: 1 1 480px;
   max-width: 540px;
+  pointer-events: auto;
 }
 
 .hero-simples-texto h1 {
@@ -318,35 +323,83 @@ body {
 }
 
 /* Imagens dos alunos: agrupadas lado a lado, se sobrepondo levemente,
-   todas apoiadas na mesma linha de base — igual ao print de referência. */
+   todas apoiadas na mesma linha de base.
+
+   As três imagens são WebP 1536x1024 com ~50% de margem transparente.
+   Cada .hero-aluno recorta essa margem (--corte-x / --corte-l, em px da imagem
+   original) para que o grupo caiba ao lado do texto. A altura do grupo (--h-alunos)
+   é calculada só com comprimentos (sem %), então margens e larguras acompanham a
+   altura em qualquer tela.
+   - .hero-aluno: alvo do mouse, fixo (nunca recebe transform).
+   - img: única peça que sobe no :hover.
+   - z-index no invólucro: o aluno sob o cursor passa por cima dos vizinhos. */
 
 .hero-simples-imagem {
+  --h-alunos: clamp(240px, calc((100vw - 640px) / 2.13), 520px);
   position: absolute;
   right: 24px;
   bottom: 0;
   display: flex;
   align-items: flex-end;
   z-index: 1;
-  height: 108%;
+  height: var(--h-alunos);
 }
 
-.hero-simples-imagem img {
+.hero-aluno {
+  position: relative;
   flex: 0 0 auto;
-  width: auto;
-  max-width: none;
   height: 100%;
-  object-fit: contain;
-  object-position: bottom;
-  margin-left: -35px;
-  transition: transform 0.3s ease;
+  aspect-ratio: var(--corte-l) / 1024;
+  margin-left: calc(var(--h-alunos) * -0.06);
+  z-index: 1;
+  /* A <img> é mais larga que o invólucro (recorte da margem transparente).
+     Sem este recorte a parte transparente de um aluno capturava o mouse do
+     vizinho. Fica 24px de folga no topo para a elevação não ser cortada. */
+  clip-path: inset(-24px 0 0 0);
 }
 
-.hero-simples-imagem img:first-child {
+.hero-aluno:first-child {
   margin-left: 0;
 }
 
-.hero-simples-imagem img:hover {
-  transform: translateY(-6px);
+.hero-aluno--1 { --corte-x: 340; --corte-l: 791; }
+.hero-aluno--2 { --corte-x: 625; --corte-l: 679; }
+.hero-aluno--3 { --corte-x: 380; --corte-l: 830; }
+
+.hero-aluno img {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: calc(1536 / var(--corte-l) * 100%);
+  max-width: none;
+  left: calc(var(--corte-x) / var(--corte-l) * -100%);
+  object-fit: contain;
+  object-position: bottom;
+  transition: transform 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Só em dispositivos com mouse de verdade; no toque nada se move. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-aluno:hover {
+    z-index: 3;
+  }
+
+  .hero-aluno:hover img {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aluno img {
+    transition: none;
+  }
+
+  .hero-aluno:hover img {
+    transform: none;
+  }
 }
 
 
@@ -424,6 +477,36 @@ body {
   line-height: 1.5;
 }
 
+/* Telas médias: o grupo de alunos não cabe mais ao lado do texto. Ele passa para
+   baixo do texto (centralizado), mantendo os três alunos e o efeito de hover. */
+@media (max-width: 1100px) {
+  .hero-simples-conteudo {
+    padding-right: 28px;
+    text-align: center;
+  }
+
+  .hero-simples-texto {
+    max-width: none;
+  }
+
+  .hero-simples-texto p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-simples .hero-botoes {
+    justify-content: center;
+  }
+
+  .hero-simples-imagem {
+    --h-alunos: clamp(200px, 30vw, 300px);
+    position: static;
+    justify-content: center;
+    height: var(--h-alunos);
+    margin-top: 24px;
+  }
+}
+
 @media (max-width: 760px) {
   .topo.topo-home {
     height: auto;
@@ -480,20 +563,19 @@ body {
   }
 
   .hero-simples-imagem {
+    --h-alunos: clamp(150px, 40vw, 200px);
     position: static;
     justify-content: center;
-    height: clamp(150px, 40vw, 200px);
+    height: var(--h-alunos);
     margin-top: 24px;
   }
 
-  .hero-simples-imagem img {
+  .hero-aluno {
     display: none;
   }
 
-  .hero-simples-imagem img:nth-child(2) {
+  .hero-aluno--2 {
     display: block;
-    max-width: 100%;
-    height: 100%;
     margin-left: 0;
   }
 }

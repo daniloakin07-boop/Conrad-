@@ -46,11 +46,19 @@
     <!-- =================================================================================================================== -->
 
     <div class="hero-simples-imagem">
-      <img src="img/mulher-feliz1.webp" alt="Estudante concentrado em uma atividade escolar" fetchpriority="high"
-        decoding="async">
-      <img src="img/mulher-feliz2.webp" alt="Aluno interagindo com conteúdo digital" fetchpriority="low"
-        decoding="async">
-      <img src="img/carafeliz.webp" alt="Ambiente escolar com materiais de estudo" fetchpriority="low" decoding="async">
+      <!-- Cada .hero-aluno é o alvo do mouse e NÃO se move; só a <img> interna sobe.
+           Assim o cursor nunca "sai" do alvo durante a animação (sem tremulação). -->
+      <div class="hero-aluno hero-aluno--1">
+        <img src="img/mulher-feliz1.webp" alt="Estudante concentrado em uma atividade escolar" fetchpriority="high"
+          decoding="async">
+      </div>
+      <div class="hero-aluno hero-aluno--2">
+        <img src="img/mulher-feliz2.webp" alt="Aluno interagindo com conteúdo digital" fetchpriority="low"
+          decoding="async">
+      </div>
+      <div class="hero-aluno hero-aluno--3">
+        <img src="img/carafeliz.webp" alt="Ambiente escolar com materiais de estudo" fetchpriority="low" decoding="async">
+      </div>
     </div>
   </section>
   <!-- =================================================================================================================== -->
