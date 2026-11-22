@@ -3683,6 +3683,23 @@ header:not([class]){
   position: sticky;
   top: 18px;
 }
+/* Painel lateral colado na parede esquerda (salas, turmas, turma, avaliações) */
+.css-turmas .turmas-layout {
+  padding: 0;
+  margin-top: 0;
+  gap: 0;
+  align-items: stretch;   /* painel ocupa a altura toda, do topo ao rodapé */
+}
+.css-turmas .menu-lateral {
+  border-radius: 0;
+  top: 0;
+}
+.css-turmas .turmas-conteudo {
+  padding: 26px 20px 34px 24px;   /* devolve o respiro só para o conteúdo */
+}
+.css-turmas .rodape {
+  margin-top: 0;
+}
 
 .turmas-conteudo {
   flex: 1;
