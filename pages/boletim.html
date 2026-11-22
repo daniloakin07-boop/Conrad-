@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Boletim individual de atividades e notas da CONRAD Virtual School.">
     <title>Meu boletim | CONRAD Virtual School</title>
+  <script src="../JS/tema.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../CSS/variaveis.css">
   <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/componentes.css">
   <link rel="stylesheet" href="../CSS/atividades.css">
-    <link rel="icon" type="image/png" href="../img/Emblema.png">
+  <link rel="icon" type="image/png" href="../img/emblema-64.png">
+  <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 <body class="css-boletim">
     <main class="pagina-boletim">
-        <div class="barra-acoes no-print">
+        <div class="barra-acoes no-print" data-tema-host>
             <a class="botao botao-secundario" href="perfil-aluno.html">← Voltar ao painel</a>
             <button class="botao botao-principal" id="btnSalvarPdf" type="button">Salvar boletim em PDF</button>
         </div>
@@ -121,6 +129,6 @@
         <p class="instrucao-pdf no-print">Para gerar o arquivo, clique em “Salvar boletim em PDF” e escolha <strong>Salvar como PDF</strong> no destino de impressão do navegador.</p>
     </main>
 
-    <script src="../JS/boletim.js"></script>
+    <script defer src="../JS/boletim.js"></script>
 </body>
 </html>

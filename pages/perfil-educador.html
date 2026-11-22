@@ -2,18 +2,24 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Editar perfil do educador</title>
-  <link rel="stylesheet" href="../CSS/geral.css">
-  <link rel="stylesheet" href="../CSS/usuarios.css">
-  <link rel="icon" type="image/png" href="../img/Emblema.png">
   <!-- =================================================================================================================== -->
+  <script src="../JS/tema.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="../CSS/variaveis.css">
+  <link rel="stylesheet" href="../CSS/geral.css">
+  <link rel="stylesheet" href="../CSS/componentes.css">
+  <link rel="stylesheet" href="../CSS/usuarios.css">
+  <link rel="icon" type="image/png" href="../img/emblema-64.png">
+  <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 
 <body class="css-perfil-educador css-painel">
-
-  <body class="css-perfil-educador css-painel">
 
     <!-- CONTÊINER DO MENU E DO PERFIL -->
     <div class="perfil-shell">
@@ -44,7 +50,7 @@
 
         <header class="perfil-topbar">
           <h1>Editar perfil</h1>
-          <div class="topbar-actions">
+          <div class="topbar-actions" data-tema-host>
             <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
           </div>
         </header>
@@ -53,7 +59,7 @@
           <div class="perfil-card">
             <div class="perfil-header">
               <div class="perfil-foto-wrap">
-                <img id="profilePreview" class="perfil-foto" src="../img/conradcad.png" alt="Foto do professor" />
+                <img id="profilePreview" class="perfil-foto" src="../img/conradcad.webp" width="360" height="1077" decoding="async" alt="Foto do professor" />
                 <button type="button" class="perfil-foto-btn" aria-label="Trocar foto">＋</button>
               </div>
 
@@ -153,7 +159,8 @@
 
     <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
 
-    <script>
+    <script src="../JS/config.js"></script>
+  <script>
       const photoInput = document.getElementById('photoInput');
       const profilePreview = document.getElementById('profilePreview');
       const photoButton = document.querySelector('.perfil-foto-btn');
@@ -184,9 +191,8 @@
         alert('Perfil atualizado com sucesso!');
       });
     </script>
-    <script src="../JS/config.js"></script>
-    <script src="../JS/layout.js" defer></script>
     <script src="../JS/perfil-chat.js" defer></script>
-  </body>
+  <script src="../JS/layout.js" defer></script>
+</body>
 
 </html>

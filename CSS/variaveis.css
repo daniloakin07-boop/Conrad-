@@ -1,0 +1,266 @@
+/* ==============================================================
+   VARIÁVEIS — sistema central de design da CONRAD Virtual School
+
+   Este é o ÚNICO lugar onde cores, espaçamentos, raios, sombras,
+   tipografia e transições são definidos. Os demais arquivos
+   (geral.css, usuarios.css, atividades.css...) apenas usam var(--...).
+
+   Ordem de carregamento em todas as páginas:
+     1. variaveis.css   (este arquivo)
+     2. geral.css       (base, cabeçalho, telas públicas)
+     3. componentes.css (botões, formulários, controle de tema)
+     4. usuarios.css / atividades.css / contador-projeto.css (quando usados)
+
+   Os três temas são ativados pelo atributo data-tema no <html>:
+     normal  -> aparência institucional original (padrão)
+     claro   -> interface clara, cabeçalho branco
+     escuro  -> interface escura
+   ============================================================== */
+
+/* ---------- 1. Tokens que NÃO mudam entre temas ---------- */
+:root {
+  /* Cores institucionais */
+  --marca-navy: #0a1f44;
+  --marca-navy-2: #163b74;
+  --marca-laranja: #f5821f;
+  --marca-laranja-escuro: #df6e12;
+  --marca-laranja-claro: #ff8e3c;
+  --branco: #ffffff;
+
+  /* Tipografia (fontes carregadas por <link> em cada página) */
+  --fonte-corpo: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --fonte-titulo: 'Bebas Neue', Impact, 'Arial Narrow Bold', sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;
+  --fs-base: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --peso-normal: 400;
+  --peso-medio: 600;
+  --peso-forte: 700;
+  --peso-extra: 800;
+  --lh-corpo: 1.5;
+  --lh-titulo: 1.2;
+
+  /* Espaçamentos (escala de 4px) */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-7: 32px;
+  --esp-8: 48px;
+
+  /* Raios de arredondamento */
+  --raio-sm: 8px;
+  --raio-md: 10px;
+  --raio-lg: 14px;
+  --raio-xl: 18px;
+  --raio-pill: 999px;
+
+  /* Cabeçalho */
+  --topo-altura: 72px;
+
+  /* Botões (mesma dimensão em todas as páginas) */
+  --btn-altura: 42px;
+  --btn-altura-lg: 48px;
+  --btn-altura-sm: 34px;
+  --btn-padding: 10px 16px;
+  --btn-fs: var(--fs-sm);
+  --btn-peso: var(--peso-extra);
+  --btn-raio: var(--raio-md);
+
+  /* Campos de formulário (16px no celular evita o zoom automático do iOS) */
+  --campo-altura: 44px;
+  --campo-padding: 11px 14px;
+  --campo-raio: var(--raio-md);
+  --campo-fs: var(--fs-md);
+
+  /* Transições */
+  --transicao-rapida: 0.18s ease;
+  --transicao: 0.25s ease;
+  --transicao-lenta: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Foco (acessibilidade) */
+  --foco-anel: 0 0 0 3px rgba(245, 130, 31, 0.45);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --campo-fs: 16px;
+  }
+}
+
+/* ---------- 2. Tema NORMAL (padrão) — identidade original ---------- */
+:root,
+:root[data-tema="normal"] {
+  color-scheme: light;
+
+  /* Fundos e superfícies */
+  --c-fundo: #f5f6f8;
+  --c-superficie: #ffffff;
+  --c-superficie-2: #f4f7fb;
+  --c-superficie-3: #eaeff6;
+
+  /* Bordas */
+  --c-borda: #e3e7eb;
+  --c-borda-forte: #cbd5e1;
+  --c-contorno: #0a1f44;
+
+  /* Textos */
+  --c-texto: #0a1f44;
+  --c-texto-2: #344054;
+  --c-texto-suave: #667085;
+  --c-link: #163b74;
+
+  /* Superfícies da marca (menu lateral, botões azuis, faixas) */
+  --c-marca-bg: #0a1f44;
+  --c-marca-bg-2: #163b74;
+
+  /* Cabeçalho */
+  --c-topo-bg: #0a1f44;
+  --c-topo-texto: #ffffff;
+  --c-topo-borda: rgba(255, 255, 255, 0.08);
+  --c-topo-chip-bg: rgba(255, 255, 255, 0.08);
+  --c-topo-chip-borda: rgba(255, 255, 255, 0.28);
+
+  /* Estados semânticos */
+  --c-ok-bg: #e8f6ed;
+  --c-ok-borda: #bfe3cc;
+  --c-ok-texto: #287a45;
+  --c-erro-bg: #fdecec;
+  --c-erro-borda: #f0c9c6;
+  --c-erro-texto: #b33a32;
+  --c-aviso-bg: #fff4d6;
+  --c-aviso-borda: #f1deae;
+  --c-aviso-texto: #7a5400;
+  --c-info-bg: #eef4ff;
+  --c-info-borda: #cfdcf3;
+  --c-info-texto: #2958a8;
+  --c-laranja-bg: #fff4eb;
+  --c-laranja-borda: #ffd9b3;
+  --c-laranja-texto: #c4540c;
+
+  /* Sombras */
+  --sombra-sm: 0 2px 8px rgba(10, 31, 68, 0.06);
+  --sombra-md: 0 8px 22px rgba(10, 31, 68, 0.08);
+  --sombra-lg: 0 18px 44px rgba(10, 31, 68, 0.16);
+
+  /* Controle de tema */
+  --tema-ctl-bg: rgba(255, 255, 255, 0.1);
+  --tema-ctl-borda: rgba(255, 255, 255, 0.28);
+  --tema-ctl-icone: rgba(255, 255, 255, 0.78);
+  --tema-ctl-ativo-bg: #df6e12;
+  --tema-ctl-ativo-icone: #ffffff;
+}
+
+/* ---------- 3. Tema CLARO ---------- */
+:root[data-tema="claro"] {
+  color-scheme: light;
+
+  --c-fundo: #f5f7fb;
+  --c-superficie: #ffffff;
+  --c-superficie-2: #f4f7fb;
+  --c-superficie-3: #eaeff6;
+
+  --c-borda: #dce2eb;
+  --c-borda-forte: #c5cfdd;
+  --c-contorno: #0a1f44;
+
+  --c-texto: #0a1f44;
+  --c-texto-2: #344054;
+  --c-texto-suave: #5b6a82;
+  --c-link: #163b74;
+
+  --c-marca-bg: #0a1f44;
+  --c-marca-bg-2: #163b74;
+
+  --c-topo-bg: #ffffff;
+  --c-topo-texto: #0a1f44;
+  --c-topo-borda: #dce2eb;
+  --c-topo-chip-bg: #f1f5f9;
+  --c-topo-chip-borda: #cbd5e1;
+
+  --sombra-sm: 0 2px 8px rgba(10, 31, 68, 0.05);
+  --sombra-md: 0 8px 22px rgba(10, 31, 68, 0.07);
+  --sombra-lg: 0 18px 44px rgba(10, 31, 68, 0.13);
+
+  --tema-ctl-bg: #eef2f8;
+  --tema-ctl-borda: #cbd5e1;
+  --tema-ctl-icone: #5b6a82;
+  --tema-ctl-ativo-bg: #df6e12;
+  --tema-ctl-ativo-icone: #ffffff;
+}
+
+/* ---------- 4. Tema ESCURO ---------- */
+:root[data-tema="escuro"] {
+  color-scheme: dark;
+
+  --c-fundo: #0e1526;
+  --c-superficie: #17223a;
+  --c-superficie-2: #1d2b47;
+  --c-superficie-3: #263757;
+
+  --c-borda: #2c3d5e;
+  --c-borda-forte: #3d5179;
+  --c-contorno: #8fb8ff;
+
+  --c-texto: #eef2f9;
+  --c-texto-2: #d3dcea;
+  --c-texto-suave: #a3b3cb;
+  --c-link: #8fb8ff;
+
+  --c-marca-bg: #13264b;
+  --c-marca-bg-2: #1d3a70;
+
+  --c-topo-bg: #0a1224;
+  --c-topo-texto: #ffffff;
+  --c-topo-borda: rgba(255, 255, 255, 0.08);
+  --c-topo-chip-bg: rgba(255, 255, 255, 0.08);
+  --c-topo-chip-borda: rgba(255, 255, 255, 0.24);
+
+  --c-ok-bg: #12301f;
+  --c-ok-borda: #1f5a38;
+  --c-ok-texto: #7fdca1;
+  --c-erro-bg: #3a1a1c;
+  --c-erro-borda: #6b2c30;
+  --c-erro-texto: #ff9c95;
+  --c-aviso-bg: #382d10;
+  --c-aviso-borda: #6a5418;
+  --c-aviso-texto: #f3cf74;
+  --c-info-bg: #16284a;
+  --c-info-borda: #28427a;
+  --c-info-texto: #9cc0ff;
+  --c-laranja-bg: #3a2514;
+  --c-laranja-borda: #6a4020;
+  --c-laranja-texto: #ffa860;
+
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --sombra-md: 0 8px 22px rgba(0, 0, 0, 0.4);
+  --sombra-lg: 0 18px 44px rgba(0, 0, 0, 0.5);
+
+  --tema-ctl-bg: rgba(255, 255, 255, 0.08);
+  --tema-ctl-borda: rgba(255, 255, 255, 0.22);
+  --tema-ctl-icone: rgba(255, 255, 255, 0.7);
+  --tema-ctl-ativo-bg: #df6e12;
+  --tema-ctl-ativo-icone: #ffffff;
+}
+
+/* Animação nativa (View Transitions) usada na troca de tema.
+   Só cruza o fade entre o "antes" e o "depois"; é desligada para quem
+   prefere menos movimento. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}

@@ -16,8 +16,8 @@
   overflow: hidden;
   padding: 34px;
   color: #ffffff;
-  background: linear-gradient(120deg, #0A1F44 0%, #142e5b 100%);
-  border: 1px solid rgba(10, 31, 68, 0.12);
+  background: linear-gradient(120deg, var(--c-marca-bg) 0%, var(--c-marca-bg-2) 100%);
+  border: 1px solid var(--c-borda);
   border-left: 5px solid #F5821F;
   border-radius: 18px;
   box-shadow: 0 14px 34px rgba(10, 31, 68, 0.14);

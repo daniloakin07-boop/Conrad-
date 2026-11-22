@@ -2,14 +2,20 @@
 <html lang="pt-br">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conrad Virtual School</title>
+  <script src="JS/tema.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="CSS/variaveis.css">
   <link rel="stylesheet" href="CSS/geral.css">
-  <link rel="icon" type="image/png" href="img/Emblema.png">
-  <link rel="stylesheet" href="CSS/geral.css">
+  <link rel="stylesheet" href="CSS/componentes.css">
   <link rel="stylesheet" href="CSS/contador-projeto.css">
-  <script src="JS/tema.js" defer></script>
+  <link rel="icon" type="image/png" href="img/emblema-64.png">
+  <link rel="apple-touch-icon" href="img/emblema-180.png">
   <script src="JS/contador-projeto.js" defer></script>
 </head>
 
@@ -21,7 +27,6 @@
       <a href="index.html">Início</a>
       <a href="pages/sobre.html">Sobre</a> <!-- eu adicionei o "pages/" para que o link funcione corretamente -->
       <a href="pages/contato.html">Contato</a>
-      <button id="theme" type="button" aria-label="Ativar tema claro"> ◉ </button>
     </nav>
     <!--------------- BOTÕES ------------------------>
     <div class="topo-acoes">
@@ -46,19 +51,12 @@
     <!-- =================================================================================================================== -->
 
     <div class="hero-simples-imagem">
-      <!-- Cada .hero-aluno é o alvo do mouse e NÃO se move; só a <img> interna sobe.
-           Assim o cursor nunca "sai" do alvo durante a animação (sem tremulação). -->
-      <div class="hero-aluno hero-aluno--1">
-        <img src="img/mulher-feliz1.webp" alt="Estudante concentrado em uma atividade escolar" fetchpriority="high"
-          decoding="async">
-      </div>
-      <div class="hero-aluno hero-aluno--2">
-        <img src="img/mulher-feliz2.webp" alt="Aluno interagindo com conteúdo digital" fetchpriority="low"
-          decoding="async">
-      </div>
-      <div class="hero-aluno hero-aluno--3">
-        <img src="img/carafeliz.webp" alt="Ambiente escolar com materiais de estudo" fetchpriority="low" decoding="async">
-      </div>
+      <img src="img/mulher-feliz1-1000.webp" srcset="img/mulher-feliz1-1000.webp 1000w, img/mulher-feliz1.webp 1536w" sizes="841px"
+        width="1536" height="1024" alt="Estudante concentrado em uma atividade escolar" loading="lazy" decoding="async">
+      <img src="img/mulher-feliz2-1000.webp" srcset="img/mulher-feliz2-1000.webp 1000w, img/mulher-feliz2.webp 1536w" sizes="841px"
+        width="1536" height="1024" alt="Aluno interagindo com conteúdo digital" fetchpriority="high" decoding="async">
+      <img src="img/carafeliz-1000.webp" srcset="img/carafeliz-1000.webp 1000w, img/carafeliz.webp 1536w" sizes="841px"
+        width="1536" height="1024" alt="Ambiente escolar com materiais de estudo" loading="lazy" decoding="async">
     </div>
   </section>
   <!-- =================================================================================================================== -->
@@ -199,7 +197,6 @@
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="pages/contato.html">Entre em contato</a></p>
   </footer>
-
   <script src="JS/layout.js" defer></script>
 </body>
 

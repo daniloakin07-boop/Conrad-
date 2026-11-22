@@ -8,10 +8,8 @@
 /* ---------- Base do site  (style.css original) ---------- */
 /* Vale em todas as páginas que carregam este arquivo. */
 
-/* Google Fonts usados no projeto:
-   - Bebas Neue: títulos e logotipo
-   - Nunito: texto do corpo e formulários */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap');
+/* Fontes: carregadas por <link rel="preconnect"> + <link rel="stylesheet"> em cada página
+   (Bebas Neue 400 para títulos/logotipo; Nunito 400-800 para o texto). Ver variaveis.css. */
 
 /* Reset básico que remove margens/paddings padrão do navegador e faz o
    box-sizing considerar padding/border dentro da largura total. */
@@ -26,8 +24,8 @@
    para que o conteúdo ocupe toda a altura disponível. */
 body {
   font-family: 'Nunito', sans-serif;
-  background: #f5f6f8;
-  color: #0A1F44;
+  background: var(--c-fundo);
+  color: var(--c-texto);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -37,7 +35,7 @@ body {
 
 /* Estrutura base da página e do layout geral. */
 .topo {
-  background: #0A1F44;
+  background: var(--c-topo-bg);
   padding: 0 22px;
   display: flex;
   align-items: center;
@@ -45,14 +43,14 @@ body {
   gap: 20px;
   min-height: 72px;
   margin: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--c-topo-borda);
   width: 100%;
 }
 
 .topo .logo {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2.2rem;
-  color: #fff;
+  color: var(--c-topo-texto);
   text-decoration: none;
   letter-spacing: 1px;
   line-height: 1;
@@ -68,7 +66,7 @@ body {
 }
 
 .topo .menu a {
-  color: #fff;
+  color: var(--c-topo-texto);
   text-decoration: none;
   font-size: 15px;
   font-weight: 700;
@@ -105,9 +103,9 @@ body {
 }
 
 .topo .user-link {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #fff;
+  background: var(--c-topo-chip-bg);
+  border: 1px solid var(--c-topo-chip-borda);
+  color: var(--c-topo-texto);
   gap: 8px;
 }
 
@@ -123,18 +121,18 @@ body {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--c-topo-chip-bg);
   font-size: 12px;
 }
 
 .topo .logout-link {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  color: #fff;
+  border: 1px solid var(--c-topo-chip-borda);
+  color: var(--c-topo-texto);
 }
 
 .topo .logout-link:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--c-topo-chip-bg);
 }
 
 /* Espaço principal do conteúdo, ocupando o restante da tela. */
@@ -146,7 +144,7 @@ body {
 /* Rodapé com fundo escuro e texto simples. */
 /* O rodapé é fixo na parte inferior da página, mesmo que o conteúdo seja curto. att 14/10 (alex) */ 
 .rodape {
-  background: #0A1F44;
+  background: var(--c-marca-bg);
   color: #fff;
   text-align: center;
   padding: 10px 16px;
@@ -205,7 +203,6 @@ body {
   flex-shrink: 0;
 }
 
-.topo-acoes .btn-primario,
 .hero-simples .btn-primario {
   display: inline-flex;
   align-items: center;
@@ -222,12 +219,10 @@ body {
   margin-top: 0;
 }
 
-.topo-acoes .btn-primario:hover,
 .hero-simples .btn-primario:hover {
   background: #db770f;
 }
 
-.topo-acoes .btn-link,
 .hero-simples .btn-link {
   display: inline-flex;
   align-items: center;
@@ -242,15 +237,48 @@ body {
   border: 1px solid rgba(255,255,255,0.75);
 }
 
-.topo-acoes .btn-link:hover,
 .hero-simples .btn-link:hover {
   background: rgba(255,255,255,0.26);
+}
+
+/* Botões de acesso do cabeçalho: mesma altura/raio dos botões da conta (Sair, perfil) */
+.topo .topo-acoes .btn-primario,
+.topo .topo-acoes .btn-link {
+  width: auto;
+  margin-top: 0;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: var(--btn-raio);
+  font-size: var(--fs-md);
+  font-weight: var(--btn-peso);
+  text-decoration: none;
+}
+
+.topo .topo-acoes .btn-primario {
+  background: var(--marca-laranja);
+  border: 1px solid var(--marca-laranja);
+  color: #fff;
+}
+
+.topo .topo-acoes .btn-primario:hover {
+  background: var(--marca-laranja-escuro);
+  border-color: var(--marca-laranja-escuro);
+}
+
+.topo .topo-acoes .btn-link {
+  background: var(--c-topo-chip-bg);
+  border: 1px solid var(--c-topo-chip-borda);
+  color: var(--c-topo-texto);
+}
+
+.topo .topo-acoes .btn-link:hover {
+  background: var(--c-topo-chip-borda);
 }
 
 /* Seção principal da home, com texto chamativo e imagem lateral. */
 
 .hero-simples {
-  background: linear-gradient(180deg, #0A1F44 0%, #071333 100%);
+  background: linear-gradient(180deg, var(--c-marca-bg) 0%, var(--c-marca-bg) 100%);
   padding: 70px 0 40px;
   overflow: hidden;
   position: relative;
@@ -274,16 +302,11 @@ body {
   margin: 0 auto;
   padding: 0 28px;
   padding-right: 420px;
-  /* A caixa do texto ocupa a largura toda (inclusive os 420px reservados às
-     imagens) e fica por cima delas (z-index 2 > 1). Sem isto ela "engolia" o
-     mouse e as imagens nunca recebiam :hover. Só o texto volta a ser clicável. */
-  pointer-events: none;
 }
 
 .hero-simples-texto {
   flex: 1 1 480px;
   max-width: 540px;
-  pointer-events: auto;
 }
 
 .hero-simples-texto h1 {
@@ -313,100 +336,52 @@ body {
 }
 
 .hero-simples .btn-link {
-  background: #fff;
-  color: #0A1F44;
+  background: var(--c-superficie);
+  color: var(--c-texto);
   border: none;
 }
 
 .hero-simples .btn-link:hover {
-  background: #f4f6fb;
+  background: var(--c-superficie-2);
 }
 
 /* Imagens dos alunos: agrupadas lado a lado, se sobrepondo levemente,
-   todas apoiadas na mesma linha de base.
-
-   As três imagens são WebP 1536x1024 com ~50% de margem transparente.
-   Cada .hero-aluno recorta essa margem (--corte-x / --corte-l, em px da imagem
-   original) para que o grupo caiba ao lado do texto. A altura do grupo (--h-alunos)
-   é calculada só com comprimentos (sem %), então margens e larguras acompanham a
-   altura em qualquer tela.
-   - .hero-aluno: alvo do mouse, fixo (nunca recebe transform).
-   - img: única peça que sobe no :hover.
-   - z-index no invólucro: o aluno sob o cursor passa por cima dos vizinhos. */
+   todas apoiadas na mesma linha de base — igual ao print de referência. */
 
 .hero-simples-imagem {
-  --h-alunos: clamp(240px, calc((100vw - 640px) / 2.13), 520px);
   position: absolute;
   right: 24px;
   bottom: 0;
   display: flex;
   align-items: flex-end;
   z-index: 1;
-  height: var(--h-alunos);
+  height: 108%;
 }
 
-.hero-aluno {
-  position: relative;
+.hero-simples-imagem img {
   flex: 0 0 auto;
+  width: auto;
+  max-width: none;
   height: 100%;
-  aspect-ratio: var(--corte-l) / 1024;
-  margin-left: calc(var(--h-alunos) * -0.06);
-  z-index: 1;
-  /* A <img> é mais larga que o invólucro (recorte da margem transparente).
-     Sem este recorte a parte transparente de um aluno capturava o mouse do
-     vizinho. Fica 24px de folga no topo para a elevação não ser cortada. */
-  clip-path: inset(-24px 0 0 0);
+  object-fit: contain;
+  object-position: bottom;
+  margin-left: -35px;
+  transition: transform 0.3s ease;
 }
 
-.hero-aluno:first-child {
+.hero-simples-imagem img:first-child {
   margin-left: 0;
 }
 
-.hero-aluno--1 { --corte-x: 340; --corte-l: 791; }
-.hero-aluno--2 { --corte-x: 625; --corte-l: 679; }
-.hero-aluno--3 { --corte-x: 380; --corte-l: 830; }
-
-.hero-aluno img {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: calc(1536 / var(--corte-l) * 100%);
-  max-width: none;
-  left: calc(var(--corte-x) / var(--corte-l) * -100%);
-  object-fit: contain;
-  object-position: bottom;
-  transition: transform 0.3s ease;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* Só em dispositivos com mouse de verdade; no toque nada se move. */
-@media (hover: hover) and (pointer: fine) {
-  .hero-aluno:hover {
-    z-index: 3;
-  }
-
-  .hero-aluno:hover img {
-    transform: translateY(-6px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-aluno img {
-    transition: none;
-  }
-
-  .hero-aluno:hover img {
-    transform: none;
-  }
+.hero-simples-imagem img:hover {
+  transform: translateY(-6px);
 }
 
 
 /* Cards de recursos, */
 
 .recursos-simples {
-  background-color: #f2f5f9;
+  background-color: var(--c-fundo);
   padding: 44px 20px 60px;
   text-align: center;
 }
@@ -415,8 +390,8 @@ body {
   display: inline-block;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
-  color: #F5821F;
-  border: 1px dashed #F5821F;
+  color: var(--c-laranja-texto);
+  border: 1px dashed var(--c-laranja-texto);
   border-radius: 20px;
   padding: 6px 22px;
   margin-bottom: 30px;
@@ -432,8 +407,8 @@ body {
 }
 
 .card-simples {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-borda);
   border-radius: 14px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.04);
   padding: 22px 16px;
@@ -467,44 +442,14 @@ body {
 .card-simples strong {
   display: block;
   font-size: 14px;
-  color: #0A1F44;
+  color: var(--c-texto);
   margin-bottom: 6px;
 }
 
 .card-simples p {
   font-size: 12.5px;
-  color: #6b7280;
+  color: var(--c-texto-suave);
   line-height: 1.5;
-}
-
-/* Telas médias: o grupo de alunos não cabe mais ao lado do texto. Ele passa para
-   baixo do texto (centralizado), mantendo os três alunos e o efeito de hover. */
-@media (max-width: 1100px) {
-  .hero-simples-conteudo {
-    padding-right: 28px;
-    text-align: center;
-  }
-
-  .hero-simples-texto {
-    max-width: none;
-  }
-
-  .hero-simples-texto p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-simples .hero-botoes {
-    justify-content: center;
-  }
-
-  .hero-simples-imagem {
-    --h-alunos: clamp(200px, 30vw, 300px);
-    position: static;
-    justify-content: center;
-    height: var(--h-alunos);
-    margin-top: 24px;
-  }
 }
 
 @media (max-width: 760px) {
@@ -563,19 +508,20 @@ body {
   }
 
   .hero-simples-imagem {
-    --h-alunos: clamp(150px, 40vw, 200px);
     position: static;
     justify-content: center;
-    height: var(--h-alunos);
+    height: clamp(150px, 40vw, 200px);
     margin-top: 24px;
   }
 
-  .hero-aluno {
+  .hero-simples-imagem img {
     display: none;
   }
 
-  .hero-aluno--2 {
+  .hero-simples-imagem img:nth-child(2) {
     display: block;
+    max-width: 100%;
+    height: 100%;
     margin-left: 0;
   }
 }
@@ -595,7 +541,7 @@ body {
   align-items: center;
   min-height: calc(100vh - 140px);
   padding: 24px 20px;
-  background: #f5f6f8;
+  background: var(--c-fundo);
   overflow: hidden;
 }
 
@@ -618,19 +564,19 @@ body {
 
 :where(.css-auth) .pagina-auth::before {
   left: 0;
-  background-image: url("../img/Banner\ Escolar\ CONRAD.png");
+  background-image: url("../img/banner-escolar-conrad.webp");
 }
 
 :where(.css-auth) .pagina-auth::after {
   right: 0;
-  background-image: url("../img/Banner\ Escolar\ CONRAD.png");
+  background-image: url("../img/banner-escolar-conrad.webp");
 }
 
 /* O container branco central do formulário. Ele mantém os campos bem
    separados do fundo da página e limita a largura para melhorar a leitura. */
 :where(.css-auth) .bloco-auth {
-  background: #fff;
-  border: 1px solid #e3e7eb;
+  background: var(--c-superficie);
+  border: 1px solid var(--c-borda);
   border-radius: 8px;
   padding: 60px;
   width: 100%;
@@ -644,12 +590,12 @@ body {
   font-size: 24px;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
-  color: #234b86;
+  color: var(--c-link);
   
 }
 
 :where(.css-auth) .texto-auth {
-  color: #666;
+  color: var(--c-texto-suave);
   font-size: 14px;
   margin-bottom: 20px;
 }
@@ -681,25 +627,34 @@ body {
 :where(.css-auth) .form-auth input,
 :where(.css-auth) .form-auth textarea,
 :where(.css-auth) .form-auth select {
-  padding: 10px 12px;
-  border: 1px solid #d8dce1;
-  border-radius: 6px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  color: #0A1F44;
+  padding: var(--campo-padding);
+  border-radius: var(--campo-raio);
+  font-size: var(--campo-fs);
   width: 100%;
-  background: #fff;
+  min-height: var(--campo-altura);
+  border: 1px solid var(--c-borda-forte);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font-family: var(--fonte-corpo);
 }
 
 :where(.css-auth) .form-auth input:focus,
 :where(.css-auth) .form-auth textarea:focus {
   outline: none;
-  border-color: #0A1F44;
+  border-color: var(--marca-laranja);
+  box-shadow: var(--foco-anel);
 }
 
 :where(.css-auth) .form-auth textarea {
   min-height: 110px;
   resize: none;
+  padding: var(--campo-padding);
+  border-radius: var(--campo-raio);
+  border: 1px solid var(--c-borda-forte);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font-size: var(--campo-fs);
+  font-family: var(--fonte-corpo);
 }
 
 /* Tipo de usuário */
@@ -721,19 +676,19 @@ body {
   flex: 1;
   text-align: center;
   padding: 10px 4px;
-  border: 1px solid #d8dce1;
+  border: 1px solid var(--c-borda-forte);
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 700;
   margin-top: 0;
-  color: #0A1F44;
+  color: var(--c-texto);
 }
 
 :where(.css-auth) .tipo-usuario input[type="radio"]:checked + label {
-  background: #0A1F44;
+  background: var(--c-marca-bg);
   color: #fff;
-  border-color: #0A1F44;
+  border-color: var(--c-contorno);
 }
 
 /* Row: lembre-me / esqueceu */
@@ -747,7 +702,7 @@ body {
 }
 
 :where(.css-auth) .form-row a {
-  color: #0A1F44;
+  color: var(--c-texto);
   font-weight: 700;
   text-decoration: none;
 }
@@ -771,23 +726,12 @@ body {
 /* Botão principal do formulário. Ele usa cor de alto contraste para
    chamar atenção e ocupa largura total para facilitar o clique/tap. */
 :where(.css-auth) .btn-primario {
-  background: #0A1F44;
-  color: #fff;
-  border: none;
-  padding: 12px 16px;
-  border-radius: 6px;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
   margin-top: 18px;
   width: 100%;
-  display: block;
+  min-height: var(--btn-altura-lg);
 }
 
-:where(.css-auth) .btn-primario:hover {
-  background: #163a6e;
-}
+/* :where(.css-auth) .btn-primario:hover — padrão em componentes.css */
 
 /* Mensagem de feedback */
 :where(.css-auth) .mensagem-auth {
@@ -798,11 +742,11 @@ body {
 }
 
 :where(.css-auth) .mensagem-auth.sucesso {
-  color: #2E8B57;
+  color: var(--c-ok-texto);
 }
 
 :where(.css-auth) .mensagem-auth.erro {
-  color: #c0392b;
+  color: var(--c-erro-texto);
 }
 
 /* Link de rodapé do form */
@@ -810,11 +754,11 @@ body {
   text-align: center;
   margin-top: 16px;
   font-size: 14px;
-  color: #666;
+  color: var(--c-texto-suave);
 }
 
 :where(.css-auth) .link-auth a {
-  color: #0A1F44;
+  color: var(--c-texto);
   font-weight: 800;
   text-decoration: none;
 }
@@ -837,7 +781,7 @@ body {
 }
 
 :where(.css-auth) .contato-etiqueta {
-  color: #d96a0b;
+  color: var(--c-laranja-texto);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.4px;
@@ -846,7 +790,7 @@ body {
 
 :where(.css-auth) .contato-intro h1 {
   margin: 10px 0 8px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(38px, 5vw, 56px);
   font-weight: 400;
@@ -856,7 +800,7 @@ body {
 
 :where(.css-auth) .contato-intro > p {
   max-width: 620px;
-  color: #667085;
+  color: var(--c-texto-suave);
   font-size: 15px;
   line-height: 1.7;
 }
@@ -872,16 +816,16 @@ body {
 :where(.css-auth) .contato-form-bloco {
   min-width: 0;
   padding: 24px;
-  border: 1px solid #e3e7ed;
+  border: 1px solid var(--c-borda);
   border-radius: 18px;
-  background: #fff;
+  background: var(--c-superficie);
   box-shadow: 0 14px 36px rgba(10, 31, 68, 0.07);
 }
 
 :where(.css-auth) .contato-canais h3,
 :where(.css-auth) .contato-form-bloco h3 {
   margin-bottom: 18px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 25px;
   font-weight: 400;
@@ -905,22 +849,22 @@ body {
 :where(.css-auth) .canal-item {
   margin-bottom: 10px;
   padding: 13px 15px;
-  border: 1px solid #e7ebf1;
+  border: 1px solid var(--c-borda);
   border-left: 3px solid #F5821F;
   border-radius: 12px;
-  background: #f8f9fc;
+  background: var(--c-superficie-2);
 }
 
 :where(.css-auth) .canal-item strong {
   display: block;
   margin-bottom: 3px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-size: 13px;
   font-weight: 800;
 }
 
 :where(.css-auth) .canal-item span {
-  color: #667085;
+  color: var(--c-texto-suave);
   font-size: 13px;
   line-height: 1.55;
   overflow-wrap: anywhere;
@@ -929,7 +873,7 @@ body {
 :where(.css-auth) .faq-titulo {
   margin-top: 24px;
   margin-bottom: 10px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 21px;
   letter-spacing: 0.4px;
@@ -938,10 +882,10 @@ body {
 :where(.css-auth) .faq-item {
   margin-bottom: 8px;
   padding: 11px 13px;
-  border: 1px solid #e7ebf1;
+  border: 1px solid var(--c-borda);
   border-radius: 10px;
-  background: #fff;
-  color: #344054;
+  background: var(--c-superficie);
+  color: var(--c-texto-2);
   font-size: 13px;
   font-weight: 700;
 }
@@ -960,36 +904,43 @@ body {
 
 :where(.css-auth) .contato-form-bloco .form-auth input,
 :where(.css-auth) .contato-form-bloco .form-auth textarea {
-  min-height: 46px;
-  padding: 11px 13px;
-  border-color: #dce2eb;
-  border-radius: 10px;
+  min-height: var(--campo-altura);
+  padding: var(--campo-padding);
+  border-color: var(--c-borda-forte);
+  border-radius: var(--campo-raio);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--c-borda-forte);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font-size: var(--campo-fs);
+  font-family: var(--fonte-corpo);
 }
 
 :where(.css-auth) .contato-form-bloco .form-auth textarea {
   min-height: 150px;
   resize: vertical;
+  padding: var(--campo-padding);
+  border-radius: var(--campo-raio);
+  border: 1px solid var(--c-borda-forte);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font-size: var(--campo-fs);
+  font-family: var(--fonte-corpo);
 }
 
 :where(.css-auth) .contato-form-bloco .form-auth input:focus,
 :where(.css-auth) .contato-form-bloco .form-auth textarea:focus {
-  border-color: #F5821F;
-  box-shadow: 0 0 0 3px rgba(245, 130, 31, 0.14);
+  outline: none;
+  border-color: var(--marca-laranja);
+  box-shadow: var(--foco-anel);
 }
 
 :where(.css-auth) .contato-form-bloco .btn-primario {
-  min-height: 48px;
   margin-top: 20px;
-  border-radius: 10px;
-  background: #F5821F;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  min-height: var(--btn-altura-lg);
 }
 
-:where(.css-auth) .contato-form-bloco .btn-primario:hover {
-  background: #df6e12;
-  transform: translateY(-1px);
-}
+/* :where(.css-auth) .contato-form-bloco .btn-primario:hover — padrão em componentes.css */
 
 @media (max-width: 900px) {
   :where(.css-auth) .pagina-auth::before,
@@ -1091,7 +1042,7 @@ body {
 
 :where(.css-auth) .sobre-etiqueta {
   display: inline-block;
-  color: #d96a0b;
+  color: var(--c-laranja-texto);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.4px;
@@ -1101,7 +1052,7 @@ body {
 
 :where(.css-auth) .sobre-intro h1 {
   margin: 14px 0 16px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(42px, 6vw, 68px);
   font-weight: 400;
@@ -1110,12 +1061,12 @@ body {
 }
 
 :where(.css-auth) .sobre-intro h1 span {
-  color: #e87516;
+  color: var(--c-laranja-texto);
 }
 
 :where(.css-auth) .sobre-intro > p {
   max-width: 610px;
-  color: #596579;
+  color: var(--c-texto-suave);
   font-size: 16px;
   line-height: 1.8;
 }
@@ -1153,7 +1104,7 @@ body {
   min-height: 340px;
   padding: 38px;
   border-radius: 24px;
-  background: linear-gradient(145deg, #102d5c, #071632);
+  background: linear-gradient(145deg, var(--c-marca-bg-2), var(--c-marca-bg));
   box-shadow: 0 24px 60px rgba(10, 31, 68, 0.18);
   color: #fff;
 }
@@ -1221,7 +1172,7 @@ body {
 
 :where(.css-auth) .sobre-essencia {
   padding: 54px 0 62px;
-  border-top: 1px solid #e3e7ed;
+  border-top: 1px solid var(--c-borda);
 }
 
 :where(.css-auth) .sobre-secao-cabecalho {
@@ -1233,7 +1184,7 @@ body {
 :where(.css-auth) .sobre-secao-cabecalho h2,
 :where(.css-auth) .sobre-convite h2 {
   margin-top: 8px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 400;
@@ -1242,7 +1193,7 @@ body {
 
 :where(.css-auth) .sobre-secao-cabecalho > p {
   margin-top: 10px;
-  color: #667085;
+  color: var(--c-texto-suave);
   font-size: 14px;
 }
 
@@ -1255,27 +1206,27 @@ body {
 :where(.css-auth) .sobre-valor {
   min-height: 220px;
   padding: 24px;
-  border: 1px solid #e3e7ed;
+  border: 1px solid var(--c-borda);
   border-radius: 16px;
-  background: #fff;
+  background: var(--c-superficie);
 }
 
 :where(.css-auth) .sobre-valor-numero {
-  color: #e87516;
+  color: var(--c-laranja-texto);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 25px;
 }
 
 :where(.css-auth) .sobre-valor h3 {
   margin-top: 16px;
-  color: #0A1F44;
+  color: var(--c-texto);
   font-size: 17px;
   font-weight: 800;
 }
 
 :where(.css-auth) .sobre-valor p {
   margin-top: 8px;
-  color: #667085;
+  color: var(--c-texto-suave);
   font-size: 13px;
   line-height: 1.7;
 }
@@ -1287,7 +1238,7 @@ body {
   gap: 30px;
   padding: 30px 36px;
   border-radius: 18px;
-  background: #eef3fa;
+  background: var(--c-superficie-3);
 }
 
 :where(.css-auth) .sobre-convite h2 {
@@ -1357,434 +1308,6 @@ body {
     flex-direction: column;
     padding: 26px;
   }
-}
-
-/* ==========================================================
-   SISTEMA DE 3 TEMAS - CONRAD
-   NORMAL | CLARO | ESCURO
-========================================================== */
-
-
-/* ==========================================================
-   1. TEMA NORMAL
-   Mantém as cores originais da Conrad.
-========================================================== */
-
-:root[data-tema="normal"] {
-    color-scheme: light;
-}
-
-
-/* ==========================================================
-   2. TEMA CLARO
-========================================================== */
-
-:root[data-tema="claro"] {
-    color-scheme: light;
-
-    --fundo: #f5f6fa;
-    --painel: #ffffff;
-    --card: #ffffff;
-    --texto: #0A1F44;
-    --texto-secundario: #667085;
-    --borda: #dce2eb;
-}
-
-/* Fundo geral */
-
-:root[data-tema="claro"] body {
-    background: var(--fundo);
-    color: var(--texto);
-}
-
-:root[data-tema="claro"] .container,
-:root[data-tema="claro"] .containers,
-:root[data-tema="claro"] .chat,
-:root[data-tema="claro"] .mensagens {
-    background: var(--fundo);
-    color: var(--texto);
-}
-
-/* Cabeçalho */
-
-:root[data-tema="claro"] .topo {
-    background: #ffffff;
-    border-bottom-color: var(--borda);
-}
-
-:root[data-tema="claro"] .topo .logo,
-:root[data-tema="claro"] .topo .menu a {
-    color: #0A1F44;
-}
-
-:root[data-tema="claro"] .topo .menu a:hover,
-:root[data-tema="claro"] .topo .menu a.ativo {
-    color: #F5821F;
-}
-
-:root[data-tema="claro"] .topo .user-link,
-:root[data-tema="claro"] .topo .logout-link {
-    color: #0A1F44;
-    border-color: #cbd5e1;
-}
-
-:root[data-tema="claro"] .topo .user-link {
-    background: #f1f5f9;
-}
-
-/* Banner inicial */
-
-:root[data-tema="claro"] .hero-simples {
-    background: linear-gradient(
-        180deg,
-        #eaf1fb 0%,
-        #dce7f6 100%
-    );
-}
-
-:root[data-tema="claro"] .hero-simples-texto h1 {
-    color: #0A1F44;
-}
-
-:root[data-tema="claro"] .hero-simples-texto p {
-    color: #344054;
-}
-
-/* Recursos e cards */
-
-:root[data-tema="claro"] .recursos-simples {
-    background: #f5f6fa;
-}
-
-:root[data-tema="claro"] .card-simples,
-:root[data-tema="claro"] .bloco-auth,
-:root[data-tema="claro"] .contato-canais,
-:root[data-tema="claro"] .contato-form-bloco .bloco-auth,
-:root[data-tema="claro"] .canal-item,
-:root[data-tema="claro"] .faq-item {
-    background: var(--card);
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-/* Menu lateral */
-
-:root[data-tema="claro"] .sidebar,
-:root[data-tema="claro"] .logos {
-    background: #ffffff;
-}
-
-:root[data-tema="claro"] .sidebar li {
-    color: #0A1F44;
-}
-
-:root[data-tema="claro"] .sidebar li i {
-    color: #F5821F;
-}
-
-:root[data-tema="claro"] .sidebar li:hover {
-    background: #edf2f8;
-}
-
-/* Chat */
-
-:root[data-tema="claro"] .chat header {
-    background: #ffffff;
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-:root[data-tema="claro"] .outro,
-:root[data-tema="claro"] .enviarr {
-    background: #ffffff;
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-/* Textos */
-
-:root[data-tema="claro"] .card-simples strong {
-    color: #0A1F44;
-}
-
-:root[data-tema="claro"] .card-simples p,
-:root[data-tema="claro"] .texto-auth,
-:root[data-tema="claro"] .pagina-contato > p {
-    color: #667085;
-}
-
-
-/* ==========================================================
-   3. TEMA ESCURO
-========================================================== */
-
-:root[data-tema="escuro"] {
-    color-scheme: dark;
-
-    --fundo: #121827;
-    --painel: #1e293b;
-    --card: #243247;
-    --texto: #f1f5f9;
-    --texto-secundario: #cbd5e1;
-    --borda: #374151;
-}
-
-/* Fundo geral */
-
-:root[data-tema="escuro"] body {
-    background: var(--fundo);
-    color: var(--texto);
-}
-
-:root[data-tema="escuro"] .container,
-:root[data-tema="escuro"] .containers,
-:root[data-tema="escuro"] .chat,
-:root[data-tema="escuro"] .mensagens {
-    background: var(--fundo);
-    color: var(--texto);
-}
-
-/* Cabeçalhos */
-
-:root[data-tema="escuro"] header:not(.topo) {
-    background: var(--painel);
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-/* O cabeçalho principal mantém o azul da Conrad */
-
-/* Recursos e cards */
-
-:root[data-tema="escuro"] .recursos-simples {
-    background: var(--fundo);
-}
-
-:root[data-tema="escuro"] .card-simples,
-:root[data-tema="escuro"] .bloco-auth,
-:root[data-tema="escuro"] .contato-canais,
-:root[data-tema="escuro"] .contato-form-bloco .bloco-auth,
-:root[data-tema="escuro"] .canal-item,
-:root[data-tema="escuro"] .faq-item,
-:root[data-tema="escuro"] .sobre-valor,
-:root[data-tema="escuro"] .outro,
-:root[data-tema="escuro"] .enviarr {
-    background: var(--card);
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-:root[data-tema="escuro"] .sobre-essencia {
-    border-top-color: var(--borda);
-}
-
-:root[data-tema="escuro"] .sobre-convite {
-    background: var(--painel);
-}
-
-:root[data-tema="escuro"] .sobre-intro h1,
-:root[data-tema="escuro"] .sobre-secao-cabecalho h2,
-:root[data-tema="escuro"] .sobre-convite h2,
-:root[data-tema="escuro"] .sobre-valor h3 {
-    color: var(--texto);
-}
-
-:root[data-tema="escuro"] .sobre-intro > p,
-:root[data-tema="escuro"] .sobre-secao-cabecalho > p,
-:root[data-tema="escuro"] .sobre-valor p {
-    color: var(--texto-secundario);
-}
-
-/* Menu lateral */
-
-:root[data-tema="escuro"] .sidebar,
-:root[data-tema="escuro"] .logos {
-    background: #1e293b;
-}
-
-:root[data-tema="escuro"] .sidebar li {
-    color: #f1f5f9;
-}
-
-:root[data-tema="escuro"] .sidebar li i {
-    color: #93c5fd;
-}
-
-:root[data-tema="escuro"] .sidebar li:hover {
-    background: #334155;
-}
-
-/* Textos dos cards e formulários */
-
-:root[data-tema="escuro"] .card-simples strong,
-:root[data-tema="escuro"] .bloco-auth h1 {
-    color: #bfdbfe;
-}
-
-:root[data-tema="escuro"] .card-simples p,
-:root[data-tema="escuro"] .texto-auth,
-:root[data-tema="escuro"] .contato-intro > p,
-:root[data-tema="escuro"] .canal-item span,
-:root[data-tema="escuro"] .texto-auth,
-:root[data-tema="escuro"] .link-auth {
-    color: var(--texto-secundario);
-}
-
-:root[data-tema="escuro"] .contato-intro h1,
-:root[data-tema="escuro"] .contato-canais h3,
-:root[data-tema="escuro"] .contato-form-bloco h3,
-:root[data-tema="escuro"] .canal-item strong,
-:root[data-tema="escuro"] .faq-titulo {
-    color: var(--texto);
-}
-
-:root[data-tema="escuro"] .contato-canais,
-:root[data-tema="escuro"] .contato-form-bloco {
-    background: var(--card);
-    border-color: var(--borda);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
-}
-
-:root[data-tema="escuro"] .contato-form-bloco .bloco-auth {
-    background: transparent;
-    border-color: transparent;
-}
-
-:root[data-tema="escuro"] .faq-item {
-    color: var(--texto);
-}
-
-/* Campos de formulários */
-
-:root[data-tema="escuro"] .form-auth input,
-:root[data-tema="escuro"] .form-auth textarea,
-:root[data-tema="escuro"] .form-auth select,
-:root[data-tema="escuro"] .enviarr input {
-    background: var(--fundo);
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-/* Labels e opções */
-
-:root[data-tema="escuro"] .tipo-usuario label {
-    color: var(--texto);
-    border-color: var(--borda);
-}
-
-:root[data-tema="escuro"] .form-row a,
-:root[data-tema="escuro"] .link-auth a {
-    color: #93c5fd;
-}
-
-/* Ícones do chat */
-
-:root[data-tema="escuro"] .usuario i,
-:root[data-tema="escuro"] .acoes i,
-:root[data-tema="escuro"] .enviarr i {
-    color: #93c5fd;
-}
-
-/* Mensagens do chat */
-
-:root[data-tema="escuro"] .outro {
-    background: var(--card);
-    color: var(--texto);
-}
-
-/* Rodapé mantém a identidade visual original */
-
-/* ==========================================================
-   TRANSIÇÃO ENTRE OS TEMAS
-========================================================== */
-
-body,
-.topo,
-.sidebar,
-.logos,
-.recursos-simples,
-.card-simples,
-.bloco-auth,
-.canal-item,
-.faq-item,
-.chat header,
-.mensagens,
-.enviarr {
-    transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        border-color 0.25s ease;
-}
-
-/* ==========================================
-   BOTÃO DE ALTERNÂNCIA DE TEMA - CONRAD
-========================================== */
-
-button#theme {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    padding: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(255, 255, 255, 0.10);
-    color: #ffffff;
-
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 50%;
-
-    font-family: Arial, sans-serif;
-    font-size: 21px;
-    line-height: 1;
-
-    cursor: pointer;
-    flex-shrink: 0;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-/* Efeito ao passar o mouse */
-
-button#theme:hover {
-    background: #F5821F;
-    border-color: #F5821F;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 130, 31, 0.3);
-}
-
-/* Efeito ao clicar */
-
-button#theme:active {
-    transform: scale(0.92);
-}
-
-/* Acessibilidade */
-
-button#theme:focus-visible {
-    outline: 2px solid #F5821F;
-    outline-offset: 4px;
-}
-
-/* Ajuste para o tema claro */
-
-:root[data-tema="claro"] button#theme {
-    background: #0A1F44;
-    color: #ffffff;
-    border-color: #0A1F44;
-}
-
-:root[data-tema="claro"] button#theme:hover {
-    background: #F5821F;
-    border-color: #F5821F;
 }
 
 /* ==========================================================

@@ -1,0 +1,393 @@
+/* ==============================================================
+   COMPONENTES — peças reutilizáveis da CONRAD Virtual School
+
+   Carregado depois de variaveis.css e geral.css, antes dos CSS de página.
+   Tudo aqui usa as variáveis de variaveis.css, então acompanha os três
+   temas automaticamente. As regras usam :where() (especificidade zero; nos botões :is() com a especificidade de uma classe, para
+   vencer o reset global de button) para que um CSS de página possa ajustar um detalhe de contexto
+   (largura, margem...) sem precisar de !important.
+
+   Conteúdo:
+     1. Controle de tema (cápsula sol / lua)
+     2. Botões (primário, secundário, link, perigo) — um padrão só
+     3. Campos de formulário
+     4. Acessibilidade e impressão
+   ============================================================== */
+
+/* ==============================================================
+   1. CONTROLE DE TEMA
+   Criado por JS/tema.js. Variantes de posição:
+     .tema-ctl--topo       dentro do cabeçalho .topo
+     .tema-ctl--host       dentro de um elemento [data-tema-host]
+     .tema-ctl--flutuante  canto da tela (páginas sem cabeçalho)
+   ============================================================== */
+.tema-ctl {
+  --tema-ctl-tam: 30px;
+  --tema-ctl-gap: 2px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tema-ctl-gap);
+  flex-shrink: 0;
+  padding: 3px;
+  isolation: isolate;
+  border-radius: var(--raio-pill);
+  background: var(--tema-ctl-bg);
+  border: 1px solid var(--tema-ctl-borda);
+  transition: background-color var(--transicao), border-color var(--transicao);
+}
+
+/* Marcador que desliza até o tema escolhido */
+.tema-ctl__marcador {
+  position: absolute;
+  z-index: -1;
+  top: 3px;
+  left: 3px;
+  width: var(--tema-ctl-tam);
+  height: var(--tema-ctl-tam);
+  border-radius: 50%;
+  background: var(--tema-ctl-ativo-bg);
+  box-shadow: 0 2px 8px rgba(223, 110, 18, 0.45);
+  transform: translateX(calc(var(--tema-indice, 0) * (var(--tema-ctl-tam) + var(--tema-ctl-gap))));
+  transition: transform 0.4s cubic-bezier(0.34, 1.35, 0.64, 1), background-color var(--transicao);
+}
+
+.tema-ctl__opcao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tema-ctl-tam);
+  height: var(--tema-ctl-tam);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--tema-ctl-icone);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--transicao-rapida), transform var(--transicao-rapida);
+}
+
+.tema-ctl__opcao svg {
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.tema-ctl__opcao:hover {
+  color: var(--c-topo-texto);
+}
+
+.tema-ctl__opcao:active {
+  transform: scale(0.9);
+}
+
+.tema-ctl__opcao[aria-checked="true"] {
+  color: var(--tema-ctl-ativo-icone);
+}
+
+/* Cada ícone "reage" quando é o selecionado */
+.tema-ctl__opcao[data-tema-valor="claro"][aria-checked="true"] svg {
+  transform: rotate(90deg) scale(1.08);
+}
+
+.tema-ctl__opcao[data-tema-valor="escuro"][aria-checked="true"] svg {
+  transform: rotate(-18deg) scale(1.08);
+}
+
+.tema-ctl__opcao[data-tema-valor="normal"][aria-checked="true"] svg {
+  transform: rotate(180deg) scale(1.05);
+}
+
+.tema-ctl__opcao:focus-visible {
+  outline: 2px solid var(--marca-laranja);
+  outline-offset: 2px;
+}
+
+/* Textos só para leitores de tela */
+.tema-ctl__rotulo,
+.tema-ctl__anuncio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Fora do cabeçalho o fundo da página é claro (ou escuro), então o controle
+   usa as cores de superfície em vez das cores translúcidas do cabeçalho. */
+.tema-ctl--host,
+.tema-ctl--flutuante {
+  --tema-ctl-bg: var(--c-superficie);
+  --tema-ctl-borda: var(--c-borda-forte);
+  --tema-ctl-icone: var(--c-texto-suave);
+  --tema-ctl-ativo-icone: #ffffff;
+}
+
+.tema-ctl--host .tema-ctl__opcao:hover,
+.tema-ctl--flutuante .tema-ctl__opcao:hover {
+  color: var(--c-texto);
+}
+
+.tema-ctl--host .tema-ctl__opcao[aria-checked="true"]:hover,
+.tema-ctl--flutuante .tema-ctl__opcao[aria-checked="true"]:hover {
+  color: #ffffff;
+}
+
+.tema-ctl--topo .tema-ctl__opcao[aria-checked="true"]:hover {
+  color: #ffffff;
+}
+
+/* Faixas azuis de página (nova atividade/avaliação, editar perfil): visual igual ao do cabeçalho */
+.form-topbar .tema-ctl--host,
+.perfil-topbar .tema-ctl--host {
+  --tema-ctl-bg: rgba(255, 255, 255, 0.1);
+  --tema-ctl-borda: rgba(255, 255, 255, 0.28);
+  --tema-ctl-icone: rgba(255, 255, 255, 0.78);
+}
+
+.form-topbar .tema-ctl--host .tema-ctl__opcao:hover,
+.perfil-topbar .tema-ctl--host .tema-ctl__opcao:hover {
+  color: #ffffff;
+}
+
+.tema-ctl--host {
+  margin-left: var(--esp-2);
+}
+
+/* Páginas sem cabeçalho: canto superior direito, discreto */
+.tema-ctl--flutuante {
+  position: fixed;
+  z-index: 1000;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: calc(env(safe-area-inset-right, 0px) + 14px);
+  box-shadow: var(--sombra-md);
+}
+
+/* Dentro do cabeçalho: respeita a ordem logotipo | menu | controle | conta */
+.tema-ctl--topo {
+  margin-left: 4px;
+}
+
+@media (max-width: 760px) {
+  .tema-ctl {
+    --tema-ctl-tam: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tema-ctl,
+  .tema-ctl__marcador,
+  .tema-ctl__opcao,
+  .tema-ctl__opcao svg {
+    transition: none;
+  }
+}
+
+/* ==============================================================
+   2. BOTÕES — mesmo tamanho, raio, tipografia e efeitos em todas as páginas
+   Funções:
+     primário    ação principal (salvar, criar, entrar, enviar)
+     secundário  ação alternativa (cancelar, voltar, editar)
+     link        ação de navegação em azul institucional
+     perigo      ação destrutiva (excluir, remover)
+   Nomes antigos continuam valendo: .btn / .botao-principal / .btn-turma.btn-primary
+   (primário) e .btn-sec / .botao-secundario / .btn-turma.btn-outline (secundário).
+   Tamanhos: padrão 42px · .btn-sm 34px · .btn-lg 48px
+   ============================================================== */
+:is(.btn-primario, .btn-secundario, .btn-link, .btn-perigo,
+  .btn, .btn-sec, .botao, .btn-turma, .qb-adicionar-botao) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: var(--btn-altura);
+  padding: var(--btn-padding);
+  border: 1px solid transparent;
+  border-radius: var(--btn-raio);
+  font-family: var(--fonte-corpo);
+  font-size: var(--btn-fs);
+  font-weight: var(--btn-peso);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao-rapida), border-color var(--transicao-rapida),
+    color var(--transicao-rapida), box-shadow var(--transicao-rapida), transform var(--transicao-rapida);
+}
+
+/* ----- Primário ----- */
+:is(.btn-primario, .btn, .botao-principal, .btn-turma.btn-primary, .qb-adicionar-botao) {
+  background: var(--marca-laranja);
+  border-color: var(--marca-laranja);
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(245, 130, 31, 0.22);
+}
+
+:is(.btn-primario, .btn, .botao-principal, .btn-turma.btn-primary, .qb-adicionar-botao):hover {
+  background: var(--marca-laranja-escuro);
+  border-color: var(--marca-laranja-escuro);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(245, 130, 31, 0.3);
+}
+
+/* ----- Secundário ----- */
+:is(.btn-secundario, .btn-sec, .botao-secundario, .btn-turma.btn-outline) {
+  background: var(--c-superficie);
+  border-color: var(--c-borda-forte);
+  color: var(--c-texto);
+  box-shadow: var(--sombra-sm);
+}
+
+:is(.btn-secundario, .btn-sec, .botao-secundario, .btn-turma.btn-outline):hover {
+  background: var(--c-superficie-2);
+  border-color: var(--c-contorno);
+  transform: translateY(-1px);
+}
+
+/* ----- Link (azul institucional) ----- */
+:is(.btn-link) {
+  background: var(--c-marca-bg);
+  border-color: var(--c-marca-bg);
+  color: #ffffff;
+}
+
+:is(.btn-link):hover {
+  background: var(--c-marca-bg-2);
+  border-color: var(--c-marca-bg-2);
+  transform: translateY(-1px);
+}
+
+/* ----- Perigo (excluir / remover) ----- */
+:is(.btn-perigo) {
+  background: var(--c-erro-bg);
+  border-color: var(--c-erro-borda);
+  color: var(--c-erro-texto);
+}
+
+:is(.btn-perigo):hover {
+  background: var(--c-erro-texto);
+  border-color: var(--c-erro-texto);
+  color: var(--c-superficie);
+  transform: translateY(-1px);
+}
+
+/* ----- Tamanhos ----- */
+:is(.btn-sm) {
+  min-height: var(--btn-altura-sm);
+  padding: 6px 12px;
+  font-size: var(--fs-xs);
+}
+
+:is(.btn-lg) {
+  min-height: var(--btn-altura-lg);
+  padding: 12px 22px;
+  font-size: var(--fs-md);
+}
+
+/* ----- Estados ----- */
+:is(.btn-primario, .btn-secundario, .btn-link, .btn-perigo,
+  .btn, .btn-sec, .botao, .btn-turma, .qb-adicionar-botao):focus-visible {
+  outline: 2px solid var(--marca-laranja);
+  outline-offset: 2px;
+}
+
+:is(.btn-primario, .btn-secundario, .btn-link, .btn-perigo,
+  .btn, .btn-sec, .botao, .btn-turma, .qb-adicionar-botao):active {
+  transform: translateY(0);
+}
+
+:is(.btn-primario, .btn-secundario, .btn-link, .btn-perigo,
+  .btn, .btn-sec, .botao, .btn-turma, .qb-adicionar-botao):disabled,
+:is(.btn-primario, .btn-secundario, .btn-link, .btn-perigo,
+  .btn, .btn-sec, .botao, .btn-turma, .qb-adicionar-botao)[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==============================================================
+   3. CAMPOS DE FORMULÁRIO
+   Mesma altura, raio, borda e estados nas telas públicas, nos painéis e
+   nos formulários de atividades. As classes de página (.field, .form-field,
+   .perfil-campo...) continuam existindo só para o layout.
+   ============================================================== */
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) :where(
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"], [type="hidden"]),
+  select,
+  textarea
+) {
+  min-height: var(--campo-altura);
+  padding: var(--campo-padding);
+  border: 1px solid var(--c-borda-forte);
+  border-radius: var(--campo-raio);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font-family: var(--fonte-corpo);
+  font-size: var(--campo-fs);
+  line-height: 1.4;
+  transition: border-color var(--transicao-rapida), box-shadow var(--transicao-rapida), background-color var(--transicao-rapida);
+}
+
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) :where(input, select, textarea)::placeholder {
+  color: var(--c-texto-suave);
+  opacity: 0.85;
+}
+
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) :where(input, select, textarea):hover {
+  border-color: var(--c-contorno);
+}
+
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) :where(input, select, textarea):focus {
+  outline: none;
+  border-color: var(--marca-laranja);
+  box-shadow: var(--foco-anel);
+}
+
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) :where(input, select, textarea):disabled {
+  background: var(--c-superficie-2);
+  color: var(--c-texto-suave);
+  cursor: not-allowed;
+}
+
+/* Rótulos e mensagens */
+:where(.form-auth, .field, .form-field, .perfil-campo, .form-turma) label {
+  color: var(--c-texto);
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+}
+
+:where(.mensagem-erro, .erro-campo, .form-erro) {
+  color: var(--c-erro-texto);
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+}
+
+:where(.mensagem-sucesso, .form-sucesso) {
+  color: var(--c-ok-texto);
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+}
+
+/* Cor do realce do navegador (checkbox, radio, barra de progresso) */
+:root {
+  accent-color: var(--marca-laranja);
+}
+
+/* ==============================================================
+   4. ACESSIBILIDADE E IMPRESSÃO
+   ============================================================== */
+@media print {
+  .tema-ctl {
+    display: none;
+  }
+}

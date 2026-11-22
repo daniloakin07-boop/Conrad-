@@ -33,14 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Ativar item do menu lateral
-  document.querySelectorAll('.menu-lateral .menu-perfil strong, .profile-name strong').forEach((el) => {
-    el.textContent = nome;
-    item.addEventListener('click', function (e) {
-      document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('ativo'));
-      this.classList.add('ativo');
-    });
-  });
+  // (removido) bloco antigo referenciava variáveis inexistentes (nome/item) e interrompia o script;
+  // o nome do usuário e o item ativo do menu são preenchidos pelo layout.js.
 
   // Links com destino real abrem a página da turma normalmente.
   // Mantém o modal apenas para os antigos links de demonstração (#).
