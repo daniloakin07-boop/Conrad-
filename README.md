@@ -51,17 +51,18 @@ Conrad-
    npm install
    ```
 
-3. Configure a conexão PostgreSQL no `.env`, usando os dados de **Project Settings > Database** no Supabase:
+3. Copie `.env.example` para `.env` e preencha a senha do banco (não é a senha da sua conta Supabase):
    ```env
-   DB_HOST=db.seu-projeto.supabase.co
+   DB_HOST=aws-0-us-east-1.pooler.supabase.com
    DB_PORT=5432
    DB_NAME=postgres
-   DB_USER=postgres
+   DB_USER=postgres.xdgguheuntobmzfyeqbc
    DB_PASSWORD=sua-senha-do-banco
    DB_SSL=true
+   DB_SSL_CA_PATH=C:\caminho\para\o\certificado-raiz-supabase.crt
    SESSION_SECRET=uma-chave-aleatoria
    ```
-   O app também reconhece as variáveis do seu `.env` atual (`host`, `port`, `database`, `user`); acrescente a senha do banco como `DB_PASSWORD`. Não publique nem compartilhe o `.env`. Se usar `DATABASE_URL`, codifique caracteres especiais da senha para URL.
+   No Windows PowerShell, copie com `Copy-Item .env.example .env`. Para corrigir erros de certificado TLS, baixe o certificado raiz em **Supabase Dashboard > Database Settings > SSL Configuration > Download Certificate** e substitua `DB_SSL_CA_PATH` pelo caminho completo do arquivo baixado. Com esse caminho configurado, o backend valida a conexão usando o certificado informado. Não desative a validação TLS. Não publique nem compartilhe o `.env`. A senha usada é a senha do banco definida no Supabase; se ela tiver caracteres especiais, este formato por variáveis individuais evita precisar codificá-los para URL. Se preferir `DATABASE_URL`, codifique esses caracteres.
 
 4. No Supabase, abra **SQL Editor**, cole e execute `JS/migrations/supabase-schema-corrigido.sql`.
 

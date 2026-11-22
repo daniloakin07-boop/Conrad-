@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
 const { Pool, types } = require("pg");
 
 types.setTypeParser(20, (value) => {
@@ -51,9 +53,13 @@ function criarExecutor(conexao) {
 }
 
 const connectionString = process.env.DATABASE_URL;
+const sslCaPath = process.env.DB_SSL_CA_PATH;
 const ssl = process.env.DB_SSL === "false"
     ? false
-    : { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false" };
+    : {
+        rejectUnauthorized: Boolean(sslCaPath) || process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false",
+        ...(sslCaPath ? { ca: fs.readFileSync(path.resolve(sslCaPath), "utf8") } : {})
+    };
 
 const config = connectionString
     ? { connectionString, ssl }
