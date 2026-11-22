@@ -5584,3 +5584,24 @@ body.css-agenda .agenda-add-event-wrapper {
 body.css-agenda .agenda-grid {
   margin-top: 14px;
 }
+
+/* Painel do aluno colado na parede esquerda (dashboard.html e aluno.html) */
+body.css-aluno main.container {
+  padding: 0;
+  margin-top: 0;
+}
+body.css-aluno .dashboard-professor,
+body.css-aluno .dashboard-aluno {
+  padding: 0;
+  gap: 0;
+  align-items: stretch;
+}
+body.css-aluno .menu-lateral {
+  border-radius: 0;
+}
+body.css-aluno .conteudo-dashboard {
+  padding: 26px 20px 34px 24px;
+}
+body.css-aluno .rodape {
+  margin-top: 0;
+}
