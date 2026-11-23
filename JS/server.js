@@ -46,14 +46,38 @@ const listOrigins = [
     "https://conrad-1.onrender.com", // Servidor publicado no Render
     "https://conrad.onrender.com",
     "https://daniloakin07-boop.github.io" ,
-    "https://conrad-phi.vercel.app"
+    "https://conrad-phi.vercel.app",
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
+    "http://localhost:8082",
+    "http://127.0.0.1:8082",
 ];
 
+// CORS dinâmico: permite Expo Web local, IP da rede e origens públicas conhecidas.
+const origemCorsPermitida = (origin, callback) => {
+    if (!origin || listOrigins.includes(origin)) {
+        return callback(null, true);
+    }
+
+    try {
+        const url = new URL(origin);
+        const hostLocal = url.hostname === "localhost" ||
+            url.hostname === "127.0.0.1" ||
+            /^10\./.test(url.hostname) ||
+            /^192\.168\./.test(url.hostname) ||
+            /^172\.(1[6-9]|2\d|3[01])\./.test(url.hostname);
+        const origemExpo = url.protocol === "exp:" || url.protocol === "exps:";
+        return callback(null, hostLocal || origemExpo);
+    } catch {
+        return callback(null, false);
+    }
+};
+
 // 4) Configurar CORS
-// - `origin` limita quem pode chamar a API
+// - `origin` valida origens Web locais/públicas e permite solicitações sem Origin (mobile).
 // - `credentials: true` permite enviar cookies com as requisições
 app.use(cors({
-    origin: listOrigins,
+    origin: origemCorsPermitida,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -116,11 +140,14 @@ app.use("/api", atividadesRoutes);
 const turmasRoutes = require("./turmas.js");
 app.use("/api", turmasRoutes);
 
+// Agente de IA para consultas escolares por linguagem natural.
+app.use("/api", require("./agente.js"));
+
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
 const io = new Server(httpServer, {
     cors: {
-        origin: listOrigins,
+        origin: origemCorsPermitida,
         credentials: true
     },
     // Imagens/áudios de até 3 MB chegam codificados em Base64.

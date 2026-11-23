@@ -208,6 +208,15 @@
         montarTopo(sessao.usuario);
         preencherMenuLateral(sessao.usuario);
         preencherDados(sessao.usuario);
+
+        try {
+            const scriptAgente = document.createElement("script");
+            scriptAgente.src = INICIO.replace("index.html", "JS/agente-ui.js");
+            scriptAgente.defer = true;
+            document.body.appendChild(scriptAgente);
+        } catch (erro) {
+            console.warn("Não foi possível carregar o assistente:", erro);
+        }
     }
 
     iniciar();
