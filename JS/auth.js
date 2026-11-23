@@ -78,6 +78,11 @@ if (formCadastro) {
             return;
         }
 
+
+        if (/\d/.test(nome)){
+            mostrarMensagem(mensagem, "Nome não pode conter numeros")
+        }
+
         if (senha.length < 6) {
             mostrarMensagem(mensagem, "A senha deve ter no mínimo 6 caracteres.", "erro");
             return;
