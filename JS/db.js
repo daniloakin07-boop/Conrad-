@@ -18,6 +18,8 @@ require("dotenv").config();
 
 // `pg` é o driver oficial do PostgreSQL para Node.js
 const { Pool, types } = require("pg");
+const fs = require("fs");
+const path = require("path");
 
 // BIGINT (tipo 20) chega do PostgreSQL como texto; converte para número quando cabe com segurança
 types.setTypeParser(20, (value) => {
@@ -80,11 +82,38 @@ function criarExecutor(conexao) {
     };
 }
 
-// Escolhe como conectar: DATABASE_URL ou campos separados (com valores padrão para uso local)
+// Escolhe como conectar: DATABASE_URL ou campos separados
 const connectionString = process.env.DATABASE_URL;
-const ssl = process.env.DB_SSL === "false"
-    ? false
-    : { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false" };
+
+function criarSSL(host = process.env.DB_HOST) {
+    if (process.env.DB_SSL === "false") return false;
+
+    const ssl = {
+        rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false",
+        servername: host || undefined
+    };
+
+    if (process.env.DB_SSL_CA_PATH) {
+        const caminho = path.resolve(process.cwd(), process.env.DB_SSL_CA_PATH);
+        if (fs.existsSync(caminho)) {
+            ssl.ca = fs.readFileSync(caminho);
+            ssl.rejectUnauthorized = true;
+        } else {
+            console.warn(`Certificado TLS não encontrado: ${caminho}`);
+        }
+    }
+
+    return ssl;
+}
+
+let databaseHost = process.env.DB_HOST;
+if (connectionString) {
+    try {
+        databaseHost = new URL(connectionString).hostname;
+    } catch {}
+}
+
+const ssl = criarSSL(databaseHost);
 
 const config = connectionString
     ? { connectionString, ssl }
@@ -92,7 +121,7 @@ const config = connectionString
         host: process.env.DB_HOST || process.env.PGHOST || process.env.host || "localhost",
         port: Number(process.env.DB_PORT || process.env.PGPORT || process.env.port || 5432),
         user: process.env.DB_USER || process.env.PGUSER || process.env.user || "postgres",
-        password: process.env.DB_PASSWORD || process.env.PGPASSWORD || process.env.password || "",
+        password: String(process.env.DB_PASSWORD || process.env.PGPASSWORD || process.env.password || "").trim(),
         database: process.env.DB_NAME || process.env.PGDATABASE || process.env.database || "postgres",
         ssl
     };
