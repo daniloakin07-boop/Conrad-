@@ -1,3 +1,15 @@
+/*
+===============================================
+JS/horarios.js
+===============================================
+Página: pages/dashboard.html ("Horário das aulas" do aluno).
+Finalidade:
+  1. Carregar data/horarios.json e exibir as aulas do dia selecionado nas abas (.tabs a[data-dia]).
+  2. Checklist de tarefas do painel: marcar/desmarcar e atualizar o contador.
+     (esta parte antes era um <script> inline no dashboard.html.)
+Observação: os horários vêm de um JSON estático (não do banco de dados).
+Depende de: ids #lista-horarios, #listaTarefas, #contadorTarefas e das abas .tabs a.
+*/
 // Seleciona o elemento onde os horários vão aparecer
 const listaHorarios = document.querySelector("#lista-horarios");
 
@@ -58,3 +70,22 @@ document.querySelectorAll(".tabs a").forEach(aba => {
 
 // Chama a função para carregar os horários ao iniciar a página
 carregarHorarios();
+
+
+// ---------------------------------------------------------------------------
+// TAREFAS: marcar como concluída e atualizar o contador
+// Usa delegação de eventos: um único "change" na <ul> atende todos os checkboxes.
+// ---------------------------------------------------------------------------
+(function () {
+    const listaTarefas = document.getElementById("listaTarefas");
+    const contadorTarefas = document.getElementById("contadorTarefas");
+
+    listaTarefas.addEventListener("change", (event) => {
+        if (event.target.type !== "checkbox") return;
+        // Risca o item (classe "feita") quando marcado
+        event.target.closest("li").classList.toggle("feita", event.target.checked);
+        // O contador mostra quantas tarefas continuam sem marcar
+        contadorTarefas.textContent =
+            listaTarefas.querySelectorAll("input:not(:checked)").length;
+    });
+})();

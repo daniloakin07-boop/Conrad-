@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/boletim.html
+  Finalidade: Boletim individual do aluno.
+  Público   : Aluno.
+  Conteúdo  : Documento imprimível com dados do aluno, média geral e tabela de atividades avaliativas (JS/boletim.js; GET /api/boletim). O botão "Salvar PDF" usa a impressão do navegador.
+  Relações  : CSS: variaveis, geral, componentes, atividades | JS: tema.js, boletim.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Boletim individual de atividades e notas da CONRAD Virtual School.">
     <title>Meu boletim | CONRAD Virtual School</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +31,7 @@
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 <body class="css-boletim">
+    <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
     <main class="pagina-boletim">
         <div class="barra-acoes no-print" data-tema-host>
             <a class="botao botao-secundario" href="perfil-aluno.html">← Voltar ao painel</a>
@@ -120,6 +134,7 @@
                 <p class="nota-metodologica">Este documento reflete os dados disponíveis no banco de dados no momento da emissão. Atividades sem nota lançada não entram no cálculo da média.</p>
             </section>
 
+            <!-- RODAPÉ -->
             <footer class="rodape-documento">
                 <span>CONRAD Virtual School · Boletim individual</span>
                 <span id="rodapeData">Documento gerado pelo sistema</span>
@@ -129,6 +144,7 @@
         <p class="instrucao-pdf no-print">Para gerar o arquivo, clique em “Salvar boletim em PDF” e escolha <strong>Salvar como PDF</strong> no destino de impressão do navegador.</p>
     </main>
 
+    <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
     <script defer src="../JS/boletim.js"></script>
 </body>
 </html>

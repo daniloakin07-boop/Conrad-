@@ -1,3 +1,12 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/005-chat-privado.sql
+-- Finalidade: criar as tabelas do bate-papo privado (mensagens e anexos binários separados).
+-- Tabelas   : tb_chat_anexos, tb_chat_mensagens
+-- NOTA: esta migração usa sintaxe MySQL (AUTO_INCREMENT, ENGINE=InnoDB...) e pertence ao histórico
+-- do projeto. O banco atual é PostgreSQL/Supabase: para criar um banco novo, use
+-- JS/migrations/supabase-schema-corrigido.sql, que já contém todas as tabelas.
+-- ============================================================================
+
 -- Anexos binários ficam separados das mensagens para não carregar todas as imagens
 -- e gravações ao abrir o histórico da conversa.
 CREATE TABLE IF NOT EXISTS tb_chat_anexos (

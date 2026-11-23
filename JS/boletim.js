@@ -1,3 +1,21 @@
+/*
+===============================================
+JS/boletim.js
+===============================================
+Página: pages/boletim.html (perfil: aluno)
+Finalidade: exibir o boletim individual do aluno — dados do aluno, média geral,
+lista de atividades avaliativas com notas — e permitir salvar em PDF (impressão do navegador).
+
+API usada: GET /api/boletim (rota em JS/medias.js; usa a sessão para saber quem é o aluno).
+Resposta esperada: { aluno, salaVirtual, geradoEm, mediaGeral, totalAtividades, totalNotas,
+  atividades[{ atividade, disciplina, turma, dataAplicacao, dataRealizada, nota, valorMaximo,
+  notaEscala10 }], vinculoSalaDetectado, dataRealizadaDisponivel }.
+
+Observação: este arquivo usa fetch() direto (e não conradFetch), portanto depende de a página
+ser servida pela mesma origem do servidor Express (caminho relativo "/api/boletim").
+*/
+
+// Referências aos elementos da página (ids definidos em pages/boletim.html)
 const elementosBoletim = {
     status: document.getElementById("mensagemStatus"),
     nome: document.getElementById("nomeAluno"),
@@ -13,11 +31,13 @@ const elementosBoletim = {
     botaoPdf: document.getElementById("btnSalvarPdf")
 };
 
+// Mostra uma mensagem de status no topo; `tipo` vira classe CSS ("sucesso" ou "erro").
 function definirStatus(mensagem, tipo = "") {
     elementosBoletim.status.textContent = mensagem;
     elementosBoletim.status.className = `mensagem-status ${tipo}`.trim();
 }
 
+// Formata número com 2 casas no padrão brasileiro (8,50). Valores vazios/inválidos viram "—".
 function formatarNumero(valor) {
     if (valor === null || valor === undefined || valor === "" || !Number.isFinite(Number(valor))) {
         return "—";
@@ -28,6 +48,10 @@ function formatarNumero(valor) {
     });
 }
 
+/**
+ * Converte datas ISO ('AAAA-MM-DD' ou com hora) para 'DD/MM/AAAA' (e 'às HH:MM' se pedido).
+ * Faz a conversão por texto (regex) para não sofrer deslocamento de fuso horário.
+ */
 function formatarData(valor, incluirHora = false) {
     if (!valor) return "Não registrada";
 
@@ -46,6 +70,7 @@ function formatarData(valor, incluirHora = false) {
     return new Intl.DateTimeFormat("pt-BR").format(data);
 }
 
+// Cria uma <td> com textContent (valor vazio vira "—") e anexa à linha da tabela
 function adicionarCelula(linha, conteudo, classe = "") {
     const celula = document.createElement("td");
     celula.textContent = conteudo === null || conteudo === undefined || conteudo === "" ? "—" : String(conteudo);
@@ -54,6 +79,7 @@ function adicionarCelula(linha, conteudo, classe = "") {
     return celula;
 }
 
+// Acrescenta um parágrafo de aviso explicativo abaixo do boletim
 function adicionarAviso(texto, tipo = "") {
     const aviso = document.createElement("p");
     aviso.className = `aviso-boletim ${tipo}`.trim();
@@ -61,6 +87,10 @@ function adicionarAviso(texto, tipo = "") {
     elementosBoletim.avisos.appendChild(aviso);
 }
 
+/**
+ * Desenha as linhas da tabela de atividades (8 colunas). Sem atividades, mostra uma linha vazia.
+ * A coluna "Nota (0-10)" usa notaEscala10, calculada pelo servidor.
+ */
 function renderizarAtividades(atividades) {
     elementosBoletim.corpoTabela.replaceChildren();
 
@@ -105,6 +135,10 @@ function renderizarAtividades(atividades) {
     });
 }
 
+/**
+ * Preenche cabeçalho, indicadores (média, totais, última atividade), tabela e avisos.
+ * Os avisos informam limitações de dados (sem turma vinculada, sem data de realização, sem notas).
+ */
 function preencherBoletim(dados) {
     const aluno = dados.aluno || {};
     elementosBoletim.nome.textContent = aluno.nome || "Estudante";
@@ -152,6 +186,7 @@ function preencherBoletim(dados) {
     definirStatus("Boletim carregado com os dados disponíveis.", "sucesso");
 }
 
+// Busca o boletim no servidor. 401 -> login; outros erros aparecem no status e na tabela.
 async function carregarBoletim() {
     try {
         const resposta = await fetch("/api/boletim", {
@@ -189,8 +224,10 @@ async function carregarBoletim() {
     }
 }
 
+// "Salvar PDF": usa a impressão do navegador (o CSS de impressão esconde menus e botões)
 elementosBoletim.botaoPdf.addEventListener("click", () => {
     window.print();
 });
 
+// Inicia o carregamento assim que o script é executado (carregado com defer)
 carregarBoletim();

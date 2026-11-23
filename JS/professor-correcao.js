@@ -1,10 +1,38 @@
+/*
+===============================================
+JS/professor-correcao.js
+===============================================
+Página: pages/professor-correcao.html (perfil: educador)
+Finalidade: o professor vê as atividades/avaliações que criou (filtráveis por turma e tipo),
+abre as entregas dos alunos, lança a nota e escreve o feedback.
+
+Parâmetros de URL opcionais: ?turmaId=N e ?tipo=atividade|avaliacao (os filtros são
+mantidos na URL com history.replaceState, para poder recarregar ou compartilhar o link).
+
+API usada (via conradFetch, de JS/config.js):
+  GET /me                              -> confirma que é educador (aluno é redirecionado)
+  GET /api/turmas                      -> preenche o filtro de turmas
+  GET /api/atividades[?turmaId&tipo]   -> lista do professor, com total de entregas/corrigidas
+  GET /api/atividades/:id/entregas     -> entregas de uma atividade (carregadas só ao abrir)
+  PUT /api/entregas/:id/correcao       -> grava { nota, feedback } (JS/atividades.js)
+  POST /logout                         -> botão Sair
+
+Regra de negócio: a nota precisa estar entre 0 e o valor máximo da atividade
+(conferido aqui e também no servidor).
+Observação: JS/correcao-questoes.js (correção por questão) existe no projeto, mas não é
+carregado por esta página nesta versão.
+*/
+
+// Atalho, parâmetros da URL e os dois filtros da página (ids em professor-correcao.html)
 const $ = (seletor) => document.querySelector(seletor);
 const params = new URLSearchParams(location.search);
 const seletorTurma = $('#filtro-turma');
 const seletorTipo = $('#filtro-tipo');
 
+// Restaura o filtro de tipo vindo da URL (só aceita valores válidos)
 seletorTipo.value = ['atividade', 'avaliacao'].includes(params.get('tipo')) ? params.get('tipo') : '';
 
+// Cria um elemento com texto seguro (textContent evita injeção de HTML)
 // Cria um elemento com texto seguro (textContent evita injeção de HTML)
 function h(tag, classe, texto) {
     const el = document.createElement(tag);
@@ -13,22 +41,29 @@ function h(tag, classe, texto) {
     return el;
 }
 
+// 'AAAA-MM-DD' (ou ISO completo) -> 'DD/MM/AAAA'; sem data, 'sem prazo'
 function dataBR(iso) {
     if (!iso) return 'sem prazo';
     const [a, m, d] = String(iso).slice(0, 10).split('-');
     return d + '/' + m + '/' + a;
 }
 
+// Data e hora curtas no padrão brasileiro; valor inválido devolve texto vazio
 function dataHoraBR(valor) {
     const data = new Date(valor);
     return isNaN(data) ? '' : data.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 }
 
+// Número no padrão brasileiro (vírgula decimal, até 2 casas)
 function numero(valor) {
     return Number(valor).toLocaleString('pt-BR', { maximumFractionDigits: 2 });
 }
 
 // ---------------------------------------------------------------- Filtros / topo
+/**
+ * Atualiza título, botões do topo (+ Nova atividade / + Nova avaliação / Abrir turma)
+ * e sincroniza os filtros com a URL. Os botões levam o ?turmaId para pré-selecionar a turma.
+ */
 function atualizarTopo() {
     const tipo = seletorTipo.value;
     const turmaId = seletorTurma.value;
@@ -59,10 +94,18 @@ function atualizarTopo() {
 }
 
 // ---------------------------------------------------------------- Entregas de uma atividade
+// Texto "N entrega(s) · M corrigida(s)" do cartão
 function textoContagem(total, corrigidas) {
     return total + ' entrega(s) · ' + corrigidas + ' corrigida(s)';
 }
 
+/**
+ * Monta o bloco de uma entrega: aluno, resposta, campo de nota, feedback e botão salvar.
+ * @param {object} entrega     { id, aluno, resposta, enviada_em, nota, feedback, corrigida_em }
+ * @param {number} valorMaximo nota máxima da atividade (limite do campo de nota)
+ * @param {Function} aoCorrigir chamada na primeira correção, para atualizar a contagem do cartão
+ * Salva com PUT /api/entregas/:id/correcao. Corrigir de novo apenas atualiza nota e feedback.
+ */
 function criarEntrega(entrega, valorMaximo, aoCorrigir) {
     const bloco = h('div', 'entrega');
     const topo = h('div', 'entrega-topo');
@@ -126,6 +169,10 @@ function criarEntrega(entrega, valorMaximo, aoCorrigir) {
 }
 
 // ---------------------------------------------------------------- Cartão de cada atividade
+/**
+ * Monta o cartão de uma atividade com botão "Ver entregas".
+ * As entregas só são buscadas no servidor no primeiro clique (carregamento sob demanda).
+ */
 function criarCard(atividade) {
     const card = h('article', 'card');
     let total = Number(atividade.total_entregas || 0);
@@ -181,6 +228,7 @@ function criarCard(atividade) {
     return card;
 }
 
+// Busca as atividades do professor conforme os filtros e redesenha a lista
 async function carregar() {
     atualizarTopo();
     const lista = $('#lista');
@@ -202,14 +250,17 @@ async function carregar() {
     }
 }
 
+// Trocar qualquer filtro recarrega a lista
 seletorTurma.addEventListener('change', carregar);
 seletorTipo.addEventListener('change', carregar);
 
+// Botão Sair: encerra a sessão e volta para a página inicial
 $('#sair').addEventListener('click', (evento) => {
     evento.preventDefault();
     conradFetch('/logout', { method: 'POST' }).finally(() => { location.href = '../index.html'; });
 });
 
+// Ponto de entrada: confere a sessão, preenche o filtro de turmas e carrega a lista
 (async function iniciar() {
     try {
         const eu = await conradFetch('/me');

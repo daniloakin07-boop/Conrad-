@@ -1,3 +1,12 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/003-create-atividades-notas.sql
+-- Finalidade: criar as tabelas de atividades e de notas (base do boletim e das médias).
+-- Tabelas   : tb_atividades, tb_notas
+-- NOTA: esta migração usa sintaxe MySQL (AUTO_INCREMENT, ENGINE=InnoDB...) e pertence ao histórico
+-- do projeto. O banco atual é PostgreSQL/Supabase: para criar um banco novo, use
+-- JS/migrations/supabase-schema-corrigido.sql, que já contém todas as tabelas.
+-- ============================================================================
+
 
 -- Atividades cadastradas no CONRAD
 CREATE TABLE IF NOT EXISTS tb_atividades (

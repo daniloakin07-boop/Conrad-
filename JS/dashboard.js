@@ -1,3 +1,18 @@
+/*
+===============================================
+JS/dashboard.js
+===============================================
+STATUS: arquivo legado/de demonstração — NÃO é carregado por nenhuma página atual
+(os painéis atuais usam aluno.js, educador.js e horarios.js). Foi mantido para não
+remover código do projeto.
+Finalidade original: desenhar painéis a partir do arquivo estático data/dashboardData.json,
+conforme <body data-page="avaliacao|atividades">. Cada função render* monta um bloco da tela
+com innerHTML.
+Atenção (se for reutilizar): os valores do JSON entram por innerHTML; só use com dados confiáveis
+(o ideal é trocar por textContent/createElement, como nos demais scripts).
+*/
+
+// Inicialização: carrega o JSON e desenha os blocos da página escolhida em data-page
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await fetch('../data/dashboardData.json');
@@ -29,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// Cabeçalho: nome do professor, disciplina e último acesso
 function renderCabecalhos(professor) {
   const nome = document.querySelector('.boas-vindas h1');
   const disciplina = document.querySelector('.info-professor div:nth-child(1) span');
@@ -39,6 +55,7 @@ function renderCabecalhos(professor) {
   if (acesso) acesso.textContent = professor.ultimoAcesso;
 }
 
+// Cartões de resumo (métricas) com botões que navegam via data-link
 function renderResumo(metrics) {
   const container = document.querySelector('.cards-resumo');
   if (!container) return;
@@ -58,6 +75,7 @@ function renderResumo(metrics) {
   `).join('');
 }
 
+// Cartão "Avaliação dos Alunos": nome, nota e status de cada aluno
 function renderAlunos(alunos) {
   const card = document.querySelector('.card-avaliacoes');
   if (!card) return;
@@ -87,6 +105,7 @@ function renderAlunos(alunos) {
   `;
 }
 
+// Cartão "Média Geral" e médias por matéria
 function renderMedia(mediaGeral, materias) {
   const mediaCard = document.querySelector('.card-media');
   if (!mediaCard) return;
@@ -115,6 +134,7 @@ function renderMedia(mediaGeral, materias) {
   `;
 }
 
+// Cartão de atividades pendentes
 function renderPendencias(pendencias) {
   const container = document.querySelector('.card-pendencias');
   if (!container) return;
@@ -139,6 +159,7 @@ function renderPendencias(pendencias) {
   `;
 }
 
+// Cartão de avisos
 function renderAvisos(avisos) {
   const cards = document.querySelectorAll('.card-pendencias');
   const alvo = cards[1] || cards[0];
@@ -160,6 +181,7 @@ function renderAvisos(avisos) {
   `;
 }
 
+// Lista de cartões de atividades (página de atividades)
 function renderAtividadesCards(atividades) {
   const container = document.querySelector('#atividadesList');
   if (!container) return;
@@ -181,6 +203,7 @@ function renderAtividadesCards(atividades) {
   `).join('');
 }
 
+// Quadro de estatísticas rápidas. Obs.: "Entregues" (28) e "Notas" (8,7) são valores fixos de exemplo
 function renderStats(data) {
   const container = document.querySelector('#statsRapidas');
   if (!container) return;
@@ -209,6 +232,7 @@ function renderStats(data) {
   `;
 }
 
+// Lista de tarefas com atalhos
 function renderTarefas(tarefas) {
   const container = document.querySelector('#tarefasList');
   if (!container) return;
@@ -224,6 +248,7 @@ function renderTarefas(tarefas) {
   `).join('');
 }
 
+// Cronograma com status
 function renderCronograma(cronograma) {
   const container = document.querySelector('#cronogramaList');
   if (!container) return;
@@ -239,6 +264,7 @@ function renderCronograma(cronograma) {
   `).join('');
 }
 
+// Liga os elementos [data-link] à navegação (o valor "print" abre a impressão do navegador)
 function bindNavigation() {
   document.querySelectorAll('[data-link]').forEach((element) => {
     element.addEventListener('click', (event) => {

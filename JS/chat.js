@@ -1,12 +1,34 @@
-// Backend do bate-papo privado entre educador e aluno.
-// Uma conversa é identificada pela turma + educador + aluno.
+/*
+===============================================
+JS/chat.js  (BACKEND — roda no Node.js)
+===============================================
+Bate-papo PRIVADO entre educador e aluno. Uma conversa é identificada por
+turma + educador + aluno (só o professor da turma e um aluno matriculado podem conversar).
+
+Duas partes:
+  1. Rotas REST (router), montadas em /api/chat por JS/server.js:
+       GET /api/chat/contatos     contatos com vínculo ativo (alunos do professor / educadores do aluno)
+       GET /api/chat/contexto     valida a conversa (?turmaId=&participanteId=)
+       GET /api/chat/anexos/:id   entrega imagem/áudio, só para os dois participantes
+  2. Tempo real (configurarSocket), ligado ao Socket.IO pelo server.js:
+       "chat:entrar"   entra na sala privada da conversa e recebe o histórico (últimas 100 mensagens)
+       "chat:enviar"   grava a mensagem (texto, imagem ou áudio) e a transmite à sala
+       "chat:mensagem" (servidor -> clientes) nova mensagem
+Tabelas: tb_chat_mensagens e tb_chat_anexos (JS/migrations/005-chat-privado.sql),
+além de tb_turmas, tb_turma_alunos e tb_usuarios.
+A identidade vem da sessão do Express (req.session / socket.request.session), nunca do cliente.
+Cliente: JS/chat-privado.js.
+*/
+
 const express = require("express");
 const pool = require("./db.js");
 
 const router = express.Router();
+// Quantidade máxima de mensagens devolvidas ao abrir a conversa e tamanho máximo de anexo (3 MB)
 const LIMITE_HISTORICO = 100;
 const LIMITE_ANEXO_BYTES = 3 * 1024 * 1024;
 
+// Middleware: sem sessão, responde 401
 function exigirLogin(req, res, next) {
     if (!req.session?.usuario) {
         return res.status(401).json({ erro: "Faça login para acessar o bate-papo." });
@@ -18,12 +40,21 @@ function ehEducador(usuario) {
     return usuario?.tipo === "educador";
 }
 
+// Cria um Error com código HTTP (`status`) para as rotas e os eventos devolverem a mensagem certa
 function criarErro(status, mensagem) {
     const erro = new Error(mensagem);
     erro.status = status;
     return erro;
 }
 
+/**
+ * Autoriza uma conversa e devolve seus dados.
+ * @param {number|string} turmaId        turma da conversa
+ * @param {number|string} participanteId  OUTRO participante (aluno, se quem chama é educador, e vice-versa)
+ * @param {object} usuario                usuário da sessão
+ * Regra: o educador precisa ser o professor da turma E o aluno precisa estar matriculado nela.
+ * Lança Error 400 (dados inválidos) ou 403 (sem vínculo).
+ */
 // Confere a matrícula e a titularidade da turma antes de autorizar a conversa.
 async function obterConversa(turmaId, participanteId, usuario) {
     const turma = Number(turmaId);
@@ -72,6 +103,7 @@ async function obterConversa(turmaId, participanteId, usuario) {
     };
 }
 
+// (rota abaixo) Educador: alunos de todas as suas turmas. Aluno: o educador de cada turma em que está.
 // Retorna somente contatos com vínculo ativo em uma turma do usuário logado.
 router.get("/contatos", exigirLogin, async (req, res) => {
     try {
@@ -113,6 +145,7 @@ router.get("/contatos", exigirLogin, async (req, res) => {
     }
 });
 
+// (rota abaixo) Usada pela página ao abrir uma conversa; reaproveita obterConversa().
 // Valida o destinatário também no carregamento inicial da conversa.
 router.get("/contexto", exigirLogin, async (req, res) => {
     try {
@@ -127,6 +160,7 @@ router.get("/contexto", exigirLogin, async (req, res) => {
     }
 });
 
+// (rota abaixo) Cabeçalhos de segurança: cache privado, nosniff e nome de arquivo sanitizado.
 // Entrega um anexo somente ao educador e ao aluno daquela conversa.
 router.get("/anexos/:id", exigirLogin, async (req, res) => {
     try {
@@ -168,6 +202,12 @@ router.get("/anexos/:id", exigirLogin, async (req, res) => {
     }
 });
 
+/**
+ * Valida o payload recebido do socket.
+ *  - texto: 1 a 2000 caracteres;
+ *  - imagem/áudio: data URL Base64 com MIME permitido e no máximo 3 MB.
+ * Devolve os dados prontos para gravar; lança Error 400/413 se algo estiver inválido.
+ */
 function validarMensagem(payload) {
     const tipo = payload?.tipo;
     const conteudo = typeof payload?.conteudo === "string" ? payload.conteudo.trim() : "";
@@ -213,11 +253,13 @@ function validarMensagem(payload) {
     };
 }
 
+// Converte para texto ISO 8601; data inválida vira "agora"
 function dataIso(valor) {
     const data = valor instanceof Date ? valor : new Date(valor);
     return Number.isNaN(data.getTime()) ? new Date().toISOString() : data.toISOString();
 }
 
+// Converte uma linha do banco no formato enviado ao front-end (anexo vira URL da rota de anexos)
 function formatarMensagem(linha) {
     return {
         id: linha.id,
@@ -232,6 +274,11 @@ function formatarMensagem(linha) {
     };
 }
 
+/**
+ * Registra os eventos de tempo real. Conexões sem usuário na sessão são encerradas.
+ * Cada conversa usa uma sala Socket.IO própria (conrad:turma:educador:aluno), de modo que
+ * somente os dois participantes recebem as mensagens.
+ */
 function configurarSocket(io) {
     io.on("connection", (socket) => {
         const usuario = socket.request.session?.usuario;
@@ -275,6 +322,7 @@ function configurarSocket(io) {
                     throw criarErro(403, "Entre em uma conversa antes de enviar mensagens.");
                 }
 
+                                // (regra de segurança) a matrícula é conferida de novo a cada envio
                 // Revalida a matrícula a cada envio, inclusive após remoção da turma.
                 const contexto = await obterConversa(
                     conversaAtual.turmaId,

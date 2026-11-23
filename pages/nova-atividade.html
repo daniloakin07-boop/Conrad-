@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/nova-atividade.html
+  Finalidade: Formulário "Nova atividade".
+  Público   : Educador.
+  Conteúdo  : Criação de atividade: turma, título, data, valor e descrição (JS/seletor-turma.js e JS/construtor-atividade.js; envia POST /api/atividades). O tipo é definido pelo atributo data-atividade-tipo do <body>.
+  Relações  : CSS: variaveis, geral, componentes, usuarios, atividades | JS: tema.js, config.js, seletor-turma.js, construtor-atividade.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Nova atividade</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +30,8 @@
   <link rel="icon" type="image/png" href="../img/emblema-64.png">
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
-<body class="css-formulario">
+<body class="css-formulario" data-atividade-tipo="atividade" data-atividade-rotulo="atividade">
+  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
   <main class="form-page">
     <header class="form-topbar">
       <h1>Nova atividade</h1>
@@ -30,6 +44,7 @@
       <div class="form-card">
         <h2>Criar atividade</h2>
 
+        <!-- FORMULÁRIO: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
         <form>
           <div class="field-grid">
             <div class="field full">
@@ -103,12 +118,9 @@
     </section>
   </main>
 
+  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
   <script src="../JS/config.js"></script>
   <script defer src="../JS/seletor-turma.js"></script>
-  <script>
-    window.ATIVIDADE_TIPO = "atividade";
-    window.ATIVIDADE_ROTULO = "atividade";
-  </script>
   <script defer src="../JS/construtor-atividade.js"></script>
 </body>
 </html>

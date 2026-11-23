@@ -1,12 +1,37 @@
-// Front-end do bate-papo privado. Socket.IO é carregado a partir do servidor Express,
-// inclusive quando o front-end está hospedado no GitHub Pages.
+/*
+===============================================
+JS/chat-privado.js
+===============================================
+Página: pages/bate-papo.html (educador e aluno)
+Finalidade: bate-papo PRIVADO (1 a 1) entre um aluno e o educador de uma turma, em tempo real.
+
+Como funciona:
+  1. Lê da URL ?turmaId=N&participanteId=M (a conversa escolhida na lista de contatos).
+  2. GET /api/chat/contatos     -> preenche a lista lateral de contatos (JS/chat.js, rota REST).
+  3. GET /api/chat/contexto     -> valida a conversa e traz nome/turma do outro participante.
+  4. Carrega o cliente do Socket.IO a partir do próprio servidor (/socket.io/socket.io.js),
+     inclusive quando o front-end está hospedado em outro domínio (GitHub Pages).
+  5. Eventos Socket.IO: "chat:entrar" (entra na sala privada e recebe o histórico),
+     "chat:enviar" (envia texto/imagem/áudio) e "chat:mensagem" (recebe mensagens novas).
+  6. Imagens e áudios (até 3 MB) viajam como data URL (Base64) e o servidor as guarda como anexos
+     (rota GET /api/chat/anexos/:id usada para exibi-los).
+
+Segurança: todo texto de usuário entra na tela com textContent; o servidor decide quem pode
+entrar em cada conversa (este arquivo não é a fonte da regra de permissão).
+Depende de: JS/config.js (CONRAD_API) e do layout.js (menu).
+Observação: os ícones usam classes "fa-..." (Font Awesome), mas nenhuma página nem CSS do projeto
+carrega essa biblioteca; os ícones só aparecem se ela for adicionada (ex.: via CDN).
+*/
+
 (() => {
+    // ---- Atalho, base da API e parâmetros da conversa selecionada na URL
   const $ = (seletor) => document.querySelector(seletor);
   const API = window.CONRAD_API || "";
   const params = new URLSearchParams(location.search);
   const turmaId = params.get("turmaId");
   const participanteId = params.get("participanteId");
 
+    // ---- Elementos da tela (ids definidos em pages/bate-papo.html)
   const listaContatos = $("#chat-contact-list");
   const mensagensEl = $("#chat-messages");
   const nomeEl = $("#chat-nome");
@@ -21,6 +46,7 @@
   const inputImagem = $("#chat-image-input");
   const botaoGravar = $("#chat-record-button");
 
+    // ---- Estado da tela: conexão, conversa aberta e gravação de áudio em andamento
   let socket = null;
   let conversaAtiva = null;
   let gravador = null;
@@ -28,6 +54,8 @@
   let partesAudio = [];
   let gravando = false;
 
+    // fetch com cookie de sessão que converte respostas de erro em Error (com .status).
+    // Obs.: não define Content-Type; as rotas usadas aqui são GET.
   async function api(caminho, opcoes = {}) {
     const resposta = await fetch(API + caminho, {
       credentials: "include",
@@ -42,6 +70,7 @@
     return dados;
   }
 
+    // Cria um elemento com texto seguro (textContent)
   function elemento(tag, classe, texto) {
     const el = document.createElement(tag);
     if (classe) el.className = classe;
@@ -49,30 +78,36 @@
     return el;
   }
 
+    // Mensagem de aviso/erro abaixo do campo de texto (erro=true aplica a classe "erro")
   function mostrarFeedback(texto, erro = false) {
     feedbackEl.textContent = texto || "";
     feedbackEl.classList.toggle("erro", Boolean(erro));
   }
 
+    // Texto de estado da conexão no topo da conversa; `estado` vira classe CSS (privado/offline)
   function definirStatus(texto, estado = "") {
     statusEl.textContent = texto;
     statusEl.className = "chat-status" + (estado ? ` ${estado}` : "");
   }
 
+    // Formata data/hora como HH:MM (pt-BR); data inválida devolve texto vazio
   function formatarHora(valor) {
     const data = new Date(valor);
     if (Number.isNaN(data.getTime())) return "";
     return new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" }).format(data);
   }
 
+    // Iniciais (até 2 letras) para o avatar redondo
   function iniciais(nome) {
     return String(nome || "CV").trim().split(/\s+/).slice(0, 2).map((parte) => parte[0] || "").join("").toUpperCase();
   }
 
+    // Mantém a conversa rolada até a mensagem mais recente
   function rolarParaFim() {
     mensagensEl.scrollTop = mensagensEl.scrollHeight;
   }
 
+    // Estado vazio: convida a enviar a primeira mensagem
   function mensagemVazia() {
     const vazio = elemento("div", "chat-boas-vindas");
     vazio.append(
@@ -83,6 +118,12 @@
     mensagensEl.replaceChildren(vazio);
   }
 
+    /**
+     * Desenha uma mensagem na conversa.
+     * @param {object} mensagem { autorId, autor, tipo: "texto"|"imagem"|"audio", conteudo,
+     *                           anexoUrl, nomeArquivo, data }
+     * "propria" é decidido comparando autorId com o usuário logado (window.usuarioConrad).
+     */
   function renderizarMensagem(mensagem) {
     // Todos os textos de usuário são inseridos com textContent, sem interpretar HTML.
     const propria = Number(mensagem.autorId) === Number(window.usuarioConrad?.id);
@@ -116,6 +157,7 @@
     rolarParaFim();
   }
 
+    // Liga/desliga o campo de texto e os botões. O microfone também exige suporte do navegador.
   function habilitarComposer(habilitado) {
     campoTexto.disabled = !habilitado;
     botaoEnviar.disabled = !habilitado;
@@ -123,6 +165,7 @@
     botaoGravar.disabled = !habilitado || !navigator.mediaDevices?.getUserMedia || !window.MediaRecorder;
   }
 
+    // Monta um item da lista de contatos (link para bate-papo.html com turma e participante)
   function renderizarContato(contato) {
     const link = elemento("a", "chat-contato");
     link.href = `bate-papo.html?turmaId=${encodeURIComponent(contato.turmaId)}&participanteId=${encodeURIComponent(contato.participanteId)}`;
@@ -141,6 +184,7 @@
     return link;
   }
 
+    // Carrega os contatos da lista lateral (alunos do professor ou educadores do aluno)
   async function carregarContatos() {
     try {
       const dados = await api("/api/chat/contatos");
@@ -162,6 +206,7 @@
     }
   }
 
+    // Injeta dinamicamente o script do Socket.IO servido pelo backend (uma única vez)
   function carregarSocketIo() {
     return new Promise((resolve, reject) => {
       if (window.io) return resolve();
@@ -174,6 +219,11 @@
     });
   }
 
+    /**
+     * Abre a conversa selecionada: valida o contexto na API, conecta o socket e entra na sala
+     * privada. Registra os eventos connect/disconnect/connect_error/chat:mensagem.
+     * Sem ?turmaId e ?participanteId apenas mostra "Selecione um contato".
+     */
   async function entrarNaConversa() {
     if (!turmaId || !participanteId) {
       definirStatus("Selecione um contato");
@@ -226,6 +276,7 @@
     }
   }
 
+    // Converte um arquivo/blob em data URL (Base64) para ser enviado pelo socket
   function lerComoDataUrl(arquivo) {
     return new Promise((resolve, reject) => {
       const leitor = new FileReader();
@@ -235,6 +286,7 @@
     });
   }
 
+    // Envia uma mensagem pelo evento "chat:enviar" e devolve uma Promise (usa o callback de confirmação do servidor)
   function enviar(payload) {
     return new Promise((resolve, reject) => {
       if (!socket?.connected) return reject(new Error("Aguarde a conexão com o bate-papo."));
@@ -245,6 +297,7 @@
     });
   }
 
+    // ---- Envio de texto: botão Enviar ou Enter (Shift+Enter quebra a linha)
   form.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     const conteudo = campoTexto.value.trim();
@@ -270,11 +323,13 @@
     }
   });
 
+    // Faz o campo crescer conforme o texto digitado (limite de 120 px)
   campoTexto.addEventListener("input", () => {
     campoTexto.style.height = "auto";
     campoTexto.style.height = `${Math.min(campoTexto.scrollHeight, 120)}px`;
   });
 
+    // ---- Envio de imagem: valida tipo e tamanho (máx. 3 MB) antes de enviar
   botaoImagem.addEventListener("click", () => inputImagem.click());
   inputImagem.addEventListener("change", async () => {
     const arquivo = inputImagem.files?.[0];
@@ -292,6 +347,7 @@
     }
   });
 
+    // ---- Mensagem de voz: usa MediaRecorder; escolhe o primeiro formato suportado pelo navegador
   async function iniciarGravacao() {
     try {
       fluxoMicrofone = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -314,6 +370,7 @@
     }
   }
 
+    // Ao parar a gravação: monta o áudio, confere tamanho (máx. 3 MB), envia e libera o microfone
   async function finalizarGravacao() {
     try {
       const tipo = gravador?.mimeType || "audio/webm";
@@ -337,16 +394,19 @@
     }
   }
 
+    // Um clique inicia a gravação; o clique seguinte a finaliza e envia
   botaoGravar.addEventListener("click", async () => {
     if (!gravando) await iniciarGravacao();
     else if (gravador && gravador.state !== "inactive") gravador.stop();
   });
 
+    // Ao sair da página: fecha o socket e solta o microfone
   window.addEventListener("beforeunload", () => {
     if (socket) socket.disconnect();
     fluxoMicrofone?.getTracks().forEach((track) => track.stop());
   });
 
+    // ---- Inicialização: sessão -> contatos -> (se houver conversa selecionada) entra nela
   (async () => {
     try {
       const sessao = await api("/me");

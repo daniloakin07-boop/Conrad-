@@ -1,12 +1,39 @@
+/*
+===============================================
+JS/turmas.js  (BACKEND — roda no Node.js, não no navegador)
+===============================================
+Rotas Express de TURMAS, montadas em /api por JS/server.js (app.use("/api", turmasRoutes)):
+  GET    /api/turmas                         lista as turmas do usuário (professor: as que criou;
+                                             aluno: aquelas em que está matriculado)
+  POST   /api/turmas                         educador cria turma (o servidor gera o código)
+  POST   /api/turmas/entrar                  aluno entra em uma turma pelo código de 8 caracteres
+  GET    /api/turmas/:id                     detalhes + pessoas (só professor dono ou aluno matriculado)
+  DELETE /api/turmas/:id/alunos/:alunoId     professor remove um aluno da turma
+
+Tabelas: tb_turmas (nome, disciplina, secao, descricao, codigo, video_room, professor_id),
+tb_turma_alunos (turma_id, aluno_id, entrou_em) e tb_usuarios. Veja JS/migrations/004-turmas-e-salas.sql.
+Usa o pool de JS/db.js, cujo `execute(sql, parametros)` aceita "?" como marcador de parâmetro.
+Consumidores no front-end: turmas-page.js, turma-detalhes.js, salas.js, seletor-turma.js e outros.
+*/
+
+// Dependências: Express (rotas), crypto (códigos aleatórios seguros) e o pool de conexões do banco
 const express = require("express");
 const crypto = require("crypto");
 const pool = require("./db.js");
 
+// Router isolado: o server.js o monta em /api
 const router = express.Router();
 
+// Predicados de papel. Contas antigas sem `tipo` (ou "estudante") são tratadas como aluno.
 const ehEducador = (usuario) => usuario?.tipo === "educador";
 const ehAluno = (usuario) => usuario?.tipo === "aluno" || usuario?.tipo === "estudante" || !usuario?.tipo;
 
+/**
+ * Fábrica de middlewares de autorização.
+ * @param {Function} verificador  recebe o usuário da sessão e devolve true/false
+ * @param {string} mensagem      texto do erro 403 quando o papel não é permitido
+ * Sem sessão responde 401; com sessão de papel errado responde 403.
+ */
 function exigir(verificador, mensagem) {
     return (req, res, next) => {
         const usuario = req.session?.usuario;
@@ -16,10 +43,15 @@ function exigir(verificador, mensagem) {
     };
 }
 
+// Middlewares prontos: só educador, só aluno e qualquer usuário logado
 const soEducador = exigir(ehEducador, "Apenas educadores podem criar e gerenciar turmas");
 const soAluno = exigir(ehAluno, "Apenas alunos podem entrar em uma turma com código");
 const logado = exigir(() => true, "Acesso não permitido");
 
+/**
+ * Confere se o usuário pode ver a turma: o professor precisa ser o dono (professor_id);
+ * o aluno precisa estar matriculado em tb_turma_alunos. Devolve true/false.
+ */
 async function usuarioPodeAcessarTurma(turmaId, usuario) {
     if (ehEducador(usuario)) {
         const [linhas] = await pool.execute(
@@ -36,6 +68,7 @@ async function usuarioPodeAcessarTurma(turmaId, usuario) {
     return linhas.length > 0;
 }
 
+// (rota abaixo) A consulta muda conforme o papel; aluno NÃO recebe o código de convite.
 // Lista somente as turmas do professor ou aquelas em que o aluno está matriculado.
 router.get("/turmas", logado, async (req, res) => {
     try {
@@ -76,6 +109,8 @@ router.get("/turmas", logado, async (req, res) => {
     }
 });
 
+// (rota abaixo) Valida tamanhos e gera `codigo` (4 bytes hex = 8 caracteres) e `video_room` (sala Jitsi).
+// Em colisão de código único (erro 23505 do PostgreSQL) tenta de novo até 5 vezes.
 // O educador cria uma turma. O código é gerado no servidor e não pode ser escolhido pelo navegador.
 router.post("/turmas", soEducador, async (req, res) => {
     try {
@@ -120,6 +155,7 @@ router.post("/turmas", soEducador, async (req, res) => {
     }
 });
 
+// (rota abaixo) Procura a turma pelo código e matricula o aluno; repetir o código não duplica (ON CONFLICT DO NOTHING).
 // O aluno usa o código de convite mostrado pelo professor.
 router.post("/turmas/entrar", soAluno, async (req, res) => {
     try {
@@ -146,6 +182,7 @@ router.post("/turmas/entrar", soAluno, async (req, res) => {
     }
 });
 
+// (rota abaixo) Para aluno, o campo `codigo` é removido da resposta.
 // Detalhes da turma e lista de pessoas. O acesso é validado para professor ou aluno matriculado.
 router.get("/turmas/:id", logado, async (req, res) => {
     try {

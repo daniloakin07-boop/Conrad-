@@ -1,3 +1,12 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/002-atividades-entregas.sql
+-- Finalidade: acrescentar a coluna `turma` aos usuários, as colunas de atividade e criar a tabela de entregas (respostas dos alunos).
+-- Tabelas   : tb_usuarios, tb_atividades, tb_entregas
+-- NOTA: esta migração usa sintaxe MySQL (AUTO_INCREMENT, ENGINE=InnoDB...) e pertence ao histórico
+-- do projeto. O banco atual é PostgreSQL/Supabase: para criar um banco novo, use
+-- JS/migrations/supabase-schema-corrigido.sql, que já contém todas as tabelas.
+-- ============================================================================
+
 -- Execute no banco Conrad depois da migracao 001.
 -- Este script adiciona as colunas usadas pelo fluxo e cria a tabela de entregas.
 

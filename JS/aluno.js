@@ -1,3 +1,20 @@
+/*
+===============================================
+JS/aluno.js
+===============================================
+Página: pages/aluno.html (painel do aluno)
+Finalidade: dar vida ao painel do aluno:
+  1. Checklist de tarefas (marcar/desmarcar e contador).
+  2. Dados reais: saudação com o nome, média geral, tarefas pendentes e lista de tarefas,
+     a partir da API. Aceita ?turmaId=N para o painel de uma turma específica.
+
+API usada (via conradFetch): GET /me, GET /api/aluno/atividades[?turmaId=N], POST /logout.
+Redirecionamentos: educador -> educador.html; sem sessão (401) -> login.html;
+turma sem matrícula (403) -> turmas.html.
+Depende de: JS/config.js (conradFetch) e do layout.js (menu e topo).
+*/
+
+// ---- Checklist de tarefas (delegação de eventos: um único listener para todos os checkboxes)
 // Tarefas: marcar como concluída e atualizar o contador
 const listaTarefas = document.getElementById('listaTarefas');
 const contadorTarefas = document.getElementById('contadorTarefas');
@@ -8,7 +25,9 @@ listaTarefas.addEventListener('change', (event) => {
     contadorTarefas.textContent =
         listaTarefas.querySelectorAll('input:not(:checked)').length;
 });
+// ---- Dados reais do painel (IIFE assíncrona: roda assim que o script é carregado)
 (async function () {
+        // Cria um elemento com texto seguro (textContent)
     const h = (tag, classe, texto) => {
         const el = document.createElement(tag);
         if (classe) el.className = classe;
@@ -16,16 +35,19 @@ listaTarefas.addEventListener('change', (event) => {
         return el;
     };
 
+        // Bom dia / Boa tarde / Boa noite conforme a hora do navegador
     function saudacao() {
         const hora = new Date().getHours();
         return hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
     }
 
+        // Iniciais do primeiro e do último nome (para o avatar)
     function iniciais(nome) {
         const p = nome.trim().split(/\s+/);
         return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase();
     }
 
+        // Coloca o nome do aluno na saudação, no menu lateral e no avatar do topo
     function preencherNome(nome) {
         const titulo = document.querySelector('.titulo-dashboard h1');
         if (titulo) titulo.textContent = saudacao() + ', ' + nome;
@@ -35,6 +57,7 @@ listaTarefas.addEventListener('change', (event) => {
         if (avatar) avatar.textContent = iniciais(nome);
     }
 
+        // Links marcados com data-sair encerram a sessão (POST /logout) e voltam à página inicial
     document.querySelectorAll('[data-sair]').forEach((link) => {
         link.addEventListener('click', (evento) => {
             evento.preventDefault();
@@ -42,19 +65,23 @@ listaTarefas.addEventListener('change', (event) => {
         });
     });
 
+        // Date -> 'AAAA-MM-DD' (usa data local, não UTC)
     function iso(data) {
         return data.getFullYear() + '-' + String(data.getMonth() + 1).padStart(2, '0') + '-' + String(data.getDate()).padStart(2, '0');
     }
 
+        // 'AAAA-MM-DD' -> 'DD/MM/AAAA'
     function dataBR(valor) {
         const [a, m, d] = valor.split('-');
         return d + '/' + m + '/' + a;
     }
 
-    // ?turmaId=N: o aluno entrou nesta turma (pelo código do professor ou pela lista de turmas)
+        // ?turmaId=N: o aluno entrou nesta turma (pelo código do professor ou pela lista de turmas).
+    // O valor é repassado à API, que confere a matrícula.
     const turmaId = new URLSearchParams(location.search).get('turmaId');
     const filtroTurma = turmaId ? '?turmaId=' + encodeURIComponent(turmaId) : '';
 
+        // Painel de turma específica: ajusta os atalhos rápidos para a turma e mostra o nome dela no subtítulo
     function ajustarParaTurma(nomeTurma) {
         const id = encodeURIComponent(turmaId);
         const verAtividades = document.querySelector('.quick-actions a[href^="aluno-atividades"]');
@@ -70,6 +97,7 @@ listaTarefas.addEventListener('change', (event) => {
         if (subtitulo) subtitulo.textContent = 'Turma: ' + (nomeTurma || 'selecionada') + ' — resumo das suas notas e pendências';
     }
 
+        // Fluxo principal: sessão -> nome -> atividades -> indicadores e lista de pendências
     try {
         const eu = await conradFetch('/me');
         if (eu.usuario.tipo === 'educador') { location.href = 'educador.html'; return; }
@@ -79,7 +107,7 @@ listaTarefas.addEventListener('change', (event) => {
         if (turmaId) ajustarParaTurma(dados.turma);
         const cartoes = document.querySelectorAll('.cards-resumo .card-resumo');
 
-        // Média geral: notas corrigidas convertidas para a escala de 0 a 10
+                // Média geral: notas corrigidas convertidas para a escala de 0 a 10
         const notas = dados.atividades
             .filter((a) => a.nota != null && Number(a.valor_maximo) > 0)
             .map((a) => Number(a.nota) / Number(a.valor_maximo) * 10);

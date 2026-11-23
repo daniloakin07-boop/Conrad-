@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/login.html
+  Finalidade: Tela de login.
+  Público   : Todos os usuários.
+  Conteúdo  : Formulário #formLogin (e-mail e senha). O envio é tratado por JS/auth.js (POST /login) e redireciona educador -> educador.html e aluno -> turmas.html.
+  Relações  : CSS: variaveis, geral, componentes | JS: tema.js, auth.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-br">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CONRAD Virtual School - Login</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,6 +44,7 @@
       <h1>Login</h1>
       <p class="texto-auth">Bem vindo de volta! Acesse sua conta.</p>
 
+      <!-- FORMULÁRIO #formLogin: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
       <form class="form-auth" id="formLogin">
         <label for="email">E-mail</label>
         <input type="email" id="email" placeholder="Digite seu e-mail" required>
@@ -58,6 +72,7 @@
     <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
+  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
   <script defer src="../JS/auth.js"></script>
 </body>
 </html>

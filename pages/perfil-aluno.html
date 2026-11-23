@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/perfil-aluno.html
+  Finalidade: Perfil do aluno.
+  Público   : Aluno.
+  Conteúdo  : Dados da conta, apresentação, interesses, habilidades, foto e atalhos de conversa. Edição via modal (JS/perfil-aluno.js, rotas GET/PUT /perfil).
+  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, perfil-aluno.js, perfil-chat.js, layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0A1F44">
   <title>Conrad | Meu perfil</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +31,7 @@
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 <body class="css-painel css-perfil-aluno">
+  <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu" aria-label="Navegação principal">
@@ -34,8 +48,10 @@
     </div>
   </header>
 
+  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
   <main class="container perfil-aluno-container">
     <div class="dashboard-professor perfil-aluno-layout">
+      <!-- MENU LATERAL: os links são montados por JS/layout.js conforme o tipo de usuário (data-menu="auto") -->
       <aside class="menu-lateral">
         <h3>Conrad Aluno</h3>
         <nav aria-label="Menu do estudante">
@@ -210,6 +226,7 @@
         <button type="button" class="perfil-modal-fechar" aria-label="Fechar" data-fechar-modal>×</button>
       </header>
 
+      <!-- FORMULÁRIO #formPerfilAluno: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
       <form id="formPerfilAluno" class="perfil-formulario">
         <div class="perfil-foto-edicao">
           <div class="perfil-avatar-pequeno" id="avatarPreviewContainer">
@@ -258,11 +275,13 @@
     </section>
   </div>
 
+  <!-- RODAPÉ -->
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
 
+  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
   <script src="../JS/config.js"></script>
   <script src="../JS/perfil-aluno.js" defer></script>
   <script src="../JS/perfil-chat.js" defer></script>

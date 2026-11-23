@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/dashboard.html
+  Finalidade: Horário das aulas do aluno ("dashboard").
+  Público   : Aluno.
+  Conteúdo  : Abas por dia da semana com o horário (data/horarios.json), frequência e checklist de tarefas.
+  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, horarios.js (horários e checklist), layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
 
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conrad | Horário das aulas</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +50,7 @@
     </div>
   </header>
   <!-- =================================================================================================================== -->
-  <main class="container turmas-layout">
+  <main class="container">
     <div class="dashboard-professor">
 
         <!-- MENU LATERAL PADRONIZADO -->
@@ -128,7 +141,7 @@
                 </div>
 
                 <div class="al-freq-corpo">
-                  <div class="al-anel" style="--valor: 92">
+                  <div class="al-anel">
                     <span>92%</span>
                   </div>
 
@@ -184,18 +197,6 @@
   <!-- =================================================================================================================== -->
   <script src="../JS/config.js"></script>
   <script defer src="../JS/horarios.js"></script>
-  <script>
-    // Tarefas: marcar como concluída e atualizar o contador
-    const listaTarefas = document.getElementById('listaTarefas');
-    const contadorTarefas = document.getElementById('contadorTarefas');
-
-    listaTarefas.addEventListener('change', (event) => {
-      if (event.target.type !== 'checkbox') return;
-      event.target.closest('li').classList.toggle('feita', event.target.checked);
-      contadorTarefas.textContent =
-        listaTarefas.querySelectorAll('input:not(:checked)').length;
-    });
-  </script>
   <script src="../JS/layout.js" defer></script>
 </body>
 

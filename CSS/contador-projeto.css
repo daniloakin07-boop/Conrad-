@@ -1,5 +1,11 @@
-/* Contador do Projeto Integrador — Conrad Virtual School (Web)
-   Todos os seletores usam o prefixo pi-web para evitar conflitos com o CSS existente. */
+/* ==============================================================
+   CONTADOR DO PROJETO INTEGRADOR — Conrad Virtual School (Web)
+   Arquivo : CSS/contador-projeto.css
+   Página  : index.html (carregado depois de variaveis, geral e componentes)
+   Função  : estilo do cartão com a contagem regressiva (dias, horas, minutos, segundos).
+   Script  : JS/contador-projeto.js preenche os elementos #pi-web-*.
+   Convenção: todos os seletores usam o prefixo pi-web para evitar conflitos com o CSS existente.
+   ============================================================== */
 
 .pi-web-contador {
   width: min(1120px, calc(100% - 40px));

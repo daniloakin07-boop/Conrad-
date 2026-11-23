@@ -2,6 +2,10 @@
 ===============================================
 ATIVIDADES COM QUESTÕES — LADO DO ALUNO  (aluno-atividades.html)
 ===============================================
+ESTADO NESTA VERSÃO DO REPOSITÓRIO: este módulo NÃO é carregado por nenhuma página
+(aluno-atividades.html usa apenas aluno-atividade.js) e as rotas que ele chama
+(GET /api/aluno/atividades/:id e POST /api/atividades/:id/iniciar) não existem no
+JS/atividades.js atual. Faz parte do recurso "atividades com questões", ainda não integrado.
 Para cada atividade que tem questões, a página chama:
 
     AlunoQuestoes.criarAcoes(atividade, { usuarioId, aoAtualizar })

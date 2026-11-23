@@ -1,8 +1,22 @@
-// Insere contatos de bate-papo no perfil do usuário logado.
+/*
+===============================================
+JS/perfil-chat.js
+===============================================
+Páginas: pages/perfil-aluno.html e pages/perfil-educador.html
+Finalidade: preencher a seção #atalhos-chat do perfil com atalhos de conversa privada:
+  - educador: lista os alunos das suas turmas ("Conversar com meus alunos");
+  - aluno: lista o educador de cada turma ("Conversar com meu educador").
+Cada atalho abre pages/bate-papo.html?turmaId=N&participanteId=M (tratado por JS/chat-privado.js).
+
+API usada (via window.conradFetch): GET /me e GET /api/chat/contatos (rota em JS/chat.js).
+Se a seção #atalhos-chat não existir ou o config.js não estiver carregado, o script não faz nada.
+*/
+
 (() => {
   const painel = document.getElementById("atalhos-chat");
   if (!painel || typeof window.conradFetch !== "function") return;
 
+    // Cria um elemento com texto seguro (textContent)
   const criar = (tag, classe, texto) => {
     const el = document.createElement(tag);
     if (classe) el.className = classe;
@@ -10,9 +24,11 @@
     return el;
   };
 
+    // Iniciais (até 2 letras) para o avatar do contato
   const iniciais = (nome) => String(nome || "CV").trim().split(/\s+/).slice(0, 2)
     .map((parte) => parte[0] || "").join("").toUpperCase();
 
+    // Busca sessão e contatos em paralelo e monta o cabeçalho + a grade de atalhos (401 -> login)
   async function carregar() {
     try {
       const [sessao, resultado] = await Promise.all([
@@ -60,5 +76,6 @@
     }
   }
 
+    // Executa ao carregar (script com defer: o HTML já está pronto)
   carregar();
 })();

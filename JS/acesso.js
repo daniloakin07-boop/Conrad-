@@ -2,6 +2,10 @@
 ===============================================
 REGRAS DE ACESSO ÀS PÁGINAS E AOS ARQUIVOS
 ===============================================
+ESTADO NESTA VERSÃO DO REPOSITÓRIO: este módulo está pronto, mas o JS/server.js atual NÃO o
+importa (o controle de acesso em uso é o middleware app.get("/pages/:pagina") do próprio
+server.js). O arquivo JS/acesso.test.js citado abaixo não existe aqui; por isso `npm test`
+(node --test) não executa nenhum teste.
 Usado apenas pelo servidor (JS/server.js). Fica separado para poder ser testado
 sem subir o Express: veja JS/acesso.test.js (rode com `npm test`).
 */

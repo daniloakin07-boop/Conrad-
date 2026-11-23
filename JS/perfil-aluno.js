@@ -1,5 +1,22 @@
-// Carrega e atualiza os dados do perfil do estudante.
+/*
+===============================================
+JS/perfil-aluno.js
+===============================================
+Página: pages/perfil-aluno.html (perfil: aluno)
+Finalidade: carregar e editar o perfil do estudante — nome, e-mail, apresentação ("sobre mim"),
+interesses, habilidades e foto — e mostrar quantas turmas ele tem.
+
+API usada (via window.conradFetch, de JS/config.js):
+  GET /perfil        -> { usuario, perfil: { sobre_mim, interesses[], habilidades[], foto_perfil } }
+  PUT /perfil        -> grava as alterações (rota em JS/server.js; tabela tb_perfis_alunos)
+  GET /api/turmas    -> só para contar as turmas vinculadas
+Regras (espelham o servidor, que confere tudo de novo): até 12 itens por lista; foto JPG/PNG/WebP
+de até 8 MB, reduzida no navegador para no máximo 480 px e enviada como data URL JPEG.
+Todo texto entra na tela com textContent. O script termina logo se o modal de edição não existir.
+*/
+
 (() => {
+    // Atalho para getElementById e elementos principais do modal de edição
   const elemento = (id) => document.getElementById(id);
   const modal = elemento("modalEdicaoPerfil");
   const formulario = elemento("formPerfilAluno");
@@ -8,15 +25,18 @@
 
   if (!modal || !formulario) return;
 
+    // Estado: dados atuais, foto salva (fotoAtual) e foto escolhida ainda não salva (fotoRascunho)
   let usuarioAtual = null;
   let perfilAtual = {};
   let fotoAtual = "";
   let fotoRascunho = "";
   let turmasAtuais = [];
 
+    // Iniciais (até 2 letras) mostradas quando o usuário não tem foto
   const iniciais = (nome) => String(nome || "A").trim().split(/\s+/).filter(Boolean)
     .slice(0, 2).map((parte) => parte.charAt(0)).join("").toUpperCase() || "A";
 
+    // Aceita lista, texto JSON ou texto separado por vírgula/ponto e vírgula/quebra de linha
   const formatarLista = (valor) => {
     if (Array.isArray(valor)) return valor;
     if (typeof valor !== "string" || !valor.trim()) return [];
@@ -29,11 +49,13 @@
     return valor.split(/[,;\n]+/);
   };
 
+    // Normaliza uma lista: remove vazios e limita a 12 itens
   const limparLista = (valor) => formatarLista(valor)
     .map((item) => String(item).trim())
     .filter(Boolean)
     .slice(0, 12);
 
+    // Mostra a foto (se houver) ou as iniciais, no par de elementos indicado
   function atualizarAvatar(foto, nome, fotoId, iniciaisId) {
     const fotoElemento = elemento(fotoId);
     const iniciaisElemento = elemento(iniciaisId);
@@ -50,15 +72,18 @@
     }
   }
 
+    // Atualiza o avatar do cabeçalho do perfil e a prévia do formulário
   function mostrarAvatar(foto, nome) {
     atualizarAvatar(foto, nome, "profileAvatar", "profileInitials");
     atualizarAvatar(foto, nome, "profilePreview", "previewInitials");
   }
 
+    // Atualiza apenas a prévia do formulário (usada ao escolher uma foto ainda não salva)
   function mostrarPreview(foto, nome) {
     atualizarAvatar(foto, nome, "profilePreview", "previewInitials");
   }
 
+    // Desenha interesses/habilidades como etiquetas; mostra o aviso "vazio" quando não há itens
   function desenharTags(destino, vazio, itens) {
     destino.replaceChildren();
     vazio.hidden = itens.length > 0;
@@ -71,6 +96,7 @@
     });
   }
 
+    // Preenche toda a página com os dados do usuário e do perfil recebidos do servidor
   function renderizarPerfil(perfil, usuario) {
     usuarioAtual = usuario;
     perfilAtual = perfil || {};
@@ -98,6 +124,7 @@
     mostrarAvatar(fotoAtual, nome);
   }
 
+    // Copia os dados atuais para o formulário de edição ao abrir o modal
   function preencherFormulario() {
     if (!usuarioAtual) return;
     elemento("perfilNome").value = usuarioAtual.nome || "";
@@ -112,6 +139,7 @@
   }
 
 
+    // Abre o modal de edição e trava a rolagem da página (overflow hidden no body)
   function abrirModal() {
     preencherFormulario();
     modal.hidden = false;
@@ -119,6 +147,7 @@
     elemento("perfilNome").focus();
   }
 
+    // Fecha o modal, descarta alterações não salvas e restaura a foto atual
   function fecharModal() {
     modal.hidden = true;
     document.body.style.overflow = "";
@@ -128,6 +157,7 @@
     mostrarAvatar(fotoAtual, usuarioAtual?.nome || "A");
   }
 
+    // Botões que abrem/fecham o modal e a tecla Esc
   document.querySelectorAll("#abrirEdicaoPerfil, [data-editar-perfil]").forEach((botao) => {
     botao.addEventListener("click", abrirModal);
   });
@@ -140,6 +170,11 @@
     if (evento.key === "Escape" && !modal.hidden) fecharModal();
   });
 
+    /**
+     * Valida e reduz a foto escolhida: confere tipo/tamanho, redimensiona em um <canvas>
+     * (lado maior = 480 px) e devolve um data URL JPEG com qualidade 0,82.
+     * Lança Error com mensagem amigável se o arquivo for inválido.
+     */
   async function prepararFoto(file) {
     if (!file) return "";
     if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
@@ -172,6 +207,7 @@
     }
   }
 
+    // Ao escolher uma foto: prepara e mostra a prévia (só é salva ao enviar o formulário)
   elemento("photoInput").addEventListener("change", async (evento) => {
     const arquivo = evento.target.files?.[0];
     if (!arquivo) return;
@@ -189,6 +225,7 @@
     }
   });
 
+    // Envio do formulário: valida nome/e-mail, faz PUT /perfil e atualiza a tela com a resposta
   formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     if (typeof window.conradFetch !== "function") {
@@ -242,6 +279,7 @@
     }
   });
 
+    // Busca as turmas para o resumo "N turmas vinculadas" (falha silenciosa: mostra 0)
   async function carregarTurmas() {
     try {
       const dados = await window.conradFetch("/api/turmas");
@@ -251,6 +289,7 @@
     }
   }
 
+    // Ponto de entrada: carrega perfil e turmas em paralelo e desenha a página (401 -> login)
   async function iniciar() {
     if (typeof window.conradFetch !== "function") {
       elemento("profileName").textContent = "Perfil indisponível";

@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/aluno-atividades.html
+  Finalidade: Atividades e avaliações do aluno.
+  Público   : Aluno.
+  Conteúdo  : Lista de cartões com envio de resposta, status, nota e feedback (JS/aluno-atividade.js). Filtros por URL: ?turmaId e ?tipo.
+  Relações  : CSS: variaveis, geral, componentes, usuarios, atividades | JS: tema.js, config.js, aluno-atividade.js, layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
 
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conrad | Minhas atividades</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +34,7 @@
 <!-- ============================================================================================================================ -->
 
 <body class="css-aluno-atividades css-painel">
+  <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
   <header class="topo">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">

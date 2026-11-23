@@ -1,4 +1,26 @@
+/*
+===============================================
+JS/turma-detalhes.js
+===============================================
+Página: pages/turma.html (educador e aluno) — "sala" de uma turma, com abas.
+Finalidade: mostrar uma turma em abas — Mural (resumo), Atividades, Avaliações, Pessoas e
+Sala de vídeo (Jitsi Meet) — e, para o professor, o código de convite da turma.
+
+URL: turma.html?id=N[&aba=mural|atividade|avaliacao|pessoas|video]
+(a aba escolhida é mantida na URL com history.replaceState).
+
+API usada (via conradFetch, de JS/config.js):
+  GET /api/turmas/:id              -> dados da turma, papel do usuário (educador|aluno) e pessoas
+  GET /me                          -> nome do usuário (identifica o participante no vídeo)
+  GET /api/atividades?turmaId&tipo       (professor)  -> conteúdos da turma
+  GET /api/aluno/atividades?turmaId&tipo (aluno)      -> conteúdos da turma com status/nota
+Serviço externo: https://meet.jit.si (script external_api.js carregado sob demanda).
+Observação de segurança: o código de entrada do Conrad NÃO autentica pessoas dentro do Jitsi;
+a própria página avisa isso ao usuário.
+*/
+
 (function () {
+        // Atalho e dados da página: id da turma vem de ?id=N; aba inicial de ?aba=
     const $ = (seletor) => document.querySelector(seletor);
     const params = new URLSearchParams(location.search);
     const turmaId = Number(params.get("id"));
@@ -9,6 +31,7 @@
     let jitsiRenderToken = 0;
     let abaAtual = params.get("aba") || "mural";
 
+        // Cria um elemento com texto seguro (textContent)
     function criar(tag, classe, texto) {
         const elemento = document.createElement(tag);
         if (classe) elemento.className = classe;
@@ -16,12 +39,14 @@
         return elemento;
     }
 
+        // Data ISO -> 'DD/MM/AAAA'; sem data devolve 'Sem prazo definido'
     function dataBR(data) {
         if (!data) return "Sem prazo definido";
         const partes = String(data).slice(0, 10).split("-");
         return partes.length === 3 ? `${partes[2]}/${partes[1]}/${partes[0]}` : data;
     }
 
+        // Cria um <a>; links https abrem em nova aba com rel="noopener noreferrer" (segurança)
     function link(texto, href, classe = "btn-turma btn-outline") {
         const a = criar("a", classe, texto);
         a.href = href;
@@ -33,10 +58,12 @@
         return a;
     }
 
+        // Mostra uma mensagem (vazio/erro) no lugar do conteúdo do painel
     function listaVazia(texto) {
         painel.replaceChildren(criar("p", "turmas-vazio", texto));
     }
 
+        // Carrega o script do Jitsi uma única vez e tenta de novo se uma carga anterior falhou
     function carregarApiJitsi() {
         return new Promise((resolve, reject) => {
             if (window.JitsiMeetExternalAPI) return resolve();
@@ -66,6 +93,7 @@
         });
     }
 
+        // Cartão base (título + descrição) usado por todas as abas
     function montarCartao(titulo, descricao) {
         const card = criar("article", "turma-painel-card");
         card.append(criar("h2", "", titulo));
@@ -73,12 +101,14 @@
         return card;
     }
 
+        // Marca como "ativa" o botão da aba atual
     function atualizarAba() {
         document.querySelectorAll("[data-aba]").forEach((botao) => {
             botao.classList.toggle("ativa", botao.dataset.aba === abaAtual);
         });
     }
 
+        // Escolhe a rota conforme o papel: professor lista o que criou; aluno vê com status e nota
     async function buscarConteudos(tipo) {
         const professor = dadosTurma.papel === "educador";
         const base = professor ? "/api/atividades" : "/api/aluno/atividades";
@@ -86,6 +116,7 @@
         return conradFetch(`${base}?${query.toString()}`);
     }
 
+        // Atalhos da aba: professor cria/corrige; aluno abre a tela de atividades da turma
     function botoesConteudo(tipo) {
         const acoes = criar("div", "turma-atalhos");
         if (dadosTurma.papel === "educador") {
@@ -99,6 +130,7 @@
         return acoes;
     }
 
+        // Aba Atividades/Avaliações: lista os itens da turma (entregas para o professor; status/nota para o aluno)
     async function renderizarConteudos(tipo) {
         painel.replaceChildren(criar("p", "turmas-vazio", "Carregando conteúdo..."));
         try {
@@ -137,6 +169,7 @@
         }
     }
 
+        // Aba Mural: descrição da turma, contadores (alunos, atividades, avaliações) e atalhos
     async function renderizarMural() {
         painel.replaceChildren(criar("p", "turmas-vazio", "Carregando mural..."));
         try {
@@ -176,6 +209,7 @@
         }
     }
 
+        // Aba Pessoas: professor e alunos com avatar de iniciais
     function renderizarPessoas() {
         const card = montarCartao("Pessoas da turma", "Professor responsável e alunos que participam deste espaço.");
         dadosTurma.pessoas.forEach((pessoa) => {
@@ -189,6 +223,8 @@
         painel.replaceChildren(card);
     }
 
+        // Aba Sala de vídeo: embute o Jitsi (sala exclusiva da turma, campo video_room).
+        // renderToken evita que uma carga atrasada desenhe a sala depois de o usuário trocar de aba.
     function renderizarVideo() {
         const renderToken = ++jitsiRenderToken;
         if (jitsiApi) {
@@ -232,6 +268,7 @@
         });
     }
 
+        // Troca de aba: encerra o vídeo ao sair da aba, desenha o conteúdo e atualiza a URL
     function abrirAba(aba) {
         abaAtual = aba;
         if (aba !== "video") {
@@ -255,15 +292,18 @@
         history.replaceState(null, "", url);
     }
 
+        // Cliques nos botões das abas (atributo data-aba no HTML)
     document.querySelectorAll("[data-aba]").forEach((botao) => {
         botao.addEventListener("click", () => abrirAba(botao.dataset.aba));
     });
 
+        // Ao sair da página, encerra a chamada de vídeo
     window.addEventListener("pagehide", () => {
         jitsiRenderToken++;
         if (jitsiApi) jitsiApi.dispose();
     });
 
+        // Botão que copia o código de convite da turma (visível só para o professor)
     $("#copiar-codigo").addEventListener("click", async () => {
         try {
             await navigator.clipboard.writeText(dadosTurma.codigo);
@@ -273,6 +313,7 @@
         }
     });
 
+        // Ponto de entrada: valida o id, carrega turma e sessão, preenche o cabeçalho e abre a aba inicial
     (async function iniciar() {
         if (!Number.isInteger(turmaId) || turmaId <= 0) {
             listaVazia("Turma não identificada. Volte à página Turmas e abra uma sala.");

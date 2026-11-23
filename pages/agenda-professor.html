@@ -1,11 +1,24 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/agenda-professor.html
+  Finalidade: Agenda semanal do professor.
+  Público   : Educador.
+  Conteúdo  : Grade da semana e modal "Novo evento" (JS/agenda-professor.js). Os eventos criados não são salvos no servidor.
+  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, agenda-professor.js, layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
 
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Conrad Virtual School | Agenda do Professor</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +33,7 @@
 <!-- ============================================================================================================================ -->
 
 <body class="css-agenda css-painel">
+  <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -145,6 +159,7 @@
         <h3>Novo evento</h3>
         <button class="close-modal" type="button">×</button>
       </div>
+      <!-- FORMULÁRIO #eventForm: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
       <form id="eventForm">
         <div class="form-field"><label>Dia</label>
           <select id="eventDay">
@@ -170,32 +185,7 @@
   </footer>
   <!-- ============================================================================================================================ -->
   <script src="../JS/config.js"></script>
-  <script>
-    // simples modal + adicionar evento no DOM (sem persistência)
-    const modal = document.getElementById('agendaModal');
-    const openNew = document.getElementById('openNew');
-    const closeBtn = document.querySelector('.close-modal');
-    const cancelBtn = document.getElementById('cancelEventBtn');
-    const form = document.getElementById('eventForm');
-
-    function showModal() { modal.style.display = 'flex'; }
-    function hideModal() { modal.style.display = 'none'; form.reset(); }
-
-    openNew.addEventListener('click', showModal);
-    closeBtn.addEventListener('click', hideModal);
-    cancelBtn.addEventListener('click', hideModal);
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const day = document.getElementById('eventDay').value;
-      const time = document.getElementById('eventTime').value.trim();
-      const title = document.getElementById('eventTitle').value.trim();
-      if (!time || !title) { alert('Preencha horário e título'); return; }
-      const col = document.querySelector('.agenda-day[data-day="' + day + '"]');
-      if (col) { const d = document.createElement('div'); d.className = 'agenda-evento'; d.textContent = time + ' · ' + title; col.appendChild(d); }
-      hideModal();
-    });
-  </script>
+  <script defer src="../JS/agenda-professor.js"></script>
   <script src="../JS/layout.js" defer></script>
 </body>
 

@@ -1,3 +1,18 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/supabase-schema-corrigido.sql
+-- Finalidade: ESQUEMA COMPLETO e atual do banco (PostgreSQL/Supabase), para um projeto vazio.
+-- Como usar : cole e execute no "SQL Editor" do Supabase. Todos os comandos usam IF NOT EXISTS.
+-- Mapa das tabelas (as relações estão descritas em docs/DOCUMENTACAO_TECNICA_E_GUIA_DE_ESTUDO.md):
+--   tb_usuarios        contas (aluno | educador)          tb_contatos       mensagens do "Fale conosco"
+--   tb_sessoes         sessões persistentes (hoje sem uso) tb_perfis_alunos  perfil complementar do aluno
+--   tb_turmas          turmas + código + sala de vídeo     tb_turma_alunos   matrículas (N:N aluno x turma)
+--   tb_atividades      atividades e avaliações             tb_entregas       respostas dos alunos
+--   tb_notas           notas por atividade/aluno           tb_questoes / tb_respostas / tb_inicios
+--                                                          (recurso de questões, ainda não integrado)
+--   tb_chat_mensagens / tb_chat_anexos   bate-papo privado
+-- Convenções: chaves primárias BIGINT identity; datas TIMESTAMPTZ; FKs com ON DELETE CASCADE/SET NULL.
+-- ============================================================================
+
 -- Esquema PostgreSQL/Supabase do Conrad Virtual School.
 -- Execute no SQL Editor do Supabase em um projeto vazio.
 -- O backend do projeto usa PostgreSQL com o driver pg.

@@ -1,9 +1,27 @@
+/*
+===============================================
+JS/medias.js  (BACKEND — roda no Node.js)
+===============================================
+Rotas de MÉDIAS e BOLETIM, montadas em /api por JS/server.js:
+  GET /api/medias    painel de médias (somente educador): por atividade, por aluno e geral
+  GET /api/boletim   boletim do PRÓPRIO estudante logado (o id vem da sessão, nunca da URL)
+
+Regra de negócio: só entram no cálculo atividades com avaliativa = TRUE, aplicada = TRUE e
+valor_maximo > 0. Cada nota é convertida para a escala 0–10: (nota / valor_maximo) * 10;
+a média é a média simples dessas notas, arredondada para 2 casas.
+Tabelas: tb_atividades, tb_notas, tb_usuarios, tb_turmas, tb_turma_alunos.
+Consumidor no front-end: JS/boletim.js (a rota /api/medias não é chamada por nenhuma página
+desta versão).
+*/
+
+// Router do Express montado em /api e o pool de conexões (JS/db.js)
 const express = require("express");
 const router = express.Router();
 
 // Como este arquivo está dentro da pasta JS, a conexão correta fica em ./db.js.
 const pool = require("./db.js");
 
+// Middleware: exige sessão (401) e papel de educador (403)
 function exigirEducador(req, res, next) {
     if (!req.session?.usuario) {
         return res.status(401).json({ erro: "Faça login para acessar as médias." });
@@ -16,6 +34,8 @@ function exigirEducador(req, res, next) {
     next();
 }
 
+// Middleware do boletim: exige sessão (401) e conta de estudante (educador recebe 403).
+// Detalhe de segurança: o boletim sempre usa o ID da sessão, nunca um ID enviado pelo navegador.
 // O boletim sempre usa o ID que veio da sessão. O navegador não pode pedir
 // o boletim de outro estudante enviando um ID diferente pela URL.
 function exigirEstudante(req, res, next) {
@@ -30,17 +50,21 @@ function exigirEstudante(req, res, next) {
     next();
 }
 
+// Arredonda para `casas` decimais (padrão 2), compensando erros de ponto flutuante
 function arredondar(valor, casas = 2) {
     const fator = 10 ** casas;
     return Math.round((Number(valor) + Number.EPSILON) * fator) / fator;
 }
 
+// Converte para número aceitando vírgula decimal; vazio ou inválido vira null
 function numeroOuNulo(valor) {
     if (valor === null || valor === undefined || valor === "") return null;
     const numero = Number(String(valor).replace(",", "."));
     return Number.isFinite(numero) ? numero : null;
 }
 
+// Procura, sem diferenciar maiúsculas/minúsculas, o primeiro nome da lista que exista entre as colunas.
+// Permite que o boletim funcione com variações do esquema do banco.
 function obterNomeCampo(colunas, nomesPossiveis) {
     const nomes = new Map(colunas.map(coluna => [String(coluna.Field || coluna).toLowerCase(), String(coluna.Field || coluna)]));
     for (const nome of nomesPossiveis) {
@@ -50,6 +74,7 @@ function obterNomeCampo(colunas, nomesPossiveis) {
     return null;
 }
 
+// Separa nomes de turmas guardados em um texto único (separadores: ·  |  ;  " - ") e remove repetições
 function separarNomesSala(valor) {
     return [...new Set(
         String(valor)
@@ -59,6 +84,10 @@ function separarNomesSala(valor) {
     )];
 }
 
+/**
+ * Vínculo ANTIGO entre aluno e turma, por texto ou por id, usado quando o aluno não tem
+ * matrícula em tb_turma_alunos. Devolve { campoAtividade, valores, salaOriginal, tipo } ou null.
+ */
 function detectarVinculoSala(aluno, colunasAtividade) {
     const camposTextoDoAluno = [
         "turma", "nome_turma", "turma_nome", "sala_virtual", "nome_sala", "sala", "classe"
@@ -107,6 +136,8 @@ function detectarVinculoSala(aluno, colunasAtividade) {
     return null;
 }
 
+// (rota abaixo) Três consultas: média por atividade, média por aluno (inclui quem não tem nota)
+// e média geral com contagens.
 // GET /api/medias — painel de médias gerais disponível para educadores.
 router.get("/medias", exigirEducador, async (req, res) => {
     try {
@@ -174,6 +205,12 @@ router.get("/medias", exigirEducador, async (req, res) => {
     }
 });
 
+/*
+ * (rota abaixo) Monta o boletim: descobre dinamicamente colunas opcionais (ex.: data de realização),
+ * escolhe o vínculo com a turma (matrículas reais > vínculo antigo > só notas do aluno), executa a
+ * consulta, converte as notas para a escala 0–10 e calcula a média geral.
+ * Resposta consumida por JS/boletim.js.
+ */
 // GET /api/boletim — boletim do próprio estudante autenticado.
 router.get("/boletim", exigirEstudante, async (req, res) => {
     try {

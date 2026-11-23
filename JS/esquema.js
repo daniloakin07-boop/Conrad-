@@ -1,6 +1,16 @@
 /*
-Tabelas e colunas das questões. O servidor confere e cria o que faltar ao iniciar,
-sem apagar ou alterar dados existentes.
+===============================================
+JS/esquema.js  (BACKEND — esquema das questões)
+===============================================
+ESTADO NESTA VERSÃO DO REPOSITÓRIO: exporta garantirEsquema(pool), mas o JS/server.js atual
+NÃO o chama, e as rotas de JS/atividades.js ainda não leem/gravam estas tabelas. É a base do
+recurso "atividades com questões" (front-end em construtor-atividade.js, aluno-questoes.js e
+correcao-questoes.js).
+
+Finalidade: definir as tabelas tb_questoes (enunciado, tipo objetiva/discursiva, pontos,
+alternativas, correta), tb_respostas (resposta por questão) e tb_inicios (hora em que o aluno
+iniciou uma atividade com tempo) e as colunas extras de tb_atividades. Quando usado, o servidor
+confere e cria o que faltar ao iniciar, sem apagar ou alterar dados existentes.
 */
 
 const TABELAS = [

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/perfil-educador.html
+  Finalidade: Perfil do educador.
+  Público   : Educador.
+  Conteúdo  : Formulário de perfil com foto e atalhos de conversa com alunos. Os campos têm valores de exemplo escritos no HTML; ainda não há gravação no servidor.
+  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, perfil-educador.js, perfil-chat.js, layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
 
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8" />
@@ -46,6 +58,7 @@
 
       </aside>
 
+      <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
       <main class="perfil-page">
 
         <header class="perfil-topbar">
@@ -70,6 +83,7 @@
               </div>
             </div>
 
+            <!-- FORMULÁRIO #profileForm: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
             <form id="profileForm">
               <div class="form-grid">
                 <div class="field">
@@ -159,38 +173,9 @@
 
     <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
 
+    <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
     <script src="../JS/config.js"></script>
-  <script>
-      const photoInput = document.getElementById('photoInput');
-      const profilePreview = document.getElementById('profilePreview');
-      const photoButton = document.querySelector('.perfil-foto-btn');
-
-      photoButton.addEventListener('click', () => photoInput.click());
-
-      photoInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          profilePreview.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-
-      document.getElementById('profileForm').addEventListener('submit', (event) => {
-        event.preventDefault();
-        const nome = document.getElementById('nome').value.trim();
-        const email = document.getElementById('email').value.trim();
-
-        if (!nome || !email) {
-          alert('Nome e e-mail são obrigatórios.');
-          return;
-        }
-
-        alert('Perfil atualizado com sucesso!');
-      });
-    </script>
+    <script defer src="../JS/perfil-educador.js"></script>
     <script src="../JS/perfil-chat.js" defer></script>
   <script src="../JS/layout.js" defer></script>
 </body>

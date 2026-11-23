@@ -2,6 +2,10 @@
 ===============================================
 SESSÕES QUE SOBREVIVEM A REINÍCIOS (memória + PostgreSQL)
 ===============================================
+ESTADO NESTA VERSÃO DO REPOSITÓRIO: o JS/server.js atual NÃO usa este módulo; as sessões
+ficam apenas na memória do servidor (padrão do express-session) e se perdem ao reiniciar.
+Para ativá-lo seria preciso criar o store com criarSessionStore(session, pool) e passá-lo
+na opção `store` da configuração de sessão.
 Por padrão o express-session guarda as sessões só na memória do servidor. Quando o
 servidor reinicia (deploy, ou o Render "dormindo" no plano gratuito) todo mundo é
 deslogado, e isso parece um bug "depois do login".

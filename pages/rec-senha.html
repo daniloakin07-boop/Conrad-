@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/rec-senha.html
+  Finalidade: Tela "Recuperação de senha" (pedido do link).
+  Público   : Visitantes.
+  Conteúdo  : Formulário com e-mail para pedir a recuperação. ATENÇÃO: é apenas a interface — nenhuma rota do servidor nem script trata este formulário nesta versão.
+  Relações  : CSS: variaveis, geral, componentes | JS: tema.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recuperação de senha | CONRAD Virtual School</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +29,7 @@
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 <body class="css-auth">
+  <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
   <header class="topo">
     <a href="../index.html" class="logo">CONRAD</a>
     <nav class="menu">
@@ -25,11 +39,13 @@
     </nav>
   </header>
 
+  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
   <main class="container pagina-auth">
     <section class="bloco-auth">
       <h1>Recuperação de senha</h1>
       <p class="texto-auth">Informe seu e-mail e enviaremos um link de recuperação de senha.</p>
 
+      <!-- FORMULÁRIO #formLogin: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
       <form class="form-auth" id="formLogin">
         <label for="emailLogin">E-mail</label>
         <input
@@ -42,6 +58,7 @@
     </section>
   </main>
 
+  <!-- RODAPÉ -->
   <footer class="rodape">
     <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>

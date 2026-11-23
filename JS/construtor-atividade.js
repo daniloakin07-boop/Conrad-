@@ -5,9 +5,9 @@ CONSTRUTOR DE QUESTÕES  (nova-atividade.html e nova-avaliacao.html)
 Cuida de TODO o formulário de criação: monta a área de questões e do tempo limite,
 confere os campos e envia para POST /api/atividades.
 
-Cada página só precisa definir, antes de carregar este script:
-    window.ATIVIDADE_TIPO   = "atividade"  (ou "avaliacao")
-    window.ATIVIDADE_ROTULO = "atividade"  (ou "avaliação")   <- usado na mensagem de sucesso
+Cada página só precisa declarar, no <body>, dois atributos de dados:
+    data-atividade-tipo="atividade"    (ou "avaliacao")
+    data-atividade-rotulo="atividade"  (ou "avaliação")   <- usado na mensagem de sucesso
 
 O que o professor controla:
   - quantas questões a atividade tem (e dá para mudar a ordem e remover);
@@ -19,13 +19,17 @@ O que o professor controla:
 Sem nenhuma questão, tudo funciona como antes: um único campo de texto para o aluno
 e uma nota só.
 
-As regras abaixo espelham as do servidor (JS/questoes.js). O servidor confere tudo de novo.
+As regras abaixo foram pensadas para espelhar as do servidor (módulo JS/questoes.js, que NÃO
+existe nesta versão do repositório). Hoje o POST /api/atividades (JS/atividades.js) lê apenas
+titulo, turma_id, data_aplicacao, valor_maximo, descricao e tipo: os campos tempo_limite_min e
+questoes enviados por este formulário são ignorados pelo servidor (a atividade é criada, mas as
+questões não são gravadas).
 */
 (function () {
     "use strict";
 
-    const TIPO = window.ATIVIDADE_TIPO === "avaliacao" ? "avaliacao" : "atividade";
-    const ROTULO = window.ATIVIDADE_ROTULO || (TIPO === "avaliacao" ? "avaliação" : "atividade");
+    const TIPO = document.body.dataset.atividadeTipo === "avaliacao" ? "avaliacao" : "atividade";
+    const ROTULO = document.body.dataset.atividadeRotulo || (TIPO === "avaliacao" ? "avaliação" : "atividade");
 
     const MAX_QUESTOES = 50;
     const MIN_ALTERNATIVAS = 2;

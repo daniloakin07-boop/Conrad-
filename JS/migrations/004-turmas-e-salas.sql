@@ -1,3 +1,12 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/004-turmas-e-salas.sql
+-- Finalidade: criar turmas com código de convite, matrículas dos alunos e sala de vídeo (video_room) por turma.
+-- Tabelas   : tb_turmas, tb_turma_alunos, tb_atividades (turma_id)
+-- NOTA: esta migração usa sintaxe MySQL (AUTO_INCREMENT, ENGINE=InnoDB...) e pertence ao histórico
+-- do projeto. O banco atual é PostgreSQL/Supabase: para criar um banco novo, use
+-- JS/migrations/supabase-schema-corrigido.sql, que já contém todas as tabelas.
+-- ============================================================================
+
 -- Execute este arquivo no banco de dados Conrad depois das migrations 001, 003 e 002.
 -- Cria turmas reais, códigos de entrada, matrículas e uma sala de vídeo por turma.
 

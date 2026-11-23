@@ -1,3 +1,12 @@
+-- ============================================================================
+-- Arquivo   : JS/migrations/006-atividades-colunas-avaliativas.sql
+-- Finalidade: garantir as colunas `avaliativa` e `aplicada` em bancos antigos (usadas pelo boletim e pelas médias).
+-- Tabelas   : tb_atividades
+-- NOTA: esta migração usa sintaxe MySQL (AUTO_INCREMENT, ENGINE=InnoDB...) e pertence ao histórico
+-- do projeto. O banco atual é PostgreSQL/Supabase: para criar um banco novo, use
+-- JS/migrations/supabase-schema-corrigido.sql, que já contém todas as tabelas.
+-- ============================================================================
+
 -- Execute no banco Conrad depois da migracao 004 e antes da 005.
 -- Bancos antigos podem ter tb_atividades sem as colunas usadas no boletim.
 

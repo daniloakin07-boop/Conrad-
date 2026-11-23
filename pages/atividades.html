@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Arquivo   : pages/atividades.html
+  Finalidade: Atalho antigo "Atividades" (somente redireciona).
+  Público   : Educador e aluno.
+  Conteúdo  : Página sem conteúdo próprio: JS/conteudo-redirect.js envia o aluno para aluno-atividades.html e o educador para professor-correcao.html. Mantida para links e favoritos antigos.
+  Relações  : CSS: variaveis, geral, componentes, atividades | JS: tema.js, config.js, conteudo-redirect.js, layout.js
+  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
+              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  ============================================================================
+-->
 <html lang="pt-BR">
+<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atividades | Conrad Virtual School</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,19 +36,9 @@
     <p>Levando você para a página de atividades…</p>
     <p><a href="aluno-atividades.html">Sou aluno</a> · <a href="professor-correcao.html">Sou educador</a></p>
   </main>
+  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
   <script src="../JS/config.js"></script>
-  <script>
-    (async function () {
-      let destino = 'login.html';
-      try {
-        const eu = await conradFetch('/me');
-        destino = eu.usuario.tipo === 'educador' ? 'professor-correcao.html' : 'aluno-atividades.html';
-      } catch (erro) {
-        // sem sessão (ou sem servidor): o login resolve
-      }
-      location.replace(destino);
-    })();
-  </script>
+  <script defer src="../JS/conteudo-redirect.js"></script>
   <script src="../JS/layout.js" defer></script>
 </body>
 </html>

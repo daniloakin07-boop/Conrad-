@@ -2,6 +2,9 @@
 ===============================================
 CORREÇÃO POR QUESTÃO — LADO DO PROFESSOR  (professor-correcao.html)
 ===============================================
+ESTADO NESTA VERSÃO DO REPOSITÓRIO: este módulo NÃO é carregado por nenhuma página
+(professor-correcao.html usa apenas professor-correcao.js) e a rota de entregas atual não
+devolve `questoes`/`respostas`. Faz parte do recurso "atividades com questões", ainda não integrado.
 Para atividades que têm questões, a página chama:
 
     CorrecaoQuestoes.criarEntrega(entrega, dados, aoSalvar)

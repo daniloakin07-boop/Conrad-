@@ -1,13 +1,32 @@
+/*
+===============================================
+JS/turmas-page.js
+===============================================
+Página: pages/turmas.html (educador e aluno) — lista de turmas.
+Finalidade:
+  - Listar as turmas do usuário em cartões (clique abre pages/turma.html?id=N), com busca local.
+  - Educador: botão "Criar turma" (modal) -> o servidor devolve o código de convite.
+  - Aluno: botão "Entrar em uma turma" (modal) -> informa o código de 8 caracteres do professor
+    e é levado ao painel da turma (aluno.html?turmaId=N).
+
+API usada (via conradFetch): GET /me, GET /api/turmas, POST /api/turmas, POST /api/turmas/entrar
+(rotas em JS/turmas.js). A busca é feita no navegador, sobre a lista já carregada.
+*/
+
 (function () {
+        // Atalho e elementos da página (ids definidos em pages/turmas.html)
     const $ = (seletor) => document.querySelector(seletor);
     const grid = $("#lista-turmas");
     const modal = $("#modal-turma");
     const busca = $("#busca-turmas");
+        // Estado: usuário logado e lista completa de turmas (a busca filtra uma cópia)
     let usuario = null;
     let turmas = [];
 
+        // Paleta usada de forma cíclica nas capas dos cartões
     const cores = ["#163b74", "#1f4e79", "#b85b17", "#315f82", "#8b4b19"];
 
+        // Cria um elemento com texto seguro (textContent)
     function criar(tag, classe, texto) {
         const elemento = document.createElement(tag);
         if (classe) elemento.className = classe;
@@ -15,12 +34,14 @@
         return elemento;
     }
 
+        // Destino ao clicar no cartão (o texto abaixo é o comentário original)
     // Cada cartão abre a sala virtual. O envio do código leva o aluno ao painel da turma.
     function destinoDaTurma(turma) {
         const id = encodeURIComponent(turma.id);
         return `turma.html?id=${id}`;
     }
 
+        // Iniciais (até 2 letras) do nome da turma para o avatar da capa
     function iniciais(nome) {
         return String(nome || "T")
             .split(/\s+/)
@@ -30,6 +51,7 @@
             .join("");
     }
 
+        // Abre o modal já no formulário certo ("criar" ou "entrar") e foca o primeiro campo
     function abrirModal(tipo) {
         const criarForm = $("#form-criar-turma");
         const entrarForm = $("#form-entrar-turma");
@@ -47,11 +69,13 @@
         primeiroCampo?.focus();
     }
 
+        // Fecha o modal (acessibilidade: atualiza aria-hidden)
     function fecharModal() {
         modal.classList.remove("aberta");
         modal.setAttribute("aria-hidden", "true");
     }
 
+        // Desenha os cartões das turmas (acessíveis por teclado: Enter/Espaço abrem a turma)
     function renderizar(lista) {
         grid.replaceChildren();
         $("#contador-turmas").textContent = `${lista.length} ${lista.length === 1 ? "turma" : "turmas"}`;
@@ -103,6 +127,7 @@
         });
     }
 
+        // Busca as turmas na API e aplica o termo de busca atual
     async function carregarTurmas() {
         try {
             const dados = await conradFetch("/api/turmas");
@@ -118,6 +143,7 @@
         }
     }
 
+        // ---- Eventos do modal: abrir (criar/entrar), fechar (botões data-fechar-modal e tecla Esc)
     $("#abrir-criar").addEventListener("click", () => abrirModal("criar"));
     $("#abrir-entrar").addEventListener("click", () => abrirModal("entrar"));
     document.querySelectorAll("[data-fechar-modal]").forEach((elemento) => elemento.addEventListener("click", fecharModal));
@@ -125,6 +151,7 @@
         if (evento.key === "Escape") fecharModal();
     });
 
+        // Criar turma (educador): POST /api/turmas; mostra o código de entrada gerado pelo servidor
     $("#form-criar-turma").addEventListener("submit", async (evento) => {
         evento.preventDefault();
         const formulario = evento.currentTarget;
@@ -155,6 +182,7 @@
         }
     });
 
+        // Entrar em turma (aluno): POST /api/turmas/entrar com o código; sucesso leva ao painel da turma
     $("#form-entrar-turma").addEventListener("submit", async (evento) => {
         evento.preventDefault();
         const botao = evento.currentTarget.querySelector('[type="submit"]');
@@ -177,6 +205,7 @@
         }
     });
 
+        // Código de convite: só maiúsculas hexadecimais (A-F, 0-9), no máximo 8 caracteres
     $("#codigo-turma").addEventListener("input", (evento) => {
         evento.target.value = evento.target.value.toUpperCase().replace(/[^A-F0-9]/g, "").slice(0, 8);
     });
@@ -187,6 +216,7 @@
         ));
     });
 
+        // Ponto de entrada: mostra o botão certo para o tipo de usuário e carrega as turmas
     (async function iniciar() {
         try {
             const sessao = await conradFetch("/me");
