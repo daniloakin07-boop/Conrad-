@@ -1,89 +1,203 @@
 // JS/login-social.js
-// Carregue na página de login DEPOIS do script do supabase-js (CDN).
-//
-// Fluxo:
-// 1) Clique no botão -> Supabase leva o usuário ao Google.
-// 2) Google -> Supabase -> volta para esta página com o token na URL.
-// 3) Enviamos o token ao seu servidor (POST /auth/supabase), que confere com o
-//    Supabase e abre a sessão do express-session. O resto do site segue igual.
+// Login e cadastro social utilizando Supabase Auth + backend Render.
 
-// Precisa ser lido ANTES de criar o cliente: o Supabase limpa a URL
-// assim que processa o token que veio do Google.
-const voltouDoProvedor = window.location.hash.includes('access_token');
-const veioComErro =
-  window.location.hash.includes('error_description') ||
-  window.location.search.includes('error_description');
+(() => {
+    const API_URL = "https://conrad.onrender.com";
 
-// TODO: Supabase -> Project Settings -> API (URL e chave publishable/anon).
-// Essas duas são públicas por design; podem ficar no front-end.
-// NUNCA coloque aqui a chave secret / service_role.
-const SUPABASE_URL = 'https://xdgguheuntobmzfyeqbc.supabase.co'; // confira com o botão Copy do Supabase
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_56pxaeACP5RiBEew651Oow_fT4rS1Ka';
+    const SUPABASE_URL = "https://xdgguheuntobmzfyeqbc.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_56pxaeACP5RiBEew651Oow_fT4rS1Ka";
 
-// Atenção ao nome: "supabase" já é a biblioteca global do CDN.
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
-const PAGINA_LOGIN = '/pages/login.html'; // TODO: confirme o caminho
-const DEPOIS_DO_LOGIN = '/';              // TODO: para onde ir após entrar
-
-function mostrarErro(mensagem) {
-  const el = document.getElementById('login-erro');
-  if (el) {
-    el.textContent = mensagem;
-    el.hidden = false;
-  } else {
-    alert(mensagem);
-  }
-}
-
-// ---------- 1) Clique nos botões ----------
-document.querySelectorAll('[data-provider]').forEach((botao) => {
-  botao.addEventListener('click', async () => {
-    botao.disabled = true;
-
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: botao.dataset.provider, // 'google' ou 'facebook'
-      options: { redirectTo: `${window.location.origin}${PAGINA_LOGIN}` },
-    });
-
-    // Se deu certo, o navegador já está indo para o Google e nada abaixo roda.
-    if (error) {
-      botao.disabled = false;
-      mostrarErro('Não foi possível iniciar o login. Tente novamente.');
-      console.error(error);
+    if (!window.supabase || !window.supabase.createClient) {
+        console.error("Biblioteca do Supabase não foi carregada.");
+        return;
     }
-  });
-});
 
-// ---------- 2) Volta do Google: abre a sessão no servidor ----------
-if (veioComErro) {
-  mostrarErro('O login foi cancelado ou falhou. Tente novamente.');
-}
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-let jaEnviado = false;
+    // Identifica se o usuário está retornando da autenticação OAuth.
+    const parametros = new URLSearchParams(window.location.search);
 
-supabaseClient.auth.onAuthStateChange((evento, sessao) => {
-  if (!voltouDoProvedor || jaEnviado || !sessao) return;
-  if (evento !== 'SIGNED_IN' && evento !== 'INITIAL_SESSION') return;
+    const voltouDoProvedor =
+        window.location.hash.includes("access_token") ||
+        parametros.has("code");
 
-  jaEnviado = true;
-  criarSessaoNoServidor(sessao.access_token);
-});
+    const veioComErro =
+        window.location.hash.includes("error_description") ||
+        parametros.has("error_description") ||
+        parametros.has("error");
 
-async function criarSessaoNoServidor(accessToken) {
-  try {
-    const resposta = await fetch('/auth/supabase', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
-      body: JSON.stringify({ access_token: accessToken }),
+    const mensagemErro =
+        document.getElementById("login-erro") ||
+        document.getElementById("mensagemLogin") ||
+        document.getElementById("mensagemCadastro");
+
+    let loginEnviado = false;
+
+    function mostrarErro(mensagem) {
+        if (mensagemErro) {
+            mensagemErro.textContent = mensagem;
+            mensagemErro.hidden = false;
+        } else {
+            alert(mensagem);
+        }
+    }
+
+    // --------------------------------------------------
+    // 1. INICIAR LOGIN COM GOOGLE OU FACEBOOK
+    // --------------------------------------------------
+
+    document.querySelectorAll("[data-provider]").forEach((botao) => {
+        botao.addEventListener("click", async () => {
+            botao.disabled = true;
+
+            try {
+                const paginaCallback = new URL(
+                    "/pages/login.html",
+                    window.location.origin
+                );
+
+                // Quando o usuário inicia pelo cadastro,
+                // preserva o tipo de conta selecionado.
+                const formularioCadastro =
+                    document.getElementById("formCadastro");
+
+                if (formularioCadastro) {
+                    const tipoSelecionado =
+                        document.querySelector('input[name="tipo"]:checked');
+
+                    paginaCallback.searchParams.set("origem", "cadastro");
+                    paginaCallback.searchParams.set(
+                        "tipo",
+                        tipoSelecionado?.value === "educador"
+                            ? "educador"
+                            : "aluno"
+                    );
+                }
+
+                const { error } =
+                    await supabaseClient.auth.signInWithOAuth({
+                        provider: botao.dataset.provider,
+                        options: {
+                            redirectTo: paginaCallback.toString()
+                        }
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+            } catch (erro) {
+                console.error("Erro ao iniciar autenticação:", erro);
+
+                botao.disabled = false;
+
+                mostrarErro(
+                    "Não foi possível iniciar o login com sua conta. Tente novamente."
+                );
+            }
+        });
     });
 
-    if (!resposta.ok) throw new Error(`Servidor respondeu ${resposta.status}`);
+    // --------------------------------------------------
+    // 2. IDENTIFICAR ERROS NO RETORNO DO PROVEDOR
+    // --------------------------------------------------
 
-    window.location.href = DEPOIS_DO_LOGIN;
-  } catch (erro) {
-    console.error(erro);
-    mostrarErro('Não foi possível concluir o login. Tente novamente.');
-  }
-}
+    if (veioComErro) {
+        mostrarErro(
+            "O login foi cancelado ou não pôde ser concluído. Tente novamente."
+        );
+    }
+
+    // --------------------------------------------------
+    // 3. RECEBER A SESSÃO DO SUPABASE
+    // --------------------------------------------------
+
+    async function criarSessaoNoServidor(sessao) {
+        if (loginEnviado || !sessao?.access_token) {
+            return;
+        }
+
+        loginEnviado = true;
+
+        try {
+            const corpo = {
+                access_token: sessao.access_token
+            };
+
+            // Preserva o tipo escolhido durante o cadastro.
+            if (parametros.get("origem") === "cadastro") {
+                corpo.tipo =
+                    parametros.get("tipo") === "educador"
+                        ? "educador"
+                        : "aluno";
+            }
+
+            const resposta = await fetch(
+                `${API_URL}/auth/supabase`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(corpo)
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.erro || `Erro do servidor: ${resposta.status}`
+                );
+            }
+
+            // Direciona conforme o tipo de usuário.
+            const pagina = dados.usuario?.tipo === "educador"
+                ? "/pages/educador.html"
+                : "/pages/turmas.html";
+
+            window.location.replace(
+                `${window.location.origin}${pagina}`
+            );
+
+        } catch (erro) {
+            console.error("Erro ao criar sessão no Render:", erro);
+
+            loginEnviado = false;
+
+            mostrarErro(
+                erro.message || "Não foi possível concluir o login."
+            );
+        }
+    }
+
+    // Só cria sessão no Render quando o usuário realmente
+    // está retornando de uma tentativa de autenticação.
+    if (voltouDoProvedor && !veioComErro) {
+        supabaseClient.auth.onAuthStateChange((evento, sessao) => {
+            if (
+                sessao &&
+                (evento === "SIGNED_IN" || evento === "INITIAL_SESSION")
+            ) {
+                criarSessaoNoServidor(sessao);
+            }
+        });
+
+        // Verifica também se a sessão já foi recuperada pelo SDK.
+        supabaseClient.auth.getSession().then(({ data, error }) => {
+            if (error) {
+                console.error("Erro ao recuperar sessão:", error);
+                return;
+            }
+
+            if (data.session) {
+                criarSessaoNoServidor(data.session);
+            }
+        });
+    }
+
+})();

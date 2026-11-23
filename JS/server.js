@@ -3,6 +3,9 @@
 1 PARTE - CONFIGURAR O SERVIDOR
 ===============================================
 */
+const crypto = require("crypto");
+const { createClient } = require("@supabase/supabase-js");
+const pool = require("./db.js");
 
 // Carrega variáveis de ambiente do arquivo .env (se existir)
 // Ex.: PORT=3000, SESSION_SECRET=chave
@@ -534,3 +537,24 @@ if (require.main === module) {
 
 // Exporta a instância `app` para testes ou uso por outros módulos
 module.exports = app;
+
+
+// Cliente Supabase utilizado para validar os tokens de autenticação.
+const SUPABASE_URL =
+    process.env.SUPABASE_URL ||
+    "https://xdgguheuntobmzfyeqbc.supabase.co";
+
+const SUPABASE_PUBLIC_KEY =
+    process.env.SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY;
+
+const supabaseAuth = SUPABASE_PUBLIC_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+            detectSessionInUrl: false
+        }
+    })
+    : null;
+    app.use(sessionMiddleware);
