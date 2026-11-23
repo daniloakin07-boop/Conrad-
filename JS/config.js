@@ -8,10 +8,10 @@ Inclua nas páginas com: <script src="../JS/config.js"></script>
     const emLiveServer =
         ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "3000";
 
-    // Live Server -> servidor local | GitHub Pages -> Render | mesma origem -> ""
+    // Live Server -> servidor local | Vercel/GitHub Pages -> Render | mesma origem -> ""
     window.CONRAD_API = emLiveServer
         ? "http://127.0.0.1:3000"
-        : location.hostname.endsWith("github.io")
+        : location.hostname.endsWith("github.io") || location.hostname.endsWith("vercel.app")
             ? "https://conrad.onrender.com"
             : "";
 

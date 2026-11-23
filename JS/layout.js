@@ -11,9 +11,13 @@
 
 (function () {
     // Mesma regra do auth.js. Fica dentro de uma função para não conflitar com o BASE_URL dele.
-    const API = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    const emServidorLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const emHospedagemRemota = window.location.hostname.endsWith("github.io") || window.location.hostname.endsWith("vercel.app");
+    const API = emServidorLocal
         ? `${window.location.protocol}//${window.location.hostname}:3000`
-        : "https://conrad.onrender.com";
+        : emHospedagemRemota
+            ? "https://conrad.onrender.com"
+            : "";
 
     // Estamos na index.html (raiz) ou dentro de /pages/ ? Isso muda o caminho dos links.
     const naRaiz = !window.location.pathname.includes("/pages/");

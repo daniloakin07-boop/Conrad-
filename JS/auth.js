@@ -5,7 +5,7 @@ const emLiveServer = ["localhost", "127.0.0.1"].includes(location.hostname) && l
 
 const API_URL = emLiveServer
   ? "http://127.0.0.1:3000"
-  : location.hostname.endsWith("github.io")
+  : location.hostname.endsWith("github.io") || location.hostname.endsWith("vercel.app")
     ? "https://conrad.onrender.com"
     : "";
   

@@ -97,7 +97,6 @@ function criarSSL(host = process.env.DB_HOST) {
         const caminho = path.resolve(process.cwd(), process.env.DB_SSL_CA_PATH);
         if (fs.existsSync(caminho)) {
             ssl.ca = fs.readFileSync(caminho);
-            ssl.rejectUnauthorized = true;
         } else {
             console.warn(`Certificado TLS não encontrado: ${caminho}`);
         }
