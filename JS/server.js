@@ -63,6 +63,8 @@ const listOrigins = [
     "http://127.0.0.1:5502",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:8081", // Expo Web no computador
+    "http://127.0.0.1:8081",
     "https://conrad-1.onrender.com", // Servidor publicado no Render
     "https://conrad.onrender.com",
     "https://daniloakin07-boop.github.io" ,
