@@ -35,6 +35,23 @@ const httpServer = http.createServer(app);
 // 2) Pool de conexão com o banco de dados PostgreSQL/Supabase
 const pool = require("./db.js");
 
+const SUPABASE_URL = process.env.SUPABASE_URL ||
+    "https://xdgguheuntobmzfyeqbc.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    process.env.SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY;
+
+const supabaseAuth = SUPABASE_PUBLISHABLE_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+            detectSessionInUrl: false
+        }
+    })
+    : null;
+
 // 3) Origens permitidas para CORS
 // Lista de endereços que podem acessar a API via browser (evita requests não autorizados)
 const listOrigins = [
@@ -105,6 +122,142 @@ if (process.env.NODE_ENV == "production") {
 const sessionMiddleware = session(sessionConfig);
 app.use(sessionMiddleware);
 
+app.post("/auth/supabase", async (req, res) => {
+    try {
+        const { access_token, tipo } = req.body;
+
+        if (!access_token) {
+            return res.status(400).json({
+                erro: "Token não informado."
+            });
+        }
+
+        if (!supabaseAuth) {
+            return res.status(503).json({
+                erro: "Supabase não configurado no servidor."
+            });
+        }
+
+        // Validar o usuário diretamente no Supabase.
+        const { data, error } =
+            await supabaseAuth.auth.getUser(access_token);
+
+        if (error || !data.user) {
+            return res.status(401).json({
+                erro: "Token inválido ou expirado."
+            });
+        }
+
+        const usuarioAuth = data.user;
+
+        if (!["google", "facebook"].includes(
+            usuarioAuth.app_metadata?.provider
+        )) {
+            return res.status(403).json({
+                erro: "Provedor não permitido."
+            });
+        }
+
+        if (!usuarioAuth.email_confirmed_at && !usuarioAuth.confirmed_at) {
+            return res.status(403).json({
+                erro: "E-mail não confirmado."
+            });
+        }
+
+        const email = String(usuarioAuth.email || "")
+            .trim()
+            .toLowerCase();
+
+        if (!email) {
+            return res.status(400).json({
+                erro: "E-mail inválido."
+            });
+        }
+
+        const nome = String(
+            usuarioAuth.user_metadata?.full_name ||
+            usuarioAuth.user_metadata?.name ||
+            email.split("@")[0]
+        ).slice(0, 100);
+
+        // Procurar conta existente.
+        const [usuarios] = await pool.execute(
+            `SELECT id, nome, email, tipo
+             FROM tb_usuarios
+             WHERE LOWER(email) = ?
+             LIMIT 1`,
+            [email]
+        );
+
+        let usuario = usuarios[0];
+
+        // Criar conta caso seja o primeiro acesso.
+        if (!usuario) {
+            const tipoConta = tipo === "educador"
+                ? "educador"
+                : "aluno";
+
+            const senha = require("crypto")
+                .randomBytes(32)
+                .toString("hex");
+
+            const senhaHash = await bcrypt.hash(senha, 10);
+
+            await pool.execute(
+                `INSERT INTO tb_usuarios
+                (nome, email, senha, tipo)
+                VALUES (?, ?, ?, ?)`,
+                [nome, email, senhaHash, tipoConta]
+            );
+
+            const [novosUsuarios] = await pool.execute(
+                `SELECT id, nome, email, tipo
+                 FROM tb_usuarios
+                 WHERE LOWER(email) = ?
+                 LIMIT 1`,
+                [email]
+            );
+
+            usuario = novosUsuarios[0];
+        }
+
+        if (!usuario) {
+            return res.status(500).json({
+                erro: "Não foi possível localizar a conta."
+            });
+        }
+
+        // Criar sessão no padrão utilizado pelo Conrad.
+        req.session.usuario = {
+            id: usuario.id,
+            nome: usuario.nome,
+            email: usuario.email,
+            tipo: usuario.tipo
+        };
+
+        req.session.save((erro) => {
+            if (erro) {
+                console.error("Erro ao salvar sessão:", erro);
+
+                return res.status(500).json({
+                    erro: "Erro ao salvar sessão."
+                });
+            }
+
+            return res.json({
+                mensagem: "Login realizado com sucesso!",
+                usuario: req.session.usuario
+            });
+        });
+
+    } catch (erro) {
+        console.error("Erro no login social:", erro);
+
+        return res.status(500).json({
+            erro: "Erro interno na autenticação."
+        });
+    }
+});
 // Rotas do bate-papo privado (a sessão identifica quem está acessando).
 app.use("/api/chat", chat.router);
 
