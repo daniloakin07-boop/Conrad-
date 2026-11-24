@@ -11,6 +11,11 @@
   estilos.textContent = `
     #conrad-ia-fab{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border:0;border-radius:50%;background:#6c63ff;color:#fff;font-size:24px;box-shadow:0 10px 28px rgba(31,41,55,.25);cursor:pointer;z-index:9998}
     #conrad-ia-fab:hover{background:#554ae6}
+    /* Telas largas: o botao fica dentro da barra lateral, abaixo de Suporte e do nome */
+    @media (min-width:1001px){
+      .menu-lateral > #conrad-ia-fab,.menu-lateral > .menu-perfil + #conrad-ia-fab{position:static;right:auto;bottom:auto;display:block;margin:18px 0 0 8px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+      #conrad-ia-painel.no-menu{left:calc(var(--painel-menu-largura,230px) + 16px);right:auto;bottom:24px}
+    }
     #conrad-ia-painel{position:fixed;right:24px;bottom:92px;width:min(380px,calc(100vw - 48px));height:min(520px,calc(100vh - 120px));background:#fff;border:1px solid #dde3ef;border-radius:16px;box-shadow:0 18px 50px rgba(31,41,55,.25);z-index:9999;display:none;overflow:hidden;font-family:Arial,sans-serif}
     #conrad-ia-painel.aberto{display:flex;flex-direction:column}
     .conrad-ia-cabecalho{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#17296a;color:#fff}
@@ -38,7 +43,19 @@
     <div id="conrad-ia-mensagens"><div class="conrad-ia-msg assistente">Olá! Posso consultar suas atividades, notas, aulas e turmas.</div></div>
     <form class="conrad-ia-form"><input name="pergunta" maxlength="500" placeholder="Digite sua pergunta..." autocomplete="off" required><button type="submit">Enviar</button></form>
   `;
-  document.body.append(fab, painel);
+  document.body.appendChild(painel);
+
+  // Se a pagina tem barra lateral, o botao vai para o espaco vazio abaixo do bloco do nome.
+  // Em paginas sem barra lateral ele continua flutuando no canto da tela.
+  const menuLateral = document.querySelector(".menu-lateral");
+  if (menuLateral) {
+    const blocoPerfil = menuLateral.querySelector(".menu-perfil");
+    if (blocoPerfil) blocoPerfil.after(fab);
+    else menuLateral.appendChild(fab);
+    painel.classList.add("no-menu");
+  } else {
+    document.body.appendChild(fab);
+  }
 
   const fechar = painel.querySelector(".conrad-ia-cabecalho button");
   const alternar = () => {
