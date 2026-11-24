@@ -1,0 +1,112 @@
+/* =====================================================================
+   LAYOUT UNIFICADO DOS PAINÉIS
+   A página Turmas é a referência visual para todas as barras laterais.
+   Este arquivo deve ser carregado depois das folhas de estilo específicas.
+   ===================================================================== */
+
+:root {
+  --painel-menu-largura: 230px;
+  --painel-topo-altura: 72px;
+}
+
+/* Todas as barras laterais compartilham a mesma largura, alinhamento,
+   altura mínima e acabamento usados em Turmas. */
+body.css-painel .menu-lateral {
+  width: var(--painel-menu-largura);
+  min-width: var(--painel-menu-largura);
+  max-width: var(--painel-menu-largura);
+  flex: 0 0 var(--painel-menu-largura);
+  align-self: stretch;
+  position: static;
+  top: auto;
+  border-radius: 0;
+  min-height: calc(100vh - var(--painel-topo-altura));
+  height: auto;
+}
+
+/* Os layouts antigos tinham contêineres e margens diferentes por página.
+   Normalizamos o contêiner externo sempre que ele contém o menu lateral. */
+body.css-painel main:has(> .menu-lateral),
+body.css-painel main:has(> .dashboard-professor > .menu-lateral) {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - var(--painel-topo-altura));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex: 1 0 auto;
+}
+
+/* Em páginas cujo menu fica dentro de .dashboard-professor, esse nível
+   também passa a ocupar a largura e a altura disponíveis. */
+body.css-painel .dashboard-professor:has(> .menu-lateral) {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: calc(100vh - var(--painel-topo-altura));
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+}
+
+/* Área de conteúdo: o respiro fica no conteúdo, nunca ao redor do menu.
+   Assim, o menu começa imediatamente abaixo do cabeçalho, como em Turmas. */
+body.css-painel main:has(> .menu-lateral) > .turmas-conteudo,
+body.css-painel main:has(> .menu-lateral) > .conteudo-dashboard,
+body.css-painel main:has(> .menu-lateral) > .pagina,
+body.css-painel .dashboard-professor:has(> .menu-lateral) > .turmas-conteudo,
+body.css-painel .dashboard-professor:has(> .menu-lateral) > .conteudo-dashboard,
+body.css-painel .dashboard-professor:has(> .menu-lateral) > .pagina {
+  flex: 1 1 0;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 26px 20px 34px 24px;
+  box-sizing: border-box;
+}
+
+/* Mantém os elementos internos da página Turmas exatamente no seu próprio
+   sistema de espaçamento, sem acrescentar um segundo nível de padding. */
+body.css-turmas main.turmas-layout > .turmas-conteudo {
+  padding: 26px 20px 34px 24px;
+}
+
+/* Em telas menores, o menu passa para cima do conteúdo, como nos layouts
+   responsivos já existentes, mantendo o mesmo estilo visual. */
+@media (max-width: 900px) {
+  body.css-painel main:has(> .menu-lateral),
+  body.css-painel main:has(> .dashboard-professor > .menu-lateral),
+  body.css-painel .dashboard-professor:has(> .menu-lateral) {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  body.css-painel .menu-lateral {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: 0 0 auto;
+    min-height: 0;
+    height: auto;
+    position: static;
+  }
+
+  body.css-painel main:has(> .menu-lateral) > .turmas-conteudo,
+  body.css-painel main:has(> .menu-lateral) > .conteudo-dashboard,
+  body.css-painel main:has(> .menu-lateral) > .pagina,
+  body.css-painel .dashboard-professor:has(> .menu-lateral) > .turmas-conteudo,
+  body.css-painel .dashboard-professor:has(> .menu-lateral) > .conteudo-dashboard,
+  body.css-painel .dashboard-professor:has(> .menu-lateral) > .pagina {
+    width: 100%;
+    padding: 22px 16px 30px;
+  }
+}
