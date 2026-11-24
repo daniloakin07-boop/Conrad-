@@ -1,24 +1,23 @@
+
 <!DOCTYPE html>
 <!--
   ============================================================================
   Arquivo   : pages/cadastro.html
   Finalidade: Tela de cadastro de conta.
   Público   : Visitantes.
-  Conteúdo  : Formulário #formCadastro (nome, e-mail, senha e tipo de conta aluno/educador). Tratado por JS/auth.js (POST /cadastro).
-  Relações  : CSS: variaveis, geral, componentes | JS: tema.js, auth.js
-  Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
-              comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
+  Conteúdo  : Formulário de cadastro e autenticação social.
+  Relações  : CSS: variaveis, geral, componentes
+              JS: tema.js, auth.js, login-social.js
   ============================================================================
 -->
 <html lang="pt-br">
-<!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CONRAD Virtual School - Cadastro</title>
-  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
+
   <script src="../JS/tema.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap">
@@ -28,24 +27,27 @@
   <link rel="icon" type="image/png" href="../img/emblema-64.png">
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
+
 <body class="css-auth">
-<!-- ============================================================================================================================ -->
+
   <header class="topo">
-            <a href="../index.html" class="logo">CONRAD</a>
-              <nav class="menu">
-                  <a href="../index.html">Início</a>
-                  <a href="sobre.html">Sobre</a>
-                  <a href="contato.html">Contato</a>
-              </nav>
+    <a href="../index.html" class="logo">CONRAD</a>
+
+    <nav class="menu">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
   </header>
-<!-- ============================================================================================================================ -->
+
   <main class="container pagina-auth">
     <section class="bloco-auth">
+
       <h1>Cadastro</h1>
       <p class="texto-auth">Crie sua conta para acessar a plataforma</p>
 
-      <!-- FORMULÁRIO #formCadastro: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
       <form class="form-auth" id="formCadastro">
+
         <label for="nome">Nome</label>
         <input type="text" id="nome" placeholder="Digite seu nome" required>
 
@@ -58,8 +60,9 @@
         <label for="confirmasenha">Confirma senha</label>
         <input type="password" id="confirmasenha" placeholder="Digite sua senha novamente" required>
 
-<!-- ============================================================================================================================ -->
+        <!-- Tipo de usuário -->
         <label>Tipo de usuário</label>
+
         <div class="tipo-usuario">
           <input type="radio" name="tipo" id="estudante" value="aluno" checked>
           <label for="estudante">Estudante</label>
@@ -68,23 +71,68 @@
           <label for="educador">Educador</label>
         </div>
 
-        <button type="submit" class="btn-primario">Cadastrar</button>
+        <!-- Autenticação social -->
+        <div class="social-login">
+
+          <div class="social-login__divider" role="separator">
+            ou continue com
+          </div>
+
+          <!-- Google -->
+          <button
+            type="button"
+            class="social-login__btn"
+            data-provider="google">
+
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+
+            Entrar com Google
+          </button>
+
+          <!-- Facebook -->
+          <button
+            type="button"
+            class="social-login__btn"
+            data-provider="facebook">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+
+            Entrar com Facebook
+          </button>
+
+        </div>
+
+        <button type="submit" class="btn-primario">
+          Cadastrar
+        </button>
 
         <p id="mensagemCadastro" class="mensagem-auth"></p>
+
       </form>
 
       <p class="link-auth">
         Já possui uma conta? <a href="login.html">Fazer Login</a>
       </p>
+
     </section>
   </main>
-<!-- ============================================================================================================================ -->
+
   <footer class="rodape">
     <p>® 2026 Conrad Virtual School. Todos os direitos reservados.</p>
     <p><a href="contato.html">Entre em contato</a></p>
   </footer>
 
-  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
+  <!-- Bibliotecas e scripts de autenticação -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="../JS/auth.js"></script>
+  <script defer src="../JS/login-social.js"></script>
+
 </body>
 </html>

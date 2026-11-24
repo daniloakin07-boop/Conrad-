@@ -3,6 +3,9 @@
 1 PARTE - CONFIGURAR O SERVIDOR
 ===============================================
 */
+const crypto = require("crypto");
+const { createClient } = require("@supabase/supabase-js");
+const pool = require("./db.js");
 
 // Carrega variáveis de ambiente do arquivo .env (se existir)
 // Ex.: PORT=3000, SESSION_SECRET=chave
