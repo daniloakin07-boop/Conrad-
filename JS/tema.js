@@ -29,6 +29,13 @@
     var TEMAS = ["normal", "claro", "escuro"];
     var RAIZ = document.documentElement;
 
+    // Menu lateral retrátil: se foi deixado recolhido, aplica já na primeira pintura
+    // (o botão e os ícones são criados depois, em layout.js). Evita o menu "pular" de
+    // largura a cada página aberta.
+    try {
+        if (localStorage.getItem("conrad-menu-recolhido") === "1") RAIZ.classList.add("menu-recolhido");
+    } catch (e) { /* sem localStorage: o menu segue expandido */ }
+
     var ROTULOS = {
         normal: "Normal",
         claro: "Claro",
