@@ -10,6 +10,8 @@ Rotas Express de TURMAS, montadas em /api por JS/server.js (app.use("/api", turm
   GET    /api/turmas/:id                     detalhes + pessoas (só professor dono ou aluno matriculado)
   DELETE /api/turmas/:id/alunos/:alunoId     professor remove um aluno da turma
 
+Turma sem educador: se o educador excluir a conta, professor_id fica NULL (JS/exclusao-conta.js e a
+migração 008): a turma e as matrículas permanecem, mas ela não aceita novos alunos nem entregas.
 Tabelas: tb_turmas (nome, disciplina, secao, descricao, codigo, video_room, professor_id),
 tb_turma_alunos (turma_id, aluno_id, entrou_em) e tb_usuarios. Veja JS/migrations/004-turmas-e-salas.sql.
 Usa o pool de JS/db.js, cujo `execute(sql, parametros)` aceita "?" como marcador de parâmetro.
@@ -90,12 +92,13 @@ router.get("/turmas", logado, async (req, res) => {
         } else {
             [linhas] = await pool.execute(
                 `SELECT t.id, t.nome, t.disciplina, t.secao, t.descricao,
-                        t.video_room, t.criada_em, u.nome AS professor,
+                        t.video_room, t.criada_em,
+                        COALESCE(u.nome, 'Educador removido') AS professor,
                         (SELECT COUNT(*) FROM tb_turma_alunos ta2 WHERE ta2.turma_id = t.id) AS quantidade_alunos,
                         'aluno' AS papel
                  FROM tb_turma_alunos ta
                  JOIN tb_turmas t ON t.id = ta.turma_id
-                 JOIN tb_usuarios u ON u.id = t.professor_id
+                 LEFT JOIN tb_usuarios u ON u.id = t.professor_id
                  WHERE ta.aluno_id = ?
                  ORDER BY ta.entrou_em DESC`,
                 [usuario.id]
@@ -165,17 +168,21 @@ router.post("/turmas/entrar", soAluno, async (req, res) => {
         }
 
         const [turmas] = await pool.execute(
-            "SELECT id, nome FROM tb_turmas WHERE codigo = ?",
+            "SELECT id, nome, professor_id FROM tb_turmas WHERE codigo = ?",
             [codigo]
         );
         if (!turmas.length) return res.status(404).json({ erro: "Nenhuma turma foi encontrada com esse código" });
+        // Turma cujo educador excluiu a conta (professor_id = NULL) não aceita novos alunos
+        if (turmas[0].professor_id === null) {
+            return res.status(409).json({ erro: "Esta turma foi encerrada e não aceita novos alunos" });
+        }
 
         await pool.execute(
             "INSERT INTO tb_turma_alunos (turma_id, aluno_id) VALUES (?, ?) ON CONFLICT DO NOTHING",
             [turmas[0].id, req.session.usuario.id]
         );
 
-        res.status(200).json({ mensagem: "Você entrou na turma", turma: turmas[0] });
+        res.status(200).json({ mensagem: "Você entrou na turma", turma: { id: turmas[0].id, nome: turmas[0].nome } });
     } catch (erro) {
         console.error("Erro ao entrar na turma:", erro);
         res.status(500).json({ erro: "Não foi possível entrar na turma" });
@@ -196,10 +203,11 @@ router.get("/turmas/:id", logado, async (req, res) => {
 
         const [turmas] = await pool.execute(
             `SELECT t.id, t.nome, t.disciplina, t.secao, t.descricao, t.codigo,
-                    t.video_room, t.criada_em, u.nome AS professor, u.id AS professor_id,
+                    t.video_room, t.criada_em,
+                    COALESCE(u.nome, 'Educador removido') AS professor, t.professor_id AS professor_id,
                     (SELECT COUNT(*) FROM tb_turma_alunos ta WHERE ta.turma_id = t.id) AS quantidade_alunos
              FROM tb_turmas t
-             JOIN tb_usuarios u ON u.id = t.professor_id
+             LEFT JOIN tb_usuarios u ON u.id = t.professor_id
              WHERE t.id = ?`,
             [turmaId]
         );
@@ -220,7 +228,10 @@ router.get("/turmas/:id", logado, async (req, res) => {
         res.json({
             turma: turmaDetalhada,
             pessoas: [
-                { id: turmas[0].professor_id, nome: turmas[0].professor, papel: "Professor" },
+                // Turma sem educador (conta excluída): a lista mostra apenas os alunos
+                ...(turmas[0].professor_id === null
+                    ? []
+                    : [{ id: turmas[0].professor_id, nome: turmas[0].professor, papel: "Professor" }]),
                 ...alunos.map((aluno) => ({ id: aluno.id, nome: aluno.nome, papel: "Aluno" }))
             ]
         });

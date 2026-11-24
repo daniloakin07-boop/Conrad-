@@ -391,3 +391,181 @@
     display: none;
   }
 }
+
+/* ==============================================================
+   5. EXCLUSÃO DE CONTA E JANELA DE CONFIRMAÇÃO
+   Usados por pages/perfil-aluno.html e pages/perfil-educador.html (JS/perfil-excluir-conta.js)
+   e pela exclusão de atividades (JS/professor-correcao.js). Só usam tokens de variaveis.css,
+   então acompanham os temas normal, claro e escuro.
+   ============================================================== */
+.zona-perigo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-top: var(--esp-6);
+  padding: var(--esp-5);
+  background: var(--c-superficie);
+  border: 1px solid var(--c-erro-borda);
+  border-radius: var(--raio-lg);
+}
+
+.zona-perigo h3 {
+  margin: 0 0 var(--esp-1);
+  color: var(--c-erro-texto);
+  font-size: var(--fs-base);
+}
+
+.zona-perigo p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--c-texto-suave);
+  font-size: var(--fs-sm);
+}
+
+.modal-conta[hidden] {
+  display: none;
+}
+
+.modal-conta {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: var(--esp-4);
+}
+
+.modal-conta-fundo {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 31, 68, 0.6);
+}
+
+.modal-conta-caixa {
+  position: relative;
+  width: min(460px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: var(--esp-6);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  border: 1px solid var(--c-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+.modal-conta-caixa h2 {
+  margin: 0 0 var(--esp-2);
+  color: var(--c-erro-texto);
+  font-size: var(--fs-lg);
+}
+
+.modal-conta-caixa p {
+  margin: 0 0 var(--esp-3);
+  font-size: var(--fs-md);
+  line-height: var(--lh-corpo);
+}
+
+.modal-conta-aviso {
+  padding: var(--esp-3);
+  background: var(--c-erro-bg);
+  border: 1px solid var(--c-erro-borda);
+  border-radius: var(--raio-md);
+  color: var(--c-erro-texto);
+  font-weight: var(--peso-medio);
+}
+
+.modal-conta-caixa label {
+  display: block;
+  margin-bottom: var(--esp-1);
+  font-weight: var(--peso-forte);
+  font-size: var(--fs-md);
+}
+
+.modal-conta-caixa input[type="password"] {
+  width: 100%;
+  min-height: var(--campo-altura);
+  padding: var(--campo-padding);
+  border: 1px solid var(--c-borda-forte);
+  border-radius: var(--campo-raio);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font: inherit;
+}
+
+.modal-conta-status {
+  min-height: 1.4em;
+  margin: var(--esp-2) 0 0;
+  font-size: var(--fs-sm);
+  font-weight: var(--peso-forte);
+}
+
+.modal-conta-status.erro {
+  color: var(--c-erro-texto);
+}
+
+.modal-conta-status.ok {
+  color: var(--c-ok-texto);
+}
+
+.modal-conta-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--esp-2);
+  margin-top: var(--esp-4);
+}
+
+/* Campos de formulário dentro da janela (edição de atividade em professor-correcao.html) */
+.modal-conta-campo {
+  margin-bottom: var(--esp-3);
+}
+
+.modal-conta-linha {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--esp-3);
+}
+
+.modal-conta-caixa :is(input[type="text"], input[type="date"], input[type="number"], select, textarea) {
+  width: 100%;
+  min-height: var(--campo-altura);
+  padding: var(--campo-padding);
+  border: 1px solid var(--c-borda-forte);
+  border-radius: var(--campo-raio);
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  font: inherit;
+}
+
+.modal-conta-caixa textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.modal-conta-caixa :is(input, select, textarea):disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-conta-caixa small {
+  display: block;
+  margin-top: var(--esp-1);
+  color: var(--c-texto-suave);
+  font-size: var(--fs-xs);
+}
+
+/* Título neutro (edição); o vermelho fica só nas janelas de exclusão */
+.modal-conta-caixa h2.modal-conta-titulo-neutro {
+  color: var(--c-texto);
+}
+
+/* Linha de ações administrativas do cartão de atividade (Editar / Excluir) */
+.acoes-atividade {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin-top: var(--esp-2);
+}

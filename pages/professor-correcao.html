@@ -110,6 +110,69 @@
 
   </main>
   <!-- ============================================================================================================================ -->
+  <!-- JANELA DE EDIÇÃO DA ATIVIDADE: abre preenchida com os dados atuais; envio tratado por JS/professor-correcao.js (PUT /api/atividades/:id) -->
+  <div class="modal-conta" id="modalEditarAtividade" hidden>
+    <div class="modal-conta-fundo" data-fechar-edicao></div>
+    <section class="modal-conta-caixa" role="dialog" aria-modal="true" aria-labelledby="tituloModalEditar">
+      <h2 id="tituloModalEditar" class="modal-conta-titulo-neutro">Editar atividade</h2>
+      <form id="formEditarAtividade" novalidate>
+        <div class="modal-conta-campo">
+          <label for="editarTitulo">Título</label>
+          <input id="editarTitulo" type="text" maxlength="160" required>
+        </div>
+        <div class="modal-conta-campo">
+          <label for="editarTurma">Turma</label>
+          <select id="editarTurma"></select>
+          <small id="dicaTurma" hidden>A turma e o tipo não podem mudar porque já existem entregas.</small>
+        </div>
+        <div class="modal-conta-linha">
+          <div class="modal-conta-campo">
+            <label for="editarData">Data de entrega</label>
+            <input id="editarData" type="date">
+          </div>
+          <div class="modal-conta-campo">
+            <label for="editarValor">Valor máximo</label>
+            <input id="editarValor" type="number" min="0.01" max="1000" step="any" required>
+          </div>
+          <div class="modal-conta-campo">
+            <label for="editarTipo">Tipo</label>
+            <select id="editarTipo">
+              <option value="atividade">Atividade</option>
+              <option value="avaliacao">Avaliação</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-conta-campo">
+          <label for="editarDescricao">Descrição</label>
+          <textarea id="editarDescricao" maxlength="5000"></textarea>
+        </div>
+        <p class="modal-conta-status" id="statusEditar" role="status" aria-live="polite"></p>
+        <div class="modal-conta-acoes">
+          <button type="button" class="btn-secundario" id="cancelarEditar" data-fechar-edicao>Cancelar</button>
+          <button type="submit" class="btn-primario" id="salvarEditar">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- JANELA DE CONFIRMAÇÃO DA EXCLUSÃO DA ATIVIDADE (DELETE /api/atividades/:id) -->
+  <div class="modal-conta" id="modalExcluirAtividade" hidden>
+    <div class="modal-conta-fundo" data-fechar-exclusao></div>
+    <section class="modal-conta-caixa" role="dialog" aria-modal="true" aria-labelledby="tituloModalExcluirAtividade">
+      <h2 id="tituloModalExcluirAtividade">Excluir atividade</h2>
+      <p id="textoExcluirAtividade"></p>
+      <p class="modal-conta-aviso">
+        Esta ação é <strong>permanente</strong>: a atividade, as <strong>entregas</strong> e as <strong>notas</strong>
+        vinculadas a ela serão removidas e os alunos deixarão de vê-la.
+      </p>
+      <p class="modal-conta-status" id="statusExcluirAtividade" role="status" aria-live="polite"></p>
+      <div class="modal-conta-acoes">
+        <button type="button" class="btn-secundario" id="cancelarExcluirAtividade" data-fechar-exclusao>Cancelar</button>
+        <button type="button" class="btn-perigo" id="confirmarExcluirAtividade">Excluir atividade</button>
+      </div>
+    </section>
+  </div>
+
   <footer class="rodape">
     <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
   </footer>

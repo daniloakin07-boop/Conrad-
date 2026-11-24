@@ -15,6 +15,8 @@ Observações:
   - Os valores dos campos (nome, e-mail, cargo etc.) são texto de exemplo escritos no próprio HTML;
     esta página ainda não carrega nem grava dados reais do educador.
   - Os atalhos de chat com alunos desta página ficam em JS/perfil-chat.js.
+  - ATENÇÃO: o botão "Excluir minha conta" NÃO é demonstrativo. Ele é tratado por
+    JS/perfil-excluir-conta.js e chama a rota real DELETE /conta (JS/exclusao-conta.js).
 Depende dos ids do HTML: #photoInput, #profilePreview, #profileForm, #nome, #email
 e da classe .perfil-foto-btn.
 */

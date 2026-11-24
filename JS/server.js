@@ -3,9 +3,6 @@
 1 PARTE - CONFIGURAR O SERVIDOR
 ===============================================
 */
-const crypto = require("crypto");
-const { createClient } = require("@supabase/supabase-js");
-const pool = require("./db.js");
 
 // Carrega variáveis de ambiente do arquivo .env (se existir)
 // Ex.: PORT=3000, SESSION_SECRET=chave
@@ -26,6 +23,7 @@ const bcrypt = require("bcryptjs");
 const { Server } = require("socket.io");
 const mediasRoutes = require("./medias.js");
 const chat = require("./chat.js");
+const { criarManipuladorExclusao } = require("./exclusao-conta.js");
 const paginasProtegidas = ["aluno.html", "educador.html", "salas.html", "turmas.html", "turma.html", "atividades.html", "avaliacoes.html", "aluno-atividades.html", "professor-correcao.html", "nova-atividade.html", "nova-avaliacao.html", "perfil-aluno.html", "perfil-educador.html", "boletim.html", "bate-papo.html"];
 
 // Cria a instância principal do servidor Express
@@ -49,38 +47,14 @@ const listOrigins = [
     "https://conrad-1.onrender.com", // Servidor publicado no Render
     "https://conrad.onrender.com",
     "https://daniloakin07-boop.github.io" ,
-    "https://conrad-phi.vercel.app",
-    "http://localhost:8081",
-    "http://127.0.0.1:8081",
-    "http://localhost:8082",
-    "http://127.0.0.1:8082",
+    "https://conrad-phi.vercel.app"
 ];
 
-// CORS dinâmico: permite Expo Web local, IP da rede e origens públicas conhecidas.
-const origemCorsPermitida = (origin, callback) => {
-    if (!origin || listOrigins.includes(origin)) {
-        return callback(null, true);
-    }
-
-    try {
-        const url = new URL(origin);
-        const hostLocal = url.hostname === "localhost" ||
-            url.hostname === "127.0.0.1" ||
-            /^10\./.test(url.hostname) ||
-            /^192\.168\./.test(url.hostname) ||
-            /^172\.(1[6-9]|2\d|3[01])\./.test(url.hostname);
-        const origemExpo = url.protocol === "exp:" || url.protocol === "exps:";
-        return callback(null, hostLocal || origemExpo);
-    } catch {
-        return callback(null, false);
-    }
-};
-
 // 4) Configurar CORS
-// - `origin` valida origens Web locais/públicas e permite solicitações sem Origin (mobile).
+// - `origin` limita quem pode chamar a API
 // - `credentials: true` permite enviar cookies com as requisições
 app.use(cors({
-    origin: origemCorsPermitida,
+    origin: listOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -143,14 +117,11 @@ app.use("/api", atividadesRoutes);
 const turmasRoutes = require("./turmas.js");
 app.use("/api", turmasRoutes);
 
-// Agente de IA para consultas escolares por linguagem natural.
-app.use("/api", require("./agente.js"));
-
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
 const io = new Server(httpServer, {
     cors: {
-        origin: origemCorsPermitida,
+        origin: listOrigins,
         credentials: true
     },
     // Imagens/áudios de até 3 MB chegam codificados em Base64.
@@ -210,6 +181,8 @@ const arquivosBloqueados = [
     "/package.json",
     "/package-lock.json",
     "/js/chat.js",
+    "/js/exclusao-conta.js",
+    "/js/utilitarios-banco.js",
 ];
 
 app.use((req, res, next) => {
@@ -345,10 +318,25 @@ app.post("/login", async (req, res) => {
 });
 
 // Rota para verificar sessão do usuário atual
-// Retorna se o usuário está logado e seus dados básicos
-app.get("/me", (req, res) => {
+// Retorna se o usuário está logado e seus dados básicos.
+// Também confere no banco se a conta ainda existe: se ela foi excluída em outro dispositivo, a
+// sessão antiga é encerrada aqui (evita "usuário fantasma" depois de DELETE /conta).
+app.get("/me", async (req, res) => {
     if (!req.session.usuario) {
         return res.status(401).json({ logado: false });
+    }
+
+    try {
+        const [contas] = await pool.execute("SELECT id FROM tb_usuarios WHERE id = ? LIMIT 1", [req.session.usuario.id]);
+        if (!contas.length) {
+            return req.session.destroy(() => {
+                res.clearCookie("conrad.sid");
+                res.status(401).json({ logado: false });
+            });
+        }
+    } catch (erro) {
+        // Falha momentânea do banco não deve derrubar a sessão: segue com os dados da sessão
+        console.error("Erro ao validar a conta em /me:", erro.message);
     }
 
     res.json({
@@ -511,6 +499,17 @@ app.put("/perfil", async (req, res) => {
     }
 });
 
+// Exclusão DEFINITIVA da própria conta (Web e Mobile). Exige sessão + senha atual no corpo: { senha }.
+// O ID excluído é sempre o da sessão. Toda a regra (transação, política de dados dos alunos,
+// educadores e conversas) está em JS/exclusao-conta.js.
+const { maxAge: _ignorado, ...atributosCookie } = sessionConfig.cookie;
+app.delete("/conta", criarManipuladorExclusao({
+    pool,
+    bcrypt,
+    nomeCookie: sessionConfig.name,
+    opcoesCookie: atributosCookie
+}));
+
 // Rota de logout: destrói a sessão e limpa o cookie no navegador
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
@@ -564,24 +563,3 @@ if (require.main === module) {
 
 // Exporta a instância `app` para testes ou uso por outros módulos
 module.exports = app;
-
-
-// Cliente Supabase utilizado para validar os tokens de autenticação.
-const SUPABASE_URL =
-    process.env.SUPABASE_URL ||
-    "https://xdgguheuntobmzfyeqbc.supabase.co";
-
-const SUPABASE_PUBLIC_KEY =
-    process.env.SUPABASE_PUBLISHABLE_KEY ||
-    process.env.SUPABASE_ANON_KEY;
-
-const supabaseAuth = SUPABASE_PUBLIC_KEY
-    ? createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {
-        auth: {
-            autoRefreshToken: false,
-            persistSession: false,
-            detectSessionInUrl: false
-        }
-    })
-    : null;
-    app.use(sessionMiddleware);

@@ -9,10 +9,13 @@ Fluxo:
   4. Professor vê as entregas            -> GET  /api/atividades/:id/entregas
   5. Professor dá nota e feedback        -> PUT  /api/entregas/:id/correcao
   6. Aluno vê nota e feedback            -> GET  /api/aluno/atividades
+  7. Professor edita a atividade         -> PUT    /api/atividades/:id      (somente o autor)
+  8. Professor exclui a atividade        -> DELETE /api/atividades/:id      (somente o autor)
 */
 
 const express = require("express");
 const pool = require("./db.js");
+const { tabelasExistentes } = require("./utilitarios-banco.js");
 
 const router = express.Router();
 
@@ -226,6 +229,207 @@ router.put("/entregas/:id/correcao", soEducador, async (req, res) => {
 
 /*
 ===============================================
+EDIÇÃO E EXCLUSÃO DE ATIVIDADES (somente o educador autor)
+===============================================
+A propriedade é sempre conferida NO SERVIDOR pelo par (id da atividade, criado_por = educador da
+sessão). Para quem não é o autor a resposta é 404 (não revela que a atividade existe).
+Web (professor-correcao.js) e Mobile (api.editarAtividade / api.excluirAtividade) usam as mesmas rotas.
+*/
+
+// Erro com código HTTP: lançado dentro das transações para provocar ROLLBACK e responder ao cliente
+function erroHttp(status, mensagem) {
+    const erro = new Error(mensagem);
+    erro.status = status;
+    return erro;
+}
+
+// 'AAAA-MM-DD' que realmente existe no calendário (rejeita 2026-02-31)
+function dataIsoValida(texto) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto);
+    if (!m) return false;
+    const [, a, mes, d] = m.map(Number);
+    const data = new Date(Date.UTC(a, mes - 1, d));
+    return data.getUTCFullYear() === a && data.getUTCMonth() === mes - 1 && data.getUTCDate() === d;
+}
+
+// Atualizar atividade ou avaliação já publicada
+router.put("/atividades/:id", soEducador, async (req, res) => {
+    let conexao;
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isSafeInteger(id) || id <= 0) return res.status(400).json({ erro: "Atividade inválida" });
+        const educadorId = req.session.usuario.id;
+        const corpo = req.body || {};
+
+        conexao = await pool.getConnection();
+        await conexao.beginTransaction();
+
+        // FOR UPDATE trava a linha: uma correção feita ao mesmo tempo não consegue invalidar a checagem do valor máximo
+        const [atuais] = await conexao.execute(
+            `SELECT id, titulo, turma, turma_id, disciplina,
+                    TO_CHAR(data_aplicacao, 'YYYY-MM-DD') AS data_aplicacao,
+                    valor_maximo, descricao, tipo
+             FROM tb_atividades WHERE id = ? AND criado_por = ? FOR UPDATE`,
+            [id, educadorId]
+        );
+        if (!atuais.length) throw erroHttp(404, "Atividade não encontrada");
+        const atual = atuais[0];
+
+        // ---- validação dos campos (o que não vier no corpo permanece como está) ----
+        const titulo = corpo.titulo === undefined ? atual.titulo : String(corpo.titulo ?? "").trim();
+        if (!titulo) throw erroHttp(400, "Preencha o título");
+        if (titulo.length > 160) throw erroHttp(400, "O título deve ter no máximo 160 caracteres");
+
+        let descricao = atual.descricao;
+        if (corpo.descricao !== undefined) {
+            descricao = corpo.descricao === null ? null : String(corpo.descricao).trim() || null;
+            if (descricao && descricao.length > 5000) throw erroHttp(400, "A descrição deve ter no máximo 5000 caracteres");
+        }
+
+        let dataAplicacao = atual.data_aplicacao;
+        if (corpo.data_aplicacao !== undefined) {
+            dataAplicacao = corpo.data_aplicacao === null || corpo.data_aplicacao === "" ? null : String(corpo.data_aplicacao);
+            if (dataAplicacao && !dataIsoValida(dataAplicacao)) throw erroHttp(400, "Data de entrega inválida");
+        }
+
+        let valor = Number(atual.valor_maximo);
+        if (corpo.valor_maximo !== undefined) {
+            valor = Number(corpo.valor_maximo);
+            if (corpo.valor_maximo === null || corpo.valor_maximo === "" || !Number.isFinite(valor) || valor <= 0 || valor > 1000) {
+                throw erroHttp(400, "Valor máximo inválido");
+            }
+            valor = Math.round(valor * 100) / 100; // a coluna é NUMERIC(7,2)
+        }
+
+        let tipo = atual.tipo;
+        if (corpo.tipo !== undefined) {
+            if (!["atividade", "avaliacao"].includes(corpo.tipo)) throw erroHttp(400, "Tipo inválido");
+            tipo = corpo.tipo;
+        }
+
+        let turmaId = atual.turma_id;
+        if (corpo.turma_id !== undefined) {
+            turmaId = Number(corpo.turma_id);
+            if (!Number.isSafeInteger(turmaId) || turmaId <= 0) throw erroHttp(400, "Selecione uma turma válida");
+        }
+
+        // ---- consistência com entregas e notas já existentes ----
+        const [linhasEntregas] = await conexao.execute(
+            "SELECT COUNT(*) AS total FROM tb_entregas WHERE atividade_id = ?", [id]);
+        const [linhasNotas] = await conexao.execute(
+            "SELECT COUNT(*) AS total, MAX(nota) AS maior FROM tb_notas WHERE atividade_id = ?", [id]);
+        const totalEntregas = Number(linhasEntregas[0].total);
+        const totalNotas = Number(linhasNotas[0].total);
+        const maior = linhasNotas[0].maior;
+
+        // Nunca deixa o valor máximo abaixo de uma nota já lançada
+        if (totalNotas > 0 && valor < Number(maior)) {
+            throw erroHttp(409, `O valor máximo não pode ser menor que a maior nota já lançada (${Number(maior)})`);
+        }
+
+        // Troca de turma ou de tipo só é permitida enquanto não há entregas nem notas
+        let turmaNome = atual.turma;
+        let disciplina = atual.disciplina;
+        const mudouTurma = turmaId !== (atual.turma_id === null ? null : Number(atual.turma_id));
+        if (mudouTurma) {
+            if (totalEntregas > 0 || totalNotas > 0) {
+                throw erroHttp(409, "Não é possível trocar a turma de uma atividade que já tem entregas ou notas");
+            }
+            // O educador só publica em turmas que ele mesmo criou; nome e disciplina vêm do banco
+            const [turmas] = await conexao.execute(
+                "SELECT id, nome, disciplina FROM tb_turmas WHERE id = ? AND professor_id = ?",
+                [turmaId, educadorId]
+            );
+            if (!turmas.length) throw erroHttp(403, "Você não pode publicar nesta turma");
+            turmaNome = turmas[0].nome;
+            disciplina = turmas[0].disciplina;
+        }
+        if (tipo !== atual.tipo && totalEntregas > 0) {
+            throw erroHttp(409, "Não é possível alterar o tipo de uma atividade que já tem entregas");
+        }
+
+        // ---- grava: só os campos editáveis (criado_por, criada_em, avaliativa e aplicada permanecem) ----
+        await conexao.execute(
+            `UPDATE tb_atividades
+                SET titulo = ?, turma = ?, turma_id = ?, disciplina = ?, data_aplicacao = ?,
+                    valor_maximo = ?, descricao = ?, tipo = ?
+              WHERE id = ? AND criado_por = ?`,
+            [titulo, turmaNome, turmaId, disciplina, dataAplicacao, valor, descricao, tipo, id, educadorId]
+        );
+
+        // Devolve a atividade já no formato da listagem, para o cliente atualizar a tela sem nova consulta
+        const [atualizadas] = await conexao.execute(
+            `SELECT ${COLUNAS_ATIVIDADE},
+                (SELECT COUNT(*) FROM tb_entregas e WHERE e.atividade_id = a.id) AS total_entregas,
+                (SELECT COUNT(*) FROM tb_entregas e
+                    WHERE e.atividade_id = a.id AND e.corrigida_em IS NOT NULL) AS corrigidas
+             FROM tb_atividades a WHERE a.id = ?`,
+            [id]
+        );
+        await conexao.commit();
+        res.json({ mensagem: "Atividade atualizada", atividade: atualizadas[0] });
+    } catch (error) {
+        if (conexao) await conexao.rollback().catch(() => {});
+        if (error.status) return res.status(error.status).json({ erro: error.message });
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao atualizar atividade" });
+    } finally {
+        if (conexao) conexao.release();
+    }
+});
+
+// Excluir atividade/avaliação. Remove também as entregas, respostas e notas DESTA atividade (e só dela).
+router.delete("/atividades/:id", soEducador, async (req, res) => {
+    let conexao;
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isSafeInteger(id) || id <= 0) return res.status(400).json({ erro: "Atividade inválida" });
+        const educadorId = req.session.usuario.id;
+
+        conexao = await pool.getConnection();
+        await conexao.beginTransaction();
+
+        // Confere a autoria e trava a linha (evita corrigir/entregar no meio da exclusão)
+        const [donas] = await conexao.execute(
+            "SELECT id FROM tb_atividades WHERE id = ? AND criado_por = ? FOR UPDATE",
+            [id, educadorId]
+        );
+        if (!donas.length) throw erroHttp(404, "Atividade não encontrada");
+
+        // Tabelas do recurso de questões são opcionais; as demais são removidas explicitamente
+        // (não dependemos apenas do ON DELETE CASCADE, que pode não existir em bancos antigos).
+        const existentes = await tabelasExistentes(conexao, ["tb_respostas", "tb_questoes", "tb_inicios"]);
+        if (existentes.has("tb_respostas")) {
+            await conexao.execute(
+                "DELETE FROM tb_respostas WHERE entrega_id IN (SELECT id FROM tb_entregas WHERE atividade_id = ?)",
+                [id]
+            );
+        }
+        if (existentes.has("tb_questoes")) await conexao.execute("DELETE FROM tb_questoes WHERE atividade_id = ?", [id]);
+        if (existentes.has("tb_inicios")) await conexao.execute("DELETE FROM tb_inicios WHERE atividade_id = ?", [id]);
+
+        const [notas] = await conexao.execute("DELETE FROM tb_notas WHERE atividade_id = ?", [id]);
+        const [entregas] = await conexao.execute("DELETE FROM tb_entregas WHERE atividade_id = ?", [id]);
+        await conexao.execute("DELETE FROM tb_atividades WHERE id = ? AND criado_por = ?", [id, educadorId]);
+
+        await conexao.commit();
+        res.json({
+            mensagem: "Atividade excluída",
+            id,
+            removidas: { entregas: entregas.affectedRows, notas: notas.affectedRows }
+        });
+    } catch (error) {
+        if (conexao) await conexao.rollback().catch(() => {});
+        if (error.status) return res.status(error.status).json({ erro: error.message });
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao excluir atividade" });
+    } finally {
+        if (conexao) conexao.release();
+    }
+});
+
+/*
+===============================================
 ALUNO
 ===============================================
 */
@@ -322,6 +526,12 @@ router.post("/atividades/:id/entrega", soAluno, async (req, res) => {
                 [atividades[0].turma_id, alunoId]
             );
             if (!matriculas.length) return res.status(403).json({ erro: "Você não está matriculado na turma desta atividade" });
+
+            // Turma cujo educador excluiu a conta (professor_id = NULL): ninguém poderá corrigir, então não recebe entregas
+            const [donos] = await pool.execute("SELECT professor_id FROM tb_turmas WHERE id = ?", [atividades[0].turma_id]);
+            if (!donos.length || donos[0].professor_id === null) {
+                return res.status(409).json({ erro: "Esta turma está sem educador responsável e não recebe novas entregas" });
+            }
         } else {
             // Atividade antiga, de antes das turmas com código: vale só para a turma que o aluno tinha salva.
             const [usuarios] = await pool.execute("SELECT turma FROM tb_usuarios WHERE id = ?", [alunoId]);

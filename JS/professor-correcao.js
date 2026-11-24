@@ -15,7 +15,14 @@ API usada (via conradFetch, de JS/config.js):
   GET /api/atividades[?turmaId&tipo]   -> lista do professor, com total de entregas/corrigidas
   GET /api/atividades/:id/entregas     -> entregas de uma atividade (carregadas só ao abrir)
   PUT /api/entregas/:id/correcao       -> grava { nota, feedback } (JS/atividades.js)
+  PUT /api/atividades/:id              -> botão "Editar": atualiza título, turma, prazo, valor, tipo e descrição
+  DELETE /api/atividades/:id           -> botão "Excluir atividade": remove a atividade, entregas e notas
   POST /logout                         -> botão Sair
+
+Edição e exclusão: só aparecem para o educador autor (esta página é exclusiva de educadores e a lista
+vem de GET /api/atividades, que só devolve atividades do próprio educador). O SERVIDOR confere a
+autoria de novo em cada operação; aqui apenas exibimos as mensagens de erro que ele devolver
+(ex.: valor máximo menor que uma nota já lançada).
 
 Regra de negócio: a nota precisa estar entre 0 e o valor máximo da atividade
 (conferido aqui e também no servidor).
@@ -28,6 +35,8 @@ const $ = (seletor) => document.querySelector(seletor);
 const params = new URLSearchParams(location.search);
 const seletorTurma = $('#filtro-turma');
 const seletorTipo = $('#filtro-tipo');
+// Turmas do educador (preenchida em iniciar()); alimenta o seletor de turma da janela de edição
+let turmasDoEducador = [];
 
 // Restaura o filtro de tipo vindo da URL (só aceita valores válidos)
 seletorTipo.value = ['atividade', 'avaliacao'].includes(params.get('tipo')) ? params.get('tipo') : '';
@@ -222,11 +231,167 @@ function criarCard(atividade) {
         }
     });
 
+    // Ações administrativas (só o educador autor vê esta página): editar e excluir
+    const botaoEditar = h('button', 'btn-sec btn-sm', 'Editar');
+    botaoEditar.type = 'button';
+    botaoEditar.addEventListener('click', () => abrirEdicao(atividade));
+    const botaoExcluir = h('button', 'btn-perigo btn-sm', 'Excluir atividade');
+    botaoExcluir.type = 'button';
+    botaoExcluir.addEventListener('click', () => abrirExclusao(atividade));
+    const acoesAtividade = h('div', 'acoes-atividade');
+    acoesAtividade.append(botaoEditar, botaoExcluir);
+
     card.append(topo, h('h3', null, atividade.titulo), meta);
     if (atividade.descricao) card.append(h('p', 'meta', atividade.descricao));
-    card.append(botao, area);
+    card.append(botao, acoesAtividade, area);
     return card;
 }
+
+// ---------------------------------------------------------------- Editar e excluir atividade
+// true enquanto uma requisição de edição/exclusão está em andamento (evita cliques repetidos)
+let operando = false;
+
+// Abre/fecha uma janela (.modal-conta). Não fecha enquanto há requisição em andamento.
+function abrirJanela(janela) {
+    janela.hidden = false;
+    document.body.style.overflow = 'hidden';
+}
+function fecharJanela(janela) {
+    if (operando) return;
+    janela.hidden = true;
+    document.body.style.overflow = '';
+}
+
+// Mostra mensagem de status dentro da janela (tipo: 'erro' | 'ok' | '')
+function mostrarStatus(elemento, texto, tipo) {
+    elemento.textContent = texto;
+    elemento.className = 'modal-conta-status' + (tipo ? ' ' + tipo : '');
+}
+
+const janelaEdicao = $('#modalEditarAtividade');
+const formEdicao = $('#formEditarAtividade');
+const statusEdicao = $('#statusEditar');
+const janelaExclusao = $('#modalExcluirAtividade');
+const statusExclusao = $('#statusExcluirAtividade');
+let atividadeEmEdicao = null;
+let atividadeParaExcluir = null;
+
+/**
+ * Abre a janela de edição JÁ PREENCHIDA com os dados atuais da atividade.
+ * Com entregas existentes, turma e tipo ficam bloqueados (o servidor também recusa a troca).
+ */
+function abrirEdicao(atividade) {
+    atividadeEmEdicao = atividade;
+    $('#editarTitulo').value = atividade.titulo || '';
+    $('#editarData').value = atividade.data_aplicacao ? String(atividade.data_aplicacao).slice(0, 10) : '';
+    $('#editarValor').value = Number(atividade.valor_maximo);
+    $('#editarTipo').value = atividade.tipo === 'avaliacao' ? 'avaliacao' : 'atividade';
+    $('#editarDescricao').value = atividade.descricao || '';
+
+    // Seletor de turma: as turmas do educador; se a turma atual não estiver na lista, ela é incluída
+    const seletor = $('#editarTurma');
+    seletor.replaceChildren();
+    const opcoes = turmasDoEducador.map((turma) => ({ id: turma.id, texto: turma.nome + ' — ' + turma.disciplina }));
+    if (atividade.turma_id && !opcoes.some((opcao) => Number(opcao.id) === Number(atividade.turma_id))) {
+        opcoes.unshift({ id: atividade.turma_id, texto: atividade.turma });
+    }
+    opcoes.forEach((opcao) => seletor.add(new Option(opcao.texto, String(opcao.id))));
+    if (atividade.turma_id) seletor.value = String(atividade.turma_id);
+
+    const temEntregas = Number(atividade.total_entregas || 0) > 0;
+    seletor.disabled = temEntregas;
+    $('#editarTipo').disabled = temEntregas;
+    $('#dicaTurma').hidden = !temEntregas;
+
+    mostrarStatus(statusEdicao, '', '');
+    abrirJanela(janelaEdicao);
+    $('#editarTitulo').focus();
+}
+
+// Abre a confirmação de exclusão informando quantas entregas serão removidas
+function abrirExclusao(atividade) {
+    atividadeParaExcluir = atividade;
+    const total = Number(atividade.total_entregas || 0);
+    $('#textoExcluirAtividade').textContent =
+        'Você vai excluir “' + atividade.titulo + '”' +
+        (total ? ', que possui ' + total + ' entrega(s) de alunos.' : '.');
+    mostrarStatus(statusExclusao, '', '');
+    abrirJanela(janelaExclusao);
+}
+
+// Botões de fechar e tecla Esc das duas janelas
+janelaEdicao.querySelectorAll('[data-fechar-edicao]').forEach((el) => el.addEventListener('click', () => fecharJanela(janelaEdicao)));
+janelaExclusao.querySelectorAll('[data-fechar-exclusao]').forEach((el) => el.addEventListener('click', () => fecharJanela(janelaExclusao)));
+document.addEventListener('keydown', (evento) => {
+    if (evento.key !== 'Escape') return;
+    if (!janelaEdicao.hidden) fecharJanela(janelaEdicao);
+    if (!janelaExclusao.hidden) fecharJanela(janelaExclusao);
+});
+
+// Salvar edição: PUT /api/atividades/:id. A lista só é recarregada depois da confirmação do servidor.
+formEdicao.addEventListener('submit', async (evento) => {
+    evento.preventDefault();
+    if (operando || !atividadeEmEdicao) return;
+
+    const titulo = $('#editarTitulo').value.trim();
+    const valor = Number($('#editarValor').value);
+    if (!titulo) return mostrarStatus(statusEdicao, 'Preencha o título.', 'erro');
+    if (!Number.isFinite(valor) || valor <= 0 || valor > 1000) {
+        return mostrarStatus(statusEdicao, 'Informe um valor maior que zero e de até 1000.', 'erro');
+    }
+
+    operando = true;
+    const botaoSalvar = $('#salvarEditar');
+    botaoSalvar.disabled = true;
+    botaoSalvar.textContent = 'Salvando...';
+    mostrarStatus(statusEdicao, '', '');
+    try {
+        await conradFetch('/api/atividades/' + atividadeEmEdicao.id, {
+            method: 'PUT',
+            body: JSON.stringify({
+                titulo,
+                turma_id: Number($('#editarTurma').value) || undefined,
+                data_aplicacao: $('#editarData').value || null,
+                valor_maximo: valor,
+                descricao: $('#editarDescricao').value.trim(),
+                tipo: $('#editarTipo').value
+            })
+        });
+        operando = false;
+        fecharJanela(janelaEdicao);
+        await carregar(); // reflete a alteração na lista imediatamente
+    } catch (erro) {
+        if (erro.status === 401) { location.href = 'login.html'; return; }
+        mostrarStatus(statusEdicao, erro.message, 'erro');
+    } finally {
+        operando = false;
+        botaoSalvar.disabled = false;
+        botaoSalvar.textContent = 'Salvar alterações';
+    }
+});
+
+// Confirmar exclusão: DELETE /api/atividades/:id
+$('#confirmarExcluirAtividade').addEventListener('click', async () => {
+    if (operando || !atividadeParaExcluir) return;
+    operando = true;
+    const botao = $('#confirmarExcluirAtividade');
+    botao.disabled = true;
+    botao.textContent = 'Excluindo...';
+    mostrarStatus(statusExclusao, '', '');
+    try {
+        await conradFetch('/api/atividades/' + atividadeParaExcluir.id, { method: 'DELETE' });
+        operando = false;
+        fecharJanela(janelaExclusao);
+        await carregar();
+    } catch (erro) {
+        if (erro.status === 401) { location.href = 'login.html'; return; }
+        mostrarStatus(statusExclusao, erro.message, 'erro');
+    } finally {
+        operando = false;
+        botao.disabled = false;
+        botao.textContent = 'Excluir atividade';
+    }
+});
 
 // Busca as atividades do professor conforme os filtros e redesenha a lista
 async function carregar() {
@@ -271,7 +436,8 @@ $('#sair').addEventListener('click', (evento) => {
         $('#nome-usuario').textContent = '👤 ' + eu.usuario.nome;
 
         const dados = await conradFetch('/api/turmas');
-        (dados.turmas || []).forEach((turma) => {
+        turmasDoEducador = dados.turmas || [];
+        turmasDoEducador.forEach((turma) => {
             seletorTurma.add(new Option(turma.nome + ' — ' + turma.disciplina, String(turma.id)));
         });
         const turmaInicial = params.get('turmaId');

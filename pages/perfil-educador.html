@@ -163,10 +163,41 @@
           </aside>
         </section>
 
+        <!-- ZONA DE PERIGO: exclusão definitiva da própria conta (JS/perfil-excluir-conta.js + rota DELETE /conta) -->
+        <section class="zona-perigo" aria-labelledby="tituloZonaPerigo">
+          <div>
+            <h3 id="tituloZonaPerigo">Excluir minha conta</h3>
+            <p>Apaga permanentemente a sua conta e os dados pessoais ligados a ela. Essa ação não pode ser desfeita.</p>
+          </div>
+          <button type="button" class="btn-perigo" id="btnExcluirConta">Excluir minha conta</button>
+        </section>
+
         <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
           <p class="chat-vazio">Carregando seus alunos...</p>
         </section>
       </main>
+
+
+  <!-- JANELA DE CONFIRMAÇÃO DA EXCLUSÃO: pede a senha atual; o envio é tratado por JS/perfil-excluir-conta.js -->
+  <div class="modal-conta" id="modalExcluirConta" hidden>
+    <div class="modal-conta-fundo" data-fechar-exclusao></div>
+    <section class="modal-conta-caixa" role="dialog" aria-modal="true" aria-labelledby="tituloModalExcluir">
+      <h2 id="tituloModalExcluir">Excluir minha conta</h2>
+      <p class="modal-conta-aviso">
+        Esta exclusão é <strong>permanente</strong> e não pode ser desfeita. Seus dados pessoais, perfil,
+        matrículas, entregas e notas serão removidos.
+      </p>
+      <form id="formExcluirConta" novalidate>
+        <label for="senhaExcluirConta">Digite sua senha atual para confirmar</label>
+        <input id="senhaExcluirConta" type="password" autocomplete="current-password" maxlength="200" required>
+        <p class="modal-conta-status" id="statusExcluirConta" role="status" aria-live="polite"></p>
+        <div class="modal-conta-acoes">
+          <button type="button" class="btn-secundario" id="cancelarExcluirConta" data-fechar-exclusao>Cancelar</button>
+          <button type="submit" class="btn-perigo" id="confirmarExcluirConta">Excluir definitivamente</button>
+        </div>
+      </form>
+    </section>
+  </div>
 
     </div>
     <!-- Fim do perfil-shell -->
@@ -177,6 +208,7 @@
     <script src="../JS/config.js"></script>
     <script defer src="../JS/perfil-educador.js"></script>
     <script src="../JS/perfil-chat.js" defer></script>
+    <script src="../JS/perfil-excluir-conta.js" defer></script>
   <script src="../JS/layout.js" defer></script>
 </body>
 

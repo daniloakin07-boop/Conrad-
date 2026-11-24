@@ -67,10 +67,11 @@ CREATE TABLE IF NOT EXISTS public.tb_turmas (
     descricao VARCHAR(1000),
     codigo CHAR(8) NOT NULL UNIQUE,
     video_room VARCHAR(80) NOT NULL UNIQUE,
-    professor_id BIGINT NOT NULL,
+    -- NULL = turma sem educador (educador excluiu a conta; ver 008-exclusao-de-conta.sql)
+    professor_id BIGINT,
     criada_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT fk_tb_turmas_professor
-        FOREIGN KEY (professor_id) REFERENCES public.tb_usuarios(id) ON DELETE CASCADE
+        FOREIGN KEY (professor_id) REFERENCES public.tb_usuarios(id) ON DELETE SET NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_tb_turmas_professor
