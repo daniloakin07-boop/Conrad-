@@ -35,10 +35,10 @@
             itens: [
                 ["Painel", "educador.html"],
                 ["Turmas", "turmas.html"],
-                ["Avaliações", "avaliacoes.html"],
                 ["Atividades", "atividades.html"],
+                ["Avaliações", "avaliacoes.html"],
                 ["Agenda", "agenda-professor.html"],
-                ["Bate-Papo", "bate-papo.html"],
+                ["Bate-papo", "bate-papo.html"],
                 ["Salas de vídeo", "salas.html"],
                 ["Meu perfil", "perfil-educador.html"]
             ]
@@ -49,10 +49,10 @@
             itens: [
                 ["Painel", "aluno.html"],
                 ["Turmas", "turmas.html"],
-                ["Horário das aulas", "dashboard.html"],
                 ["Atividades", "atividades.html"],
                 ["Avaliações", "avaliacoes.html"],
-                ["Bate-Papo", "bate-papo.html"],
+                ["Horário das aulas", "dashboard.html"],
+                ["Bate-papo", "bate-papo.html"],
                 ["Salas de vídeo", "salas.html"],
                 ["Meu perfil", "perfil-aluno.html"]
             ]
@@ -149,16 +149,21 @@
 
         const ativo = itemAtivo(menu.itens);
         if (titulo) titulo.textContent = menu.titulo;
-        nav.replaceChildren(...menu.itens.map((item) =>
-            criarLink(item[0], item[1], "menu-item" + (item === ativo ? " ativo" : ""))
-        ));
+        nav.setAttribute("aria-label", "Menu principal");
+        nav.replaceChildren(...menu.itens.map((item) => {
+            const link = criarLink(item[0], item[1], "menu-item" + (item === ativo ? " ativo" : ""));
+            if (item === ativo) link.setAttribute("aria-current", "page");
+            return link;
+        }));
     }
 
     function preencherMenuLateral(usuario) {
         const tipo = tipoDe(usuario);
 
         document.querySelectorAll(".menu-lateral").forEach((aside) => {
-            if (aside.dataset.menu === "auto") montarMenu(aside, tipo);
+            // Todas as páginas internas usam o mesmo menu lateral da página Turmas.
+            aside.dataset.menu = "auto";
+            montarMenu(aside, tipo);
 
             const bloco = aside.querySelector(".menu-perfil");
             if (bloco) {
@@ -203,7 +208,25 @@
         document.body.appendChild(script);
     }
 
+    function padronizarNavegacaoPrincipal() {
+        const nomes = {
+            "index.html": "Início",
+            "sobre.html": "Sobre",
+            "contato.html": "Contato"
+        };
+
+        document.querySelectorAll(".topo .menu a").forEach((link) => {
+            const href = (link.getAttribute("href") || "").split(/[?#]/)[0];
+            const arquivo = href.split("/").pop().toLocaleLowerCase("pt-BR");
+            const texto = link.textContent.trim().toLocaleLowerCase("pt-BR");
+            const nome = nomes[arquivo] || nomes[texto + ".html"];
+            if (nome) link.textContent = nome;
+        });
+    }
+
     async function iniciar() {
+        // Corrige a capitalização mesmo antes da consulta da sessão ao servidor.
+        padronizarNavegacaoPrincipal();
         const sessao = await carregarSessao();
         if (!sessao) return; // sem servidor: mantém o HTML como está
 

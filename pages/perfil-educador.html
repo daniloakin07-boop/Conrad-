@@ -4,21 +4,21 @@
   Arquivo   : pages/perfil-educador.html
   Finalidade: Perfil do educador.
   Público   : Educador.
-  Conteúdo  : Formulário de perfil com foto e atalhos de conversa com alunos. Os campos têm valores de exemplo escritos no HTML; ainda não há gravação no servidor.
-  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, perfil-educador.js, perfil-chat.js, layout.js
+  Conteúdo  : Dados reais da conta do educador, apresentação, interesses, habilidades, foto e atalhos de conversa. Edição via modal (JS/perfil-aluno.js compartilhado, rotas GET/PUT /perfil).
+  Relações  : CSS: variaveis, geral, componentes, usuarios | JS: tema.js, config.js, perfil-aluno.js, perfil-chat.js, layout.js
   Observação: este HTML contém apenas estrutura e conteúdo; estilos ficam em CSS/ e
               comportamentos em JS/ (sem <style>, style="", scripts inline ou onclick).
   ============================================================================
 -->
 <html lang="pt-BR">
-
 <!-- CABEÇALHO DO DOCUMENTO: metadados, título, tema, fontes e folhas de estilo -->
 <head>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conrad | Editar perfil do educador</title>
-  <!-- =================================================================================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A1F44">
+  <title>Conrad | Meu perfil do educador</title>
+  <!-- Tema (normal/claro/escuro): carregado no <head>, sem defer, para aplicar o tema antes da primeira pintura -->
   <script src="../JS/tema.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,138 +30,177 @@
   <link rel="icon" type="image/png" href="../img/emblema-64.png">
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
+<body class="css-painel css-turmas css-perfil-aluno css-perfil-educador">
+  <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
+  <header class="topo topo-home">
+    <a href="../index.html" class="logo">CONRAD</a>
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="acoes-topo">
+      <a href="perfil-educador.html" class="user-link" aria-label="Meu perfil">
+        <span class="user-avatar">👤</span>
+        <span>Minha conta</span>
+      </a>
+      <a href="../index.html" class="logout-link" aria-label="Sair da conta">Sair</a>
+    </div>
+  </header>
 
-<body class="css-perfil-educador css-painel">
-
-    <!-- CONTÊINER DO MENU E DO PERFIL -->
-    <div class="perfil-shell">
-
-      <!-- MENU LATERAL -->
+  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
+  <main class="container turmas-layout">
+  
+      <!-- MENU LATERAL: os links são montados por JS/layout.js conforme o tipo de usuário (data-menu="auto") -->
       <aside class="menu-lateral" data-menu="auto">
-
         <h3>Conrad Educador</h3>
-
         <nav aria-label="Menu principal"></nav>
 
         <div class="menu-ajuda">
           <strong>Precisa de ajuda?</strong>
           <p>Acesse o suporte da plataforma.</p>
-          <a href="contato.html" class="btn-secundario">
-            Suporte
-          </a>
+          <a href="contato.html" class="btn-secundario">Suporte</a>
         </div>
 
         <div class="menu-perfil">
           <strong>Minha conta</strong>
           <span>Educador</span>
         </div>
-
       </aside>
 
-      <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
-      <main class="perfil-page">
-
-        <header class="perfil-topbar">
-          <h1>Editar perfil</h1>
-          <div class="topbar-actions" data-tema-host>
-            <a href="educador.html" class="btn-secundario">Voltar ao painel</a>
-          </div>
+      <section class="conteudo-dashboard perfil-aluno-conteudo" id="mainContent">
+        <header class="perfil-pagina-cabecalho">
+          <div>
+            <span class="perfil-sobretitulo">ESPAÇO DO EDUCADOR</span>
+            <h1>Meu perfil</h1>
+            <p class="perfil-descricao">Apresente seu trabalho, compartilhe seus interesses e acompanhe suas turmas no Conrad.</p></div>
+          <button type="button" class="btn-primario" id="abrirEdicaoPerfil">
+            <span aria-hidden="true">✎</span> Editar perfil
+          </button>
         </header>
-        <!-- =================================================================================================================== -->
-        <section class="perfil-layout">
-          <div class="perfil-card">
-            <div class="perfil-header">
-              <div class="perfil-foto-wrap">
-                <img id="profilePreview" class="perfil-foto" src="../img/conradcad.webp" width="360" height="1077" decoding="async" alt="Foto do professor" />
-                <button type="button" class="perfil-foto-btn" aria-label="Trocar foto">＋</button>
-              </div>
 
-              <div class="perfil-header-info">
-                <h2>Rickson Jordan</h2>
-                <p>Professor de Matemática e História</p>
-                <span class="status-badge">Disponível para aulas</span>
+        <section class="perfil-destaque" aria-label="Apresentação do educador">
+          <div class="perfil-destaque-fundo" aria-hidden="true"></div>
+          <div class="perfil-destaque-conteudo">
+            <div class="perfil-avatar-grande" id="avatarContainer">
+              <span id="profileInitials">A</span>
+              <img id="profileAvatar" alt="Foto de perfil do educador" hidden>
+            </div>
+            <div class="perfil-identificacao">
+              <span class="perfil-etiqueta">PERFIL DO EDUCADOR</span>
+              <h2 id="profileName">Carregando perfil...</h2>
+              <p id="profileEmail">Carregando e-mail...</p>
+              <div class="perfil-destaque-tags">
+                <span class="perfil-role" id="profileRole">Educador Conrad</span>
+                <span class="perfil-turmas-resumo" id="profileClassSummary">Consultando turmas...</span>
               </div>
             </div>
+            <a class="perfil-link-painel" href="educador.html">Ir para meu painel <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
 
-            <!-- FORMULÁRIO #profileForm: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
-            <form id="profileForm">
-              <div class="form-grid">
-                <div class="field">
-                  <label for="nome">Nome completo</label>
-                  <input id="nome" type="text" value="Rickson Jordan" />
+        <div class="perfil-conteudo-grid">
+          <div class="perfil-coluna-principal">
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">01</span>
+                  <h3>Sobre mim</h3>
                 </div>
-
-                <div class="field">
-                  <label for="cargo">Cargo</label>
-                  <input id="cargo" type="text" value="Professor" />
-                </div>
-
-                <div class="field full">
-                  <label for="email">E-mail</label>
-                  <input id="email" type="email" value="rickson.jordan@conrad.com" />
-                </div>
-
-                <div class="field">
-                  <label for="telefone">Telefone</label>
-                  <input id="telefone" type="tel" value="(11) 98888-1234" />
-                </div>
-
-                <div class="field">
-                  <label for="disciplina">Disciplina</label>
-                  <input id="disciplina" type="text" value="Matemática e História" />
-                </div>
-
-                <div class="field full">
-                  <label for="bio">Sobre o professor</label>
-                  <textarea
-                    id="bio">Professor com foco em metodologias ativas, acompanhamento individualizado e uso de tecnologia em sala de aula.</textarea>
-                </div>
-
-                <div class="field">
-                  <label for="especializacao">Especialização</label>
-                  <input id="especializacao" type="text" value="Ensino Fundamental II" />
-                </div>
-
-                <div class="field">
-                  <label for="experiencia">Experiência</label>
-                  <input id="experiencia" type="text" value="8 anos" />
-                </div>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
               </div>
+              <p class="perfil-bio" id="profileBio">Adicione uma apresentação para que alunos e colegas conheçam um pouco mais sobre seu trabalho.</p>
+            </article>
 
-              <div class="actions-row">
-                <button type="button" class="btn-secundario">Cancelar</button>
-                <button type="submit" class="btn-primario">Salvar perfil</button>
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">02</span>
+                  <h3>Meus interesses</h3>
+                </div>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
               </div>
-            </form>
+              <p class="perfil-ajuda-vazio" id="interessesVazio">Conte quais assuntos despertam sua curiosidade.</p>
+              <div class="perfil-lista-tags" id="profileInterests"></div>
+            </article>
+
+            <article class="perfil-bloco">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">03</span>
+                  <h3>Minhas habilidades</h3>
+                </div>
+                <button type="button" class="perfil-texto-botao" data-editar-perfil>Editar</button>
+              </div>
+              <p class="perfil-ajuda-vazio" id="habilidadesVazio">Adicione conhecimentos e habilidades que está desenvolvendo.</p>
+              <div class="perfil-lista-tags" id="profileSkills"></div>
+            </article>
+
+            <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
+              <p class="chat-vazio">Carregando seus alunos...</p>
+            </section>
           </div>
 
-          <aside class="sala-card">
-            <div class="sala-header">
-              <h3>Salas de vídeo</h3>
-              <a href="salas.html" class="btn-secundario">Entrar</a>
-            </div>
-
-            <div class="sala-list">
-              <div class="sala-item">
-                <strong>3º ano C - Matemática</strong>
-                <span>Próxima aula · Hoje às 08:00</span>
-                <span class="sala-status">Online</span>
+          <aside class="perfil-coluna-lateral">
+            <article class="perfil-bloco perfil-informacoes">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">CONTA</span>
+                  <h3>Informações</h3>
+                </div>
               </div>
+              <dl class="perfil-dados-lista">
+                <div>
+                  <dt>Nome completo</dt>
+                  <dd id="infoName">—</dd>
+                </div>
+                <div>
+                  <dt>E-mail</dt>
+                  <dd id="infoEmail">—</dd>
+                </div>
+                <div>
+                  <dt>Tipo de conta</dt>
+                  <dd id="profileAccountType">Educador</dd>
+                </div>
+                <div>
+                  <dt id="labelTurmasPerfil">Turmas que gerencio</dt>
+                  <dd id="infoClasses">Carregando...</dd>
+                </div>
+              </dl>
+              <button type="button" class="perfil-botao-contorno" data-editar-perfil>Atualizar informações</button>
+            </article>
 
-              <div class="sala-item">
-                <strong>2º ano A - Português</strong>
-                <span>Próxima aula · Hoje às 10:00</span>
-                <span class="sala-status">Online</span>
+            <article class="perfil-bloco perfil-trajetoria">
+              <div class="perfil-bloco-cabecalho">
+                <div>
+                  <span class="perfil-numero-secao">CONRAD</span>
+                  <h3>Minhas turmas</h3>
+                </div>
               </div>
+              <p>Acompanhe suas turmas e gerencie atividades e avaliações publicadas.</p>
+              <a href="turmas.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">▦</span>
+                <span><strong>Minhas turmas</strong><small>Consulte as turmas que você gerencia</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+              <a href="atividades.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">✓</span>
+                <span><strong>Atividades</strong><small>Veja tarefas e entregas</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+              <a href="avaliacoes.html" class="perfil-atalho">
+                <span class="perfil-atalho-icone" aria-hidden="true">▤</span>
+                <span><strong>Avaliações</strong><small>Gerencie as avaliações publicadas</small></span>
+                <span class="perfil-atalho-seta" aria-hidden="true">→</span>
+              </a>
+            </article>
 
-              <div class="sala-item">
-                <strong>1º ano B - História</strong>
-                <span>Próxima aula · Hoje às 14:00</span>
-                <span class="sala-status">Online</span>
-              </div>
+            <div class="perfil-dica">
+              <span class="perfil-dica-icone" aria-hidden="true">i</span>
+              <p>Mantenha seu perfil atualizado para facilitar a comunicação com alunos e equipe pedagógica.</p>
             </div>
           </aside>
-        </section>
+        </div>
 
         <!-- ZONA DE PERIGO: exclusão definitiva da própria conta (JS/perfil-excluir-conta.js + rota DELETE /conta) -->
         <section class="zona-perigo" aria-labelledby="tituloZonaPerigo">
@@ -171,12 +210,70 @@
           </div>
           <button type="button" class="btn-perigo" id="btnExcluirConta">Excluir minha conta</button>
         </section>
+      </section>
+    </div>
+  </main>
 
-        <section id="atalhos-chat" class="perfil-chat-contatos" aria-live="polite">
-          <p class="chat-vazio">Carregando seus alunos...</p>
-        </section>
-      </main>
+  <div class="perfil-modal" id="modalEdicaoPerfil" hidden>
+    <div class="perfil-modal-fundo" data-fechar-modal></div>
+    <section class="perfil-modal-conteudo" role="dialog" aria-modal="true" aria-labelledby="tituloModalPerfil">
+      <header class="perfil-modal-cabecalho">
+        <div>
+          <span class="perfil-sobretitulo">PERSONALIZE SEU ESPAÇO</span>
+          <h2 id="tituloModalPerfil">Editar perfil</h2>
+          <p>Atualize suas informações e conte um pouco sobre você.</p>
+        </div>
+        <button type="button" class="perfil-modal-fechar" aria-label="Fechar" data-fechar-modal>×</button>
+      </header>
 
+      <!-- FORMULÁRIO #formPerfilAluno: campos e botão de envio (o envio é tratado por JavaScript externo, sem onsubmit no HTML) -->
+      <form id="formPerfilAluno" class="perfil-formulario">
+        <div class="perfil-foto-edicao">
+          <div class="perfil-avatar-pequeno" id="avatarPreviewContainer">
+            <span id="previewInitials">A</span>
+            <img id="profilePreview" alt="Prévia da foto de perfil" hidden>
+          </div>
+          <div>
+            <label for="photoInput" class="perfil-upload-label">Alterar foto</label>
+            <input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+            <small>JPG, PNG ou WebP. A imagem será ajustada automaticamente.</small>
+          </div>
+        </div>
+
+        <div class="perfil-form-grid">
+          <div class="perfil-campo">
+            <label for="perfilNome">Nome completo</label>
+            <input id="perfilNome" name="nome" type="text" maxlength="100" autocomplete="name" required>
+          </div>
+          <div class="perfil-campo">
+            <label for="perfilEmail">E-mail</label>
+            <input id="perfilEmail" name="email" type="email" maxlength="150" autocomplete="email" required>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilBio">Sobre mim</label>
+            <textarea id="perfilBio" name="sobre_mim" rows="4" maxlength="800" placeholder="Escreva uma breve apresentação sobre você..."></textarea>
+            <small>Máximo de 800 caracteres.</small>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilInteresses">Meus interesses</label>
+            <input id="perfilInteresses" name="interesses" type="text" maxlength="300" placeholder="Ex.: tecnologia, música, leitura, esportes">
+            <small>Separe os interesses por vírgula.</small>
+          </div>
+          <div class="perfil-campo perfil-campo-completo">
+            <label for="perfilHabilidades">Minhas habilidades</label>
+            <input id="perfilHabilidades" name="habilidades" type="text" maxlength="300" placeholder="Ex.: HTML, comunicação, trabalho em equipe">
+            <small>Separe as habilidades por vírgula.</small>
+          </div>
+        </div>
+
+        <p class="perfil-form-status" id="perfilFormStatus" role="status" aria-live="polite"></p>
+        <div class="perfil-form-acoes">
+          <button type="button" class="btn-secundario" data-fechar-modal>Cancelar</button>
+          <button type="submit" class="btn-primario" id="salvarPerfilBtn">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </div>
 
   <!-- JANELA DE CONFIRMAÇÃO DA EXCLUSÃO: pede a senha atual; o envio é tratado por JS/perfil-excluir-conta.js -->
   <div class="modal-conta" id="modalExcluirConta" hidden>
@@ -199,17 +296,17 @@
     </section>
   </div>
 
-    </div>
-    <!-- Fim do perfil-shell -->
+  <!-- RODAPÉ -->
+  <footer class="rodape">
+    <p>© 2026 Conrad Virtual School. Todos os direitos reservados.</p>
+    <p><a href="contato.html">Entre em contato</a></p>
+  </footer>
 
-    <input id="photoInput" class="hidden-input" type="file" accept="image/*" />
-
-    <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
-    <script src="../JS/config.js"></script>
-    <script defer src="../JS/perfil-educador.js"></script>
-    <script src="../JS/perfil-chat.js" defer></script>
-    <script src="../JS/perfil-excluir-conta.js" defer></script>
+  <!-- SCRIPTS: config.js define CONRAD_API/conradFetch; os demais (defer) rodam após o HTML ser lido; layout.js é sempre o último -->
+  <script src="../JS/config.js"></script>
+  <script src="../JS/perfil-aluno.js" defer></script>
+  <script src="../JS/perfil-chat.js" defer></script>
+  <script src="../JS/perfil-excluir-conta.js" defer></script>
   <script src="../JS/layout.js" defer></script>
 </body>
-
 </html>

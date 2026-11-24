@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="../CSS/variaveis.css">
   <link rel="stylesheet" href="../CSS/geral.css">
   <link rel="stylesheet" href="../CSS/componentes.css">
@@ -51,12 +52,12 @@
       <!-- MENU LATERAL: os links são montados por JS/layout.js conforme o tipo de usuário (data-menu="auto") -->
       <aside class="menu-lateral" data-menu="auto">
         <h3>Conrad</h3>
-        <nav><a href="bate-papo.html" class="menu-item ativo">Bate-papo</a></nav>
+        <nav aria-label="Menu principal"></nav>
 
         
         <div class="menu-ajuda">
-          <strong>Conversa privada</strong>
-          <p>Somente você e o contato selecionado podem participar.</p>
+          <strong>Precisa de ajuda?</strong>
+          <p>Acesse o suporte da plataforma.</p>
           <a href="contato.html" class="btn-secundario">Suporte</a>
         </div>
         <div class="menu-perfil">
@@ -110,17 +111,17 @@
             <form id="chat-form" class="chat-composer">
               <div class="chat-anexos">
                 <button type="button" id="chat-image-button" class="chat-icon-button" aria-label="Anexar imagem" title="Anexar imagem" disabled>
-                  <i class="fa-regular fa-image"></i>
+                  <i class="fa-regular fa-image" aria-hidden="true"></i>
                 </button>
                 <input type="file" id="chat-image-input" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
                 <button type="button" id="chat-record-button" class="chat-icon-button" aria-label="Gravar mensagem de voz" title="Gravar mensagem de voz" disabled>
-                  <i class="fa-solid fa-microphone"></i>
+                  <i class="fa-solid fa-microphone" aria-hidden="true"></i>
                 </button>
               </div>
               <label class="visually-hidden" for="chat-text">Digite sua mensagem</label>
               <textarea id="chat-text" rows="1" maxlength="2000" placeholder="Digite uma mensagem..." disabled></textarea>
               <button type="submit" id="chat-send-button" class="chat-send-button" aria-label="Enviar mensagem" disabled>
-                <i class="fa-solid fa-paper-plane"></i>
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               </button>
             </form>
             <p class="chat-limite">Imagens e áudios de até 3 MB. Mensagens de texto de até 2.000 caracteres.</p>

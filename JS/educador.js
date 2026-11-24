@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function preencherNome(nome) {
         const titulo = document.querySelector('.titulo-dashboard h1');
         if (titulo) titulo.textContent = saudacao() + ', ' + nome;
-        document.querySelectorAll('.menu-lateral > div > strong, .profile-name strong')
+        document.querySelectorAll('.menu-lateral .menu-perfil > strong, .profile-name strong')
             .forEach((el) => { el.textContent = nome; });
         const avatar = document.querySelector('.header-profile .avatar');
         if (avatar) avatar.textContent = iniciais(nome);

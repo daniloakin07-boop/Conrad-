@@ -30,7 +30,7 @@
   <link rel="icon" type="image/png" href="../img/emblema-64.png">
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
-<body class="css-painel css-perfil-aluno">
+<body class="css-painel css-turmas css-perfil-aluno">
   <!-- TOPO: logotipo, navegação principal e ações da conta (layout.js troca Entrar/Criar conta por nome + Sair quando há sessão) -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
@@ -54,16 +54,7 @@
       <!-- MENU LATERAL: os links são montados por JS/layout.js conforme o tipo de usuário (data-menu="auto") -->
       <aside class="menu-lateral" data-menu="auto">
         <h3>Conrad Aluno</h3>
-        <nav aria-label="Menu do estudante">
-          <a href="aluno.html" class="menu-item">Painel</a>
-          <a href="dashboard.html" class="menu-item">Horário das aulas</a>
-          <a href="turmas.html" class="menu-item">Turmas</a>
-          <a href="atividades.html" class="menu-item">Atividades</a>
-          <a href="avaliacoes.html" class="menu-item">Avaliações</a>
-          <a href="bate-papo.html" class="menu-item">Bate-Papo</a>
-          <a href="salas.html" class="menu-item">Salas de vídeo</a>
-          <a href="perfil-aluno.html" class="menu-item ativo">Meu perfil</a>
-        </nav>
+        <nav aria-label="Menu principal"></nav>
 
         <div class="menu-ajuda">
           <strong>Precisa de ajuda?</strong>
@@ -100,7 +91,7 @@
               <h2 id="profileName">Carregando perfil...</h2>
               <p id="profileEmail">Carregando e-mail...</p>
               <div class="perfil-destaque-tags">
-                <span class="perfil-role">Estudante Conrad</span>
+                <span class="perfil-role" id="profileRole">Estudante Conrad</span>
                 <span class="perfil-turmas-resumo" id="profileClassSummary">Consultando turmas...</span>
               </div>
             </div>
@@ -169,10 +160,10 @@
                 </div>
                 <div>
                   <dt>Tipo de conta</dt>
-                  <dd>Estudante</dd>
+                  <dd id="profileAccountType">Estudante</dd>
                 </div>
                 <div>
-                  <dt>Minhas turmas</dt>
+                  <dt id="labelTurmasPerfil">Minhas turmas</dt>
                   <dd id="infoClasses">Carregando...</dd>
                 </div>
               </dl>

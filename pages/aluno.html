@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon" href="../img/emblema-180.png">
 </head>
 
-<body class="css-painel css-aluno">
+<body class="css-painel css-aluno css-painel-aluno">
   <!-- ============================================================================================================================ -->
   <header class="topo topo-home">
     <a href="../index.html" class="logo">CONRAD</a>
@@ -118,15 +118,15 @@
         <section class="cards-resumo">
 
           <div class="card-resumo">
-            <h2>7,8</h2>
-            <h3>Média geral</h3>
-            <span>Média das notas no 3º bimestre</span>
+            <h2>—</h2>
+            <h3>Média das avaliações</h3>
+            <span>Aguardando avaliações publicadas nas suas turmas</span>
           </div>
 
           <div class="card-resumo">
-            <h2>92%</h2>
+            <h2>—</h2>
             <h3>Frequência</h3>
-            <span>Presença nas aulas do bimestre</span>
+            <span>Calculada pelas entregas de atividades e avaliações</span>
           </div>
 
           <div class="card-resumo">
@@ -154,55 +154,9 @@
                 <a href="boletim.html" class="btn-secundario">Ver boletim</a>
               </div>
 
-              <div class="lista-desempenho-aluno">
-
-                <div class="aluno">
-                  <div>
-                    <strong>Matemática</strong>
-                    <small>1º bim. 8,5 · 2º bim. 7,0</small>
-                  </div>
-                  <strong>9,0</strong>
-                  <div class="status ativo">Aprovado</div>
-                </div>
-
-                <div class="aluno">
-                  <div>
-                    <strong>Português</strong>
-                    <small>1º bim. 7,5 · 2º bim. 8,0</small>
-                  </div>
-                  <strong>8,5</strong>
-                  <div class="status ativo">Aprovado</div>
-                </div>
-
-                <div class="aluno">
-                  <div>
-                    <strong>História</strong>
-                    <small>1º bim. 6,0 · 2º bim. 6,5</small>
-                  </div>
-                  <strong>7,0</strong>
-                  <div class="status ativo">Aprovado</div>
-                </div>
-
-                <div class="aluno">
-                  <div>
-                    <strong>Química</strong>
-                    <small>1º bim. 5,0 · 2º bim. 5,5</small>
-                  </div>
-                  <strong>6,0</strong>
-                  <div class="status pendente">Atenção</div>
-                </div>
-
-                <div class="aluno">
-                  <div>
-                    <strong>Biologia</strong>
-                    <small>1º bim. 9,0 · 2º bim. 8,5</small>
-                  </div>
-                  <strong>9,5</strong>
-                  <div class="status ativo">Aprovado</div>
-                </div>
-
+              <div class="lista-desempenho-aluno" aria-live="polite">
+                <p>Carregando avaliações das suas turmas...</p>
               </div>
-
             </article>
 
             <!-- CALENDÁRIO / PRÓXIMOS COMPROMISSOS -->
@@ -262,18 +216,13 @@
             <article class="al-frequencia" id="frequencia">
               <div class="al-freq-topo">
                 <h2>Frequência</h2>
-                <span>Bimestre</span>
+                <span>Entregas nas turmas</span>
               </div>
-
               <div class="al-freq-corpo">
-                <div class="al-anel">
-                  <span>92%</span>
-                </div>
-
-                <div class="al-freq-info">
-                  <h3>3 faltas este bimestre</h3>
-                  <p>Limite permitido: <strong>15%</strong></p>
-                  <p>Você está <strong>dentro do limite</strong></p>
+                <div class="al-anel"><span>—</span></div>
+                <div class="al-freq-info" aria-live="polite">
+                  <h3>Carregando dados...</h3>
+                  <p>A frequência será calculada com base nas atividades e avaliações publicadas.</p>
                 </div>
               </div>
             </article>

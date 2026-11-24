@@ -1,15 +1,15 @@
 /*
 ===============================================
-JS/perfil-aluno.js
+JS/perfil-aluno.js (compartilhado entre aluno e educador)
 ===============================================
-Página: pages/perfil-aluno.html (perfil: aluno)
-Finalidade: carregar e editar o perfil do estudante — nome, e-mail, apresentação ("sobre mim"),
+Páginas: pages/perfil-aluno.html e pages/perfil-educador.html (perfil compartilhado)
+Finalidade: carregar e editar o perfil do usuário autenticado — nome, e-mail, apresentação ("sobre mim"),
 interesses, habilidades e foto — e mostrar quantas turmas ele tem.
 
 API usada (via window.conradFetch, de JS/config.js):
   GET /perfil        -> { usuario, perfil: { sobre_mim, interesses[], habilidades[], foto_perfil } }
   PUT /perfil        -> grava as alterações (rota em JS/server.js; tabela tb_perfis_alunos)
-  GET /api/turmas    -> só para contar as turmas vinculadas
+  GET /api/turmas    -> conta as turmas vinculadas (aluno) ou gerenciadas (educador)
 Regras (espelham o servidor, que confere tudo de novo): até 12 itens por lista; foto JPG/PNG/WebP
 de até 8 MB, reduzida no navegador para no máximo 480 px e enviada como data URL JPEG.
 Todo texto entra na tela com textContent. O script termina logo se o modal de edição não existir.
@@ -102,22 +102,49 @@ Todo texto entra na tela com textContent. O script termina logo se o modal de ed
     perfilAtual = perfil || {};
     fotoAtual = perfilAtual.foto_perfil || "";
     fotoRascunho = fotoAtual;
-    const nome = usuario.nome || "Estudante";
+    const ehEducador = usuario.tipo === "educador";
+    const papel = ehEducador ? "Educador" : "Estudante";
+    const nome = usuario.nome || (ehEducador ? "Educador" : "Estudante");
     const email = usuario.email || "E-mail não informado";
     const interesses = limparLista(perfilAtual.interesses);
     const habilidades = limparLista(perfilAtual.habilidades);
+    const quantidadeTurmas = turmasAtuais.length;
+    const tipoTurma = ehEducador ? "gerenciada" : "vinculada";
+    const resumoTurmas = quantidadeTurmas
+      ? `${quantidadeTurmas} ${quantidadeTurmas === 1 ? "turma" : "turmas"} ${quantidadeTurmas === 1 ? tipoTurma : tipoTurma + "s"}`
+      : (ehEducador ? "Nenhuma turma gerenciada" : "Nenhuma turma vinculada");
 
     elemento("profileName").textContent = nome;
     elemento("profileEmail").textContent = email;
-    elemento("profileBio").textContent = perfilAtual.sobre_mim || "Adicione uma apresentação para que seus colegas e educadores conheçam um pouco mais sobre você.";
+    elemento("profileBio").textContent = perfilAtual.sobre_mim || (ehEducador
+      ? "Adicione uma apresentação para que alunos e colegas conheçam um pouco mais sobre seu trabalho."
+      : "Adicione uma apresentação para que seus colegas e educadores conheçam um pouco mais sobre você.");
     elemento("infoName").textContent = nome;
     elemento("infoEmail").textContent = email;
-    elemento("infoClasses").textContent = turmasAtuais.length
-      ? `${turmasAtuais.length} ${turmasAtuais.length === 1 ? "turma" : "turmas"}`
-      : "Nenhuma turma vinculada";
-    elemento("profileClassSummary").textContent = turmasAtuais.length
-      ? `${turmasAtuais.length} ${turmasAtuais.length === 1 ? "turma vinculada" : "turmas vinculadas"}`
-      : "Ainda sem turma vinculada";
+    elemento("infoClasses").textContent = quantidadeTurmas
+      ? `${quantidadeTurmas} ${quantidadeTurmas === 1 ? "turma" : "turmas"}`
+      : (ehEducador ? "Nenhuma turma gerenciada" : "Nenhuma turma vinculada");
+    elemento("profileClassSummary").textContent = resumoTurmas;
+
+    if (elemento("profileRole")) elemento("profileRole").textContent = `${papel} Conrad`;
+    if (elemento("profileAccountType")) elemento("profileAccountType").textContent = papel;
+    if (elemento("labelTurmasPerfil")) {
+      elemento("labelTurmasPerfil").textContent = ehEducador ? "Turmas que gerencio" : "Minhas turmas";
+    }
+
+    // Mantém o nome e o papel sincronizados no menu e no cabeçalho após salvar o perfil.
+    document.querySelectorAll(".menu-lateral .menu-perfil > strong").forEach((campo) => {
+      campo.textContent = nome;
+    });
+    document.querySelectorAll(".menu-lateral .menu-perfil > span").forEach((campo) => {
+      campo.textContent = papel;
+    });
+    const partesNome = nome.trim().split(/\s+/).filter(Boolean);
+    const nomeTopo = ehEducador
+      ? `Prof. ${partesNome[0] || nome}`
+      : partesNome.length > 2 ? `${partesNome[0]} ${partesNome[partesNome.length - 1]}` : nome;
+    const nomeNoCabecalho = document.querySelector(".topo .user-link span:not(.user-avatar)");
+    if (nomeNoCabecalho) nomeNoCabecalho.textContent = nomeTopo;
 
     desenharTags(elemento("profileInterests"), elemento("interessesVazio"), interesses);
     desenharTags(elemento("profileSkills"), elemento("habilidadesVazio"), habilidades);

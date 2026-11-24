@@ -5605,3 +5605,68 @@ body.css-aluno .conteudo-dashboard {
 body.css-aluno .rodape {
   margin-top: 0;
 }
+
+/* ==========================================================
+   Ajustes do painel do aluno: a frequência começa nula até a API responder.
+========================================================== */
+body.css-painel-aluno .al-anel {
+  --valor: 0;
+}
+
+body.css-painel-aluno .al-freq-turma {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  font-size: 11px;
+}
+
+/* Os dois perfis usam o mesmo contêiner, espaçamento e menu lateral da página Turmas. */
+body.css-perfil-aluno.css-turmas .turmas-layout {
+  padding: 0;
+  margin-top: 0;
+  gap: 0;
+  align-items: stretch;
+}
+
+body.css-perfil-aluno.css-turmas .menu-lateral {
+  position: sticky;
+  top: 0;
+  border-radius: 0;
+}
+
+body.css-perfil-aluno.css-turmas .perfil-aluno-conteudo {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 26px 20px 34px 24px;
+}
+
+@media (max-width: 900px) {
+  body.css-perfil-aluno.css-turmas .menu-lateral {
+    position: static;
+    width: 100%;
+  }
+
+  body.css-perfil-aluno.css-turmas .perfil-aluno-conteudo {
+    width: 100%;
+    padding: 22px 16px 30px;
+  }
+}
+
+/* ==========================================================
+   MENU LATERAL GLOBAL — mesmo padrão visual da página Turmas
+   Aplicado aos painéis de alunos e educadores, inclusive chat,
+   atividades, agenda, correções, perfis e páginas de turma.
+========================================================== */
+body.css-painel .menu-lateral {
+  position: sticky;
+  top: 0;
+  align-self: stretch;
+  border-radius: 0;
+}
+
+@media (max-width: 1000px) {
+  body.css-painel .menu-lateral {
+    position: static;
+    width: 100%;
+  }
+}
