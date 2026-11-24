@@ -196,6 +196,13 @@
         }
     }
 
+    function carregarAssistenteIA() {
+        if (document.querySelector("#conrad-ia-fab")) return;
+        const script = document.createElement("script");
+        script.src = naRaiz ? "JS/agente-ui.js" : "../JS/agente-ui.js";
+        document.body.appendChild(script);
+    }
+
     async function iniciar() {
         const sessao = await carregarSessao();
         if (!sessao) return; // sem servidor: mantém o HTML como está
@@ -208,6 +215,7 @@
         montarTopo(sessao.usuario);
         preencherMenuLateral(sessao.usuario);
         preencherDados(sessao.usuario);
+        carregarAssistenteIA();
     }
 
     iniciar();

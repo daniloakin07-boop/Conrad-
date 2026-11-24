@@ -120,6 +120,10 @@ app.use("/api", atividadesRoutes);
 const turmasRoutes = require("./turmas.js");
 app.use("/api", turmasRoutes);
 
+// Assistente de IA autenticado.
+const agenteRoutes = require("./agente.js");
+app.use("/api", agenteRoutes);
+
 // Socket.IO mantém uma conexão aberta e transmite mensagens em tempo real.
 // A lista de origens deve conter apenas os endereços realmente usados pelo site.
 const io = new Server(httpServer, {
